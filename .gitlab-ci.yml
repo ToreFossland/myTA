@@ -1,3 +1,5 @@
+#Hentet fra https://gitlab.com/markpundsack/GradleShowcase/tree/master
+
 image: gradle:alpine
 
 variables:
