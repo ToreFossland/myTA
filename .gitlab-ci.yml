@@ -9,8 +9,8 @@ before_script:
   - export GRADLE_USER_HOME=`pwd`/.gradle
 
 stages:
-  - test
   - build
+  - test
 
 build:
   stage: build
