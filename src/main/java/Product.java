@@ -1,4 +1,4 @@
-package gruppe-18;
+package Product;
 
 public class HelloWorld {
   public static void main(String[] args) {
