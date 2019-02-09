@@ -26,7 +26,7 @@ test:
   stage: test
   script: 
     - gradle check
-    - ./gradlew build jacocoTestReport
+    - gradle build jacocoTestReport
   cache:
     key: "$CI_COMMIT_REF_NAME"
     policy: pull
