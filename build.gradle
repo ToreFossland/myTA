@@ -7,7 +7,6 @@
  */
 
 plugins {
-    // Apply the java-library plugin to add support for Java Library
     id 'java-library'
     id 'jacoco'
 }
@@ -29,3 +28,8 @@ repositories {
     // You can declare any Maven/Ivy/file repository here.
     jcenter()
 }
+
+test {
+  useJUnitPlatform()
+}
+
