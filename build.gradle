@@ -9,7 +9,6 @@
 plugins {
     // Apply the java-library plugin to add support for Java Library
     id 'java-library'
-    id 'jacoco'
 }
 
 dependencies {
@@ -21,6 +20,8 @@ dependencies {
 
     // Use JUnit test framework
     testImplementation 'junit:junit:4.12'
+    testCompile 'junit:junit:4.12'
+    compile 'junit:junit:4.12'
 }
 
 // In this section you declare where to find the dependencies of your project
