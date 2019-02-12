@@ -34,3 +34,16 @@ test:
     paths:
       - build
       - .gradle
+
+pages:
+  stage: deploy
+  dependencies:
+    - test
+  script:
+   - mkdir public
+   - mv build/reports/jacoco/test/html/* public
+  artifacts:
+    paths:
+      - public
+  only:
+  - master
