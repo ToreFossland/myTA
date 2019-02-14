@@ -11,6 +11,7 @@ before_script:
 stages:
   - build
   - test
+#  - deploy
 
 build:
   stage: build
@@ -25,9 +26,25 @@ build:
 test:
   stage: test
   script: gradle check
+ # artifacts:
+ #   paths:
+ #       - build/reports/jacoco/
   cache:
     key: "$CI_COMMIT_REF_NAME"
     policy: pull
     paths:
       - build
       - .gradle
+
+#pages:
+#  stage: deploy
+#  dependencies:
+#    - test
+#  script:
+#   - mkdir public
+#   - mv build/reports/jacoco/test/html/* public
+#  artifacts:
+#    paths:
+#      - public
+#  only:
+#  - master
