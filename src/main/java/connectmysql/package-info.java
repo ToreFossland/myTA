@@ -1,8 +1,0 @@
-/**
- * 
- */
-/**
- * @author Lenovo
- *
- */
-package connectmysql;
