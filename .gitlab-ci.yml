@@ -1,6 +1,6 @@
 #Hentet fra https://gitlab.com/markpundsack/GradleShowcase/tree/master
 
-image: gradle:jdk11
+image: gradle:jdk11-alpine
 
 variables:
   GRADLE_OPTS: "-Dorg.gradle.daemon=false"
