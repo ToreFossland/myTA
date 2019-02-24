@@ -4,40 +4,41 @@ Date      Author
 Feb 14 19 Kristian   
 */
 
-
 package database;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
+import main.User;
 
 public class DBConnection {
-
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		System.out.println("test");
-	}
 
 	/*
 	 * README
 	 * 
-	 * For aa koble til databasen maa man sette brukernavn, passord og url i
+	 * For aa koble til databasen maa man sette username, password og url i
 	 * getConnectio-metoden. Funksjonene er basert på en database med folgende
 	 * tabeller og attributter i () (nn) = not null / verdiene her kan ikke vaere
-	 * tomme Fag(int idFag (nn),String FagKode(nn),String FagNavn) Bruker(int
-	 * idBruker(nn), String Epost(nn), String Passord(nn)) Bruker_has_Fag(int
-	 * idBruker(nn),int idFag(nn),String Rolle(nn))
+	 * tomme Course(int idCourse (nn),String CourseKode(nn),String CourseNavn)
+	 * User(int idUser(nn), String email(nn), String Password(nn))
+	 * User_has_Course(int idUser(nn),int idCourse(nn),String Rolle(nn))
 	 */
+
+	// TODO: add cache for storing data from frequently used DB queries
 
 //lager connection til databasen som er noedvendig for aa manipulere den
 	public static Connection getConnection() throws Exception {
 		try {
 			String driver = "com.mysql.cj.jdbc.Driver";
 			String url = "jdbc:mysql://mysql.stud.ntnu.no:3306/davidaan_bookingsystem";
-			String username = "fs_tdt4140_1_gruppe18";
-			String password = "gruppe18";
+			String username = "davidaan";
+			String password = "aiko97";
 			Class.forName(driver);
 
 			Connection conn = DriverManager.getConnection(url, username, password);
@@ -50,90 +51,68 @@ public class DBConnection {
 		return null;
 	}
 
-//setter inn fag med fagkode og fagnavn. Naturlig admin-funksjon
-	public static void leggInnFag(String fagKodeInput, String fagNavnInput) throws Exception {
-		try {
-			Connection con = getConnection();
-			// gjoer fagkoden til store bokstaver
-			String fagKode = fagKodeInput.toUpperCase();
-			String fagNavn = fagNavnInput.toLowerCase();
+//setter inn fag med courseCode og fagnavn. Naturlig admin-funksjon
+	/*
+	 * public static void leggInnCourse(String fagKodeInput, String fagNavnInput)
+	 * throws Exception { try { Connection con = getConnection(); // gjoer
+	 * courseCoden til store bokstaver String fagKode = fagKodeInput.toUpperCase();
+	 * String fagNavn = fagNavnInput.toLowerCase();
+	 * 
+	 * // Legger inn fag med id,courseCode og fagnavn dersom det ikke allerede
+	 * eksisterer if (fagEksisterer(fagKode) == false) { int idCourse =
+	 * nyCourseId(); PreparedStatement leggInnCourse = con.
+	 * prepareStatement("INSERT INTO Course (idCourse,CourseKode,CourseNavn) VALUES('"
+	 * + idCourse + "','" + fagKode + "','" + fagNavn + "')");
+	 * leggInnCourse.executeUpdate(); System.out.println("Lagt inn fag " + fagKode);
+	 * } // Sjekker om courseCode mangler fagnavn og oppdaterer fagnavn dersom
+	 * courseCode // eksisterer. else if (fagEksisterer(fagKode)) {
+	 * PreparedStatement statement = con
+	 * .prepareStatement("SELECT CourseNavn From Course WHERE CourseKode = '" +
+	 * fagKode + "'"); ResultSet fagNavnNull = statement.executeQuery();
+	 * fagNavnNull.next(); // System.out.println(fagNavnNull.next()); String
+	 * fagNavnType = fagNavnNull.getString("CourseNavn");
+	 * 
+	 * if (fagNavnType == null) {
+	 * 
+	 * PreparedStatement leggInnNavn = con.prepareStatement(
+	 * "UPDATE Course SET CourseNavn = '" + fagNavn + "' WHERE CourseKode = '" +
+	 * fagKode + "'"); leggInnNavn.executeUpdate();
+	 * 
+	 * System.out.println("Oppdatert navn paa fag" + fagKode + " til " + fagNavn); }
+	 * else { System.out.println("Course " + fagKode + " eksisterer"); }
+	 * 
+	 * } // Gir beskjed om at faget eksisterer else { System.out.println("Course " +
+	 * fagKode + " eksisterer"); } } catch (Exception e) { System.out.println(e); }
+	 * finally { // System.out.println("Insert Completed"); } }
+	 */
 
-			// Legger inn fag med id,fagkode og fagnavn dersom det ikke allerede eksisterer
-			if (fagEksisterer(fagKode) == false) {
-				int idFag = nyFagId();
-				PreparedStatement leggInnFag = con.prepareStatement("INSERT INTO Fag (idFag,FagKode,FagNavn) VALUES('"
-						+ idFag + "','" + fagKode + "','" + fagNavn + "')");
-				leggInnFag.executeUpdate();
-				System.out.println("Lagt inn fag " + fagKode);
-			}
-			// Sjekker om fagkode mangler fagnavn og oppdaterer fagnavn dersom fagkode
-			// eksisterer.
-			else if (fagEksisterer(fagKode)) {
-				PreparedStatement statement = con
-						.prepareStatement("SELECT FagNavn From Fag WHERE FagKode = '" + fagKode + "'");
-				ResultSet fagNavnNull = statement.executeQuery();
-				fagNavnNull.next();
-				// System.out.println(fagNavnNull.next());
-				String fagNavnType = fagNavnNull.getString("FagNavn");
+//setter inn fag med courseCode. Naturlig admin-funksjon.
+	/*
+	 * public static void leggInnCourse(String fagKodeInput) throws Exception { try
+	 * { Connection con = getConnection(); // gjoer courseCoden til store bokstaver
+	 * String fagKode = fagKodeInput.toUpperCase();
+	 * 
+	 * // legger inn fag om det ikke eksisterer if (fagEksisterer(fagKode) == false)
+	 * { int idCourse = nyCourseId(); PreparedStatement leggInnCourse = con
+	 * .prepareStatement("INSERT INTO Course (idCourse,CourseKode) VALUES('" +
+	 * idCourse + "','" + fagKode + "')"); leggInnCourse.executeUpdate();
+	 * System.out.println("Lagt inn fag " + fagKode); } else {
+	 * System.out.println("Course " + fagKode + " eksisterer."); } } catch
+	 * (Exception e) { System.out.println(e); } finally { //
+	 * System.out.println("Insert Completed"); } }
+	 */
 
-				if (fagNavnType == null) {
-
-					PreparedStatement leggInnNavn = con.prepareStatement(
-							"UPDATE Fag SET FagNavn = '" + fagNavn + "' WHERE FagKode = '" + fagKode + "'");
-					leggInnNavn.executeUpdate();
-
-					System.out.println("Oppdatert navn paa fag" + fagKode + " til " + fagNavn);
-				} else {
-					System.out.println("Fag " + fagKode + " eksisterer");
-				}
-
-			}
-			// Gir beskjed om at faget eksisterer
-			else {
-				System.out.println("Fag " + fagKode + " eksisterer");
-			}
-		} catch (Exception e) {
-			System.out.println(e);
-		} finally {
-			// System.out.println("Insert Completed");
-		}
-	}
-
-//setter inn fag med fagkode. Naturlig admin-funksjon.
-	public static void leggInnFag(String fagKodeInput) throws Exception {
-		try {
-			Connection con = getConnection();
-			// gjoer fagkoden til store bokstaver
-			String fagKode = fagKodeInput.toUpperCase();
-
-			// legger inn fag om det ikke eksisterer
-			if (fagEksisterer(fagKode) == false) {
-				int idFag = nyFagId();
-				PreparedStatement leggInnFag = con
-						.prepareStatement("INSERT INTO Fag (idFag,FagKode) VALUES('" + idFag + "','" + fagKode + "')");
-				leggInnFag.executeUpdate();
-				System.out.println("Lagt inn fag " + fagKode);
-			} else {
-				System.out.println("Fag " + fagKode + " eksisterer.");
-			}
-		} catch (Exception e) {
-			System.out.println(e);
-		} finally {
-			// System.out.println("Insert Completed");
-		}
-	}
-
-//sjekker om faget eksisterer i Fagtabellen
+//sjekker om faget eksisterer i Coursetabellen
 	public static boolean fagEksisterer(String fagKode) throws Exception {
 		boolean eksisterer = false;
 		try {
 			Connection con = getConnection();
-			PreparedStatement statement = con.prepareStatement("SELECT FagKode FROM Fag");
+			PreparedStatement statement = con.prepareStatement("SELECT CourseKode FROM Course");
 
 			ResultSet result = statement.executeQuery();
 
 			while (result.next() && eksisterer == false) {
-				if (Objects.equals(result.getString("FagKode"), fagKode)) {
+				if (Objects.equals(result.getString("CourseKode"), fagKode)) {
 					eksisterer = true;
 				}
 			}
@@ -146,57 +125,44 @@ public class DBConnection {
 
 	}
 
-//finner siste fagIden i lista og plusser paa 1. Dette gir ny, unik fagId.
-	public static int nyFagId() throws Exception {
-		int nyId = 0;
+	// checks if element exists in specified column
+	public static boolean elementExists(String table, String column, String searchFor) throws Exception {
+		boolean exists = false;
 		try {
 			Connection con = getConnection();
-			PreparedStatement statement = con.prepareStatement("SELECT * FROM Fag ORDER BY idFag DESC LIMIT 1");
-			ResultSet forrigeId = statement.executeQuery();
-			forrigeId.next();
-			nyId = forrigeId.getInt("idFag") + 1;
-			// System.out.println(nyId);
+			PreparedStatement statement = con.prepareStatement("SELECT " + column + " FROM " + table);
+
+			ResultSet result = statement.executeQuery();
+
+			while (result.next() && exists == false) {
+				if (Objects.equals(result.getString(column), searchFor)) {
+					exists = true;
+				}
+			}
+			// System.out.println(eksisterer);
 		} catch (Exception e) {
 			System.out.println(e);
+
 		}
-		return nyId;
+		return exists;
 
 	}
-	
-	//checks if element exists in specified column
-		public static boolean elementExists(String table, String column, String searchFor) throws Exception {
-			boolean exists = false;
-			try {
-				Connection con = getConnection();
-				PreparedStatement statement = con.prepareStatement("SELECT " +  column + " FROM " + table);
 
-				ResultSet result = statement.executeQuery();
+	public static boolean userExists(String username) throws Exception {
+		return elementExists("User", "username", username);
+	}
 
-				while (result.next() && exists == false) {
-					if (Objects.equals(result.getString(column), searchFor)) {
-						exists = true;
-					}
-				}
-				// System.out.println(eksisterer);
-			} catch (Exception e) {
-				System.out.println(e);
-
-			}
-			return exists;
-
-		}
-
-//sjekker om epost eksisterer i bruker
-	public static boolean epostEksisterer(String epost) throws Exception {
+//sjekker om email eksisterer i bruker
+	public static boolean emailEksisterer(String email) throws Exception {
 		boolean eksisterer = false;
 		try {
 			Connection con = getConnection();
-			PreparedStatement statement = con.prepareStatement("SELECT Epost FROM Bruker");
+			PreparedStatement statement = con.prepareStatement("SELECT email FROM User");
 
 			ResultSet result = statement.executeQuery();
 
 			while (result.next() && eksisterer == false) {
-				if (Objects.equals(result.getString("Epost"), epost)) {
+				if (Objects.equals(result.getString("email"), email)) {
 					eksisterer = true;
 				}
 			}
@@ -209,25 +175,25 @@ public class DBConnection {
 
 	}
 
-//sjekker om passord matcher epost. Naturlig godkjenning for innlogging.
-//David: skiftet til brukernavn (primærnøkkel) i stedet
-	public static boolean usernamePasswordMatch(String usernameInput, String passordInput) throws Exception {
+//sjekker om password matcher email. Naturlig godkjenning for innlogging.
+//David: skiftet til username (primærnøkkel) i stedet
+	public static boolean usernamePasswordMatch(String usernameInput, String passwordInput) throws Exception {
 		boolean match = false;
 		try {
 			Connection con = getConnection();
 			String username = usernameInput.toLowerCase();
-			if (elementExists("Bruker","brukernavn",username)) {
+			if (elementExists("User", "username", username)) {
 				PreparedStatement statement = con
-						.prepareStatement("SELECT passord FROM Bruker Where brukernavn ='" + username + "'");
-				ResultSet passord = statement.executeQuery();
-				passord.next();
-				String fasit = passord.getString("Passord");
+						.prepareStatement("SELECT password FROM User Where username ='" + username + "'");
+				ResultSet password = statement.executeQuery();
+				password.next();
+				String fasit = password.getString("Password").toLowerCase();
 
-				if (Objects.equals(fasit, passordInput)) {
+				if (Objects.equals(fasit, passwordInput)) {
 					match = true;
-					System.out.println("Passordet er korrekt.");
+					System.out.println("Passwordet er korrekt.");
 				} else {
-					System.out.println("Passordet er feil.");
+					System.out.println("Passwordet er feil.");
 				}
 
 			} else {
@@ -242,45 +208,54 @@ public class DBConnection {
 
 	}
 
-//registrerer bruker uten krav til epost
-	public static void registrerBruker(String epostInput, String passord) {
+//registrerer bruker uten krav til email
+	public static void registerUser(String emailInput, String password, String userName, String firstName,
+			String lastName) {
+		registerUser(emailInput, password, userName, firstName, lastName, false);
+	}
+
+	public static void registerUser(String emailInput, String password, String userName, String firstName,
+			String lastName, boolean skipCheck) {
 		try {
 			Connection con = getConnection();
-			// gjoer fagkoden til smaa bokstaver
-			String epost = epostInput.toLowerCase();
+			String email = emailInput.toLowerCase();
 
-			// Legger inn bruker med id, epost og passord dersom epost ikke eksisterer
-			if (epostEksisterer(epost) == false) {
+			// Legger inn bruker med email, username, navn og password dersom email ikke
+			// eksisterer
+			if (skipCheck) {
+				PreparedStatement userToDb = con.prepareStatement(String.format(
+						"INSERT INTO User (email, password, username, firstName, lastName) VALUES('%s', '%s', '%s','%s','%s')",
+						email, password, userName, firstName, lastName));
+				userToDb.executeUpdate();
+			} else {
+				if (emailEksisterer(email) == false) {
 
-				int idBruker = nyBrukerId();
-				PreparedStatement registrerBruker = con
-						.prepareStatement("INSERT INTO Bruker (idBruker,Epost,Passord) VALUES('" + idBruker + "','"
-								+ epost + "','" + passord + "')");
-				registrerBruker.executeUpdate();
-				System.out.println("Lagt inn bruker " + epost);
-			}
-
-			// Gir beskjed om at brukeren eksisterer
-			else {
-				System.out.println("Brukeren " + epost + " eksisterer");
+					PreparedStatement userToDb = con.prepareStatement(String.format(
+							"INSERT INTO User (email, password, username, firstName, lastName) VALUES('%s', '%s', '%s','%s','%s')",
+							email, password, userName, firstName, lastName));
+					userToDb.executeUpdate();
+					System.out.println("Added user: " + email);
+				}
+				// Gir beskjed om at brukeren eksisterer
+				else {
+					System.out.println("The user " + email + " exists. ");
+				}
 			}
 		} catch (Exception e) {
 			System.out.println(e);
-		} finally {
-			// System.out.println("Insert Completed");
 		}
 	}
 
-//finner siste brukerIden i lista og plusser med 1. Dette gir ny, unik brukerId
-	public static int nyBrukerId() throws Exception {
+//finner siste brukerIden i lista og plusser med 1. Dette gir ny, unik brukerId  //d�d metode as of now
+	public static int nyUserId() throws Exception {
 
 		int nyId = 0;
 		try {
 			Connection con = getConnection();
-			PreparedStatement statement = con.prepareStatement("SELECT * FROM Bruker ORDER BY idBruker DESC LIMIT 1");
+			PreparedStatement statement = con.prepareStatement("SELECT * FROM User ORDER BY idUser DESC LIMIT 1");
 			ResultSet forrigeId = statement.executeQuery();
 			forrigeId.next();
-			nyId = forrigeId.getInt("idBruker") + 1;
+			nyId = forrigeId.getInt("idUser") + 1;
 			System.out.println(nyId);
 		} catch (Exception e) {
 			System.out.println(e);
@@ -288,51 +263,22 @@ public class DBConnection {
 		return nyId;
 	}
 
-//returnerer 0 om fagKoden ikke eksisterer.
-	public static int fraFagKodeTilFagId(String fagKodeInput) {
-
-		int idFag = 0;
-		try {
-			Connection con = getConnection();
-			// gjoer fagkoden til store bokstaver
-			String fagKode = fagKodeInput.toUpperCase();
-
-			// legger inn fag om det ikke eksisterer
-			if (fagEksisterer(fagKode) == false) {
-				System.out.println("Fagkoden eksisterer ikke.");
-			} else {
-				PreparedStatement statement = con
-						.prepareStatement("SELECT idFag From Fag WHERE FagKode = '" + fagKode + "'");
-				ResultSet fagId = statement.executeQuery();
-				fagId.next();
-				// System.out.println(fagNavnNull.next());
-				idFag = fagId.getInt("idFag");
-				System.out.println("Fagid for " + fagKode + " er " + idFag);
-
-			}
-		} catch (Exception e) {
-			System.out.println(e);
-		}
-		return idFag;
-
-	}
-
 //ikke fullfort
-	public static boolean brukerHarFagEksisterer(int idBrukerInput, int idFagInput, char rolleInput) {
+	public static boolean brukerHarCourseEksisterer(int idUserInput, int idCourseInput, char roleInput) {
 		boolean eksisterer = false;
 		try {
 			Connection con = getConnection();
-			PreparedStatement finnIdBruker = con.prepareStatement("SELECT idBruker FROM Bruker_has_Fag");
-			// PreparedStatement finnIdFag = con.prepareStatement("SELECT idBruker FROM
-			// Bruker_has_Fag");
-			// PreparedStatement finnRolle = con.prepareStatement("SELECT idBruker FROM
-			// Bruker_has_Fag");
-			ResultSet idBruker = finnIdBruker.executeQuery();
-			// ResultSet idFag = finnIdFag.executeQuery();
-			// ResultSet rolle = finnRolle.executeQuery();
+			PreparedStatement finnIdUser = con.prepareStatement("SELECT idUser FROM User_has_Course");
+			// PreparedStatement finnIdCourse = con.prepareStatement("SELECT idUser FROM
+			// User_has_Course");
+			// PreparedStatement finnRolle = con.prepareStatement("SELECT idUser FROM
+			// User_has_Course");
+			ResultSet idUser = finnIdUser.executeQuery();
+			// ResultSet idCourse = finnIdCourse.executeQuery();
+			// ResultSet role = finnRolle.executeQuery();
 
-			while (idBruker.next() && eksisterer == false) {
-				if (Objects.equals(idBruker.getString("idBruker"), idBrukerInput)) {
+			while (idUser.next() && eksisterer == false) {
+				if (Objects.equals(idUser.getString("username"), idUserInput)) {
 					eksisterer = true;
 				}
 			}
@@ -345,21 +291,21 @@ public class DBConnection {
 
 	}
 
-//Legg til kobling i BrukereHarFag
-	public static void leggTilBrukerHarFag(int idBruker, int idFag, char rolle) {
+//Legg til kobling i UsereHarCourse
+	public static void leggTilUserHarCourse(int idUser, int idCourse, char role) {
 		try {
 			Connection con = getConnection();
 
 			// legger inn kobling om det ikke eksisterer
-			if (brukerHarFagEksisterer(idBruker, idFag, rolle) == false) {
+			if (brukerHarCourseEksisterer(idUser, idCourse, role) == false) {
 
 				PreparedStatement leggInnKobling = con
-						.prepareStatement("INSERT INTO Bruker_has_Fag (idBruker,idFag,rolle) VALUES('" + idBruker
-								+ "','" + idFag + "','" + idBruker + "')");
+						.prepareStatement("INSERT INTO User_has_Course (idUser,idCourse,role) VALUES('" + idUser + "','"
+								+ idCourse + "','" + idUser + "')");
 				leggInnKobling.executeUpdate();
-				System.out.println("Lagt inn kobling til brukerId" + idBruker);
+				System.out.println("Lagt inn kobling til brukerId" + idUser);
 			} else {
-				System.out.println("Fag " + idBruker + " eksisterer.");
+				System.out.println("Course " + idUser + " eksisterer.");
 			}
 		} catch (Exception e) {
 			System.out.println(e);
@@ -367,5 +313,39 @@ public class DBConnection {
 			// System.out.println("Insert Completed");
 		}
 
+	}
+
+	// collects all relevant information about user (used when loggin in).
+	// Return Array and Dictionary of courses
+	public static User returnUserObject(String username) {
+		try {
+			Connection con = getConnection();
+			String query = String.format("SELECT * FROM User WHERE username = '%s'", username);
+			PreparedStatement st = con.prepareStatement(query);
+			ResultSet rs = st.executeQuery();
+			rs.next();
+
+			String firstName = rs.getString("firstName");
+			String lastName = rs.getString("lastName");
+			String password = rs.getString("password");
+			String email = rs.getString("email");
+
+			query = String.format("SELECT Course_courseCode, role FROM User_has_Course WHERE User_username = '%s'",
+					username);
+			st = con.prepareStatement(query);
+			rs = st.executeQuery();
+
+			Map<String, Character> coursesAndRoles = new HashMap<String, Character>();
+			while (rs.next()) {
+				coursesAndRoles.put(rs.getString("Course_courseCode"), rs.getString("role").charAt(0));
+			}
+
+			return new User(username, firstName, lastName, email, password, coursesAndRoles);
+
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
 	}
 }
