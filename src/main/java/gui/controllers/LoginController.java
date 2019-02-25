@@ -40,7 +40,7 @@ public class LoginController {
 		if (isValidUsernameOrEmail(user_input.getText())) {
 			String username = user_input.getText().split("@")[0];
 			if (Program.login(username, password_input.getText())) {
-				Parent blah = FXMLLoader.load(getClass().getResource("GenericPage.fxml"));
+				Parent blah = FXMLLoader.load(getClass().getResource("../pages/GenericPage.fxml"));
 				Scene scene = new Scene(blah);
 				Stage appStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 				appStage.setScene(scene);
