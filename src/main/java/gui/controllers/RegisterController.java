@@ -4,16 +4,11 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import database.DBConnection;
+import gui.App;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.stage.Stage;
-import main.Program;
 
 public class RegisterController {
 
@@ -74,18 +69,12 @@ public class RegisterController {
 		regbutton_label.setText(label_output);
 
 		if (allInputsValid) {
-			Program.register(email_input.getText(), password, username, first_name_input.getText(),
+			App.getInstance().userRegister(email_input.getText(), password, username, first_name_input.getText(),
 					last_name_input.getText(), true);
-			Parent blah = FXMLLoader.load(getClass().getResource("../pages/GenericPage.fxml"));
-			Scene scene = new Scene(blah);
-			Stage appStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-			appStage.setScene(scene);
-			appStage.show();
+			App.getInstance().gotoProfile();
 		} else {
 			regbutton_label.setVisible(true);
 		}
-
-		Boolean userExists = username != null ? DBConnection.userExists(username) : false;
 	}
 
 	public void listeners() {

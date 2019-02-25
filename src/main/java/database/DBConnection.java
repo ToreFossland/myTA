@@ -15,7 +15,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
-import main.User;
+
+import user.User;
 
 public class DBConnection {
 

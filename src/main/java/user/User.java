@@ -8,7 +8,7 @@ Feb 19 19 	Tore 	Added new functionality
 Feb 20 19 	David 	Added new bugfixes
 */
 
-package main;
+package user;
 
 //import java.sql.Connection; 
 //import java.sql.DriverManager;
