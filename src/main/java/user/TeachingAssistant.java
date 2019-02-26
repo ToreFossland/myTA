@@ -17,5 +17,10 @@ public class TeachingAssistant extends Student{
 		super(username, firstName, lastName, email, password, coursesAndRoles);
 		// TODO Auto-generated constructor stub
 	}
+	/* 1 = student
+	 * 2 = studass
+	 * 3 = emneveileder
+	 * 4 = admin
+	*/
 
 }

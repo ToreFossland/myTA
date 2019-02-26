@@ -10,6 +10,9 @@ Feb 20 19 	David 	Added new bugfixes
 
 package user;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 //import java.sql.Connection; 
 //import java.sql.DriverManager;
 //import java.sql.PreparedStatement;
@@ -17,6 +20,7 @@ package user;
 //import java.sql.Statement;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 public class User{
 	private String username;
@@ -36,7 +40,12 @@ public class User{
 		this.myCourses = coursesAndRoles;
 		this.password = password;
 	}
-
+	/*
+	public boolean checkIfElementExsists(String username, String courseCode, int role) {
+		boolean exists = false;
+	}
+	*/
+	
 	public String getUsername() {
 		return username;
 	}
@@ -61,4 +70,7 @@ public class User{
 	public char getPosition(String course) {
 		return myCourses.get(course);
 	}
+	
+	
 }
+
