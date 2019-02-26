@@ -346,9 +346,9 @@ public class DBConnection {
 			st = con.prepareStatement(query);
 			rs = st.executeQuery();
 
-			Map<String, Character> coursesAndRoles = new HashMap<String, Character>();
+			Map<String, Integer> coursesAndRoles = new HashMap<String, Integer>();
 			while (rs.next()) {
-				coursesAndRoles.put(rs.getString("Course_courseCode"), rs.getString("role").charAt(0));
+				coursesAndRoles.put(rs.getString("Course_courseCode"), rs.getInt("role"));
 			}
 
 			return User.generateUserObject(username, firstName, lastName, email, password, coursesAndRoles);

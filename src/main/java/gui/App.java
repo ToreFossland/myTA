@@ -121,7 +121,7 @@ public class App extends Application {
 	// perfomance if this has already been checked.
 	public void userRegister(String email, String password, String userName, String firstName, String lastName,
 			Boolean skipCheck) {
-		HashMap<String, Character> courses = new HashMap<String, Character>();
+		Map<String, Integer> courses = new HashMap<String, Integer>();
 		password = toMD5(password);
 		DBConnection.registerUser(email, password, userName, firstName, lastName, skipCheck);
 		loggedUser = User.generateUserObject(userName, firstName, lastName, email, password, courses);

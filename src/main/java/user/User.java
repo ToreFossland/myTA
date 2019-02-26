@@ -18,11 +18,11 @@ public abstract class User{
 	private String lastName;
 	private String email;
 	private String password;
-	private Map<String, Character> myCourses; //Inneholder permission og fagkode, fagkode er n�kkelen. Se getPosition for kodeforklaring.
+	private Map<String, Integer> myCourses; //Inneholder permission og fagkode, fagkode er n�kkelen. Se getPosition for kodeforklaring.
 	
 	
 	public User(String username, String firstName, String lastName, String email, String password,
-			Map<String, Character> coursesAndRoles) {
+			Map<String, Integer> coursesAndRoles) {
 		this.username = username;
 		this.firstName = firstName;
 		this.lastName = lastName;
@@ -48,11 +48,11 @@ public abstract class User{
 	}
 	
 	
-	public Map<String, Character> getMyCourses() {
+	public Map<String, Integer> getMyCourses() {
 		return myCourses;
 	}
 	
-	public char getPosition(String course) {
+	public Integer getRoleInCourse(String course) {
 		return myCourses.get(course);
 	}
 	
@@ -74,7 +74,7 @@ public abstract class User{
 	}
 	
 	public static User generateUserObject(String username, String firstName, String lastName, String email, String password,
-			Map<String, Character> coursesAndRoles) {
+			Map<String, Integer> coursesAndRoles) {
 		
 		int permission = 1;
 		for (int role : coursesAndRoles.values()) {
