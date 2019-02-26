@@ -10,15 +10,9 @@ Feb 20 19 	David 	Added new bugfixes
 
 package user;
 
-//import java.sql.Connection; 
-//import java.sql.DriverManager;
-//import java.sql.PreparedStatement;
-//import java.sql.ResultSet;
-//import java.sql.Statement;
-import java.util.HashMap;
 import java.util.Map;
 
-public class User{
+public abstract class User{
 	private String username;
 	private String firstName;
 	private String lastName;
@@ -60,5 +54,44 @@ public class User{
 	
 	public char getPosition(String course) {
 		return myCourses.get(course);
+	}
+	
+	public int getType() {
+		String className = this.getClass().getSimpleName();
+		
+		switch (className) {
+		case "Student":
+			return 1;
+		case "TeachingAssistant":
+			return 2;
+		case "Supervisor":
+			return 3;
+		case "Admin":
+			return 4;
+		default:
+			throw new NullPointerException("Could not determine user type");
+		}
+	}
+	
+	public static User generateUserObject(String username, String firstName, String lastName, String email, String password,
+			Map<String, Character> coursesAndRoles) {
+		
+		int permission = 1;
+		for (int role : coursesAndRoles.values()) {
+			permission = role > permission ? role : permission;
+		}
+		
+		switch (permission) {
+		case 1:
+			return new Student(username, firstName, lastName, email, password, coursesAndRoles);
+		case 2:
+			return new TeachingAssistant(username, firstName, lastName, email, password, coursesAndRoles);
+		case 3:
+			return new Supervisor(username, firstName, lastName, email, password, coursesAndRoles);
+		case 4:
+			return new Admin(username, firstName, lastName, email, password, coursesAndRoles);
+		default:
+			return new Student(username, firstName, lastName, email, password, coursesAndRoles);
+		}
 	}
 }

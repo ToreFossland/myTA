@@ -36,6 +36,8 @@ import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -46,7 +48,7 @@ import javafx.fxml.JavaFXBuilderFactory;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import user.User;
+import user.*;
 
 
 
@@ -122,7 +124,7 @@ public class App extends Application {
 		HashMap<String, Character> courses = new HashMap<String, Character>();
 		password = toMD5(password);
 		DBConnection.registerUser(email, password, userName, firstName, lastName, skipCheck);
-		loggedUser = new User(userName, firstName, lastName, email, password, courses);
+		loggedUser = User.generateUserObject(userName, firstName, lastName, email, password, courses);
 		System.out.println("Registration complete");
 		// doSomething
 	}
