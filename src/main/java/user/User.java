@@ -10,29 +10,20 @@ Feb 20 19 	David 	Added new bugfixes
 
 package user;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-//import java.sql.Connection; 
-//import java.sql.DriverManager;
-//import java.sql.PreparedStatement;
-//import java.sql.ResultSet;
-//import java.sql.Statement;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
 
-public class User{
+import java.util.Map;
+
+public abstract class User{
 	private String username;
 	private String firstName;
 	private String lastName;
 	private String email;
 	private String password;
-	private Map<String, Character> myCourses; //Inneholder permission og fagkode, fagkode er n�kkelen. Se getPosition for kodeforklaring.
+	private Map<String, Integer> myCourses; //Inneholder permission og fagkode, fagkode er n�kkelen. Se getPosition for kodeforklaring.
 	
 	
 	public User(String username, String firstName, String lastName, String email, String password,
-			Map<String, Character> coursesAndRoles) {
+			Map<String, Integer> coursesAndRoles) {
 		this.username = username;
 		this.firstName = firstName;
 		this.lastName = lastName;
@@ -63,14 +54,53 @@ public class User{
 	}
 	
 	
-	public Map<String, Character> getMyCourses() {
+	public Map<String, Integer> getMyCourses() {
 		return myCourses;
 	}
 	
-	public char getPosition(String course) {
+	public Integer getRoleInCourse(String course) {
 		return myCourses.get(course);
 	}
 	
+
+	public int getType() {
+		String className = this.getClass().getSimpleName();
+		
+		switch (className) {
+		case "Student":
+			return 1;
+		case "TeachingAssistant":
+			return 2;
+		case "Supervisor":
+			return 3;
+		case "Admin":
+			return 4;
+		default:
+			throw new NullPointerException("Could not determine user type");
+		}
+	}
 	
+	public static User generateUserObject(String username, String firstName, String lastName, String email, String password,
+			Map<String, Integer> coursesAndRoles) {
+		
+		int permission = 1;
+		for (int role : coursesAndRoles.values()) {
+			permission = role > permission ? role : permission;
+		}
+		
+		switch (permission) {
+		case 1:
+			return new Student(username, firstName, lastName, email, password, coursesAndRoles);
+		case 2:
+			return new TeachingAssistant(username, firstName, lastName, email, password, coursesAndRoles);
+		case 3:
+			return new Supervisor(username, firstName, lastName, email, password, coursesAndRoles);
+		case 4:
+			return new Admin(username, firstName, lastName, email, password, coursesAndRoles);
+		default:
+			return new Student(username, firstName, lastName, email, password, coursesAndRoles);
+		}
+	}
+
 }
 

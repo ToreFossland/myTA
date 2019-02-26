@@ -15,7 +15,7 @@ import database.DBConnection;
 public class Student extends User{
 
 	public Student(String username, String firstName, String lastName, String email, String password,
-			Map<String, Character> coursesAndRoles) {
+			Map<String, Integer> coursesAndRoles) {
 		super(username, firstName, lastName, email, password, coursesAndRoles);
 		// TODO Auto-generated constructor stub
 	}

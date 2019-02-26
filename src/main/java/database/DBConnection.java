@@ -10,8 +10,6 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.Statement;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -32,14 +30,26 @@ public class DBConnection {
 	 */
 
 	// TODO: add cache for storing data from frequently used DB queries
+	
+	private static Connection con;
+	
+	//Stores the connection
+	public static void main(String[] args) {
+		try {
+			DBConnection.con = getConnection();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 
 //lager connection til databasen som er noedvendig for aa manipulere den
 	public static Connection getConnection() throws Exception {
 		try {
 			String driver = "com.mysql.cj.jdbc.Driver";
 			String url = "jdbc:mysql://mysql.stud.ntnu.no:3306/davidaan_bookingsystem";
-			String username = "davidaan";
-			String password = "aiko97";
+			String username = "fs_tdt4140_1_gruppe18";
+			String password = "gruppe18";
 			Class.forName(driver);
 
 			Connection conn = DriverManager.getConnection(url, username, password);
@@ -354,12 +364,12 @@ public class DBConnection {
 			st = con.prepareStatement(query);
 			rs = st.executeQuery();
 
-			Map<String, Character> coursesAndRoles = new HashMap<String, Character>();
+			Map<String, Integer> coursesAndRoles = new HashMap<String, Integer>();
 			while (rs.next()) {
-				coursesAndRoles.put(rs.getString("Course_courseCode"), rs.getString("role").charAt(0));
+				coursesAndRoles.put(rs.getString("Course_courseCode"), rs.getInt("role"));
 			}
 
-			return new User(username, firstName, lastName, email, password, coursesAndRoles);
+			return User.generateUserObject(username, firstName, lastName, email, password, coursesAndRoles);
 
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -368,5 +378,25 @@ public class DBConnection {
 		return null;
 	}
 	
-	
+
+	//Obtains highest permission that the user has. Assumes it's a student if no permissions has been set in the database (returns 1)
+	/*public static int getUserPermission(String username) {
+		try {
+			PreparedStatement findRole = con.prepareStatement("SELECT DISTINCT role FROM User_has_Course WHERE User_username = %s");
+			ResultSet roles = findRole.executeQuery();
+			
+			int permission = 1;
+			while(roles.next()) {
+				permission = roles.getInt("role") > permission ? roles.getInt("role") : permission;
+			}
+			
+			return permission;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return 1;
+	}*/
+
 }

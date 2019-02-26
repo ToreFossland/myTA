@@ -15,7 +15,7 @@ import database.DBConnection;
 public class Admin extends Supervisor {
 
 	public Admin(String username, String firstName, String lastName, String email, String password,
-			Map<String, Character> coursesAndRoles) {
+			Map<String, Integer> coursesAndRoles) {
 		super(username, firstName, lastName, email, password, coursesAndRoles);
 		// TODO Auto-generated constructor stub
 	}
