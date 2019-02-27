@@ -17,7 +17,7 @@
                   <HBox prefHeight="100.0" prefWidth="200.0" />
                   <HBox alignment="CENTER_LEFT" prefHeight="61.0" prefWidth="468.0">
                      <children>
-                        <Button mnemonicParsing="false" style="-fx-background-color: black;" text="Log out" textFill="WHITE">
+                        <Button fx:id="button_log_out" onAction="#logoutHandler" mnemonicParsing="false" style="-fx-background-color: black;" text="Log out" textFill="WHITE">
                            <font>
                               <Font size="13.0" />
                            </font>
@@ -34,7 +34,7 @@
                         <HBox prefHeight="62.0" prefWidth="235.0" />
                         <HBox alignment="CENTER" prefHeight="51.0" prefWidth="129.0">
                            <children>
-                              <Button mnemonicParsing="false" style="-fx-background-color: blue;" text="Return" textFill="WHITE">
+                              <Button fx:id="button_return" onAction="#returnHandler" mnemonicParsing="false" style="-fx-background-color: blue;" text="Return" textFill="WHITE">
                                  <font>
                                     <Font size="13.0" />
                                  </font>
@@ -54,18 +54,19 @@
                   </Text>
                   <HBox alignment="CENTER" prefHeight="95.0" prefWidth="301.0">
                      <children>
-                        <TextField prefHeight="44.0" prefWidth="297.0" promptText="Type subjectkode and name">
+                        <TextField prefHeight="44.0" prefWidth="297.0" fx:id="create_subject_input" onKeyTyped="#checkValidSubject" promptText="Type subjectkode and name">
                            <font>
                               <Font size="20.0" />
                            </font>
                         </TextField>
+                        <Label fx:id="invalid_subject_label" text="Enter valid subjectcode" visible="false">
                      </children>
                   </HBox>
                </children>
             </HBox>
             <HBox alignment="CENTER" prefHeight="48.0" prefWidth="800.0" VBox.vgrow="ALWAYS">
                <children>
-                  <Button mnemonicParsing="false" prefHeight="44.0" prefWidth="165.0" style="-fx-background-color: #0099FF;" text="Add" textFill="WHITE">
+                  <Button fx:id="button_add" onAction="#onClickAdd" mnemonicParsing="false" prefHeight="44.0" prefWidth="165.0" style="-fx-background-color: #0099FF;" text="Add" textFill="WHITE">
                      <font>
                         <Font size="20.0" />
                      </font>
@@ -83,11 +84,12 @@
                   </Text>
                   <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="329.0">
                      <children>
-                        <TextField prefHeight="44.0" prefWidth="287.0" promptText="Type subjectkode and name">
+                        <TextField fx:id="choose_subject_input" onKeyTyped="#checkSubjectExists" prefHeight="44.0" prefWidth="287.0" promptText="Type subjectkode and name">
                            <font>
                               <Font size="20.0" />
                            </font>
                         </TextField>
+                        <Label fx:id="invalid_subjectDB_label" text="Enter an existing subject" visible="false">
                      </children>
                   </HBox>
                </children>
@@ -102,18 +104,19 @@
                   </Text>
                   <HBox alignment="CENTER_LEFT" prefHeight="57.0" prefWidth="331.0">
                      <children>
-                        <TextField prefHeight="44.0" prefWidth="292.0" promptText="Type email">
+                        <TextField fx:id="add_supervisor_input" onKeyTyped="#checkValidSupervisor" prefHeight="44.0" prefWidth="292.0" promptText="Type email">
                            <font>
                               <Font size="20.0" />
                            </font>
                         </TextField>
+                        <Label fx:id="invalid_supervisor_label" text="Enter valid email for supervisor" visible="false">
                      </children>
                   </HBox>
                </children>
             </HBox>
             <HBox alignment="CENTER" prefHeight="121.0" prefWidth="800.0">
                <children>
-                  <Button alignment="CENTER" mnemonicParsing="false" prefHeight="44.0" prefWidth="165.0" style="-fx-background-color: blue;" text="Confirm" textFill="WHITE">
+                  <Button fx:id="button_confirm" onAction="#onClickConfirm" alignment="CENTER" mnemonicParsing="false" prefHeight="44.0" prefWidth="165.0" style="-fx-background-color: blue;" text="Confirm" textFill="WHITE">
                      <font>
                         <Font size="20.0" />
                      </font>

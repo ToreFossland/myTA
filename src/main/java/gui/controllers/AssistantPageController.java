@@ -22,7 +22,7 @@ public class AssistantPageController {
 	
 	public void logoutHandler(javafx.event.ActionEvent event) {
 		// log out, go to login.fxml
-			// App.getInstance().gotoLogin();; ?
+			// App.getInstance().gotoLogin();; ??
 	}
 	public void returnHandler() {
 		// Switches to login.fxml ?
@@ -40,3 +40,5 @@ public class AssistantPageController {
 	}
 
 }
+
+
