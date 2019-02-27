@@ -118,12 +118,12 @@ public class DBBooking extends DBConnection {
 						
 						PreparedStatement addNumberOfBookings = con.prepareStatement(String.format(
 								"UPDATE HallTime"
-								+ " SET availablePlaces = "+(numberOfBookings+availablePlaces)+" "
+								+ " SET availablePlaces = "+(halltime.getAvailablePlaces()+availablePlaces)+" "
 								+ " WHERE Course_courseCode = '%s' "
 								+ " AND week = '%s' "
 								+ " AND day = '%s' "
 								+ " AND timeStart = '%s' "
-								+ " AND timeEnd = '%s'",coursecode, week, day, timeStart, timeEnd));
+								+ " AND timeEnd = '%s'",halltime.getCourseCode(), Integer.toString(halltime.getWeek()), Integer.toString(halltime.getDay()), halltime.getTimeStart().toString(), halltime.getTimeEnd().toString()));
 						
 						addNumberOfBookings.executeUpdate();
 					}
