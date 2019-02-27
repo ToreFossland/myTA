@@ -5,6 +5,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Time;
 import java.time.LocalTime;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Objects;
 
 import halltimes.Halltime;
@@ -27,17 +29,15 @@ public class DBBooking extends DBConnection {
 //		}
 //		return htID;
 //	}
-
-	
-/*	public static void main(String[] args) {
+/*
+	public static void main(String[] args) {
 
 		LocalTime timeStart = LocalTime.of(8, 00, 00);
 		LocalTime timeEnd = LocalTime.of(16, 00, 00);
-		Halltime ht = new Halltime("TDT4140", 5, 3, timeStart, timeEnd, 6);
-		addHalltimeBookings(ht, 21);
+		Halltime ht = new Halltime("TDT4140", 5, 3, timeStart, timeEnd, 100);
+		supervisorAddHalltime(ht, 20);
 	}*/
 
-	
 	// Sjekker om halltid ligger inne
 	public static boolean halltimeExists(Halltime halltime) {
 		boolean eksisterer = false;
@@ -59,8 +59,10 @@ public class DBBooking extends DBConnection {
 				if (Objects.equals(rs.getString("Course_courseCode"), halltime.getCourseCode())
 						&& Objects.equals(rs.getInt("week"), halltime.getWeek())
 						&& Objects.equals(rs.getInt("day"), halltime.getDay())
-						&& Objects.equals(rs.getString("timeStart"), halltime.getTimeStart().toString())
-						&& Objects.equals(rs.getString("timeEnd"), halltime.getTimeEnd().toString())) {
+						&& Objects.equals(LocalTime.parse(rs.getString("timeStart")).toString(),
+								halltime.getTimeStart().toString())
+						&& Objects.equals(LocalTime.parse(rs.getString("timeEnd")).toString(),
+								halltime.getTimeEnd().toString())) {
 					eksisterer = true;
 				}
 			}
@@ -98,6 +100,7 @@ public class DBBooking extends DBConnection {
 	}
 
 	// Maa skrive inn tiden paa format "00:00:00";
+	// Interval in minutes
 	public static void supervisorAddHalltime(Halltime halltime, int interval) {
 
 		try {
@@ -105,13 +108,15 @@ public class DBBooking extends DBConnection {
 			String coursecode = halltime.getCourseCode().toUpperCase();
 			LocalTime bookTime = halltime.getTimeStart();
 			LocalTime timeEnd = halltime.getTimeEnd();
+			Halltime newHT = new Halltime(halltime.getCourseCode(), halltime.getWeek(), halltime.getDay(), bookTime,
+					bookTime.plusMinutes(interval), halltime.getAvailablePlaces());
 
-			//General statement for inserting halltime if it doesn't already exist
-			PreparedStatement statement = con.prepareStatement("INSERT IGNORE INTO HallTime (Course_courseCode, week, day, timeStart, timeEnd, availablePlaces) VALUES (?,?,?,?,?,?)");
-
-			while (timeEnd.isAfter(bookTime.plusMinutes(interval-1))) {
-
-
+			// General statement for inserting halltime if it doesn't already exist
+			PreparedStatement statement = con.prepareStatement(
+					"REPLACE INTO HallTime (Course_courseCode, week, day, timeStart, timeEnd, availablePlaces) VALUES (?,?,?,?,?,?)");
+					
+			while (timeEnd.isAfter(bookTime.plusMinutes(interval - 1))) {
+				//Specify question marks and add insert to the batch
 				statement.setString(1, coursecode);
 				statement.setString(2, Integer.toString(halltime.getWeek()));
 				statement.setString(3, Integer.toString(halltime.getDay()));
@@ -121,43 +126,41 @@ public class DBBooking extends DBConnection {
 				bookTime.plusMinutes(interval);
 				statement.addBatch();
 				bookTime = bookTime.plusMinutes(interval);
-				
-				/*Halltime newHT = new Halltime(halltime.getCourseCode(), halltime.getWeek(), halltime.getDay(), bookTime,
-						bookTime.plusMinutes(interval), interval);
-				if (!halltimeExists(newHT)) {
 
-					query += String.format("(%s), ", newHT.toString());
+				/*
+				 * Halltime newHT = new Halltime(halltime.getCourseCode(), halltime.getWeek(),
+				 * halltime.getDay(), bookTime, bookTime.plusMinutes(interval), interval); if
+				 * (!halltimeExists(newHT)) {
+				 * 
+				 * query += String.format("(%s), ", newHT.toString());
+				 *
+				 * 
+				 * PreparedStatement bookingToDB = con.prepareStatement(String.format(
+				 * "INSERT INTO HallTime (idHallTime, Course_courseCode, week, day, timeStart, timeEnd, availablePlaces) "
+				 * + "VALUES(%s)", newHT.toString()));
+				 *
+				 * 
+				 * }
+				 * 
+				 * // Legger til plasser paa gammelID om det eksisterer. Sparer plass else { int
+				 * availablePlaces = getAvailablePlaces(halltime);
+				 * 
+				 * PreparedStatement addNumberOfBookings = con.prepareStatement(String.format(
+				 * "UPDATE HallTime" + " SET availablePlaces = " +
+				 * (halltime.getAvailablePlaces() + availablePlaces) + " " +
+				 * " WHERE Course_courseCode = '%s' " + " AND week = '%s' " + " AND day = '%s' "
+				 * + " AND timeStart = '%s' " + " AND timeEnd = '%s'", halltime.getCourseCode(),
+				 * Integer.toString(halltime.getWeek()), Integer.toString(halltime.getDay()),
+				 * halltime.getTimeStart().toString(), halltime.getTimeEnd().toString()));
+				 * 
+				 * addNumberOfBookings.executeUpdate(); } query = query.substring(0,
+				 * query.length() - 2); query += ";";
+				 */
 
-					 *
-					 * PreparedStatement bookingToDB = con.prepareStatement(String.format(
-					 * "INSERT INTO HallTime (idHallTime, Course_courseCode, week, day, timeStart, timeEnd, availablePlaces) "
-					 * + "VALUES(%s)", newHT.toString()));
-					 *
-
-				}
-
-				// Legger til plasser paa gammelID om det eksisterer. Sparer plass
-				else {
-					int availablePlaces = getAvailablePlaces(halltime);
-
-					PreparedStatement addNumberOfBookings = con.prepareStatement(String.format(
-							"UPDATE HallTime" + " SET availablePlaces = "
-									+ (halltime.getAvailablePlaces() + availablePlaces) + " "
-									+ " WHERE Course_courseCode = '%s' " + " AND week = '%s' " + " AND day = '%s' "
-									+ " AND timeStart = '%s' " + " AND timeEnd = '%s'",
-							halltime.getCourseCode(), Integer.toString(halltime.getWeek()),
-							Integer.toString(halltime.getDay()), halltime.getTimeStart().toString(),
-							halltime.getTimeEnd().toString()));
-
-					addNumberOfBookings.executeUpdate();
-				}
-				query = query.substring(0, query.length() - 2);
-				query += ";";
-				*/
-				
 			}
-			
+
 			statement.executeBatch();
+			System.out.println("Entries added");
 
 		} catch (Exception e) {
 			System.out.println(e);
