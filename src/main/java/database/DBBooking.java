@@ -5,6 +5,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.Objects;
 
+import halltimes.Halltime;
+
 public class DBBooking extends DBConnection {
 	
 	
@@ -26,11 +28,11 @@ public class DBBooking extends DBConnection {
 	}
 	
 	//Sjekker om halltid ligger inne
-	public static boolean halltimeExists(String courseCode, int week, int day, String timeStart, String timeEnd) {
+	public static boolean halltimeExists(Halltime halltime) {
 		boolean eksisterer = false;
 		try {
 			Connection con = getConnection();
-			String coursecode = courseCode.toUpperCase();
+			String coursecode = halltime.getCourseCode().toUpperCase();
 			PreparedStatement findHalltime = con.prepareStatement("SELECT Course_courseCode, week, day, timeStart, timeEnd " 
 					+ "FROM HallTime");
 			//PreparedStatement findCourseCode = con.prepareStatement("SELECT Course_courseCode FROM User_has_Course");
@@ -42,9 +44,9 @@ public class DBBooking extends DBConnection {
 			
 
 			while (rs.next() && eksisterer == false) {
-				if (Objects.equals(rs.getString("Course_courseCode"), coursecode) && Objects.equals(rs.getInt("week"), week) 
-						&& Objects.equals(rs.getInt("day"), day) && Objects.equals(rs.getString("timeStart"), timeStart) 
-						&& Objects.equals(rs.getString("timeEnd"), timeEnd)) {
+				if (Objects.equals(rs.getString("Course_courseCode"), halltime.getCourseCode()) && Objects.equals(rs.getInt("week"), halltime.getWeek()) 
+						&& Objects.equals(rs.getInt("day"), halltime.getDay()) && Objects.equals(rs.getString("timeStart"), halltime.getTimeStart()) 
+						&& Objects.equals(rs.getString("timeEnd"), halltime.getTimeEnd())) {
 					eksisterer = true;
 				}
 			}
@@ -60,18 +62,18 @@ public class DBBooking extends DBConnection {
 	}
 	
 	//Henter availableplaces
-	public static int getAvailablePlaces(String courseCode, int week, int day, String timeStart, String timeEnd) {
+	public static int getAvailablePlaces(Halltime halltime) {
 		int availablePlaces = 0;
 		try {
 			Connection con = getConnection();
-			String coursecode = courseCode.toUpperCase();
+			String coursecode = halltime.getCourseCode().toUpperCase();
 			PreparedStatement getAvailablePlaces = con.prepareStatement(String.format("SELECT availablePlaces " 
 					+ " FROM HallTime "
 					+ " WHERE Course_courseCode = '%s' "
 					+ " AND week = '%s' "
 					+ "	AND day = '%s' "
 					+ " AND timeStart = '%s' " 
-					+ " AND timeEnd = '%s' ", coursecode, week, day, timeStart, timeEnd));
+					+ " AND timeEnd = '%s' ", coursecode, halltime.getWeek(), halltime.getDay(), halltime.getTimeStart(), halltime.getTimeEnd()));
 			
 			ResultSet rs = getAvailablePlaces.executeQuery();
 			rs.next();
