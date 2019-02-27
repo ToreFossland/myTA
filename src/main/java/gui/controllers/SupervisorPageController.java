@@ -17,6 +17,9 @@ public class SupervisorPageController {
 	@FXML
 	Button button_messages;
 	
+	@FXML
+	Button create_assistant_times;
+	
 	public void logoutHandler(javafx.event.ActionEvent event) {
 	// log out, go to login.fxml
 	// App.getInstance().gotoLogin();; ?
@@ -25,10 +28,13 @@ public class SupervisorPageController {
 	// Switches to login.fxml ?
 	}
 	public void subjectsAndAssistantsHandler() {
-		// switches to ? ikke laget
+		// switches to: legg tilassistent
 	}
 	public void messagesHandler() {
 		// ikke laget
+	}
+	public void createAssistantTimesHandler() {
+		//switches to: Create assistant times 
 	}
 
 }

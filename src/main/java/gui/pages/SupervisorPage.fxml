@@ -61,6 +61,14 @@
                   </Button>
                </children>
             </HBox>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="800.0">
+               <children>
+                  <Button fx:id="button_subjects_and_assistants" onAction="createAssistantTimesHandler" mnemonicParsing="false" prefHeight="44.0" prefWidth="230.0" style="-fx-background-color: blue;" text="Create assistant times" textFill="WHITE">
+                     <font>
+                     <Font size="20.0" />
+                  </Button>
+               </children>
+            </HBox>
             <HBox alignment="CENTER" prefHeight="90.0" prefWidth="800.0">
                <children>
                   <Button fx:id="button_messages" onAction="#messagesHandler" mnemonicParsing="false" prefHeight="44.0" prefWidth="230.0" style="-fx-background-color: black;" text="Messages" textFill="WHITE">
