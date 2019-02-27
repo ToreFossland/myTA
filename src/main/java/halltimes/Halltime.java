@@ -10,7 +10,7 @@ Feb 27 19   David	Added Joda
 package halltimes;
 
 import java.time.LocalTime;
-
+ 
 public class Halltime {
 	
 	private String courseCode;
@@ -66,6 +66,7 @@ public class Halltime {
 		this.availablePlaces = availablePlaces;
 	}
 	
+	//Returns string that can be read by MySQL
 	@Override
 	public String toString() {
 		return String.format("'%s','%s','%s','%s','%s','%s'", courseCode, Integer.toString(week), Integer.toString(day), timeStart.toString(), timeEnd.toString(), Integer.toString(availablePlaces));
