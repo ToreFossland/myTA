@@ -30,8 +30,6 @@ dependencies {
     
     //Mockito, for mock objects
     testCompile 'org.mockito:mockito-core:2.24.0'
-    
-    compile group: 'joda-time', name: 'joda-time', version: '2.10.1'
 }
 
 // In this section you declare where to find the dependencies of your project

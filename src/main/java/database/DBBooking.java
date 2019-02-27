@@ -3,6 +3,8 @@ package database;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Time;
+import java.time.LocalTime;
 import java.util.Objects;
 
 import halltimes.Halltime;
@@ -10,22 +12,22 @@ import halltimes.Halltime;
 public class DBBooking extends DBConnection {
 	
 	
-	//ny HallTimeID
-	public static int newHtId() throws Exception {
-
-		int htID = 0;
-		try {
-			Connection con = getConnection();
-			PreparedStatement statement = con.prepareStatement("SELECT * FROM HallTime ORDER BY idHallTime DESC LIMIT 1");
-			ResultSet forrigeId = statement.executeQuery();
-			forrigeId.next();
-			htID = forrigeId.getInt("idHallTime") + 1;
-			
-		} catch (Exception e) {
-			System.out.println(e);
-		}
-		return htID;
-	}
+//	//ny HallTimeID
+//	public static int newHtId() throws Exception {
+//
+//		int htID = 0;
+//		try {
+//			Connection con = getConnection();
+//			PreparedStatement statement = con.prepareStatement("SELECT * FROM HallTime ORDER BY idHallTime DESC LIMIT 1");
+//			ResultSet forrigeId = statement.executeQuery();
+//			forrigeId.next();
+//			htID = forrigeId.getInt("idHallTime") + 1;
+//			
+//		} catch (Exception e) {
+//			System.out.println(e);
+//		}
+//		return htID;
+//	}
 	
 	//Sjekker om halltid ligger inne
 	public static boolean halltimeExists(Halltime halltime) {
@@ -89,41 +91,45 @@ public class DBBooking extends DBConnection {
 	}
 	
 	//Maa skrive inn tiden paa format "00:00:00";
-	public static void addHalltimeBookings(String courseCode, int week, int day, String timeStart, String timeEnd,
-			int numberOfBookings) {
+	public static void addHalltimeBookings(Halltime halltime, int interval) {
 		
 		try {
 			Connection con = getConnection();
-			String coursecode = courseCode.toUpperCase();
-			if (halltimeExists(courseCode, week, day, timeStart, timeEnd)==false) {
-				
-				//Legger til ny, unik ID
-				int htID = newHtId();
-				
-				PreparedStatement bookingToDB = con.prepareStatement(String.format(
-						"INSERT INTO HallTime (idHallTime, Course_courseCode, week, day, timeStart, timeEnd, availablePlaces) "
-						+ "VALUES('%s', '%s', '%s','%s','%s', '%s','%s')", htID, coursecode, week, day, timeStart, timeEnd, numberOfBookings));
-	
-				bookingToDB.executeUpdate();
-				
-			}
+			String coursecode = halltime.getCourseCode().toUpperCase();
+			LocalTime bookTime = halltime.getTimeStart();
+			LocalTime timeEnd = halltime.getTimeEnd();
 			
-			//Legger til plasser paa gammelID om det eksisterer. Sparer plass
-			else {
-				int availablePlaces = getAvailablePlaces(courseCode,week,day,timeStart,timeEnd);
-				
-				PreparedStatement addNumberOfBookings = con.prepareStatement(String.format(
-						"UPDATE HallTime"
-						+ " SET availablePlaces = "+(numberOfBookings+availablePlaces)+" "
-						+ " WHERE Course_courseCode = '%s' "
-						+ " AND week = '%s' "
-						+ " AND day = '%s' "
-						+ " AND timeStart = '%s' "
-						+ " AND timeEnd = '%s'",coursecode, week, day, timeStart, timeEnd));
-				
-				addNumberOfBookings.executeUpdate();
-				
+			while(timeEnd.isAfter(bookTime)) {
+				try {
+					Halltime newHT = new Halltime(halltime.getCourseCode(), halltime.getWeek(), halltime.getDay(), bookTime, bookTime.plusMinutes(interval), interval);
+					if (!halltimeExists(newHT)) {
 						
+						PreparedStatement bookingToDB = con.prepareStatement(String.format(
+								"INSERT INTO HallTime (idHallTime, Course_courseCode, week, day, timeStart, timeEnd, availablePlaces) "
+								+ "VALUES(%s)", newHT.toString()));
+			
+						bookingToDB.executeUpdate();
+						bookTime.plusMinutes(interval);
+					}
+					
+					//Legger til plasser paa gammelID om det eksisterer. Sparer plass
+					else {
+						int availablePlaces = getAvailablePlaces(halltime);
+						
+						PreparedStatement addNumberOfBookings = con.prepareStatement(String.format(
+								"UPDATE HallTime"
+								+ " SET availablePlaces = "+(numberOfBookings+availablePlaces)+" "
+								+ " WHERE Course_courseCode = '%s' "
+								+ " AND week = '%s' "
+								+ " AND day = '%s' "
+								+ " AND timeStart = '%s' "
+								+ " AND timeEnd = '%s'",coursecode, week, day, timeStart, timeEnd));
+						
+						addNumberOfBookings.executeUpdate();
+					}
+				}} catch (Exception e) {
+					System.out.println(e);
+				}			
 			}
 			
 		} catch (Exception e) {
@@ -131,10 +137,12 @@ public class DBBooking extends DBConnection {
 		}
 	}
 	
+
+	
 	public static void main(String[] args) {
 		
 		//addHalltimeBookings("TDT4140", 3, 1, "08:00:00", "08:15:00", 7);
-		addHalltimeBookings("TDT4140", 3, 2, "08:15:00", "08:30:00",3);
+		addHalltimeBookings("TDT4140", 3, 2, LocalTime.of(8,15), LocalTime.of(8,30), 15, 3);
 	}
 	
 
