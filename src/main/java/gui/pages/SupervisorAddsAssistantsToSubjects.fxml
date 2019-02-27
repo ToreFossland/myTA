@@ -36,7 +36,7 @@
             </HBox>
             <HBox alignment="CENTER" prefHeight="87.0" prefWidth="800.0">
                <children>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Select subject in the scrollpane beneat and add assistants by email ">
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Select subject in the scrollpane beneath and add assistants by email ">
                      <font>
                         <Font size="17.0" />
                      </font>

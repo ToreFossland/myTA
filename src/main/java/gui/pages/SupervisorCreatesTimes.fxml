@@ -120,7 +120,8 @@
                            <font>
                               <Font size="15.0" />
                            </font></Text>
-                        <CheckBox mnemonicParsing="false" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="1" />
+                           
+                        <CheckBox fx:id="checkBox1" onAction="handleCheckBox1" mnemonicParsing="false" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="1" />
                         <CheckBox mnemonicParsing="false" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="1" />
                         <CheckBox mnemonicParsing="false" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="2" />
                         <CheckBox mnemonicParsing="false" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="3" />

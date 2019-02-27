@@ -190,8 +190,8 @@
                               <Font size="15.0" />
                            </font></Text>
                         <HBox alignment="BOTTOM_RIGHT" style="-fx-background-color: #2bd8ac;" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
-                           <children>
-                              <CheckBox mnemonicParsing="false" />
+                           <children>                  
+                              <CheckBox  mnemonicParsing="false" />
                            </children>
                         </HBox>
                         <HBox alignment="BOTTOM_RIGHT" style="-fx-background-color: #2bd8ac;" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="2">
