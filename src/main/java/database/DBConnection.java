@@ -10,8 +10,6 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.Statement;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -32,14 +30,26 @@ public class DBConnection {
 	 */
 
 	// TODO: add cache for storing data from frequently used DB queries
+	
+	private static Connection con;
+	
+	//Stores the connection
+	public static void main(String[] args) {
+		try {
+			DBConnection.con = getConnection();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 
 //lager connection til databasen som er noedvendig for aa manipulere den
 	public static Connection getConnection() throws Exception {
 		try {
 			String driver = "com.mysql.cj.jdbc.Driver";
 			String url = "jdbc:mysql://mysql.stud.ntnu.no:3306/davidaan_bookingsystem";
-			String username = "davidaan";
-			String password = "aiko97";
+			String username = "fs_tdt4140_1_gruppe18";
+			String password = "gruppe18";
 			Class.forName(driver);
 
 			Connection conn = DriverManager.getConnection(url, username, password);
@@ -104,8 +114,9 @@ public class DBConnection {
 	 */
 
 //sjekker om faget eksisterer i Coursetabellen
-	public static boolean fagEksisterer(String fagKode) throws Exception {
+	public static boolean fagEksisterer(String fagkode) throws Exception {
 		boolean eksisterer = false;
+		String fagKode = fagkode.toUpperCase();
 		try {
 			Connection con = getConnection();
 			PreparedStatement statement = con.prepareStatement("SELECT CourseKode FROM Course");
@@ -149,15 +160,18 @@ public class DBConnection {
 
 	}
 
-	public static boolean userExists(String username) throws Exception {
+	public static boolean userExists(String userName) throws Exception {
+		String username = userName.toLowerCase();
 		return elementExists("User", "username", username);
 	}
 
 //sjekker om email eksisterer i bruker
-	public static boolean emailEksisterer(String email) throws Exception {
+	public static boolean emailEksisterer(String emailInput) throws Exception {
 		boolean eksisterer = false;
 		try {
 			Connection con = getConnection();
+			String email = emailInput.toLowerCase();
+			
 			PreparedStatement statement = con.prepareStatement("SELECT email FROM User");
 
 			ResultSet result = statement.executeQuery();
@@ -183,6 +197,7 @@ public class DBConnection {
 		try {
 			Connection con = getConnection();
 			String username = usernameInput.toLowerCase();
+			
 			if (elementExists("User", "username", username)) {
 				PreparedStatement statement = con
 						.prepareStatement("SELECT password FROM User Where username ='" + username + "'");
@@ -220,6 +235,7 @@ public class DBConnection {
 		try {
 			Connection con = getConnection();
 			String email = emailInput.toLowerCase();
+			String username = userName.toLowerCase();
 
 			// Legger inn bruker med email, username, navn og password dersom email ikke
 			// eksisterer
@@ -264,49 +280,61 @@ public class DBConnection {
 		return nyId;
 	}
 
-//ikke fullfort
-	public static boolean brukerHarCourseEksisterer(int idUserInput, int idCourseInput, char roleInput) {
+//Sjekker om en bruker med fag og rolle eksisterer i User_has_Course
+	public static boolean brukerHarCourseEksisterer(String userName, String coursecode, int role) {
 		boolean eksisterer = false;
 		try {
 			Connection con = getConnection();
-			PreparedStatement finnIdUser = con.prepareStatement("SELECT idUser FROM User_has_Course");
-			// PreparedStatement finnIdCourse = con.prepareStatement("SELECT idUser FROM
-			// User_has_Course");
-			// PreparedStatement finnRolle = con.prepareStatement("SELECT idUser FROM
-			// User_has_Course");
-			ResultSet idUser = finnIdUser.executeQuery();
+			//setter det på riktig format. onsker username i lowercase og coursecode i uppercase
+			String username = userName.toLowerCase();
+			String courseCode = coursecode.toUpperCase();
+			
+			PreparedStatement findUsername = con.prepareStatement("SELECT User_username, Course_courseCode, role "
+					+ "FROM User_has_Course ");
+			//PreparedStatement findCourseCode = con.prepareStatement("SELECT Course_courseCode FROM User_has_Course");
+			//PreparedStatement findRolle = con.prepareStatement("SELECT role FROM User_has_Course");
+			ResultSet rs = findUsername.executeQuery();
+			
 			// ResultSet idCourse = finnIdCourse.executeQuery();
 			// ResultSet role = finnRolle.executeQuery();
+			
+			
 
-			while (idUser.next() && eksisterer == false) {
-				if (Objects.equals(idUser.getString("username"), idUserInput)) {
+			while (rs.next() && eksisterer == false) {
+				if (Objects.equals(rs.getString("User_username"), username) && Objects.equals(rs.getString("Course_courseCode"), courseCode) && Objects.equals(rs.getInt("role"),role)) {
 					eksisterer = true;
 				}
 			}
-			// System.out.println(eksisterer);
+			
 		} catch (Exception e) {
 			System.out.println(e);
 
 		}
+		//System.out.println(eksisterer);
 		return eksisterer;
+		
 
 	}
+	
+	
 
 //Legg til kobling i UsereHarCourse
-	public static void leggTilUserHarCourse(int idUser, int idCourse, char role) {
+	public static void leggTilUserHarCourse(String userName, String coursecode, int role) {
 		try {
 			Connection con = getConnection();
+			String username = userName.toLowerCase();
+			String courseCode = coursecode.toUpperCase();
 
 			// legger inn kobling om det ikke eksisterer
-			if (brukerHarCourseEksisterer(idUser, idCourse, role) == false) {
+			if (brukerHarCourseEksisterer(username, courseCode, role) == false) {
 
 				PreparedStatement leggInnKobling = con
-						.prepareStatement("INSERT INTO User_has_Course (idUser,idCourse,role) VALUES('" + idUser + "','"
-								+ idCourse + "','" + idUser + "')");
+						.prepareStatement("INSERT INTO User_has_Course (User_username,Course_courseCode,role) VALUES('" + username + "','"
+								+ courseCode + "','" + role + "')");
 				leggInnKobling.executeUpdate();
-				System.out.println("Lagt inn kobling til brukerId" + idUser);
+				System.out.println("Lagt inn kobling til brukerId " + username);
 			} else {
-				System.out.println("Course " + idUser + " eksisterer.");
+				System.out.println("The course for " + username + " exists.");
 			}
 		} catch (Exception e) {
 			System.out.println(e);
@@ -336,12 +364,12 @@ public class DBConnection {
 			st = con.prepareStatement(query);
 			rs = st.executeQuery();
 
-			Map<String, Character> coursesAndRoles = new HashMap<String, Character>();
+			Map<String, Integer> coursesAndRoles = new HashMap<String, Integer>();
 			while (rs.next()) {
-				coursesAndRoles.put(rs.getString("Course_courseCode"), rs.getString("role").charAt(0));
+				coursesAndRoles.put(rs.getString("Course_courseCode"), rs.getInt("role"));
 			}
 
-			return new User(username, firstName, lastName, email, password, coursesAndRoles);
+			return User.generateUserObject(username, firstName, lastName, email, password, coursesAndRoles);
 
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -349,4 +377,26 @@ public class DBConnection {
 		}
 		return null;
 	}
+	
+
+	//Obtains highest permission that the user has. Assumes it's a student if no permissions has been set in the database (returns 1)
+	/*public static int getUserPermission(String username) {
+		try {
+			PreparedStatement findRole = con.prepareStatement("SELECT DISTINCT role FROM User_has_Course WHERE User_username = %s");
+			ResultSet roles = findRole.executeQuery();
+			
+			int permission = 1;
+			while(roles.next()) {
+				permission = roles.getInt("role") > permission ? roles.getInt("role") : permission;
+			}
+			
+			return permission;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return 1;
+	}*/
+
 }

@@ -34,7 +34,7 @@
                         <Insets left="40.0" />
                      </HBox.margin>
                   </TextField>
-                  <Label fx:id="invalid_username_label" text="Enter valid username/email" visible="false">
+                  <Label fx:id="invalid_username_label" text="Enter valid username/email (ends with ntnu.no)" visible="false">
                      <HBox.margin>
                         <Insets left="20.0" />
                      </HBox.margin>
