@@ -11,15 +11,15 @@ public class BookingTA {
 	private String courseCode;
 	private LocalTime startTime;
 	private String emailStudent;
-	
-	public void BookingTA(Halltime halltime, User TA) {
+
+	public BookingTA(Halltime halltime, User TA) {
 		this.emailTA = TA.getEmail();
 		this.setStartTime(halltime.getTimeStart());
 		this.courseCode = halltime.getCourseCode();
 	}
 	
-	public void BookingTA(Halltime halltime, User TA, User student) {
-		BookingTA(halltime,TA);
+	public BookingTA(Halltime halltime, User TA, User student) {
+		this(halltime,TA);
 		this.emailStudent = student.getEmail();		
 	}
 	

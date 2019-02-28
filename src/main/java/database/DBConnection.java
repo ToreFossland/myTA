@@ -369,7 +369,7 @@ public class DBConnection {
 				coursesAndRoles.put(rs.getString("Course_courseCode"), rs.getInt("role"));
 			}
 
-			return User.generateUserObject(username, firstName, lastName, email, password, coursesAndRoles);
+			return User.generateUserObject(email, firstName, lastName, coursesAndRoles);
 
 		} catch (Exception e) {
 			// TODO Auto-generated catch block

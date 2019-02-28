@@ -73,11 +73,4 @@ public class Halltime {
 	}
 	//public static void assignHalltime(String courseCode, )
 
-	public int getIdHallTime() {
-		return idHallTime;
-	}
-
-	public void setIdHallTime(int idHallTime) {
-		this.idHallTime = idHallTime;
-	}
 }

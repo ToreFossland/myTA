@@ -6,10 +6,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 
 import halltimes.BookingTA;
 import halltimes.Halltime;
+import user.User;
 
 public class DBBooking extends DBConnection {
 
@@ -172,7 +175,7 @@ public class DBBooking extends DBConnection {
 		}
 	}
 	
-	public void addHalltimeTA(BookingTA booking) {
+	public static void addHalltimeTA(BookingTA booking) throws Exception {
 		String emailTA = booking.getEmailTA();
 		String courseCode = booking.getCourseCode();
 		LocalTime timeStart = booking.getStartTime();
@@ -187,7 +190,9 @@ public class DBBooking extends DBConnection {
 					+ "FROM Booking INNER JOIN HallTime "
 					+ "ON Booking.HallTime_idHallTime = HallTime.idHallTime "
 					+ "WHERE TeachingAssistant_email = %s AND Course_courseCode = %s AND timeStart = %s"),
-					emailTA, courseCode, timeStart));
+					emailTA, courseCode, timeStart.toString()));
+			
+			statement.execute();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -195,11 +200,18 @@ public class DBBooking extends DBConnection {
 	}
 	
 	public static void main(String[] args) {
-		LocalTime timeStart = LocalTime.of(13, 00, 00);
-		LocalTime timeEnd = LocalTime.of(15, 00, 00);
+		Map<String,Integer> coursesAndRoles = new HashMap<String,Integer>();
+		LocalTime timeStart = LocalTime.of(13, 0,0);
+		LocalTime timeEnd = LocalTime.of(15, 0,0);
 		Halltime ht = new Halltime("TDT4140", 5, 3, timeStart, timeEnd,15);
-		User TA = User.
-		BookingTA BTA = new BookingTA(ht, )
+		User TA = User.generateUserObject("abc@ntnu.no", "abc", "def", coursesAndRoles);
+		BookingTA BTA = new BookingTA(ht, TA);
+		try {
+			addHalltimeTA(BTA);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 }

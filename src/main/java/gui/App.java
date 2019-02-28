@@ -124,7 +124,7 @@ public class App extends Application {
 		Map<String, Integer> courses = new HashMap<String, Integer>();
 		password = toMD5(password);
 		DBConnection.registerUser(email, password, userName, firstName, lastName, skipCheck);
-		loggedUser = User.generateUserObject(userName, firstName, lastName, email, password, courses);
+		loggedUser = User.generateUserObject(email, firstName, lastName, courses);
 		System.out.println("Registration complete");
 		// doSomething
 	}

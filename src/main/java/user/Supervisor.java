@@ -14,11 +14,6 @@ import database.DBConnection;
 
 public class Supervisor extends TeachingAssistant {
 
-	public Supervisor(String username, String firstName, String lastName, String email, String password,
-			Map<String, Integer> coursesAndRoles) {
-		super(username, firstName, lastName, email, password, coursesAndRoles);
-		// TODO Auto-generated constructor stub
-	}
 	
 	/* 1 = student
 	 * 2 = studass
@@ -26,12 +21,17 @@ public class Supervisor extends TeachingAssistant {
 	 * 4 = admin
 	*/
 	
-	protected static void addTAPrivileges(String userName, String coursecode) {
+	public Supervisor(String email, String firstName, String lastName, Map<String, Integer> coursesAndRoles) {
+		super(email, firstName, lastName, coursesAndRoles);
+		// TODO Auto-generated constructor stub
+	}
+
+	protected static void addTAPrivileges(String email, String coursecode) {
 		int role = 2;
-		String username = userName.toLowerCase();
+		email = email.toLowerCase();
 		String courseCode = coursecode.toUpperCase();
-		if (DBConnection.brukerHarCourseEksisterer(username,courseCode,role)==false) {
-			DBConnection.leggTilUserHarCourse(username,courseCode,role);
+		if (DBConnection.brukerHarCourseEksisterer(email,courseCode,role)==false) {
+			DBConnection.leggTilUserHarCourse(email,courseCode,role);
 		}
 	}
 
