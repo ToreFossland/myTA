@@ -24,12 +24,12 @@ public class StudentPageController {
 	@FXML
 	Button button_messages;
 	
-	public void logoutHandler(javafx.event.ActionEvent event) {
-	// log out, go to login.fxml
-	// App.getInstance().gotoLogin();; ?
+	public void logoutHandler(javafx.event.ActionEvent event) throws Exception {
+		App.getInstance().gotoLogin();;
 	}
-	public void returnHandler() {
-	// Switches to login.fxml ?
+	public void returnHandler(javafx.event.ActionEvent event) throws Exception {
+		App.getInstance().gotoProfile();;
+		
 	}
 	public void bookTAHandler() {
 		// switched to BookingForStudent.fxml - ikke lagt inn FXML
