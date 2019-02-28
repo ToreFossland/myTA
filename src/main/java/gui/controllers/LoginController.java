@@ -12,7 +12,7 @@ import javafx.scene.control.TextField;
 public class LoginController {
 
 	// Login page:
-	@FXML
+	@FXML 
 	TextField user_input;
 
 	@FXML

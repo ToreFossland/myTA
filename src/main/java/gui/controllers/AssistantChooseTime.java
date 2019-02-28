@@ -9,7 +9,7 @@ import javafx.scene.control.CheckBox;
 
 public class AssistantChooseTime {
 	
-	@FXML 
+	@FXML
 	Button button_return;
 	
 	@FXML

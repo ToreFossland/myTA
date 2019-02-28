@@ -12,7 +12,7 @@ import javafx.scene.control.TextField;
 
 public class RegisterController {
 
-	@FXML
+	@FXML 
 	TextField first_name_input;
 
 	@FXML

@@ -5,7 +5,7 @@ import javafx.scene.control.Label;
 
 public class GuiController {
 	//Generic page:
-	@FXML
+	@FXML 
 	Label welcome_text;
 
 }

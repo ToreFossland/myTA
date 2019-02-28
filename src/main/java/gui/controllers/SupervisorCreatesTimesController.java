@@ -17,7 +17,7 @@ public class SupervisorCreatesTimesController {
 	Button button_return;
 	
 	@FXML 
-	CheckBox checkBox1;
+	CheckBox checkBox1; 
 	
 	
 	public void handleCheckBox(ActionEvent event) {

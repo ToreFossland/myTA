@@ -12,7 +12,7 @@ public class SupervisorAddsAssistantsToSubjects {
 	 * and add assistants by email
 	 */
 	
-	@FXML 
+	@FXML
 	Button button_return;
 	
 	@FXML
