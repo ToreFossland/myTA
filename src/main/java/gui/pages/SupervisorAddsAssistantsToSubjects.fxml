@@ -27,7 +27,7 @@
                      </children>
                   </HBox>
                   <HBox prefHeight="62.0" prefWidth="191.0" />
-                  <Button mnemonicParsing="false" style="-fx-background-color: blue;" text="Return" textFill="WHITE">
+                  <Button fx:id="button_return" onAction="#returnHandler" mnemonicParsing="false" style="-fx-background-color: blue;" text="Return" textFill="WHITE">
                      <font>
                         <Font size="13.0" />
                      </font>
@@ -69,7 +69,7 @@
             </HBox>
             <HBox alignment="CENTER" prefHeight="125.0" prefWidth="800.0">
                <children>
-                  <Button mnemonicParsing="false" style="-fx-background-color: black;" text="Confirm assistants" textFill="WHITE">
+                  <Button fx:id="button_confirm_assistants" onAction="#confirmAssistantsHandler" mnemonicParsing="false" style="-fx-background-color: black;" text="Confirm assistants" textFill="WHITE">
                      <font>
                         <Font size="17.0" />
                      </font>

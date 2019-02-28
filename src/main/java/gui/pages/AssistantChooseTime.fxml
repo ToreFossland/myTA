@@ -30,7 +30,7 @@
                      </children>
                   </HBox>
                   <HBox prefHeight="60.0" prefWidth="190.0" />
-                  <Button mnemonicParsing="false" style="-fx-background-color: blue;" text="Return" textFill="WHITE">
+                  <Button fx:id="button_return" onAction="#returnHandler" mnemonicParsing="false" style="-fx-background-color: blue;" text="Return" textFill="WHITE">
                      <font>
                         <Font size="13.0" />
                      </font>
@@ -145,7 +145,7 @@
                         </Text>
                         <HBox alignment="BOTTOM_RIGHT" style="-fx-background-color: #2bd8ac;" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
                            <children>
-                              <CheckBox mnemonicParsing="false" />
+                              <CheckBox fx:id="checkBox1" onAction="handleCheckBox1" mnemonicParsing="false" />
                            </children>
                         </HBox>
                         <HBox alignment="BOTTOM_RIGHT" style="-fx-background-color: #2bd8ac;" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
@@ -253,7 +253,7 @@
             </HBox>
             <HBox alignment="CENTER" prefHeight="102.0" prefWidth="800.0">
                <children>
-                  <Button mnemonicParsing="false" style="-fx-background-color: black;" text="Confirm selected times" textFill="WHITE">
+                  <Button fx:id="button_confirm_assistant_times" onAction="#confirmHandler" mnemonicParsing="false" style="-fx-background-color: black;" text="Confirm selected times" textFill="WHITE">
                      <font>
                         <Font size="17.0" />
                      </font>

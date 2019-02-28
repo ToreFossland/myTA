@@ -30,7 +30,7 @@
                      </children>
                   </HBox>
                   <HBox prefHeight="61.0" prefWidth="206.0" />
-                  <Button mnemonicParsing="false" style="-fx-background-color: blue;" text="Return" textFill="WHITE">
+                  <Button fx:id="button_return" onAction="#returnHandler" mnemonicParsing="false" style="-fx-background-color: blue;" text="Return" textFill="WHITE">
                      <font>
                         <Font size="13.0" />
                      </font>
