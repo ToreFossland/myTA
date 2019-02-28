@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.Objects;
 
 import halltimes.Halltime;
@@ -28,11 +29,16 @@ public class DBBooking extends DBConnection {
 //	}
 /*
 	public static void main(String[] args) {
+		
+		ArrayList<Halltime> halltimes = new ArrayList<Halltime>();
 
-		LocalTime timeStart = LocalTime.of(8, 00, 00);
-		LocalTime timeEnd = LocalTime.of(16, 00, 00);
-		Halltime ht = new Halltime("TDT4140", 5, 3, timeStart, timeEnd, 20);
-		supervisorAddHalltime(ht, 20);
+		LocalTime timeStart = LocalTime.of(10, 00, 00);
+		LocalTime timeEnd = LocalTime.of(14, 00, 00);
+		halltimes.add(new Halltime("TDT4140", 5, 3, timeStart, timeEnd,15));
+		timeStart = LocalTime.of(13, 00, 00);
+		timeEnd = LocalTime.of(15, 00, 00);
+		halltimes.add(new Halltime("TDT4140", 5, 3, timeStart, timeEnd, 13));
+		supervisorAddHalltime(halltimes, 20);
 	}*/
 
 	// Sjekker om halltid ligger inne
@@ -99,59 +105,60 @@ public class DBBooking extends DBConnection {
 
 	// Maa skrive inn tiden paa format "00:00:00";
 	// Interval in minutes
-	public static void supervisorAddHalltime(Halltime halltime, int interval) {
+	public static void supervisorAddHalltime(ArrayList<Halltime> halltimes, int interval) {
 
 		try {
 			Connection con = getConnection();
-			String coursecode = halltime.getCourseCode().toUpperCase();
-			LocalTime bookTime = halltime.getTimeStart();
-			LocalTime timeEnd = halltime.getTimeEnd();
-			// General statement for inserting halltime if it doesn't already exist
 			PreparedStatement statement = con.prepareStatement(
 					"REPLACE INTO HallTime (Course_courseCode, week, day, timeStart, timeEnd, availablePlaces) VALUES (?,?,?,?,?,?)");
+			for (Halltime halltime : halltimes) {
+				String coursecode = halltime.getCourseCode().toUpperCase();
+				LocalTime bookTime = halltime.getTimeStart();
+				LocalTime timeEnd = halltime.getTimeEnd();
+				// General statement for inserting halltime if it doesn't already exist
 
-			while (timeEnd.isAfter(bookTime.plusMinutes(interval - 1))) {
-				// Specify question marks and add insert to the batch
-				statement.setString(1, coursecode);
-				statement.setString(2, Integer.toString(halltime.getWeek()));
-				statement.setString(3, Integer.toString(halltime.getDay()));
-				statement.setString(4, bookTime.toString());
-				statement.setString(5, bookTime.plusMinutes(interval).toString());
-				statement.setString(6, Integer.toString(halltime.getAvailablePlaces()));
-				bookTime.plusMinutes(interval);
-				statement.addBatch();
-				bookTime = bookTime.plusMinutes(interval);
+				while (timeEnd.isAfter(bookTime.plusMinutes(interval - 1))) {
+					// Specify question marks and add insert to the batch
+					statement.setString(1, coursecode);
+					statement.setString(2, Integer.toString(halltime.getWeek()));
+					statement.setString(3, Integer.toString(halltime.getDay()));
+					statement.setString(4, bookTime.toString());
+					statement.setString(5, bookTime.plusMinutes(interval).toString());
+					statement.setString(6, Integer.toString(halltime.getAvailablePlaces()));
+					bookTime.plusMinutes(interval);
+					statement.addBatch();
+					bookTime = bookTime.plusMinutes(interval);
 
-				/*
-				 * Halltime newHT = new Halltime(halltime.getCourseCode(), halltime.getWeek(),
-				 * halltime.getDay(), bookTime, bookTime.plusMinutes(interval), interval); if
-				 * (!halltimeExists(newHT)) {
-				 * 
-				 * query += String.format("(%s), ", newHT.toString());
-				 *
-				 * 
-				 * PreparedStatement bookingToDB = con.prepareStatement(String.format(
-				 * "INSERT INTO HallTime (idHallTime, Course_courseCode, week, day, timeStart, timeEnd, availablePlaces) "
-				 * + "VALUES(%s)", newHT.toString()));
-				 *
-				 * 
-				 * }
-				 * 
-				 * // Legger til plasser paa gammelID om det eksisterer. Sparer plass else { int
-				 * availablePlaces = getAvailablePlaces(halltime);
-				 * 
-				 * PreparedStatement addNumberOfBookings = con.prepareStatement(String.format(
-				 * "UPDATE HallTime" + " SET availablePlaces = " +
-				 * (halltime.getAvailablePlaces() + availablePlaces) + " " +
-				 * " WHERE Course_courseCode = '%s' " + " AND week = '%s' " + " AND day = '%s' "
-				 * + " AND timeStart = '%s' " + " AND timeEnd = '%s'", halltime.getCourseCode(),
-				 * Integer.toString(halltime.getWeek()), Integer.toString(halltime.getDay()),
-				 * halltime.getTimeStart().toString(), halltime.getTimeEnd().toString()));
-				 * 
-				 * addNumberOfBookings.executeUpdate(); } query = query.substring(0,
-				 * query.length() - 2); query += ";";
-				 */
-
+					/*
+					 * Halltime newHT = new Halltime(halltime.getCourseCode(), halltime.getWeek(),
+					 * halltime.getDay(), bookTime, bookTime.plusMinutes(interval), interval); if
+					 * (!halltimeExists(newHT)) {
+					 * 
+					 * query += String.format("(%s), ", newHT.toString());
+					 *
+					 * 
+					 * PreparedStatement bookingToDB = con.prepareStatement(String.format(
+					 * "INSERT INTO HallTime (idHallTime, Course_courseCode, week, day, timeStart, timeEnd, availablePlaces) "
+					 * + "VALUES(%s)", newHT.toString()));
+					 *
+					 * 
+					 * }
+					 * 
+					 * // Legger til plasser paa gammelID om det eksisterer. Sparer plass else { int
+					 * availablePlaces = getAvailablePlaces(halltime);
+					 * 
+					 * PreparedStatement addNumberOfBookings = con.prepareStatement(String.format(
+					 * "UPDATE HallTime" + " SET availablePlaces = " +
+					 * (halltime.getAvailablePlaces() + availablePlaces) + " " +
+					 * " WHERE Course_courseCode = '%s' " + " AND week = '%s' " + " AND day = '%s' "
+					 * + " AND timeStart = '%s' " + " AND timeEnd = '%s'", halltime.getCourseCode(),
+					 * Integer.toString(halltime.getWeek()), Integer.toString(halltime.getDay()),
+					 * halltime.getTimeStart().toString(), halltime.getTimeEnd().toString()));
+					 * 
+					 * addNumberOfBookings.executeUpdate(); } query = query.substring(0,
+					 * query.length() - 2); query += ";";
+					 */
+				}
 			}
 
 			statement.executeBatch();
