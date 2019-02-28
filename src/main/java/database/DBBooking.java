@@ -179,7 +179,9 @@ public class DBBooking extends DBConnection {
 		String emailTA = booking.getEmailTA();
 		String courseCode = booking.getCourseCode();
 		LocalTime timeStart = booking.getStartTime();
-		String emailStudent = booking.getEmailStudent();
+		int week = booking.getWeek();
+		int day = booking.getDay();
+		//String emailStudent = booking.getEmailStudent();
 		
 		try {
 			
@@ -189,8 +191,8 @@ public class DBBooking extends DBConnection {
 					+ " SELECT idHallTime, TeachingAssistant_email, Student_email "
 					+ "FROM Booking INNER JOIN HallTime "
 					+ "ON Booking.HallTime_idHallTime = HallTime.idHallTime "
-					+ "WHERE TeachingAssistant_email = %s AND Course_courseCode = %s AND timeStart = %s"),
-					emailTA, courseCode, timeStart.toString()));
+					+ "WHERE TeachingAssistant_email = %s AND Course_courseCode = %s AND timeStart = %s AND week = %s AND day = %s"),
+					emailTA, courseCode, timeStart.toString(), Integer.toString(week), Integer.toString(day)));
 			
 			statement.execute();
 		} catch (SQLException e) {

@@ -9,12 +9,16 @@ public class BookingTA {
 	
 	private String emailTA;
 	private String courseCode;
+	private int week;
+	private int day;
 	private LocalTime startTime;
 	private String emailStudent;
 
 	public BookingTA(Halltime halltime, User TA) {
 		this.emailTA = TA.getEmail();
 		this.setStartTime(halltime.getTimeStart());
+		this.setWeek(halltime.getWeek());
+		this.setDay(halltime.getDay());
 		this.courseCode = halltime.getCourseCode();
 	}
 	
@@ -54,6 +58,22 @@ public class BookingTA {
 
 	public void setStartTime(LocalTime startTime) {
 		this.startTime = startTime;
+	}
+
+	public int getDay() {
+		return day;
+	}
+
+	public void setDay(int day) {
+		this.day = day;
+	}
+
+	public int getWeek() {
+		return week;
+	}
+
+	public void setWeek(int week) {
+		this.week = week;
 	}
 	
 }
