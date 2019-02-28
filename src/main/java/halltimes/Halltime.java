@@ -72,4 +72,12 @@ public class Halltime {
 		return String.format("'%s','%s','%s','%s','%s','%s'", courseCode, Integer.toString(week), Integer.toString(day), timeStart.toString(), timeEnd.toString(), Integer.toString(availablePlaces));
 	}
 	//public static void assignHalltime(String courseCode, )
+
+	public int getIdHallTime() {
+		return idHallTime;
+	}
+
+	public void setIdHallTime(int idHallTime) {
+		this.idHallTime = idHallTime;
+	}
 }
