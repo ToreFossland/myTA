@@ -3,10 +3,7 @@ package database;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.Time;
 import java.time.LocalTime;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.Objects;
 
 import halltimes.Halltime;
@@ -34,7 +31,7 @@ public class DBBooking extends DBConnection {
 
 		LocalTime timeStart = LocalTime.of(8, 00, 00);
 		LocalTime timeEnd = LocalTime.of(16, 00, 00);
-		Halltime ht = new Halltime("TDT4140", 5, 3, timeStart, timeEnd, 100);
+		Halltime ht = new Halltime("TDT4140", 5, 3, timeStart, timeEnd, 20);
 		supervisorAddHalltime(ht, 20);
 	}*/
 
@@ -66,6 +63,7 @@ public class DBBooking extends DBConnection {
 					eksisterer = true;
 				}
 			}
+			con.close();
 
 		} catch (Exception e) {
 			System.out.println(e);
@@ -91,7 +89,7 @@ public class DBBooking extends DBConnection {
 			ResultSet rs = getAvailablePlaces.executeQuery();
 			rs.next();
 			availablePlaces = rs.getInt("availablePlaces");
-
+			con.close();
 		} catch (Exception e) {
 			System.out.println(e);
 
@@ -108,15 +106,12 @@ public class DBBooking extends DBConnection {
 			String coursecode = halltime.getCourseCode().toUpperCase();
 			LocalTime bookTime = halltime.getTimeStart();
 			LocalTime timeEnd = halltime.getTimeEnd();
-			Halltime newHT = new Halltime(halltime.getCourseCode(), halltime.getWeek(), halltime.getDay(), bookTime,
-					bookTime.plusMinutes(interval), halltime.getAvailablePlaces());
-
 			// General statement for inserting halltime if it doesn't already exist
 			PreparedStatement statement = con.prepareStatement(
 					"REPLACE INTO HallTime (Course_courseCode, week, day, timeStart, timeEnd, availablePlaces) VALUES (?,?,?,?,?,?)");
-					
+
 			while (timeEnd.isAfter(bookTime.plusMinutes(interval - 1))) {
-				//Specify question marks and add insert to the batch
+				// Specify question marks and add insert to the batch
 				statement.setString(1, coursecode);
 				statement.setString(2, Integer.toString(halltime.getWeek()));
 				statement.setString(3, Integer.toString(halltime.getDay()));
@@ -160,6 +155,7 @@ public class DBBooking extends DBConnection {
 			}
 
 			statement.executeBatch();
+			con.close();
 			System.out.println("Entries added");
 
 		} catch (Exception e) {
