@@ -3,10 +3,12 @@ package database;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Objects;
 
+import halltimes.BookingTA;
 import halltimes.Halltime;
 
 public class DBBooking extends DBConnection {
@@ -168,6 +170,36 @@ public class DBBooking extends DBConnection {
 		} catch (Exception e) {
 			System.out.println(e);
 		}
+	}
+	
+	public void addHalltimeTA(BookingTA booking) {
+		String emailTA = booking.getEmailTA();
+		String courseCode = booking.getCourseCode();
+		LocalTime timeStart = booking.getStartTime();
+		String emailStudent = booking.getEmailStudent();
+		
+		try {
+			
+			Connection con = getConnection();
+			PreparedStatement statement = con.prepareStatement(String.format(
+					("INSERT INTO Booking (HallTime_idHallTime, TeachingAssistant_email, Student_email)"
+					+ " SELECT idHallTime, TeachingAssistant_email, Student_email "
+					+ "FROM Booking INNER JOIN HallTime "
+					+ "ON Booking.HallTime_idHallTime = HallTime.idHallTime "
+					+ "WHERE TeachingAssistant_email = %s AND Course_courseCode = %s AND timeStart = %s"),
+					emailTA, courseCode, timeStart));
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public static void main(String[] args) {
+		LocalTime timeStart = LocalTime.of(13, 00, 00);
+		LocalTime timeEnd = LocalTime.of(15, 00, 00);
+		Halltime ht = new Halltime("TDT4140", 5, 3, timeStart, timeEnd,15);
+		User TA = User.
+		BookingTA BTA = new BookingTA(ht, )
 	}
 
 }
