@@ -182,8 +182,8 @@ public class App extends Application {
 					+ " WHERE User_email = '"+email+"' AND role = '"+Role+"'");
 			ResultSet rs = findEmailRole.executeQuery();
 			
-			//Hvis det ikke eksisterer noen objekter
-			if (rs.next() == false) {
+			//Hvis det eksisterer noen objekter
+			if (rs.next() == true) {
 				match=true;
 			}
 			

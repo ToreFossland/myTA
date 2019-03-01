@@ -40,6 +40,9 @@ public class RegisterController {
 	Label regbutton_label;
 
 	@FXML
+	Button Login;
+	
+	@FXML
 	public void ConfirmButtonHandler(javafx.event.ActionEvent event) throws Exception {
 
 		// Checks if username and password is valid. Sets to null if not.
@@ -71,10 +74,14 @@ public class RegisterController {
 		if (allInputsValid) {
 			App.getInstance().userRegister(email_input.getText(), password, first_name_input.getText(),
 					last_name_input.getText(), true);
-			App.getInstance().gotoProfile();
+			App.getInstance().gotoLogin();
 		} else {
 			regbutton_label.setVisible(true);
 		}
+	}
+	
+	public void gotoLogin(javafx.event.ActionEvent event) throws Exception {
+		App.getInstance().gotoLogin();
 	}
 
 	public void listeners() {

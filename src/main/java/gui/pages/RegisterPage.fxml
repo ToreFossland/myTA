@@ -15,18 +15,35 @@
    <children>
       <VBox prefHeight="600.0" prefWidth="486.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <HBox alignment="CENTER" prefHeight="61.0" prefWidth="335.0" style="-fx-background-color: #0099FF;">
+            <HBox alignment="CENTER" prefHeight="61.0" prefWidth="500.0" style="-fx-background-color: #0099FF;">
                <children>
-                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Register">
+                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Register" textAlignment="CENTER" wrappingWidth="350.4612922668457">
                      <font>
                         <Font size="25.0" />
                      </font>
                   </Text>
+                  <Button fx:id="Login" mnemonicParsing="false" onAction="#gotoLogin" prefHeight="40.0" prefWidth="95.0" style="-fx-background-color: #0033FF;" text="Login" textFill="WHITE">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Button>
                </children>
             </HBox>
             <HBox alignment="CENTER_LEFT" prefHeight="90.0" prefWidth="800.0">
                <children>
-                  <TextField fx:id="first_name_input" promptText="First Name">
+                  <TextField fx:id="first_name_input" prefHeight="40.0" prefWidth="260.0" promptText="First Name">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </TextField>
+               </children>
+               <VBox.margin>
+                  <Insets left="40.0" />
+               </VBox.margin>
+            </HBox>
+            <HBox alignment="CENTER_LEFT" minWidth="-Infinity" prefHeight="72.0" prefWidth="316.0">
+               <children>
+                  <TextField fx:id="last_name_input" prefHeight="40.0" prefWidth="260.0" promptText="Last Name">
                      <font>
                         <Font size="20.0" />
                      </font>
@@ -38,19 +55,7 @@
             </HBox>
             <HBox alignment="CENTER_LEFT" prefHeight="90.0" prefWidth="800.0">
                <children>
-                  <TextField fx:id="last_name_input" promptText="Last Name">
-                     <font>
-                        <Font size="20.0" />
-                     </font>
-                  </TextField>
-               </children>
-               <VBox.margin>
-                  <Insets left="40.0" />
-               </VBox.margin>
-            </HBox>
-            <HBox alignment="CENTER_LEFT" prefHeight="90.0" prefWidth="800.0">
-               <children>
-                  <TextField fx:id="email_input" alignment="TOP_LEFT" onKeyTyped="#checkValidEmailOnInput" prefWidth="249.0" promptText="Email">
+                  <TextField fx:id="email_input" alignment="TOP_LEFT" onKeyTyped="#checkValidEmailOnInput" prefHeight="40.0" prefWidth="260.0" promptText="Email">
                      <font>
                         <Font size="20.0" />
                      </font>
@@ -66,7 +71,7 @@
             </HBox>
             <HBox alignment="CENTER_LEFT" prefHeight="90.0" prefWidth="800.0">
                <children>
-                  <PasswordField fx:id="password_input" prefHeight="0.0" prefWidth="249.0" promptText="Password">
+                  <PasswordField fx:id="password_input" prefHeight="40.0" prefWidth="260.0" promptText="Password">
                      <font>
                         <Font size="20.0" />
                      </font>
@@ -78,7 +83,7 @@
             </HBox>
             <HBox alignment="CENTER_LEFT" prefHeight="90.0" prefWidth="800.0" style="-fx-background-color: white;">
                <children>
-                  <PasswordField fx:id="retype_password_input" onKeyTyped="#checkSamePassword" promptText="Repeat Password">
+                  <PasswordField fx:id="retype_password_input" onKeyTyped="#checkSamePassword" prefHeight="40.0" prefWidth="260.0" promptText="Repeat Password">
                      <font>
                         <Font size="20.0" />
                      </font>
@@ -94,12 +99,12 @@
             </HBox>
             <HBox alignment="CENTER_LEFT" prefHeight="87.0" prefWidth="800.0">
                <children>
-                  <Button fx:id="confirm_registration" mnemonicParsing="false" onAction="#ConfirmButtonHandler" style="-fx-background-color: #0099FF;" text="Confirm" textFill="WHITE">
+                  <Button fx:id="confirm_registration" mnemonicParsing="false" onAction="#ConfirmButtonHandler" prefHeight="40.0" prefWidth="263.0" style="-fx-background-color: #0099FF;" text="Confirm" textFill="WHITE">
                      <font>
                         <Font size="20.0" />
                      </font>
                   </Button>
-                  <Label fx:id="regbutton_label" text="Invalid input" visible="false">
+                  <Label fx:id="regbutton_label" prefHeight="28.0" prefWidth="141.0" text="Invalid input" visible="false">
                      <HBox.margin>
                         <Insets left="20.0" />
                      </HBox.margin></Label>
