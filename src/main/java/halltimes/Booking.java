@@ -5,7 +5,7 @@ import java.time.LocalTime;
 import gui.App;
 import user.User;
 
-public class BookingTA {
+public class Booking {
 	
 	private String emailTA;
 	private String courseCode;
@@ -14,7 +14,7 @@ public class BookingTA {
 	private LocalTime startTime;
 	private String emailStudent;
 
-	public BookingTA(Halltime halltime, User TA) {
+	public Booking(Halltime halltime, User TA) {
 		this.emailTA = TA.getEmail();
 		this.setStartTime(halltime.getTimeStart());
 		this.setWeek(halltime.getWeek());
@@ -22,7 +22,7 @@ public class BookingTA {
 		this.courseCode = halltime.getCourseCode();
 	}
 	
-	public BookingTA(Halltime halltime, User TA, User student) {
+	public Booking(Halltime halltime, User TA, User student) {
 		this(halltime,TA);
 		this.emailStudent = student.getEmail();		
 	}
