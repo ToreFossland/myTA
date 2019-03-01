@@ -30,6 +30,7 @@ public class Admin extends Supervisor {
 		int role = 3;
 		email = email.toLowerCase();
 		String courseCode = coursecode.toUpperCase();
+		
 		if (DBConnection.brukerHarCourseEksisterer(email,courseCode,role)==false) {
 			DBConnection.leggTilUserHarCourse(email,courseCode,role);
 		}

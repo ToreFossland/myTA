@@ -16,7 +16,7 @@ import java.util.Objects;
 
 import user.User;
 
-public class DBConnection {
+public abstract class DBConnection {
 
 	/*
 	 * README
@@ -30,21 +30,11 @@ public class DBConnection {
 	 */
 
 	// TODO: add cache for storing data from frequently used DB queries
-	
-	private static Connection con;
-	
-	//Stores the connection
-	public static void main(String[] args) {
-		try {
-			DBConnection.con = getConnection();
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
+
+	protected static Connection conn;
 
 //lager connection til databasen som er noedvendig for aa manipulere den
-	public static Connection getConnection() throws Exception {
+	public void getConnection() throws Exception {
 		try {
 			String driver = "com.mysql.cj.jdbc.Driver";
 			String url = "jdbc:mysql://mysql.stud.ntnu.no:3306/davidaan_bookingsystem";
@@ -52,14 +42,11 @@ public class DBConnection {
 			String password = "gruppe18";
 			Class.forName(driver);
 
-			Connection conn = DriverManager.getConnection(url, username, password);
+			conn = DriverManager.getConnection(url, username, password);
 			// System.out.println("Connected");
-			return conn;
 		} catch (Exception e) {
 			System.out.println(e);
 		}
-
-		return null;
 	}
 
 //setter inn fag med courseCode og fagnavn. Naturlig admin-funksjon
@@ -113,290 +100,16 @@ public class DBConnection {
 	 * System.out.println("Insert Completed"); } }
 	 */
 
-//sjekker om faget eksisterer i Coursetabellen
-	public static boolean fagEksisterer(String fagkode) throws Exception {
-		boolean eksisterer = false;
-		String fagKode = fagkode.toUpperCase();
-		try {
-			Connection con = getConnection();
-			PreparedStatement statement = con.prepareStatement("SELECT CourseKode FROM Course");
-
-			ResultSet result = statement.executeQuery();
-
-			while (result.next() && eksisterer == false) {
-				if (Objects.equals(result.getString("CourseKode"), fagKode)) {
-					eksisterer = true;
-				}
-			}
-			// System.out.println(eksisterer);
-		} catch (Exception e) {
-			System.out.println(e);
-
-		}
-		return eksisterer;
-
-	}
-
-	// checks if element exists in specified column
-	public static boolean elementExists(String table, String column, String searchFor) throws Exception {
-		boolean exists = false;
-		try {
-			Connection con = getConnection();
-			PreparedStatement statement = con.prepareStatement("SELECT " + column + " FROM " + table);
-
-			ResultSet result = statement.executeQuery();
-
-			while (result.next() && exists == false) {
-				if (Objects.equals(result.getString(column), searchFor)) {
-					exists = true;
-				}
-			}
-			// System.out.println(eksisterer);
-		} catch (Exception e) {
-			System.out.println(e);
-
-		}
-		return exists;
-
-	}
-
-	public static boolean userExists(String userName) throws Exception {
-		String username = userName.toLowerCase();
-		return elementExists("User", "username", username);
-	}
-
-//sjekker om email eksisterer i bruker
-	public static boolean emailEksisterer(String emailInput) throws Exception {
-		boolean eksisterer = false;
-		try {
-			Connection con = getConnection();
-			String email = emailInput.toLowerCase();
-			
-			PreparedStatement statement = con.prepareStatement("SELECT email FROM User");
-
-			ResultSet result = statement.executeQuery();
-
-			while (result.next() && eksisterer == false) {
-				if (Objects.equals(result.getString("email"), email)) {
-					eksisterer = true;
-				}
-			}
-			// System.out.println(eksisterer);
-		} catch (Exception e) {
-			System.out.println(e);
-
-		}
-		return eksisterer;
-
-	}
-
-//sjekker om password matcher email. Naturlig godkjenning for innlogging.
-//David: skiftet til username (primærnøkkel) i stedet
-	public static boolean usernamePasswordMatch(String usernameInput, String passwordInput) throws Exception {
-		boolean match = false;
-		try {
-			Connection con = getConnection();
-			String username = usernameInput.toLowerCase();
-			
-			if (elementExists("User", "username", username)) {
-				PreparedStatement statement = con
-						.prepareStatement("SELECT password FROM User Where username ='" + username + "'");
-				ResultSet password = statement.executeQuery();
-				password.next();
-				String fasit = password.getString("Password").toLowerCase();
-
-				if (Objects.equals(fasit, passwordInput)) {
-					match = true;
-					System.out.println("Passwordet er korrekt.");
-				} else {
-					System.out.println("Passwordet er feil.");
-				}
-
-			} else {
-				System.out.println("E-post eksisterer ikke");
-			}
-
-		} catch (Exception e) {
-			System.out.println(e);
-
-		}
-		return match;
-
-	}
-
-//registrerer bruker uten krav til email
-	public static void registerUser(String emailInput, String password, String userName, String firstName,
-			String lastName) {
-		registerUser(emailInput, password, userName, firstName, lastName, false);
-	}
-
-	public static void registerUser(String emailInput, String password, String userName, String firstName,
-			String lastName, boolean skipCheck) {
-		try {
-			Connection con = getConnection();
-			String email = emailInput.toLowerCase();
-			String username = userName.toLowerCase();
-
-			// Legger inn bruker med email, username, navn og password dersom email ikke
-			// eksisterer
-			if (skipCheck) {
-				PreparedStatement userToDb = con.prepareStatement(String.format(
-						"INSERT INTO User (email, password, username, firstName, lastName) VALUES('%s', '%s', '%s','%s','%s')",
-						email, password, userName, firstName, lastName));
-				userToDb.executeUpdate();
-			} else {
-				if (emailEksisterer(email) == false) {
-
-					PreparedStatement userToDb = con.prepareStatement(String.format(
-							"INSERT INTO User (email, password, username, firstName, lastName) VALUES('%s', '%s', '%s','%s','%s')",
-							email, password, userName, firstName, lastName));
-					userToDb.executeUpdate();
-					System.out.println("Added user: " + email);
-				}
-				// Gir beskjed om at brukeren eksisterer
-				else {
-					System.out.println("The user " + email + " exists. ");
-				}
-			}
-		} catch (Exception e) {
-			System.out.println(e);
-		}
-	}
-
 //finner siste brukerIden i lista og plusser med 1. Dette gir ny, unik brukerId  //d�d metode as of now
-	public static int nyUserId() throws Exception {
-
-		int nyId = 0;
-		try {
-			Connection con = getConnection();
-			PreparedStatement statement = con.prepareStatement("SELECT * FROM User ORDER BY idUser DESC LIMIT 1");
-			ResultSet forrigeId = statement.executeQuery();
-			forrigeId.next();
-			nyId = forrigeId.getInt("idUser") + 1;
-			System.out.println(nyId);
-		} catch (Exception e) {
-			System.out.println(e);
-		}
-		return nyId;
-	}
-
-//Sjekker om en bruker med fag og rolle eksisterer i User_has_Course
-	public static boolean brukerHarCourseEksisterer(String userName, String coursecode, int role) {
-		boolean eksisterer = false;
-		try {
-			Connection con = getConnection();
-			//setter det på riktig format. onsker username i lowercase og coursecode i uppercase
-			String username = userName.toLowerCase();
-			String courseCode = coursecode.toUpperCase();
-			
-			PreparedStatement findUsername = con.prepareStatement("SELECT User_username, Course_courseCode, role "
-					+ "FROM User_has_Course ");
-			//PreparedStatement findCourseCode = con.prepareStatement("SELECT Course_courseCode FROM User_has_Course");
-			//PreparedStatement findRolle = con.prepareStatement("SELECT role FROM User_has_Course");
-			ResultSet rs = findUsername.executeQuery();
-			
-			// ResultSet idCourse = finnIdCourse.executeQuery();
-			// ResultSet role = finnRolle.executeQuery();
-			
-			
-
-			while (rs.next() && eksisterer == false) {
-				if (Objects.equals(rs.getString("User_username"), username) && Objects.equals(rs.getString("Course_courseCode"), courseCode) && Objects.equals(rs.getInt("role"),role)) {
-					eksisterer = true;
-				}
-			}
-			
-		} catch (Exception e) {
-			System.out.println(e);
-
-		}
-		//System.out.println(eksisterer);
-		return eksisterer;
-		
-
-	}
-	
-	
-
-//Legg til kobling i UsereHarCourse
-	public static void leggTilUserHarCourse(String userName, String coursecode, int role) {
-		try {
-			Connection con = getConnection();
-			String username = userName.toLowerCase();
-			String courseCode = coursecode.toUpperCase();
-
-			// legger inn kobling om det ikke eksisterer
-			if (brukerHarCourseEksisterer(username, courseCode, role) == false) {
-
-				PreparedStatement leggInnKobling = con
-						.prepareStatement("INSERT INTO User_has_Course (User_username,Course_courseCode,role) VALUES('" + username + "','"
-								+ courseCode + "','" + role + "')");
-				leggInnKobling.executeUpdate();
-				System.out.println("Lagt inn kobling til brukerId " + username);
-			} else {
-				System.out.println("The course for " + username + " exists.");
-			}
-		} catch (Exception e) {
-			System.out.println(e);
-		} finally {
-			// System.out.println("Insert Completed");
-		}
-
-	}
-
-	// collects all relevant information about user (used when loggin in).
-	// Return Array and Dictionary of courses
-	public static User returnUserObject(String username) {
-		try {
-			Connection con = getConnection();
-			String query = String.format("SELECT * FROM User WHERE username = '%s'", username);
-			PreparedStatement st = con.prepareStatement(query);
-			ResultSet rs = st.executeQuery();
-			rs.next();
-
-			String firstName = rs.getString("firstName");
-			String lastName = rs.getString("lastName");
-			String password = rs.getString("password");
-			String email = rs.getString("email");
-
-			query = String.format("SELECT Course_courseCode, role FROM User_has_Course WHERE User_username = '%s'",
-					username);
-			st = con.prepareStatement(query);
-			rs = st.executeQuery();
-
-			Map<String, Integer> coursesAndRoles = new HashMap<String, Integer>();
-			while (rs.next()) {
-				coursesAndRoles.put(rs.getString("Course_courseCode"), rs.getInt("role"));
-			}
-
-			return User.generateUserObject(email, firstName, lastName, coursesAndRoles);
-
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return null;
-	}
-	
-
-	//Obtains highest permission that the user has. Assumes it's a student if no permissions has been set in the database (returns 1)
-	/*public static int getUserPermission(String username) {
-		try {
-			PreparedStatement findRole = con.prepareStatement("SELECT DISTINCT role FROM User_has_Course WHERE User_username = %s");
-			ResultSet roles = findRole.executeQuery();
-			
-			int permission = 1;
-			while(roles.next()) {
-				permission = roles.getInt("role") > permission ? roles.getInt("role") : permission;
-			}
-			
-			return permission;
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-		return 1;
-	}*/
+	/*
+	 * public static int nyUserId() throws Exception {
+	 * 
+	 * int nyId = 0; try { Connection con = getConnection(); PreparedStatement
+	 * statement =
+	 * con.prepareStatement("SELECT * FROM User ORDER BY idUser DESC LIMIT 1");
+	 * ResultSet forrigeId = statement.executeQuery(); forrigeId.next(); nyId =
+	 * forrigeId.getInt("idUser") + 1; System.out.println(nyId); } catch (Exception
+	 * e) { System.out.println(e); } return nyId; }
+	 */
 
 }

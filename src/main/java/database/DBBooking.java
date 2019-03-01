@@ -8,7 +8,6 @@ Mar 01 19   David	Creates booking
 
 package database;
 
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -56,9 +55,8 @@ public class DBBooking extends DBConnection {
 	public static boolean halltimeExists(Halltime halltime) {
 		boolean eksisterer = false;
 		try {
-			Connection con = getConnection();
 			String courseCode = halltime.getCourseCode().toUpperCase();
-			PreparedStatement findHalltime = con
+			PreparedStatement findHalltime = conn
 					.prepareStatement("SELECT Course_courseCode, week, day, timeStart, timeEnd FROM HallTime");
 			// PreparedStatement findCourseCode = con.prepareStatement("SELECT
 			// Course_courseCode FROM User_has_Course");
@@ -80,7 +78,7 @@ public class DBBooking extends DBConnection {
 					eksisterer = true;
 				}
 			}
-			con.close();
+			conn.close();
 
 		} catch (Exception e) {
 			System.out.println(e);
@@ -95,9 +93,8 @@ public class DBBooking extends DBConnection {
 	public static int getAvailablePlaces(Halltime halltime) {
 		int availablePlaces = 0;
 		try {
-			Connection con = getConnection();
 			String coursecode = halltime.getCourseCode().toUpperCase();
-			PreparedStatement getAvailablePlaces = con.prepareStatement(String.format(
+			PreparedStatement getAvailablePlaces = conn.prepareStatement(String.format(
 					"SELECT availablePlaces " + " FROM HallTime " + " WHERE Course_courseCode = '%s' "
 							+ " AND week = '%s' " + "	AND day = '%s' " + " AND timeStart = '%s' "
 							+ " AND timeEnd = '%s' ",
@@ -106,7 +103,6 @@ public class DBBooking extends DBConnection {
 			ResultSet rs = getAvailablePlaces.executeQuery();
 			rs.next();
 			availablePlaces = rs.getInt("availablePlaces");
-			con.close();
 		} catch (Exception e) {
 			System.out.println(e);
 
@@ -119,8 +115,7 @@ public class DBBooking extends DBConnection {
 	public static void supervisorAddHalltime(ArrayList<Halltime> halltimes, int interval) {
 
 		try {
-			Connection con = getConnection();
-			PreparedStatement statement = con.prepareStatement(
+			PreparedStatement statement = conn.prepareStatement(
 					"REPLACE INTO HallTime (Course_courseCode, week, day, timeStart, timeEnd, availablePlaces) VALUES (?,?,?,?,?,?)");
 			for (Halltime halltime : halltimes) {
 				String coursecode = halltime.getCourseCode().toUpperCase();
@@ -173,7 +168,6 @@ public class DBBooking extends DBConnection {
 			}
 
 			statement.executeBatch();
-			con.close();
 			System.out.println("Entries added");
 
 		} catch (Exception e) {
@@ -192,9 +186,7 @@ public class DBBooking extends DBConnection {
 
 		try {
 
-			Connection con = getConnection();
-
-			PreparedStatement getidHallTime = con.prepareStatement("SELECT idHallTime FROM HallTime "
+			PreparedStatement getidHallTime = conn.prepareStatement("SELECT idHallTime FROM HallTime "
 					+ "WHERE Course_courseCode = ? AND timeStart = ? AND week = ? AND day = ?");
 
 			getidHallTime.setString(1, courseCode);
@@ -206,7 +198,7 @@ public class DBBooking extends DBConnection {
 			rs.next();
 			int id = rs.getInt("idHallTime");
 
-			PreparedStatement statement = con.prepareStatement(
+			PreparedStatement statement = conn.prepareStatement(
 					"INSERT INTO Booking (HallTime_idHallTime, TeachingAssistant_email, Student_email) VALUES (?, ?, ?)");
 
 			statement.setInt(1, id);
@@ -226,7 +218,7 @@ public class DBBooking extends DBConnection {
 		Map<String, Integer> coursesAndRoles = new HashMap<String, Integer>();
 		LocalTime timeStart = LocalTime.of(13, 0, 0);
 		LocalTime timeEnd = LocalTime.of(15, 0, 0);
-		Halltime ht = new Halltime("TDT4140", 5, 3, timeStart, timeEnd, 15);
+		Halltime ht = new Halltime("TDT4140", 4, 3, timeStart, timeEnd, 15);
 		User TA = User.generateUserObject("abc@ntnu.no", "abc", "def", coursesAndRoles);
 		BookingTA BTA = new BookingTA(ht, TA);
 		try {

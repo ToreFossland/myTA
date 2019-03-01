@@ -41,7 +41,10 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import database.AddEntry;
+import database.CheckExistence;
 import database.DBConnection;
+import database.GetInfo;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.JavaFXBuilderFactory;
@@ -83,6 +86,7 @@ public class App extends Application {
             primaryStage.show();
         } catch (Exception ex) {
             Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
+            ex.printStackTrace();
         }
     }
 
@@ -91,21 +95,29 @@ public class App extends Application {
     }
 
     public boolean userLogin(String username, String password){
-
 		// encrypts the password with MD5
 		password = toMD5(password);
 
 		boolean success = false;
 
 		try {
-			success = DBConnection.usernamePasswordMatch(username, password);
+			CheckExistence match = new CheckExistence();
+			match.getConnection();
+			success = match.usernamePasswordMatch(username, password);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
 		if (success) {
-			loggedUser = DBConnection.returnUserObject(username);
+			GetInfo user = new GetInfo();
+			try {
+				user.getConnection();
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			loggedUser = user.returnUserObject(username);
 			return true;
 		} else {
 			return false;
@@ -123,7 +135,8 @@ public class App extends Application {
 			Boolean skipCheck) {
 		Map<String, Integer> courses = new HashMap<String, Integer>();
 		password = toMD5(password);
-		DBConnection.registerUser(email, password, userName, firstName, lastName, skipCheck);
+		AddEntry user = new AddEntry();
+		user.registerUser(email, password, firstName, lastName, skipCheck);
 		loggedUser = User.generateUserObject(email, firstName, lastName, courses);
 		System.out.println("Registration complete");
 		// doSomething
@@ -139,6 +152,7 @@ public class App extends Application {
             replaceSceneContent("pages/GenericPage.fxml");
         } catch (Exception ex) {
             Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
+            ex.printStackTrace();
         }
     }
 

@@ -3,6 +3,7 @@ package gui.controllers;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import database.CheckExistence;
 import database.DBConnection;
 import gui.App;
 import javafx.fxml.FXML;
@@ -43,14 +44,17 @@ public class RegisterController {
 	public void ConfirmButtonHandler(javafx.event.ActionEvent event) throws Exception {
 
 		// Checks if username and password is valid. Sets to null if not.
-		String username = isValidEmail(email_input.getText()) ? email_input.getText().split("@")[0] : null;
+		String username = isValidEmail(email_input.getText()) ? email_input.getText() : null;
 		String password = password_input.getText().equals(retype_password_input.getText()) ? password_input.getText()
 				: null;
 
 		Boolean validEmail = username != null;
 		Boolean validPassword = password != null;
 		Boolean validName = isValidName(first_name_input.getText()) && isValidName(last_name_input.getText());
-
+		CheckExistence CE = new CheckExistence();
+		CE.getConnection();
+		
+		
 		Boolean allInputsValid = true;
 		String label_output = "Invalid input";
 		if (!validEmail) {
@@ -62,7 +66,7 @@ public class RegisterController {
 		} else if (!validName) {
 			label_output = "Invalid name";
 			allInputsValid = false;
-		} else if (DBConnection.userExists(username)) {
+		} else if (CE.user(username)) {
 			label_output = "User already exists";
 			allInputsValid = false;
 		}
