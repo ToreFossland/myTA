@@ -1,10 +1,13 @@
 package gui.controllers;
 
+import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.temporal.WeekFields;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import org.mockito.Mockito;
@@ -17,7 +20,9 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.Spinner;
+import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.TextField;
 
 public class SupervisorCreatesTimesController {
@@ -89,16 +94,19 @@ public class SupervisorCreatesTimesController {
 	CheckBox checkBox20;
 
 	@FXML
-	ChoiceBox course_input;
+	ChoiceBox<String> course_input;
 	
 	@FXML
 	TextField course_input2;
 
 	@FXML
-	TextField week_input;
-
+	Spinner<Integer> availablePlaces_input;
+	
 	@FXML
-	TextField availablePlaces_input;
+	Spinner<Integer> week_input;
+	
+	@FXML
+	Label success_label;
 	
 	@FXML
     public void initialize() {
@@ -111,6 +119,7 @@ public class SupervisorCreatesTimesController {
 		*/
 		//Requires that user is logged inn
 		Map<String,Integer> coursesFromUser = App.getInstance().getLoggedUser().getMyCourses();
+		//Map<String,Integer> coursesFromUser = mockMap;
 		List<String> courses = new ArrayList<String>();
 		
 		for (String course : coursesFromUser.keySet()) {
@@ -119,6 +128,24 @@ public class SupervisorCreatesTimesController {
 		
 		//Populates choicebox with courses in which logged in user participates
         course_input.getItems().addAll(courses);
+        initSpinners();
+        
+    }
+	
+	private int getCurrentWeek() {
+	    LocalDate date = LocalDate.now();
+	    WeekFields weekFields = WeekFields.of(Locale.getDefault());
+	    return date.get(weekFields.weekOfWeekBasedYear());
+	}
+	
+    private void initSpinners() {
+        availablePlaces_input.setValueFactory(
+            new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 200)
+        );
+        
+        week_input.setValueFactory(
+                new SpinnerValueFactory.IntegerSpinnerValueFactory(getCurrentWeek(), 52)
+        );
     }
 	
 
@@ -130,8 +157,8 @@ public class SupervisorCreatesTimesController {
 		ArrayList<Halltime> Halltimes = new ArrayList<Halltime>();
 		LocalTime timeStart;
 		LocalTime timeEnd;
-		int week = Integer.parseInt(week_input.getText());
-		int availablePlaces = Integer.parseInt(availablePlaces_input.getText());
+		int week = week_input.getValue();
+		int availablePlaces = availablePlaces_input.getValue();
 		String course = ((String) course_input.getValue()).toUpperCase();
 		for (int i = 0; i < checkboxes.length; i++) {
 			for (int j = 0; j < checkboxes[i].length; j++) {
@@ -159,9 +186,15 @@ public class SupervisorCreatesTimesController {
 	}
 
 	@FXML
-	public void onClickConfirm(javafx.event.ActionEvent event) throws Exception {
-		DBBooking.supervisorAddHalltime(createHalltimes(), 30);
-		System.out.println("Halltimes added");
+	public void onClickConfirm(javafx.event.ActionEvent event){
+		try {
+			DBBooking.supervisorAddHalltime(createHalltimes(), 30);
+			success_label.setText("Assistant times added!");
+		} catch (Exception e) {
+			success_label.setText("Adding assistant times failed!");
+		} finally {
+			success_label.setVisible(true);
+		}
 	}
 
 }
