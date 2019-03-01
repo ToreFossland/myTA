@@ -152,9 +152,9 @@ public class DBConnection {
 
 	}
 
-	public static boolean userExists(String userName) throws Exception {
-		String username = userName.toLowerCase();
-		return elementExists("User", "username", username);
+	public static boolean userExists(String Email) throws Exception {
+		String email = Email.toLowerCase();
+		return elementExists("User", "email", email);
 	}
 
 //sjekker om email eksisterer i bruker
@@ -183,16 +183,16 @@ public class DBConnection {
 	}
 
 //sjekker om password matcher email. Naturlig godkjenning for innlogging.
-//David: skiftet til username (primærnøkkel) i stedet
-	public static boolean usernamePasswordMatch(String usernameInput, String passwordInput) throws Exception {
+// skiftet til email (primærnøkkel) i stedet
+	public static boolean usernamePasswordMatch(String emailInput, String passwordInput) throws Exception {
 		boolean match = false;
 		try {
 			Connection con = getConnection();
-			String username = usernameInput.toLowerCase();
+			String email = emailInput.toLowerCase();
 			
-			if (elementExists("User", "username", username)) {
+			if (elementExists("User", "email", email)) {
 				PreparedStatement statement = con
-						.prepareStatement("SELECT password FROM User Where username ='" + username + "'");
+						.prepareStatement("SELECT password FROM User Where email ='" + email + "'");
 				ResultSet password = statement.executeQuery();
 				password.next();
 				String fasit = password.getString("Password").toLowerCase();
@@ -216,32 +216,27 @@ public class DBConnection {
 
 	}
 
-//registrerer bruker uten krav til email
-	public static void registerUser(String emailInput, String password, String userName, String firstName,
-			String lastName) {
-		registerUser(emailInput, password, userName, firstName, lastName, false);
-	}
 
-	public static void registerUser(String emailInput, String password, String userName, String firstName,
+
+	public static void registerUser(String emailInput, String password, String firstName,
 			String lastName, boolean skipCheck) {
 		try {
 			Connection con = getConnection();
 			String email = emailInput.toLowerCase();
-			String username = userName.toLowerCase();
 
-			// Legger inn bruker med email, username, navn og password dersom email ikke
+			// Legger inn bruker med email, navn og password dersom email ikke
 			// eksisterer
 			if (skipCheck) {
 				PreparedStatement userToDb = con.prepareStatement(String.format(
-						"INSERT INTO User (email, password, username, firstName, lastName) VALUES('%s', '%s', '%s','%s','%s')",
-						email, password, userName, firstName, lastName));
+						"INSERT INTO User (email, password, firstName, lastName) VALUES('%s', '%s','%s','%s')",
+						email, password, firstName, lastName));
 				userToDb.executeUpdate();
 			} else {
 				if (emailEksisterer(email) == false) {
 
 					PreparedStatement userToDb = con.prepareStatement(String.format(
-							"INSERT INTO User (email, password, username, firstName, lastName) VALUES('%s', '%s', '%s','%s','%s')",
-							email, password, userName, firstName, lastName));
+							"INSERT INTO User (email, password, firstName, lastName) VALUES('%s', '%s','%s','%s')",
+							email, password, firstName, lastName));
 					userToDb.executeUpdate();
 					System.out.println("Added user: " + email);
 				}
@@ -309,6 +304,7 @@ public class DBConnection {
 	}
 	
 	
+	
 
 //Legg til kobling i UsereHarCourse
 	public static void leggTilUserHarCourse(String Email, String coursecode, int role) {
@@ -339,10 +335,10 @@ public class DBConnection {
 
 	// collects all relevant information about user (used when loggin in).
 	// Return Array and Dictionary of courses
-	public static User returnUserObject(String username) {
+	public static User returnUserObject(String email) {
 		try {
 			Connection con = getConnection();
-			String query = String.format("SELECT * FROM User WHERE username = '%s'", username);
+			String query = String.format("SELECT * FROM User WHERE email = '%s'", email);
 			PreparedStatement st = con.prepareStatement(query);
 			ResultSet rs = st.executeQuery();
 			rs.next();
@@ -350,10 +346,10 @@ public class DBConnection {
 			String firstName = rs.getString("firstName");
 			String lastName = rs.getString("lastName");
 			String password = rs.getString("password");
-			String email = rs.getString("email");
+			
 
-			query = String.format("SELECT Course_courseCode, role FROM User_has_Course WHERE User_username = '%s'",
-					username);
+			query = String.format("SELECT Course_courseCode, role FROM User_has_Course WHERE User_email = '%s'",
+					email);
 			st = con.prepareStatement(query);
 			rs = st.executeQuery();
 
@@ -362,7 +358,7 @@ public class DBConnection {
 				coursesAndRoles.put(rs.getString("Course_courseCode"), rs.getInt("role"));
 			}
 
-			return User.generateUserObject(username, firstName, lastName, email, password, coursesAndRoles);
+			return User.generateUserObject(firstName, lastName, email, password, coursesAndRoles);
 
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -393,6 +389,6 @@ public class DBConnection {
 	}*/
 
 	public static void main(String[] args) {
-		leggTilUserHarCourse("davidaan@ntnu.no", "tdt4140",1);
+		leggTilUserHarCourse("abc@ntnu.no", "tdt4145",3);
 	}
 }

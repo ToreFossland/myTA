@@ -12,9 +12,9 @@ import java.util.Map;
 
 public class TeachingAssistant extends Student{
 
-	public TeachingAssistant(String username, String firstName, String lastName, String email, String password,
+	public TeachingAssistant(String firstName, String lastName, String email, String password,
 			Map<String, Integer> coursesAndRoles) {
-		super(username, firstName, lastName, email, password, coursesAndRoles);
+		super(firstName, lastName, email, password, coursesAndRoles);
 		// TODO Auto-generated constructor stub
 	}
 	/* 1 = student

@@ -14,9 +14,9 @@ import database.DBConnection;
 
 public class Student extends User{
 
-	public Student(String username, String firstName, String lastName, String email, String password,
+	public Student(String firstName, String lastName, String email, String password,
 			Map<String, Integer> coursesAndRoles) {
-		super(username, firstName, lastName, email, password, coursesAndRoles);
+		super(firstName, lastName, email, password, coursesAndRoles);
 		// TODO Auto-generated constructor stub
 	}
 	
@@ -24,9 +24,9 @@ public class Student extends User{
 		int role = 1;
 		
 		String courseCode = coursecode.toUpperCase();
-		String username = getUsername();
-		if (DBConnection.brukerHarCourseEksisterer(username,courseCode,role)==false) {
-			DBConnection.leggTilUserHarCourse(username,courseCode,role);
+		String email = getEmail();
+		if (DBConnection.brukerHarCourseEksisterer(email,courseCode,role)==false) {
+			DBConnection.leggTilUserHarCourse(email,courseCode,role);
 		}
 		
 	}

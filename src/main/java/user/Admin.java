@@ -14,9 +14,9 @@ import database.DBConnection;
 
 public class Admin extends Supervisor {
 
-	public Admin(String username, String firstName, String lastName, String email, String password,
+	public Admin(String firstName, String lastName, String email, String password,
 			Map<String, Integer> coursesAndRoles) {
-		super(username, firstName, lastName, email, password, coursesAndRoles);
+		super(firstName, lastName, email, password, coursesAndRoles);
 		// TODO Auto-generated constructor stub
 	}
 	
@@ -26,12 +26,12 @@ public class Admin extends Supervisor {
 	 * 4 = admin
 	*/
 	
-	private static void addSupervisorPrivileges(String userName, String coursecode) {
+	private static void addSupervisorPrivileges(String Email, String coursecode) {
 		int role = 3;
-		String username = userName.toLowerCase();
+		String email = Email.toLowerCase();
 		String courseCode = coursecode.toUpperCase();
-		if (DBConnection.brukerHarCourseEksisterer(username,courseCode,role)==false) {
-			DBConnection.leggTilUserHarCourse(username,courseCode,role);
+		if (DBConnection.brukerHarCourseEksisterer(email,courseCode,role)==false) {
+			DBConnection.leggTilUserHarCourse(email,courseCode,role);
 		}
 		
 		

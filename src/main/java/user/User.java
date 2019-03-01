@@ -14,7 +14,6 @@ package user;
 import java.util.Map;
 
 public abstract class User{
-	private String username;
 	private String firstName;
 	private String lastName;
 	private String email;
@@ -22,9 +21,9 @@ public abstract class User{
 	private Map<String, Integer> myCourses; //Inneholder permission og fagkode, fagkode er n�kkelen. Se getPosition for kodeforklaring.
 	
 	
-	public User(String username, String firstName, String lastName, String email, String password,
+	public User(String firstName, String lastName, String email, String password,
 			Map<String, Integer> coursesAndRoles) {
-		this.username = username;
+		
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.email = email;
@@ -37,9 +36,6 @@ public abstract class User{
 	}
 	*/
 	
-	public String getUsername() {
-		return username;
-	}
 	
 	public String getFirstName() {
 		return firstName;
@@ -80,7 +76,7 @@ public abstract class User{
 		}
 	}
 	
-	public static User generateUserObject(String username, String firstName, String lastName, String email, String password,
+	public static User generateUserObject(String firstName, String lastName, String email, String password,
 			Map<String, Integer> coursesAndRoles) {
 		
 		int permission = 1;
@@ -90,15 +86,15 @@ public abstract class User{
 		
 		switch (permission) {
 		case 1:
-			return new Student(username, firstName, lastName, email, password, coursesAndRoles);
+			return new Student(firstName, lastName, email, password, coursesAndRoles);
 		case 2:
-			return new TeachingAssistant(username, firstName, lastName, email, password, coursesAndRoles);
+			return new TeachingAssistant(firstName, lastName, email, password, coursesAndRoles);
 		case 3:
-			return new Supervisor(username, firstName, lastName, email, password, coursesAndRoles);
+			return new Supervisor(firstName, lastName, email, password, coursesAndRoles);
 		case 4:
-			return new Admin(username, firstName, lastName, email, password, coursesAndRoles);
+			return new Admin(firstName, lastName, email, password, coursesAndRoles);
 		default:
-			return new Student(username, firstName, lastName, email, password, coursesAndRoles);
+			return new Student(firstName, lastName, email, password, coursesAndRoles);
 		}
 	}
 
