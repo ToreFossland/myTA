@@ -81,10 +81,6 @@ public class SupervisorCreatesTimesController {
 	@FXML
 	CheckBox checkBox20;
 
-	CheckBox[][] checkboxes = new CheckBox[][] { { checkBox1, checkBox2, checkBox3, checkBox4 },
-			{ checkBox5, checkBox6, checkBox7, checkBox8 }, { checkBox9, checkBox10, checkBox11, checkBox12 },
-			{ checkBox13, checkBox14, checkBox15, checkBox16 }, { checkBox17, checkBox18, checkBox19, checkBox20 } };
-
 	@FXML
 	TextField course_input;
 
@@ -96,6 +92,10 @@ public class SupervisorCreatesTimesController {
 	
 
 	private ArrayList<Halltime> createHalltimes() {
+		CheckBox[][] checkboxes = new CheckBox[][] { { checkBox1, checkBox2, checkBox3, checkBox4 },
+			{ checkBox5, checkBox6, checkBox7, checkBox8 }, { checkBox9, checkBox10, checkBox11, checkBox12 },
+			{ checkBox13, checkBox14, checkBox15, checkBox16 }, { checkBox17, checkBox18, checkBox19, checkBox20 } };
+			
 		ArrayList<Halltime> Halltimes = new ArrayList<Halltime>();
 		LocalTime timeStart;
 		LocalTime timeEnd;
