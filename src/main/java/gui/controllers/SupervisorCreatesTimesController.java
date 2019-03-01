@@ -10,8 +10,6 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-import org.mockito.Mockito;
-
 import database.DBBooking;
 import gui.App;
 import halltimes.Halltime;
