@@ -4,6 +4,7 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -156,7 +157,7 @@
                   <Label text="Available places" />
                   <TextField fx:id="availablePlaces_input" />
                   <Label text="Course" />
-                  <TextField fx:id="course_input" />
+                  <ChoiceBox fx:id="course_input" prefWidth="150.0" />
                   <Label text="Week" />
                   <TextField fx:id="week_input" />
                   <Button fx:id="button_confirm" defaultButton="true" mnemonicParsing="false" onAction="#onClickConfirm" style="-fx-background-color: black;" text="Confirm times" textFill="WHITE">

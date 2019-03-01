@@ -2,6 +2,12 @@ package gui.controllers;
 
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+
+import org.mockito.Mockito;
 
 import database.DBBooking;
 import gui.App;
@@ -10,6 +16,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.TextField;
 
@@ -82,13 +89,37 @@ public class SupervisorCreatesTimesController {
 	CheckBox checkBox20;
 
 	@FXML
-	TextField course_input;
+	ChoiceBox course_input;
+	
+	@FXML
+	TextField course_input2;
 
 	@FXML
 	TextField week_input;
 
 	@FXML
 	TextField availablePlaces_input;
+	
+	@FXML
+    public void initialize() {
+		//Acts as user courses
+		/*HashMap<String, Integer> mockMap = new HashMap<String, Integer>();
+		
+		mockMap.put("TDT4140", 3);
+		mockMap.put("TDT4145", 3);
+		mockMap.put("TMA2000", 3);
+		*/
+		//Requires that user is logged inn
+		Map<String,Integer> coursesFromUser = App.getInstance().getLoggedUser().getMyCourses();
+		List<String> courses = new ArrayList<String>();
+		
+		for (String course : coursesFromUser.keySet()) {
+			courses.add(course);
+		}
+		
+		//Populates choicebox with courses in which logged in user participates
+        course_input.getItems().addAll(courses);
+    }
 	
 
 	private ArrayList<Halltime> createHalltimes() {
@@ -101,7 +132,7 @@ public class SupervisorCreatesTimesController {
 		LocalTime timeEnd;
 		int week = Integer.parseInt(week_input.getText());
 		int availablePlaces = Integer.parseInt(availablePlaces_input.getText());
-		String course = course_input.getText().toUpperCase();
+		String course = ((String) course_input.getValue()).toUpperCase();
 		for (int i = 0; i < checkboxes.length; i++) {
 			for (int j = 0; j < checkboxes[i].length; j++) {
 				if (checkboxes[i][j].isSelected()) {
