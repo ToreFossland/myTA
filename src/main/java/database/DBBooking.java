@@ -1,3 +1,11 @@
+/*
+File: DBBooking.java    
+Date 	 	Author 	Changes
+--------------------------------------------
+Feb 28 19 	David 	Created
+Mar 01 19   David	Creates booking
+*/
+
 package database;
 
 import java.sql.Connection;
@@ -32,19 +40,17 @@ public class DBBooking extends DBConnection {
 //		}
 //		return htID;
 //	}
-/*
-	public static void main(String[] args) {
-		
-		ArrayList<Halltime> halltimes = new ArrayList<Halltime>();
-
-		LocalTime timeStart = LocalTime.of(10, 00, 00);
-		LocalTime timeEnd = LocalTime.of(14, 00, 00);
-		halltimes.add(new Halltime("TDT4140", 5, 3, timeStart, timeEnd,15));
-		timeStart = LocalTime.of(13, 00, 00);
-		timeEnd = LocalTime.of(15, 00, 00);
-		halltimes.add(new Halltime("TDT4140", 5, 3, timeStart, timeEnd, 13));
-		supervisorAddHalltime(halltimes, 20);
-	}*/
+	/*
+	 * public static void main(String[] args) {
+	 * 
+	 * ArrayList<Halltime> halltimes = new ArrayList<Halltime>();
+	 * 
+	 * LocalTime timeStart = LocalTime.of(10, 00, 00); LocalTime timeEnd =
+	 * LocalTime.of(14, 00, 00); halltimes.add(new Halltime("TDT4140", 5, 3,
+	 * timeStart, timeEnd,15)); timeStart = LocalTime.of(13, 00, 00); timeEnd =
+	 * LocalTime.of(15, 00, 00); halltimes.add(new Halltime("TDT4140", 5, 3,
+	 * timeStart, timeEnd, 13)); supervisorAddHalltime(halltimes, 20); }
+	 */
 
 	// Sjekker om halltid ligger inne
 	public static boolean halltimeExists(Halltime halltime) {
@@ -174,38 +180,53 @@ public class DBBooking extends DBConnection {
 			System.out.println(e);
 		}
 	}
-	
+
 	public static void addHalltimeTA(BookingTA booking) throws Exception {
 		String emailTA = booking.getEmailTA();
+		String studentEmail = booking.getEmailStudent();
 		String courseCode = booking.getCourseCode();
 		LocalTime timeStart = booking.getStartTime();
 		int week = booking.getWeek();
 		int day = booking.getDay();
-		//String emailStudent = booking.getEmailStudent();
-		
+		// String emailStudent = booking.getEmailStudent();
+
 		try {
-			
+
 			Connection con = getConnection();
-			PreparedStatement statement = con.prepareStatement(String.format(
-					("INSERT INTO Booking (HallTime_idHallTime, TeachingAssistant_email, Student_email)"
-					+ " SELECT idHallTime, TeachingAssistant_email, Student_email "
-					+ "FROM Booking INNER JOIN HallTime "
-					+ "ON Booking.HallTime_idHallTime = HallTime.idHallTime "
-					+ "WHERE TeachingAssistant_email = %s AND Course_courseCode = %s AND timeStart = %s AND week = %s AND day = %s"),
-					emailTA, courseCode, timeStart.toString(), Integer.toString(week), Integer.toString(day)));
-			
+
+			PreparedStatement getidHallTime = con.prepareStatement("SELECT idHallTime FROM HallTime "
+					+ "WHERE Course_courseCode = ? AND timeStart = ? AND week = ? AND day = ?");
+
+			getidHallTime.setString(1, courseCode);
+			getidHallTime.setString(2, timeStart.toString());
+			getidHallTime.setInt(3, week);
+			getidHallTime.setInt(4, day);
+
+			ResultSet rs = getidHallTime.executeQuery();
+			rs.next();
+			int id = rs.getInt("idHallTime");
+
+			PreparedStatement statement = con.prepareStatement(
+					"INSERT INTO Booking (HallTime_idHallTime, TeachingAssistant_email, Student_email) VALUES (?, ?, ?)");
+
+			statement.setInt(1, id);
+			statement.setString(2, emailTA);
+			statement.setString(3, studentEmail);
+
+			System.out.println(String.format("%s, %s, %s", Integer.toString(id), emailTA, studentEmail));
+
 			statement.execute();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
-	
+
 	public static void main(String[] args) {
-		Map<String,Integer> coursesAndRoles = new HashMap<String,Integer>();
-		LocalTime timeStart = LocalTime.of(13, 0,0);
-		LocalTime timeEnd = LocalTime.of(15, 0,0);
-		Halltime ht = new Halltime("TDT4140", 5, 3, timeStart, timeEnd,15);
+		Map<String, Integer> coursesAndRoles = new HashMap<String, Integer>();
+		LocalTime timeStart = LocalTime.of(13, 0, 0);
+		LocalTime timeEnd = LocalTime.of(15, 0, 0);
+		Halltime ht = new Halltime("TDT4140", 5, 3, timeStart, timeEnd, 15);
 		User TA = User.generateUserObject("abc@ntnu.no", "abc", "def", coursesAndRoles);
 		BookingTA BTA = new BookingTA(ht, TA);
 		try {
