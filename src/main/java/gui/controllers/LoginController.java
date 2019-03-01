@@ -33,7 +33,7 @@ public class LoginController {
 	@FXML
 	public void OnClickLog(javafx.event.ActionEvent event) throws Exception {
 		if (isValidUsernameOrEmail(user_input.getText())) {
-			String username = user_input.getText().split("@")[0];
+			String username = user_input.getText();
 			if (App.getInstance().userLogin(username, password_input.getText())) {
 				App.getInstance().gotoProfile();
 			} else {

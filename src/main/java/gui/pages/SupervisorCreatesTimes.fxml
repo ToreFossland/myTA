@@ -4,6 +4,8 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -13,7 +15,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="800.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="800.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.controllers.SupervisorCreatesTimesController">
    <children>
       <VBox prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -30,7 +32,7 @@
                      </children>
                   </HBox>
                   <HBox prefHeight="61.0" prefWidth="206.0" />
-                  <Button fx:id="button_return" onAction="#returnHandler" mnemonicParsing="false" style="-fx-background-color: blue;" text="Return" textFill="WHITE">
+                  <Button fx:id="button_return" mnemonicParsing="false" onAction="#returnHandler" style="-fx-background-color: blue;" text="Return" textFill="WHITE">
                      <font>
                         <Font size="13.0" />
                      </font>
@@ -121,26 +123,26 @@
                               <Font size="15.0" />
                            </font></Text>
                            
-                        <CheckBox fx:id="checkBox1" onAction="handleCheckBox1" mnemonicParsing="false" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="1" />
-                        <CheckBox mnemonicParsing="false" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="1" />
-                        <CheckBox mnemonicParsing="false" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="2" />
-                        <CheckBox mnemonicParsing="false" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="3" />
-                        <CheckBox mnemonicParsing="false" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="2" />
-                        <CheckBox mnemonicParsing="false" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="3" />
-                        <CheckBox mnemonicParsing="false" GridPane.columnIndex="3" GridPane.halignment="RIGHT" GridPane.rowIndex="1" />
-                        <CheckBox mnemonicParsing="false" GridPane.columnIndex="3" GridPane.halignment="RIGHT" GridPane.rowIndex="2" />
-                        <CheckBox mnemonicParsing="false" GridPane.columnIndex="4" GridPane.halignment="RIGHT" GridPane.rowIndex="1" />
-                        <CheckBox mnemonicParsing="false" GridPane.columnIndex="5" GridPane.halignment="RIGHT" GridPane.rowIndex="1" />
-                        <CheckBox mnemonicParsing="false" GridPane.columnIndex="4" GridPane.halignment="RIGHT" GridPane.rowIndex="2" />
-                        <CheckBox mnemonicParsing="false" GridPane.columnIndex="5" GridPane.halignment="RIGHT" GridPane.rowIndex="2" />
-                        <CheckBox mnemonicParsing="false" GridPane.columnIndex="3" GridPane.halignment="RIGHT" GridPane.rowIndex="3" />
-                        <CheckBox mnemonicParsing="false" GridPane.columnIndex="4" GridPane.halignment="RIGHT" GridPane.rowIndex="3" />
-                        <CheckBox mnemonicParsing="false" GridPane.columnIndex="5" GridPane.halignment="RIGHT" GridPane.rowIndex="3" />
-                        <CheckBox mnemonicParsing="false" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="4" />
-                        <CheckBox mnemonicParsing="false" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="4" />
-                        <CheckBox mnemonicParsing="false" GridPane.columnIndex="3" GridPane.halignment="RIGHT" GridPane.rowIndex="4" />
-                        <CheckBox mnemonicParsing="false" GridPane.columnIndex="4" GridPane.halignment="RIGHT" GridPane.rowIndex="4" />
-                        <CheckBox mnemonicParsing="false" GridPane.columnIndex="5" GridPane.halignment="RIGHT" GridPane.rowIndex="4" />
+                        <CheckBox fx:id="checkBox1" mnemonicParsing="false" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="1" />
+                        <CheckBox fx:id="checkBox5" mnemonicParsing="false" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="1" />
+                        <CheckBox fx:id="checkBox2" mnemonicParsing="false" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="2" />
+                        <CheckBox fx:id="checkBox3" mnemonicParsing="false" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="3" />
+                        <CheckBox fx:id="checkBox6" mnemonicParsing="false" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="2" />
+                        <CheckBox fx:id="checkBox7" mnemonicParsing="false" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="3" />
+                        <CheckBox fx:id="checkBox9" mnemonicParsing="false" GridPane.columnIndex="3" GridPane.halignment="RIGHT" GridPane.rowIndex="1" />
+                        <CheckBox fx:id="checkBox10" mnemonicParsing="false" GridPane.columnIndex="3" GridPane.halignment="RIGHT" GridPane.rowIndex="2" />
+                        <CheckBox fx:id="checkBox13" mnemonicParsing="false" GridPane.columnIndex="4" GridPane.halignment="RIGHT" GridPane.rowIndex="1" />
+                        <CheckBox fx:id="checkBox17" mnemonicParsing="false" GridPane.columnIndex="5" GridPane.halignment="RIGHT" GridPane.rowIndex="1" />
+                        <CheckBox fx:id="checkBox14" mnemonicParsing="false" GridPane.columnIndex="4" GridPane.halignment="RIGHT" GridPane.rowIndex="2" />
+                        <CheckBox fx:id="checkBox18" mnemonicParsing="false" GridPane.columnIndex="5" GridPane.halignment="RIGHT" GridPane.rowIndex="2" />
+                        <CheckBox fx:id="checkBox11" mnemonicParsing="false" GridPane.columnIndex="3" GridPane.halignment="RIGHT" GridPane.rowIndex="3" />
+                        <CheckBox fx:id="checkBox15" mnemonicParsing="false" GridPane.columnIndex="4" GridPane.halignment="RIGHT" GridPane.rowIndex="3" />
+                        <CheckBox fx:id="checkBox19" mnemonicParsing="false" GridPane.columnIndex="5" GridPane.halignment="RIGHT" GridPane.rowIndex="3" />
+                        <CheckBox fx:id="checkBox4" mnemonicParsing="false" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="4" />
+                        <CheckBox fx:id="checkBox8" mnemonicParsing="false" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="4" />
+                        <CheckBox fx:id="checkBox12" mnemonicParsing="false" GridPane.columnIndex="3" GridPane.halignment="RIGHT" GridPane.rowIndex="4" />
+                        <CheckBox fx:id="checkBox16" mnemonicParsing="false" GridPane.columnIndex="4" GridPane.halignment="RIGHT" GridPane.rowIndex="4" />
+                        <CheckBox fx:id="checkBox20" mnemonicParsing="false" GridPane.columnIndex="5" GridPane.halignment="RIGHT" GridPane.rowIndex="4" />
                      </children>
                      <styleClass>
                         <String fx:value="-fx-background-radius" />
@@ -151,7 +153,13 @@
             </HBox>
             <HBox alignment="CENTER" prefHeight="99.0" prefWidth="800.0">
                <children>
-                  <Button mnemonicParsing="false" style="-fx-background-color: black;" text="Confirm times" textFill="WHITE">
+                  <Label text="Available places" />
+                  <TextField fx:id="availablePlaces_input" />
+                  <Label text="Course" />
+                  <TextField fx:id="course_input" />
+                  <Label text="Week" />
+                  <TextField fx:id="week_input" />
+                  <Button fx:id="button_confirm" defaultButton="true" mnemonicParsing="false" onAction="#onClickConfirm" style="-fx-background-color: black;" text="Confirm times" textFill="WHITE">
                      <font>
                         <Font size="17.0" />
                      </font>
