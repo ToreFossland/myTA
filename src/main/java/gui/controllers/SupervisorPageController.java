@@ -9,11 +9,9 @@ public class SupervisorPageController {
 	@FXML
 	Button button_log_out;
 	
-	@FXML
-	Button button_return;
 	
 	@FXML
-	Button button_subjects_and_assistants;
+	Button button_add_assistants;
 	
 	@FXML
 	Button button_messages;
@@ -24,17 +22,15 @@ public class SupervisorPageController {
 	public void logoutHandler(javafx.event.ActionEvent event) throws Exception {
 		App.getInstance().gotoLogin();
 	}
-	public void returnHandler() {
-	// Switches to login.fxml ?
-	}
-	public void subjectsAndAssistantsHandler() {
-		// switches to: legg tilassistent
+	
+	public void addAssistantsHandler() {
+		App.getInstance().gotoSupervisorAddsAssistants();
 	}
 	public void messagesHandler() {
 		// ikke laget
 	}
 	public void createAssistantTimesHandler() {
-		//switches to: Create assistant times 
+		App.getInstance().gotoSupervisorCreatesTimes();
 	}
 
 }

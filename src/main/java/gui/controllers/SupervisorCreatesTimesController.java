@@ -172,8 +172,8 @@ public class SupervisorCreatesTimesController {
 		return Halltimes;
 	}
 
-	public void returnHandler(ActionEvent event) {
-		// TODO
+	public void returnHandler(javafx.event.ActionEvent event){
+		App.getInstance().gotoSupervisorPage();
 	}
 
 	public void handleCheckBox(ActionEvent event) {

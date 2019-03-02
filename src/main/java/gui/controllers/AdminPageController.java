@@ -69,5 +69,6 @@ public class AdminPageController {
 		App.getInstance().gotoLogin();
 	}
 	
+	
 
 }

@@ -50,10 +50,12 @@ import database.DBConnection;
 import halltimes.Booking;
 import halltimes.Halltime;
 import javafx.application.Application;
+import javafx.beans.value.ChangeListener;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.JavaFXBuilderFactory;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import user.*;
 
@@ -184,7 +186,22 @@ public class App extends Application {
         }
     }
     
-    	
+    public void gotoSupervisorAddsAssistants(){
+    	try {
+            replaceSceneContent("pages/SupervisorAddsAssistantsToSubjects.fxml");
+    		
+        } catch (Exception ex) {
+            Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void gotoSupervisorCreatesTimes() {
+    	try {
+            replaceSceneContent("pages/SupervisorCreatesTimes.fxml");
+        } catch (Exception ex) {
+            Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     
     public boolean isRole(String Email, int Role){
 		boolean match = false;
@@ -265,7 +282,6 @@ public class App extends Application {
 		return hashtext;
 	}
 
-	
 	
 	public void setDummyUser() {
 		Map<String, Integer> dummyCourse = new HashMap<String, Integer>();

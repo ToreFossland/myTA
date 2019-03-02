@@ -35,18 +35,19 @@ public class LoginController {
 	public void OnClickLog(javafx.event.ActionEvent event) throws Exception {
 		if (isValidEmail(user_input.getText())) {
 			String email = user_input.getText();
-			if (App.getInstance().userLogin(email, password_input.getText()) && App.getInstance().isRole(email,3)) {
-				App.getInstance().gotoSupervisorPage();
+
+			if (App.getInstance().userLogin(email, password_input.getText())){
+				if (App.getInstance().isRole(email,3)) {
+					App.getInstance().gotoSupervisorPage();
+				}
+				else if (App.getInstance().isRole(email,4)) {
+					App.getInstance().gotoAdminPage();
+					
+				}
+				else{
+					App.getInstance().gotoStudentPage();
+				}
 			} 
-			else if (App.getInstance().userLogin(email, password_input.getText()) && App.getInstance().isRole(email,4)) {
-				App.getInstance().gotoAdminPage();
-				
-			}
-			else if (App.getInstance().userLogin(email, password_input.getText())){
-				App.getInstance().gotoStudentPage();
-				
-			}
-				
 			else {
 				wrong_combination_label.setVisible(true);
 			}
