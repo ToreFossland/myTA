@@ -163,6 +163,14 @@ public class App extends Application {
         }
     }
     
+    public void gotoAssistantPage() {
+    	try {
+            replaceSceneContent("pages/AssistantPage.fxml");
+        } catch (Exception ex) {
+            Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
     public void gotoStudentPage() {
         try {
             replaceSceneContent("pages/StudentPage.fxml");

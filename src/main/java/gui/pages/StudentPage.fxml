@@ -7,7 +7,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="800.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="800.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.controllers.StudentPageController">
    <children>
       <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -33,7 +33,7 @@
                         </Text>
                         <AnchorPane prefHeight="61.0" prefWidth="256.0">
                            <children>
-                              <Button fx:id="button_return" layoutX="112.0" layoutY="21.0" mnemonicParsing="false" onAction="#returnHandler" prefHeight="27.0" prefWidth="134.0" style="-fx-background-color: blue;" text="Teacher assistant" textFill="WHITE">
+                              <Button fx:id="teacher_assistant" layoutX="112.0" layoutY="21.0" mnemonicParsing="false" onAction="#gotoTA" prefHeight="27.0" prefWidth="134.0" style="-fx-background-color: blue;" text="Teacher assistant" textFill="WHITE">
                                  <font>
                                     <Font size="13.0" />
                                  </font>

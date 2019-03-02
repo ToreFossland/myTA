@@ -8,6 +8,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import user.User;
 
 public class LoginController {
 
@@ -39,9 +40,11 @@ public class LoginController {
 			} 
 			else if (App.getInstance().userLogin(email, password_input.getText()) && App.getInstance().isRole(email,4)) {
 				App.getInstance().gotoAdminPage();
+				
 			}
 			else if (App.getInstance().userLogin(email, password_input.getText())){
 				App.getInstance().gotoStudentPage();
+				
 			}
 				
 			else {
