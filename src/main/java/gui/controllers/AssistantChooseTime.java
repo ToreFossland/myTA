@@ -6,11 +6,14 @@ import java.time.temporal.WeekFields;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+import database.DBBooking;
 import gui.App;
+import halltimes.Booking;
 import halltimes.Halltime;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -91,6 +94,8 @@ public class AssistantChooseTime {
 	
 	CheckBox[][] checkboxes;
 	
+	List<Halltime> halltimes;
+	
 
 	@FXML
     public void initialize() {
@@ -100,7 +105,7 @@ public class AssistantChooseTime {
 			{ checkBox13, checkBox14, checkBox15, checkBox16 }, { checkBox17, checkBox18, checkBox19, checkBox20 } };
 			
 		List<Halltime> availableHalltimes = user.getAvailableBookings();
-        List<Integer> availableWeeks = user.getAvailableWeeks();
+        List<Integer> availableWeeks = new ArrayList<Integer>();
         Collections.sort(availableWeeks);
 		
 		week_input.getItems().addAll(availableWeeks);
@@ -111,12 +116,33 @@ public class AssistantChooseTime {
     }
 	
 	public void loadAvailableTimes() {
+		//Disables all checkboxes
+		for (CheckBox[] checkboxRow : checkboxes) {
+			for (CheckBox checkbox : checkboxRow) {
+				checkbox.setDisable(true);
+			}
+		}
 		int week = week_input.getValue();
-		
+		//Enables checkbox one by one
+		for (Halltime halltime : halltimes) {
+			if(halltime.getWeek() == week && halltime.getTimeStart().getHour() % 2 == 0 && halltime.getTimeStart().getMinute() == 0) {
+				checkboxes[halltime.getTimeStart().getHour()][halltime.getDay()-1].setDisable(false);
+			}
+		}
 	}
 	
 	public void confirmHandler(ActionEvent event) {
-		// confirm tider
+		/*List<Booking> bookings = new ArrayList<Booking>();
+		
+		for (int i = 0; i < checkboxes.length; i++) {
+			for (int j = 0; j < checkboxes[i].length; j++) {
+				if(checkboxes[i][j].isSelected()) {
+					bookings.add(new Booking(null, null))
+				}
+			}
+		}
+		
+		DBBooking.addHalltimeTA(bookings);*/
 	}
 	
 	public void returnHandler(ActionEvent event) {
