@@ -1,5 +1,5 @@
 /*
-File: Example.java    
+File: Example.java     
 Date 	 	Author 	Changes
 --------------------------------------------
 Feb 11 19 	Tore 	Created
@@ -14,6 +14,7 @@ package user;
 import java.util.ArrayList;
 import java.util.Map;
 
+import halltimes.Booking;
 import halltimes.Halltime;
 
 public abstract class User{
@@ -22,7 +23,8 @@ public abstract class User{
 	private String lastName;
 	private Map<String, Integer> myCourses; //Inneholder permission og fagkode, fagkode er n�kkelen. Se getPosition for kodeforklaring.
 	
-	private ArrayList<Halltime> availableBookings;
+	private ArrayList<Booking> availableBookings;
+	private ArrayList<Integer> availableWeeks;
 	
 	public User(String email, String firstName, String lastName,
 			Map<String, Integer> coursesAndRoles) {
@@ -98,13 +100,20 @@ public abstract class User{
 		}
 	}
 
-	public ArrayList<Halltime> getAvailableBookings() {
+	public ArrayList<Booking> getAvailableBookings() {
 		return availableBookings;
 	}
 	
-	public void setAvailableBookings(ArrayList<Halltime> availableBookings) {
+	public void setAvailableBookings(ArrayList<Booking> availableBookings) {
 		this.availableBookings = availableBookings;
 	}
 	
+	public ArrayList<Integer> getAvailableWeeks() {
+		return availableWeeks;
+	}
+	
+	public void setAvailableWeeks(ArrayList<Integer> availableWeeks) {
+		this.availableWeeks = availableWeeks;
+	}
 }
 
