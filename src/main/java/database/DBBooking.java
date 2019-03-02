@@ -185,61 +185,61 @@ public class DBBooking extends DBConnection {
 		}
 	}
 	
-	public static void addHalltimeTA(Booking booking) throws Exception {
-		String emailTA = booking.getEmailTA();
-		String studentEmail = booking.getEmailStudent();
-		String courseCode = booking.getCourseCode();
-		LocalTime timeStart = booking.getStartTime();
-		int week = booking.getWeek();
-		int day = booking.getDay();
-
-
+	public static void addHalltimeTA(ArrayList<Booking> bookings) throws Exception {
+		
 		try {
-
 			Connection con = getConnection();
-
 			PreparedStatement getidHallTime = con.prepareStatement("SELECT idHallTime FROM HallTime "
-					+ "WHERE Course_courseCode = ? AND timeStart = ? AND week = ? AND day = ? AND availablePlaces > 0");
+					+ "WHERE Course_courseCode = ? AND timeStart = ? AND week = ? AND day = ? AND"
+					+ " availablePlaces > 0");
 
-			getidHallTime.setString(1, courseCode);
-			getidHallTime.setString(2, timeStart.toString());
-			getidHallTime.setInt(3, week);
-			getidHallTime.setInt(4, day);
-
-			ResultSet rs = getidHallTime.executeQuery();
-			rs.next();
-			int id = rs.getInt("idHallTime");
 			
-			PreparedStatement subAvailPlaces = con.prepareStatement("UPDATE HallTime SET availablePlaces = "
-					+ "availablePlaces - 1 WHERE idHallTime = ?");
+			for(Booking booking : bookings) {
+				String emailTA = booking.getEmailTA();
+				String studentEmail = booking.getEmailStudent();
+				String courseCode = booking.getCourseCode();
+				LocalTime timeStart = booking.getStartTime();
+				int week = booking.getWeek();
+				int day = booking.getDay();
 			
-			subAvailPlaces.setInt(1, id);
-
-			PreparedStatement statement = con.prepareStatement(
-					"INSERT INTO Booking (HallTime_idHallTime, TeachingAssistant_email, Student_email) VALUES (?, ?, ?)");
-
-			statement.setInt(1, id);
-			statement.setString(2, emailTA);
-			statement.setString(3, studentEmail);
-
-			System.out.println(String.format("%s, %s, %s", Integer.toString(id), emailTA, studentEmail));
 			
-			subAvailPlaces.execute();
-			statement.execute();
+				
+				getidHallTime.setString(1, courseCode);
+				getidHallTime.setString(2, timeStart.toString());
+				getidHallTime.setInt(3, week);
+				getidHallTime.setInt(4, day);
+	
+				ResultSet rs = getidHallTime.executeQuery();
+				rs.next();
+				int id = rs.getInt("idHallTime");
+				
+				PreparedStatement subAvailPlaces = con.prepareStatement("UPDATE HallTime SET availablePlaces = "
+						+ "availablePlaces - 1 WHERE idHallTime = ?");
+				
+				subAvailPlaces.setInt(1, id);
+	
+				PreparedStatement statement = con.prepareStatement(
+						"INSERT INTO Booking (HallTime_idHallTime, TeachingAssistant_email, Student_email) VALUES (?, ?, ?)");
+	
+				statement.setInt(1, id);
+				statement.setString(2, emailTA);
+				statement.setString(3, studentEmail);
+	
+				System.out.println(String.format("%s, %s, %s", Integer.toString(id), emailTA, studentEmail));
+				
+				subAvailPlaces.execute();
+				statement.execute();
+			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
 	}
 	
 	
-	public static void addHalltimeStudent(Booking booking) throws Exception {
-		String emailTA = booking.getEmailTA();
-		String studentEmail = booking.getEmailStudent();
-		String courseCode = booking.getCourseCode();
-		LocalTime timeStart = booking.getStartTime();
-		int week = booking.getWeek();
-		int day = booking.getDay();
+	public static void addHalltimeStudent(ArrayList<Booking> bookings) throws Exception {
+		
 		
 		try {
 
@@ -248,27 +248,38 @@ public class DBBooking extends DBConnection {
 			PreparedStatement getidHallTime = con.prepareStatement("SELECT idHallTime FROM HallTime INNER JOIN Booking ON "
 					+ " HallTime.idHallTime = Booking.HallTime_idHallTime WHERE Course_courseCode = ? AND timeStart = ? "
 					+ "AND week = ? AND day = ? AND Student_email IS NULL");
+			
+			
+			for(Booking booking : bookings) {
+				String emailTA = booking.getEmailTA();
+				String studentEmail = booking.getEmailStudent();
+				String courseCode = booking.getCourseCode();
+				LocalTime timeStart = booking.getStartTime();
+				int week = booking.getWeek();
+				int day = booking.getDay();
+				
+				getidHallTime.setString(1, courseCode);
+				getidHallTime.setString(2, timeStart.toString());
+				getidHallTime.setInt(3, week);
+				getidHallTime.setInt(4, day);
 
-			getidHallTime.setString(1, courseCode);
-			getidHallTime.setString(2, timeStart.toString());
-			getidHallTime.setInt(3, week);
-			getidHallTime.setInt(4, day);
+				ResultSet rs = getidHallTime.executeQuery();
+				rs.next();
+				int id = rs.getInt("idHallTime");
+				System.out.println(Integer.toString(id));
 
-			ResultSet rs = getidHallTime.executeQuery();
-			rs.next();
-			int id = rs.getInt("idHallTime");
-			System.out.println(Integer.toString(id));
+				PreparedStatement statement = con.prepareStatement(
+						//"INSERT INTO Booking (HallTime_idHallTime, TeachingAssistant_email, Student_email) VALUES (?, ?, ?)");
+						"UPDATE Booking SET Student_email = ? WHERE HallTime_idHallTime = ?");
 
-			PreparedStatement statement = con.prepareStatement(
-					//"INSERT INTO Booking (HallTime_idHallTime, TeachingAssistant_email, Student_email) VALUES (?, ?, ?)");
-					"UPDATE Booking SET Student_email = ? WHERE HallTime_idHallTime = ?");
+				statement.setString(1, studentEmail);
+				statement.setInt(2, id);
 
-			statement.setString(1, studentEmail);
-			statement.setInt(2, id);
+				System.out.println(String.format("%s, %s", Integer.toString(id), studentEmail));
 
-			System.out.println(String.format("%s, %s", Integer.toString(id), studentEmail));
-
-			statement.execute();
+				statement.execute();	
+			}
+			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -277,7 +288,9 @@ public class DBBooking extends DBConnection {
 	
 	
 	
-	public void getHallTimesFromDb() throws Exception{
+	public static void getHallTimesFromDb() throws Exception{
+		
+		App.getInstance().setDummyUser();
 		
 		ArrayList<Booking> availableBookingsStudent = new ArrayList<Booking>();
 		ArrayList<Booking> availableBookingsTA = new ArrayList<Booking>();
@@ -303,9 +316,11 @@ public class DBBooking extends DBConnection {
 					if(!weeksStudent.contains(week)) {
 						weeksStudent.add(week);
 					}
+					System.out.println(CourseCode + " " + week + " " + day + " " + timeStart + " " + timeEnd + " " + availablePlaces);
 					Halltime ht = new Halltime(CourseCode, week, day, timeStart, timeEnd, availablePlaces);
+				
 					Booking book = new Booking(ht, emailTA, App.getInstance().getLoggedUser().getEmail());
-					availableBookingsTA.add(book);	
+					availableBookingsStudent.add(book);
 				}
 				App.getInstance().getLoggedUser().setAvailableBookings(availableBookingsStudent);
 				App.getInstance().getLoggedUser().setAvailableWeeks(weeksStudent);
@@ -357,7 +372,8 @@ public class DBBooking extends DBConnection {
 		Booking bookStudent = new Booking(ht, TA, Student);
 		try {
 			//addHalltimeTA(bookTA);
-			addHalltimeStudent(bookStudent);
+			//addHalltimeStudent(bookStudent);
+			getHallTimesFromDb();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

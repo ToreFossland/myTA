@@ -35,13 +35,17 @@ package gui;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.time.LocalTime;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import database.DBBooking;
 import database.DBConnection;
+import halltimes.Booking;
+import halltimes.Halltime;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.JavaFXBuilderFactory;
@@ -81,6 +85,7 @@ public class App extends Application {
             stage = primaryStage;
             gotoLogin();
             primaryStage.show();
+            
         } catch (Exception ex) {
             Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -152,6 +157,11 @@ public class App extends Application {
     
     public void gotoRegistration() {
         try {
+     
+        	DBBooking.getHallTimesFromDb();
+
+        	
+        	
             replaceSceneContent("pages/SupervisorCreatesTimes.fxml");
         } catch (Exception ex) {
             Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
@@ -198,4 +208,20 @@ public class App extends Application {
 
 		return hashtext;
 	}
+	
+	
+	
+	public void setDummyUser() {
+		Map<String, Integer> dummyCourse = new HashMap<String, Integer>();
+		dummyCourse.put("TMA2000", 1);
+		User dummy = User.generateUserObject("abc@ntnu.no", "dummy", "user", dummyCourse);
+		loggedUser = dummy;
+	}
 }
+
+
+
+
+
+
+
