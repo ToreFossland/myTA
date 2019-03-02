@@ -1,9 +1,13 @@
 package gui.controllers;
 
 import java.awt.Button;
+import java.time.LocalDate;
+import java.time.temporal.WeekFields;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import gui.App;
@@ -96,10 +100,20 @@ public class AssistantChooseTime {
 			{ checkBox13, checkBox14, checkBox15, checkBox16 }, { checkBox17, checkBox18, checkBox19, checkBox20 } };
 			
 		List<Halltime> availableHalltimes = user.getAvailableBookings();
-        List<Integer> availableWeeks = 
+        List<Integer> availableWeeks = user.getAvailableWeeks();
+        Collections.sort(availableWeeks);
 		
-		week_input.getItems().addAll(courses);
+		week_input.getItems().addAll(availableWeeks);
+		
+		if (availableWeeks.get(0) >= getCurrentWeek())
+			week_input.setValue(availableWeeks.get(0));
+			
     }
+	
+	public void loadAvailableTimes() {
+		int week = week_input.getValue();
+		
+	}
 	
 	public void confirmHandler(ActionEvent event) {
 		// confirm tider
@@ -107,6 +121,12 @@ public class AssistantChooseTime {
 	
 	public void returnHandler(ActionEvent event) {
 		App.getInstance().gotoProfile();
+	}
+	
+	private int getCurrentWeek() {
+	    LocalDate date = LocalDate.now();
+	    WeekFields weekFields = WeekFields.of(Locale.getDefault());
+	    return date.get(weekFields.weekOfWeekBasedYear());
 	}
 
 }

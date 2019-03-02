@@ -22,6 +22,19 @@ public class Booking {
 		this.courseCode = halltime.getCourseCode();
 	}
 	
+	public Booking(Halltime halltime, String emailTA) {
+		this.emailTA = emailTA;
+		this.setStartTime(halltime.getTimeStart());
+		this.setWeek(halltime.getWeek());
+		this.setDay(halltime.getDay());
+		this.courseCode = halltime.getCourseCode();
+	}
+	
+	public Booking(Halltime halltime, String emailTA, String emailStudent) {
+		this(halltime,emailTA);
+		this.emailStudent = emailStudent;		
+	}
+	
 	public Booking(Halltime halltime, User TA, User student) {
 		this(halltime,TA);
 		this.emailStudent = student.getEmail();		
