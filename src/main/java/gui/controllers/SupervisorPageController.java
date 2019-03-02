@@ -34,7 +34,7 @@ public class SupervisorPageController {
 		// ikke laget
 	}
 	public void createAssistantTimesHandler() {
-		//switches to: Create assistant times 
+		App.getInstance().gotoSupervisorCreatesTimes();
 	}
 
 }

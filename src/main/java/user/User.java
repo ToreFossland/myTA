@@ -10,13 +10,7 @@ Feb 20 19 	David 	Added new bugfixes
 
 package user;
 
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Map;
-
-import database.DBBooking;
-import halltimes.Booking;
-
 
 public abstract class User {
 	private String email;
@@ -24,10 +18,6 @@ public abstract class User {
 	private String lastName;
 	private Map<String, Integer> myCourses; // Inneholder permission og fagkode, fagkode er n�kkelen. Se getPosition for
 											// kodeforklaring.
-
-	private ArrayList<Booking> availableBookings;
-	private ArrayList<Integer> availableWeeks;
-	
 
 	public User(String email, String firstName, String lastName,
 
@@ -42,11 +32,10 @@ public abstract class User {
 	 * public boolean checkIfElementExsists(String username, String courseCode, int
 	 * role) { boolean exists = false; }
 	 */
-/*
-	public boolean checkIfElementExsists(String username, String courseCode, int role) {
-		boolean exists = false;
-	}
-	*/
+	/*
+	 * public boolean checkIfElementExsists(String username, String courseCode, int
+	 * role) { boolean exists = false; }
+	 */
 
 	public String getFirstName() {
 		return firstName;
@@ -85,7 +74,6 @@ public abstract class User {
 		}
 	}
 
-
 	public static User generateUserObject(String email, String firstName, String lastName,
 			Map<String, Integer> coursesAndRoles) {
 
@@ -109,53 +97,6 @@ public abstract class User {
 
 		default:
 			return new Student(email, firstName, lastName, coursesAndRoles);
-		}
-	}
-
-	public ArrayList<Booking> getAvailableBookings() {
-		if (getType() == 1 | getType() == 2) {
-			if (DBBooking.getDownloadedBookings().isEmpty()) {
-				try {
-					DBBooking.downloadBookings(this);
-					this.availableBookings = DBBooking.getDownloadedBookings();
-
-					System.out.println(getAvailableBookings());
-				} catch (Exception e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
-		}
-		return this.availableBookings;
-	}
-
-	public void setAvailableBookings(ArrayList<Booking> availableBookings) {
-		this.availableBookings = availableBookings;
-	}
-
-	public ArrayList<Integer> getAvailableWeeks() {
-		if (getType() == 1 | getType() == 2) {
-			if (DBBooking.getWeeks().isEmpty()) {
-				try {
-					DBBooking.downloadBookings(this);
-					this.availableBookings = DBBooking.getDownloadedBookings();
-					this.availableWeeks = DBBooking.getWeeks();
-
-					System.out.println(getAvailableBookings());
-				} catch (Exception e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
-		}
-		return this.availableWeeks;
-	}
-
-	public void setAvailableWeeks(ArrayList<Integer> availableWeeks) throws IOException {
-		if (getType() == 1 | getType() == 2) {
-			this.availableWeeks = availableWeeks;
-		} else {
-			throw new IOException("Cannot set availableWeeks to user that is not student/TA");
 		}
 	}
 }

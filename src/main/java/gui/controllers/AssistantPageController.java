@@ -21,6 +21,9 @@ public class AssistantPageController {
 	@FXML
 	Button button_messages;
 	
+	@FXML
+	Button addAssistantTimes_button;
+	
 	public void logoutHandler(javafx.event.ActionEvent event) throws Exception {
 		App.getInstance().gotoLogin();
 	}
@@ -30,7 +33,7 @@ public class AssistantPageController {
 	}
 	
 	public void addAssistantTimesHandler(javafx.event.ActionEvent event) {
-		// go to: AssisantChooseTime.fxml 
+		App.getInstance().gotoAssistantChooseTime();
 	}
 	
 	public void evaluatingHandler() {

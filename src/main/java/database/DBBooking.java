@@ -55,11 +55,6 @@ public class DBBooking extends DBConnection {
 	 * LocalTime.of(15, 00, 00); halltimes.add(new Halltime("TDT4140", 5, 3,
 	 * timeStart, timeEnd, 13)); supervisorAddHalltime(halltimes, 20); }
 	 */
-	
-	private static ArrayList<Booking> downloadedBookings;
-	private static ArrayList<Integer> weeks;
-	
-	
 
 	// Sjekker om halltid ligger inne
 	public static boolean halltimeExists(Halltime halltime) {
@@ -293,8 +288,10 @@ public class DBBooking extends DBConnection {
 	
 	
 	
-	public static void downloadBookings(User user) throws Exception{
-
+	public static void downloadBookings() throws Exception{
+		
+		User user = App.getInstance().getLoggedUser();
+		
 		ArrayList<Booking> availableBookingsStudent = new ArrayList<Booking>();
 		ArrayList<Booking> availableBookingsTA = new ArrayList<Booking>();
 		ArrayList<Integer> weeksStudent = new ArrayList<Integer>();
@@ -325,10 +322,10 @@ public class DBBooking extends DBConnection {
 					Booking booking = new Booking(ht, emailTA, user.getEmail());
 					availableBookingsStudent.add(booking);
 				}
-				setDownloadedBookings(availableBookingsStudent);
-				setWeeks(weeksStudent);
+				App.getInstance().setDownloadedBookings(availableBookingsStudent);
+				App.getInstance().setDownloadedWeeks(weeksStudent);
 			}
-			else if(user.getType() == 2) {
+			else if(App.getInstance().getLoggedUser().getType() == 2) {
 				PreparedStatement hallTimesTA = con.prepareStatement("SELECT * FROM HallTime WHERE HallTime.idHallTime "
 						+ "NOT IN (SELECT HallTime_idHallTime FROM Booking) AND availablePlaces > 0"
 						);
@@ -349,8 +346,8 @@ public class DBBooking extends DBConnection {
 					Booking book = new Booking(ht, user);
 					availableBookingsTA.add(book);	
 				}
-				setDownloadedBookings(availableBookingsTA);
-				setWeeks(weeksTA);
+				App.getInstance().setDownloadedBookings(availableBookingsTA);
+				App.getInstance().setDownloadedWeeks(weeksTA);
 				
 			}
 	} catch (SQLException e) {
@@ -358,26 +355,6 @@ public class DBBooking extends DBConnection {
 		e.printStackTrace();
 	}
 }
-
-	public static ArrayList<Booking> getDownloadedBookings() {
-		return downloadedBookings;
-	}
-
-	public static void setDownloadedBookings(ArrayList<Booking> bookings) {
-		downloadedBookings = bookings;
-	}
-
-	public static ArrayList<Integer> getWeeks() {
-		return weeks;
-	}
-
-	public static void setWeeks(ArrayList<Integer> weekList) {
-		weeks = weekList;
-	}
-	
-
-	
-	
 
 	public static void main(String[] args) {
 		Map<String, Integer> coursesAndRoles = new HashMap<String, Integer>();
@@ -392,9 +369,7 @@ public class DBBooking extends DBConnection {
 		try {
 			//addHalltimeTA(bookTA);
 			//addHalltimeStudent(bookStudent);
-			downloadBookings(TA);
-			System.out.println(getDownloadedBookings());
-			System.out.println(getWeeks());
+			downloadBookings();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
