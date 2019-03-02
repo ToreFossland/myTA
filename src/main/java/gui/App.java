@@ -152,7 +152,7 @@ public class App extends Application {
     
     public void gotoRegistration() {
         try {
-            replaceSceneContent("pages/RegisterPage.fxml");
+            replaceSceneContent("pages/SupervisorCreatesTimes.fxml");
         } catch (Exception ex) {
             Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
         }

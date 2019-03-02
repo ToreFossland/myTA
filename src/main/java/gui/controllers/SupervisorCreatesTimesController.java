@@ -109,15 +109,15 @@ public class SupervisorCreatesTimesController {
 	@FXML
     public void initialize() {
 		//Acts as user courses
-		/*HashMap<String, Integer> mockMap = new HashMap<String, Integer>();
+		HashMap<String, Integer> mockMap = new HashMap<String, Integer>();
 		
 		mockMap.put("TDT4140", 3);
 		mockMap.put("TDT4145", 3);
 		mockMap.put("TMA2000", 3);
-		*/
+		
 		//Requires that user is logged inn
-		Map<String,Integer> coursesFromUser = App.getInstance().getLoggedUser().getMyCourses();
-		//Map<String,Integer> coursesFromUser = mockMap;
+		//Map<String,Integer> coursesFromUser = App.getInstance().getLoggedUser().getMyCourses();
+		Map<String,Integer> coursesFromUser = mockMap;
 		List<String> courses = new ArrayList<String>();
 		
 		for (String course : coursesFromUser.keySet()) {
@@ -163,6 +163,7 @@ public class SupervisorCreatesTimesController {
 				if (checkboxes[i][j].isSelected()) {
 					timeStart = LocalTime.of(8 + j * 2, 0, 0);
 					timeEnd = LocalTime.of(10 + j * 2, 0, 0);
+					//Creates halltime 2 hours
 					Halltimes.add(new Halltime(course, week, i + 1, timeStart, timeEnd, availablePlaces));
 				}
 			}

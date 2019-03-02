@@ -4,6 +4,8 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -13,7 +15,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="800.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="800.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <VBox prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -30,7 +32,7 @@
                      </children>
                   </HBox>
                   <HBox prefHeight="60.0" prefWidth="190.0" />
-                  <Button fx:id="button_return" onAction="#returnHandler" mnemonicParsing="false" style="-fx-background-color: blue;" text="Return" textFill="WHITE">
+                  <Button fx:id="button_return" mnemonicParsing="false" onAction="#returnHandler" style="-fx-background-color: blue;" text="Return" textFill="WHITE">
                      <font>
                         <Font size="13.0" />
                      </font>
@@ -39,16 +41,31 @@
             </HBox>
             <HBox alignment="CENTER" prefHeight="72.0" prefWidth="800.0">
                <children>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Filled times  " />
+                  <Label text="Select week">
+                     <HBox.margin>
+                        <Insets right="10.0" />
+                     </HBox.margin>
+                  </Label>
+                  <ChoiceBox prefWidth="150.0" />
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Filled times  ">
+                     <HBox.margin>
+                        <Insets left="20.0" />
+                     </HBox.margin></Text>
                   <Text strokeType="OUTSIDE" strokeWidth="0.0">
                      <font>
                         <Font size="15.0" />
                      </font>
                   </Text>
                   <Button mnemonicParsing="false" style="-fx-background-radius: 15; -fx-background-color: #2bd8ac;" text="       " />
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="       Has to be filled  " />
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Can be filled  ">
+                     <HBox.margin>
+                        <Insets left="40.0" />
+                     </HBox.margin></Text>
                   <Button mnemonicParsing="false" style="-fx-background-radius: 15; -fx-background-color: red;" text="       " />
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="      No assistant time  " />
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="No assistant time  ">
+                     <HBox.margin>
+                        <Insets left="40.0" />
+                     </HBox.margin></Text>
                   <Button mnemonicParsing="false" style="-fx-background-radius: 15; -fx-background-color: white; -fx-border-color: black; -fx-border-radius: 15;" text="       " />
                </children></HBox>
             <HBox prefHeight="322.0" prefWidth="800.0" VBox.vgrow="ALWAYS">
@@ -143,104 +160,104 @@
                               <Font size="15.0" />
                            </font>
                         </Text>
-                        <HBox alignment="BOTTOM_RIGHT" style="-fx-background-color: #2bd8ac;" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
+                        <HBox alignment="CENTER" style="-fx-background-color: #2bd8ac;" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
                            <children>
-                              <CheckBox fx:id="checkBox1" onAction="handleCheckBox1" mnemonicParsing="false" />
+                              <CheckBox fx:id="checkBox1" mnemonicParsing="false" scaleX="7.0" scaleY="4.0" />
                            </children>
                         </HBox>
-                        <HBox alignment="BOTTOM_RIGHT" style="-fx-background-color: #2bd8ac;" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
+                        <HBox alignment="CENTER" style="-fx-background-color: #2bd8ac;" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
                            <children>
-                              <CheckBox mnemonicParsing="false" />
+                              <CheckBox fx:id="checkBox5" mnemonicParsing="false" scaleX="7.0" scaleY="4.0" />
                            </children>
                         </HBox>
-                        <HBox alignment="BOTTOM_RIGHT" style="-fx-background-color: #2bd8ac;" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="2">
+                        <HBox alignment="CENTER" style="-fx-background-color: #2bd8ac;" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="2">
                            <children>
-                              <CheckBox mnemonicParsing="false" />
+                              <CheckBox fx:id="checkBox2" mnemonicParsing="false" scaleX="7.0" scaleY="4.0" />
                            </children>
                         </HBox>
-                        <HBox alignment="BOTTOM_RIGHT" style="-fx-background-color: #2bd8ac;" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="3">
+                        <HBox alignment="CENTER" style="-fx-background-color: #2bd8ac;" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="3">
                            <children>
-                              <CheckBox mnemonicParsing="false" />
+                              <CheckBox fx:id="checkBox3" mnemonicParsing="false" scaleX="7.0" scaleY="4.0" />
                            </children>
                         </HBox>
-                        <HBox alignment="BOTTOM_RIGHT" style="-fx-background-color: #2bd8ac;" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="2">
+                        <HBox alignment="CENTER" style="-fx-background-color: #2bd8ac;" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="2">
                            <children>
-                              <CheckBox mnemonicParsing="false" />
+                              <CheckBox fx:id="checkBox6" mnemonicParsing="false" scaleX="7.0" scaleY="4.0" />
                            </children>
                         </HBox>
-                        <HBox alignment="BOTTOM_RIGHT" style="-fx-background-color: #2bd8ac;" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="3">
+                        <HBox alignment="CENTER" style="-fx-background-color: #2bd8ac;" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="3">
                            <children>
-                              <CheckBox mnemonicParsing="false" />
+                              <CheckBox fx:id="checkBox7" mnemonicParsing="false" scaleX="7.0" scaleY="4.0" />
                            </children>
                         </HBox>
-                        <HBox alignment="BOTTOM_RIGHT" style="-fx-background-color: #2bd8ac;" GridPane.columnIndex="3" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
+                        <HBox alignment="CENTER" style="-fx-background-color: #2bd8ac;" GridPane.columnIndex="3" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
                            <children>
-                              <CheckBox mnemonicParsing="false" />
+                              <CheckBox fx:id="checkBox9" mnemonicParsing="false" scaleX="7.0" scaleY="4.0" />
                            </children>
                         </HBox>
-                        <HBox alignment="BOTTOM_RIGHT" style="-fx-background-color: #2bd8ac;" GridPane.columnIndex="3" GridPane.halignment="RIGHT" GridPane.rowIndex="2">
+                        <HBox alignment="CENTER" style="-fx-background-color: #2bd8ac;" GridPane.columnIndex="3" GridPane.halignment="RIGHT" GridPane.rowIndex="2">
                            <children>
-                              <CheckBox mnemonicParsing="false" />
+                              <CheckBox fx:id="checkBox10" mnemonicParsing="false" scaleX="7.0" scaleY="4.0" />
                            </children>
                         </HBox>
-                        <HBox alignment="BOTTOM_RIGHT" style="-fx-background-color: #2bd8ac;" GridPane.columnIndex="4" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
+                        <HBox alignment="CENTER" style="-fx-background-color: #2bd8ac;" GridPane.columnIndex="4" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
                            <children>
-                              <CheckBox mnemonicParsing="false" />
+                              <CheckBox fx:id="checkBox13" mnemonicParsing="false" scaleX="7.0" scaleY="4.0" />
                            </children>
                         </HBox>
-                        <HBox alignment="BOTTOM_RIGHT" style="-fx-background-color: #2bd8ac;" GridPane.columnIndex="5" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
+                        <HBox alignment="CENTER" style="-fx-background-color: #2bd8ac;" GridPane.columnIndex="5" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
                            <children>
-                              <CheckBox mnemonicParsing="false" />
+                              <CheckBox fx:id="checkBox17" mnemonicParsing="false" scaleX="7.0" scaleY="4.0" />
                            </children>
                         </HBox>
-                        <HBox alignment="BOTTOM_RIGHT" style="-fx-background-color: #2bd8ac;" GridPane.columnIndex="4" GridPane.halignment="RIGHT" GridPane.rowIndex="2">
+                        <HBox alignment="CENTER" style="-fx-background-color: #2bd8ac;" GridPane.columnIndex="4" GridPane.halignment="RIGHT" GridPane.rowIndex="2">
                            <children>
-                              <CheckBox mnemonicParsing="false" />
+                              <CheckBox fx:id="checkBox14" mnemonicParsing="false" scaleX="7.0" scaleY="4.0" />
                            </children>
                         </HBox>
-                        <HBox alignment="BOTTOM_RIGHT" style="-fx-background-color: #2bd8ac;" GridPane.columnIndex="5" GridPane.halignment="RIGHT" GridPane.rowIndex="2">
+                        <HBox alignment="CENTER" style="-fx-background-color: #2bd8ac;" GridPane.columnIndex="5" GridPane.halignment="RIGHT" GridPane.rowIndex="2">
                            <children>
-                              <CheckBox mnemonicParsing="false" />
+                              <CheckBox fx:id="checkBox18" mnemonicParsing="false" scaleX="7.0" scaleY="4.0" />
                            </children>
                         </HBox>
-                        <HBox alignment="BOTTOM_RIGHT" style="-fx-background-color: #2bd8ac;" GridPane.columnIndex="3" GridPane.halignment="RIGHT" GridPane.rowIndex="3">
+                        <HBox alignment="CENTER" style="-fx-background-color: #2bd8ac;" GridPane.columnIndex="3" GridPane.halignment="RIGHT" GridPane.rowIndex="3">
                            <children>
-                              <CheckBox mnemonicParsing="false" />
+                              <CheckBox fx:id="checkBox11" mnemonicParsing="false" scaleX="7.0" scaleY="4.0" />
                            </children>
                         </HBox>
-                        <HBox alignment="BOTTOM_RIGHT" style="-fx-background-color: #2bd8ac;" GridPane.columnIndex="4" GridPane.halignment="RIGHT" GridPane.rowIndex="3">
+                        <HBox alignment="CENTER" style="-fx-background-color: #2bd8ac;" GridPane.columnIndex="4" GridPane.halignment="RIGHT" GridPane.rowIndex="3">
                            <children>
-                              <CheckBox mnemonicParsing="false" />
+                              <CheckBox fx:id="checkBox15" mnemonicParsing="false" scaleX="7.0" scaleY="4.0" />
                            </children>
                         </HBox>
-                        <HBox alignment="BOTTOM_RIGHT" style="-fx-background-color: #2bd8ac;" GridPane.columnIndex="5" GridPane.halignment="RIGHT" GridPane.rowIndex="3">
+                        <HBox alignment="CENTER" style="-fx-background-color: #2bd8ac;" GridPane.columnIndex="5" GridPane.halignment="RIGHT" GridPane.rowIndex="3">
                            <children>
-                              <CheckBox mnemonicParsing="false" />
+                              <CheckBox fx:id="checkBox19" mnemonicParsing="false" scaleX="7.0" scaleY="4.0" />
                            </children>
                         </HBox>
-                        <HBox alignment="BOTTOM_RIGHT" style="-fx-background-color: #2bd8ac;" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="4">
+                        <HBox alignment="CENTER" style="-fx-background-color: #2bd8ac;" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="4">
                            <children>
-                              <CheckBox mnemonicParsing="false" />
+                              <CheckBox fx:id="checkBox4" mnemonicParsing="false" scaleX="7.0" scaleY="4.0" />
                            </children>
                         </HBox>
-                        <HBox alignment="BOTTOM_RIGHT" style="-fx-background-color: #2bd8ac;" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="4">
+                        <HBox alignment="CENTER" style="-fx-background-color: #2bd8ac;" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="4">
                            <children>
-                              <CheckBox mnemonicParsing="false" />
+                              <CheckBox fx:id="checkBox8" mnemonicParsing="false" scaleX="7.0" scaleY="4.0" />
                            </children>
                         </HBox>
-                        <HBox alignment="BOTTOM_RIGHT" style="-fx-background-color: #2bd8ac;" GridPane.columnIndex="3" GridPane.halignment="RIGHT" GridPane.rowIndex="4">
+                        <HBox alignment="CENTER" style="-fx-background-color: #2bd8ac;" GridPane.columnIndex="3" GridPane.halignment="RIGHT" GridPane.rowIndex="4">
                            <children>
-                              <CheckBox mnemonicParsing="false" />
+                              <CheckBox fx:id="checkBox12" mnemonicParsing="false" scaleX="7.0" scaleY="4.0" />
                            </children>
                         </HBox>
-                        <HBox alignment="BOTTOM_RIGHT" style="-fx-background-color: #2bd8ac;" GridPane.columnIndex="4" GridPane.halignment="RIGHT" GridPane.rowIndex="4">
+                        <HBox alignment="CENTER" style="-fx-background-color: #2bd8ac;" GridPane.columnIndex="4" GridPane.halignment="RIGHT" GridPane.rowIndex="4">
                            <children>
-                              <CheckBox mnemonicParsing="false" />
+                              <CheckBox fx:id="checkBox16" mnemonicParsing="false" scaleX="7.0" scaleY="4.0" />
                            </children>
                         </HBox>
-                        <HBox alignment="BOTTOM_RIGHT" style="-fx-background-color: #2bd8ac;" GridPane.columnIndex="5" GridPane.halignment="RIGHT" GridPane.rowIndex="4">
+                        <HBox alignment="CENTER" style="-fx-background-color: #2bd8ac;" GridPane.columnIndex="5" GridPane.halignment="RIGHT" GridPane.rowIndex="4">
                            <children>
-                              <CheckBox mnemonicParsing="false" />
+                              <CheckBox fx:id="checkBox20" mnemonicParsing="false" scaleX="7.0" scaleY="4.0" />
                            </children>
                         </HBox>
                      </children>
@@ -253,7 +270,7 @@
             </HBox>
             <HBox alignment="CENTER" prefHeight="102.0" prefWidth="800.0">
                <children>
-                  <Button fx:id="button_confirm_assistant_times" onAction="#confirmHandler" mnemonicParsing="false" style="-fx-background-color: black;" text="Confirm selected times" textFill="WHITE">
+                  <Button fx:id="button_confirm_assistant_times" mnemonicParsing="false" onAction="#confirmHandler" style="-fx-background-color: black;" text="Confirm selected times" textFill="WHITE">
                      <font>
                         <Font size="17.0" />
                      </font>

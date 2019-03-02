@@ -8,7 +8,11 @@ Feb 26 19 	David 	Created
 
 package user;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
+
+import halltimes.Halltime;
 
 public class TeachingAssistant extends Student{
 

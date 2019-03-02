@@ -11,7 +11,10 @@ Feb 20 19 	David 	Added new bugfixes
 package user;
 
 
+import java.util.ArrayList;
 import java.util.Map;
+
+import halltimes.Halltime;
 
 public abstract class User{
 	private String email;
@@ -19,6 +22,7 @@ public abstract class User{
 	private String lastName;
 	private Map<String, Integer> myCourses; //Inneholder permission og fagkode, fagkode er n�kkelen. Se getPosition for kodeforklaring.
 	
+	private ArrayList<Halltime> availableBookings;
 	
 	public User(String email, String firstName, String lastName,
 			Map<String, Integer> coursesAndRoles) {
@@ -94,5 +98,13 @@ public abstract class User{
 		}
 	}
 
+	public ArrayList<Halltime> getAvailableBookings() {
+		return availableBookings;
+	}
+	
+	public void setAvailableBookings(ArrayList<Halltime> availableBookings) {
+		this.availableBookings = availableBookings;
+	}
+	
 }
 
