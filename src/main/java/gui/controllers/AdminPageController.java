@@ -1,5 +1,6 @@
 package gui.controllers;
 
+import gui.App;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
@@ -9,26 +10,28 @@ public class AdminPageController {
 	@FXML
 	Button button_log_out;
 	
-	@FXML
-	Button button_return;
 	
 	@FXML
-	TextField create_subject_input;
-	// Type subjectcode and name -
+	TextField add_subjectCode_input;
+	// Type subject code 
+	
+	@FXML
+	TextField add_subjectName_input;
+	// Type subject name
 	
 	@FXML 
-	Button button_add;
+	Button button_add_subject;
 	
 	@FXML 
-	TextField choose_subject_input;
-	// Type subjectcode and name
+	TextField choose_supervisor_subject_input;
+	// Type subjectcode
 	
 	@FXML
-	TextField add_supervisor_input;
+	TextField supervisor_email_input;
 	// Type email
 	
 	@FXML
-	Button button_confirm;
+	Button button_add_supervisor;
 	
 	public void checkValidSubject() {
 		// Kan dette
@@ -39,9 +42,9 @@ public class AdminPageController {
 		return true;
 	}
 	
-	public void onClickAdd(javafx.event.ActionEvent event) throws Exception {
-		if (isValidSubject(create_subject_input.getText())) {
-			String new_subject = create_subject_input.getText();
+	public void onClickAddSubject(javafx.event.ActionEvent event) throws Exception {
+		if (isValidSubject(add_subjectCode_input.getText())) {
+			String new_subject = add_subjectCode_input.getText();
 		}
 		//adder fag til DB
 	}
@@ -58,16 +61,12 @@ public class AdminPageController {
 		//Sjekkerom supervisor er valid
 	}
 	
-	public void onClickConfirm(javafx.event.ActionEvent event) {
+	public void onClickAddSupervisor(javafx.event.ActionEvent event) {
 		// adder supervisor til fag
 	}
 	
-	public void logoutHandler(javafx.event.ActionEvent event) {
-	// log out, go to login.fxml
-	// App.getInstance().gotoLogin();; ?
-	}
-	public void returnHandler() {
-	// Switches to login.fxml ?
+	public void logoutHandler(javafx.event.ActionEvent event) throws Exception {
+		App.getInstance().gotoLogin();
 	}
 	
 
