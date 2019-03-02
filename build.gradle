@@ -42,6 +42,7 @@ repositories {
 test {
     // Enable JUnit 5 (Gradle 4.6+).
     useJUnitPlatform()
+    testLogging.showStandardStreams = true
 	//finalizedBy jacocoTestReport
 }
 

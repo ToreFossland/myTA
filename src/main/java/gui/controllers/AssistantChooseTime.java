@@ -1,6 +1,7 @@
 package gui.controllers;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.time.temporal.WeekFields;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -10,6 +11,7 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import database.DBBooking;
 import gui.App;
 import halltimes.Booking;
 import halltimes.Halltime;
@@ -18,6 +20,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.Label;
 
 public class AssistantChooseTime {
 
@@ -92,6 +95,9 @@ public class AssistantChooseTime {
 
 	@FXML
 	Button button_confirm_assistant_times;
+	
+	@FXML
+	Label confirm_label;
 
 	CheckBox[][] checkboxes;
 
@@ -161,15 +167,32 @@ public class AssistantChooseTime {
 	}
 
 	public void confirmHandler(ActionEvent event) {
-		/*
-		 * List<Booking> bookings = new ArrayList<Booking>();
-		 * 
-		 * for (int i = 0; i < checkboxes.length; i++) { for (int j = 0; j <
-		 * checkboxes[i].length; j++) { if(checkboxes[i][j].isSelected()) {
-		 * bookings.add(new Booking(null, null)) } } }
-		 * 
-		 * DBBooking.addHalltimeTA(bookings);
-		 */
+
+		ArrayList<Booking> bookings = new ArrayList<Booking>();
+		
+		for (int i = 0; i < checkboxes.length; i++) {
+			for (int j = 0; j < checkboxes[i].length; j++) {
+				if (checkboxes[i][j].isSelected()) {
+					LocalTime timeStart = LocalTime.of(8 + j*2, 0, 0);
+					LocalTime timeEnd = LocalTime.of(10 + j*2, 0, 0);
+					
+					Halltime newHT = new Halltime(course_input.getValue(), week_input.getValue(), i+1, timeStart, timeEnd, 0);
+					Booking booking = new Booking(newHT, App.getInstance().getLoggedUser().getEmail());
+					bookings.addAll(booking.splitIntoMultipleBookings(30));
+				}
+			}
+		}
+
+		try {
+			DBBooking.addHalltimeTA(bookings);
+			confirm_label.setText("Assistant times added!");
+		} catch (Exception e) {
+			confirm_label.setText("Adding assistant times failed! :(");
+			e.printStackTrace();
+		} finally {
+			confirm_label.setVisible(true);
+		}
+
 	}
 
 	public void returnHandler(ActionEvent event) {

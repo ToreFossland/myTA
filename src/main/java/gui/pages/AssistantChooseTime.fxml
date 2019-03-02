@@ -272,6 +272,11 @@
                         <Font size="17.0" />
                      </font>
                   </Button>
+                  <Label fx:id="confirm_label" text="Assistant times added!" visible="false">
+                     <HBox.margin>
+                        <Insets left="10.0" />
+                     </HBox.margin>
+                  </Label>
                </children>
             </HBox>
             <HBox prefHeight="29.0" prefWidth="800.0" style="-fx-background-color: #0099FF;" />
