@@ -3,6 +3,7 @@ package gui.controllers;
 import gui.App;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import user.User;
 
 public class StudentPageController {
 
@@ -10,7 +11,7 @@ public class StudentPageController {
 	Button button_log_out;
 	
 	@FXML
-	Button button_return;
+	Button teacher_assistant;
 	
 	@FXML
 	Button button_book_TA;
@@ -27,8 +28,12 @@ public class StudentPageController {
 	public void logoutHandler(javafx.event.ActionEvent event) throws Exception {
 		App.getInstance().gotoLogin();;
 	}
-	public void returnHandler(javafx.event.ActionEvent event) throws Exception {
-		App.getInstance().gotoProfile();;
+	public void gotoTA(javafx.event.ActionEvent event) throws Exception {
+		User user = App.getInstance().getLoggedUser();
+		String email = user.getEmail();
+		if (App.getInstance().isRole(email,2)) {
+			App.getInstance().gotoAssistantPage();
+		}
 		
 	}
 	public void bookTAHandler() {

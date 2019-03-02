@@ -14,6 +14,7 @@ import database.DBConnection;
 
 public class Supervisor extends TeachingAssistant {
 
+
 	
 	/* 1 = student
 	 * 2 = studass

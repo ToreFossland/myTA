@@ -31,17 +31,9 @@ public class DBConnection {
 
 	// TODO: add cache for storing data from frequently used DB queries
 	
-	private static Connection con;
+
 	
-	//Stores the connection
-	public static void main(String[] args) {
-		try {
-			DBConnection.con = getConnection();
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
+	
 
 //lager connection til databasen som er noedvendig for aa manipulere den
 	public static Connection getConnection() throws Exception {
@@ -160,9 +152,9 @@ public class DBConnection {
 
 	}
 
-	public static boolean userExists(String userName) throws Exception {
-		String username = userName.toLowerCase();
-		return elementExists("User", "username", username);
+	public static boolean userExists(String Email) throws Exception {
+		String email = Email.toLowerCase();
+		return elementExists("User", "email", email);
 	}
 
 //sjekker om email eksisterer i bruker
@@ -191,16 +183,16 @@ public class DBConnection {
 	}
 
 //sjekker om password matcher email. Naturlig godkjenning for innlogging.
-//David: skiftet til username (primærnøkkel) i stedet
-	public static boolean usernamePasswordMatch(String usernameInput, String passwordInput) throws Exception {
+// skiftet til email (primærnøkkel) i stedet
+	public static boolean usernamePasswordMatch(String emailInput, String passwordInput) throws Exception {
 		boolean match = false;
 		try {
 			Connection con = getConnection();
-			String username = usernameInput.toLowerCase();
+			String email = emailInput.toLowerCase();
 			
-			if (elementExists("User", "username", username)) {
+			if (elementExists("User", "email", email)) {
 				PreparedStatement statement = con
-						.prepareStatement("SELECT password FROM User Where username ='" + username + "'");
+						.prepareStatement("SELECT password FROM User Where email ='" + email + "'");
 				ResultSet password = statement.executeQuery();
 				password.next();
 				String fasit = password.getString("Password").toLowerCase();
@@ -224,32 +216,27 @@ public class DBConnection {
 
 	}
 
-//registrerer bruker uten krav til email
-	public static void registerUser(String emailInput, String password, String userName, String firstName,
-			String lastName) {
-		registerUser(emailInput, password, userName, firstName, lastName, false);
-	}
 
-	public static void registerUser(String emailInput, String password, String userName, String firstName,
+
+	public static void registerUser(String emailInput, String password, String firstName,
 			String lastName, boolean skipCheck) {
 		try {
 			Connection con = getConnection();
 			String email = emailInput.toLowerCase();
-			String username = userName.toLowerCase();
 
-			// Legger inn bruker med email, username, navn og password dersom email ikke
+			// Legger inn bruker med email, navn og password dersom email ikke
 			// eksisterer
 			if (skipCheck) {
 				PreparedStatement userToDb = con.prepareStatement(String.format(
-						"INSERT INTO User (email, password, username, firstName, lastName) VALUES('%s', '%s', '%s','%s','%s')",
-						email, password, userName, firstName, lastName));
+						"INSERT INTO User (email, password, firstName, lastName) VALUES('%s', '%s','%s','%s')",
+						email, password, firstName, lastName));
 				userToDb.executeUpdate();
 			} else {
 				if (emailEksisterer(email) == false) {
 
 					PreparedStatement userToDb = con.prepareStatement(String.format(
-							"INSERT INTO User (email, password, username, firstName, lastName) VALUES('%s', '%s', '%s','%s','%s')",
-							email, password, userName, firstName, lastName));
+							"INSERT INTO User (email, password, firstName, lastName) VALUES('%s', '%s','%s','%s')",
+							email, password, firstName, lastName));
 					userToDb.executeUpdate();
 					System.out.println("Added user: " + email);
 				}
@@ -281,15 +268,15 @@ public class DBConnection {
 	}
 
 //Sjekker om en bruker med fag og rolle eksisterer i User_has_Course
-	public static boolean brukerHarCourseEksisterer(String userName, String coursecode, int role) {
+	public static boolean brukerHarCourseEksisterer(String Email, String coursecode, int role) {
 		boolean eksisterer = false;
 		try {
 			Connection con = getConnection();
 			//setter det på riktig format. onsker username i lowercase og coursecode i uppercase
-			String username = userName.toLowerCase();
+			String email = Email.toLowerCase();
 			String courseCode = coursecode.toUpperCase();
 			
-			PreparedStatement findUsername = con.prepareStatement("SELECT User_username, Course_courseCode, role "
+			PreparedStatement findUsername = con.prepareStatement("SELECT User_email, Course_courseCode, role "
 					+ "FROM User_has_Course ");
 			//PreparedStatement findCourseCode = con.prepareStatement("SELECT Course_courseCode FROM User_has_Course");
 			//PreparedStatement findRolle = con.prepareStatement("SELECT role FROM User_has_Course");
@@ -301,11 +288,11 @@ public class DBConnection {
 			
 
 			while (rs.next() && eksisterer == false) {
-				if (Objects.equals(rs.getString("User_username"), username) && Objects.equals(rs.getString("Course_courseCode"), courseCode) && Objects.equals(rs.getInt("role"),role)) {
+				if (Objects.equals(rs.getString("User_email"), email) && Objects.equals(rs.getString("Course_courseCode"), courseCode) && Objects.equals(rs.getInt("role"),role)) {
 					eksisterer = true;
 				}
 			}
-			
+			con.close();
 		} catch (Exception e) {
 			System.out.println(e);
 
@@ -317,25 +304,27 @@ public class DBConnection {
 	}
 	
 	
+	
 
 //Legg til kobling i UsereHarCourse
-	public static void leggTilUserHarCourse(String userName, String coursecode, int role) {
+	public static void leggTilUserHarCourse(String Email, String coursecode, int role) {
 		try {
 			Connection con = getConnection();
-			String username = userName.toLowerCase();
+			String email = Email.toLowerCase();
 			String courseCode = coursecode.toUpperCase();
 
 			// legger inn kobling om det ikke eksisterer
-			if (brukerHarCourseEksisterer(username, courseCode, role) == false) {
+			if (brukerHarCourseEksisterer(email, courseCode, role) == false) {
 
 				PreparedStatement leggInnKobling = con
-						.prepareStatement("INSERT INTO User_has_Course (User_username,Course_courseCode,role) VALUES('" + username + "','"
+						.prepareStatement("INSERT INTO User_has_Course (User_email,Course_courseCode,role) VALUES('" + email + "','"
 								+ courseCode + "','" + role + "')");
 				leggInnKobling.executeUpdate();
-				System.out.println("Lagt inn kobling til brukerId " + username);
+				System.out.println("Lagt inn kobling til email " + email);
 			} else {
-				System.out.println("The course for " + username + " exists.");
+				System.out.println("The course for " + email + " exists.");
 			}
+			con.close();
 		} catch (Exception e) {
 			System.out.println(e);
 		} finally {
@@ -346,10 +335,10 @@ public class DBConnection {
 
 	// collects all relevant information about user (used when loggin in).
 	// Return Array and Dictionary of courses
-	public static User returnUserObject(String username) {
+	public static User returnUserObject(String email) {
 		try {
 			Connection con = getConnection();
-			String query = String.format("SELECT * FROM User WHERE username = '%s'", username);
+			String query = String.format("SELECT * FROM User WHERE email = '%s'", email);
 			PreparedStatement st = con.prepareStatement(query);
 			ResultSet rs = st.executeQuery();
 			rs.next();
@@ -357,10 +346,10 @@ public class DBConnection {
 			String firstName = rs.getString("firstName");
 			String lastName = rs.getString("lastName");
 			String password = rs.getString("password");
-			String email = rs.getString("email");
+			
 
-			query = String.format("SELECT Course_courseCode, role FROM User_has_Course WHERE User_username = '%s'",
-					username);
+			query = String.format("SELECT Course_courseCode, role FROM User_has_Course WHERE User_email = '%s'",
+					email);
 			st = con.prepareStatement(query);
 			rs = st.executeQuery();
 
@@ -399,4 +388,7 @@ public class DBConnection {
 		return 1;
 	}*/
 
+	public static void main(String[] args) {
+		leggTilUserHarCourse("abc@ntnu.no", "tdt4145",3);
+	}
 }

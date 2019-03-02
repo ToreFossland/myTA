@@ -17,7 +17,7 @@
          <children>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="600.0" style="-fx-background-color: #0099FF;">
                <children>
-                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Log In">
+                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Login">
                      <font>
                         <Font size="25.0" />
                      </font>
@@ -26,7 +26,7 @@
             </HBox>
             <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="10.0" prefHeight="43.0" prefWidth="335.0" style="-fx-background-color: white;" VBox.vgrow="ALWAYS">
                <children>
-                  <TextField fx:id="user_input" onKeyTyped="#checkValidUsernameOrEmailOnInput" promptText="Username/Email">
+                  <TextField fx:id="user_input" onKeyTyped="#checkValidUsernameOrEmailOnInput" prefHeight="40.0" prefWidth="360.0" promptText="Username/Email">
                      <font>
                         <Font size="20.0" />
                      </font>
@@ -61,7 +61,7 @@
             </HBox>
             <HBox alignment="CENTER_LEFT" prefHeight="79.0" prefWidth="335.0">
                <children>
-                  <Button fx:id="button_log" mnemonicParsing="false" onAction="#OnClickLog" prefHeight="44.0" prefWidth="248.0" style="-fx-background-color: #0099FF;" text="Log in" textFill="WHITE">
+                  <Button fx:id="button_log" mnemonicParsing="false" onAction="#OnClickLog" prefHeight="40.0" prefWidth="260.0" style="-fx-background-color: #0099FF;" text="Log in" textFill="WHITE">
                      <font>
                         <Font size="20.0" />
                      </font>
@@ -81,15 +81,7 @@
             </HBox>
             <HBox alignment="CENTER_LEFT" prefHeight="122.0" prefWidth="335.0" style="-fx-background-color: white;">
                <children>
-                  <Text fill="#3681c6" strokeType="OUTSIDE" strokeWidth="0.0" text="New User? ">
-                     <font>
-                        <Font size="20.0" />
-                     </font>
-                     <HBox.margin>
-                        <Insets left="40.0" />
-                     </HBox.margin>
-                  </Text>
-                  <Button fx:id="button_reg" mnemonicParsing="false" onAction="#RegButtonHandler" style="-fx-background-color: #0099FF;" text="Register" textFill="WHITE">
+                  <Button fx:id="button_reg" mnemonicParsing="false" onAction="#RegButtonHandler" prefHeight="40.0" prefWidth="260.0" style="-fx-background-color: #0099FF;" text="Register" textFill="WHITE">
                      <font>
                         <Font size="20.0" />
                      </font>
