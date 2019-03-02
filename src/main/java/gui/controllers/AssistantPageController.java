@@ -1,5 +1,6 @@
 package gui.controllers;
 
+import gui.App;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 
@@ -20,12 +21,12 @@ public class AssistantPageController {
 	@FXML
 	Button button_messages;
 	
-	public void logoutHandler(javafx.event.ActionEvent event) {
-		// log out, go to login.fxml
-			// App.getInstance().gotoLogin();; ??
+	public void logoutHandler(javafx.event.ActionEvent event) throws Exception {
+		App.getInstance().gotoLogin();
 	}
+	
 	public void returnHandler() {
-		// Switches to login.fxml ?
+		App.getInstance().gotoStudentPage();
 	}
 	
 	public void addAssistantTimesHandler(javafx.event.ActionEvent event) {

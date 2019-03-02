@@ -17,6 +17,7 @@ import java.util.Map;
 import database.DBBooking;
 import halltimes.Booking;
 
+
 public abstract class User {
 	private String email;
 	private String firstName;
@@ -26,8 +27,12 @@ public abstract class User {
 
 	private ArrayList<Booking> availableBookings;
 	private ArrayList<Integer> availableWeeks;
+	
 
-	public User(String email, String firstName, String lastName, Map<String, Integer> coursesAndRoles) {
+	public User(String email, String firstName, String lastName,
+
+			Map<String, Integer> coursesAndRoles) {
+
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.email = email;
@@ -37,6 +42,11 @@ public abstract class User {
 	 * public boolean checkIfElementExsists(String username, String courseCode, int
 	 * role) { boolean exists = false; }
 	 */
+/*
+	public boolean checkIfElementExsists(String username, String courseCode, int role) {
+		boolean exists = false;
+	}
+	*/
 
 	public String getFirstName() {
 		return firstName;
@@ -75,6 +85,7 @@ public abstract class User {
 		}
 	}
 
+
 	public static User generateUserObject(String email, String firstName, String lastName,
 			Map<String, Integer> coursesAndRoles) {
 
@@ -86,12 +97,16 @@ public abstract class User {
 		switch (permission) {
 		case 1:
 			return new Student(email, firstName, lastName, coursesAndRoles);
+
 		case 2:
 			return new TeachingAssistant(email, firstName, lastName, coursesAndRoles);
+
 		case 3:
 			return new Supervisor(email, firstName, lastName, coursesAndRoles);
+
 		case 4:
 			return new Admin(email, firstName, lastName, coursesAndRoles);
+
 		default:
 			return new Student(email, firstName, lastName, coursesAndRoles);
 		}

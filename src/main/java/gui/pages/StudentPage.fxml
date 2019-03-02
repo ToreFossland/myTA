@@ -7,7 +7,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="800.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="800.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.controllers.StudentPageController">
    <children>
       <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -16,7 +16,7 @@
                   <HBox prefHeight="100.0" prefWidth="200.0" />
                   <HBox alignment="CENTER_LEFT" prefHeight="49.0" prefWidth="461.0">
                      <children>
-                        <Button fx:id="button_log_out" onAction="#logoutHandler" mnemonicParsing="false" style="-fx-background-color: black;" text="Log out" textFill="WHITE"> 
+                        <Button fx:id="button_log_out" mnemonicParsing="false" onAction="#logoutHandler" style="-fx-background-color: black;" text="Log out" textFill="WHITE"> 
                            <font>
                               <Font size="13.0" />
                            </font>
@@ -26,21 +26,20 @@
                   <HBox alignment="CENTER_LEFT" prefHeight="49.0" prefWidth="647.0">
                      <children>
                         <HBox prefHeight="49.0" prefWidth="35.0" />
-                        <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Student" wrappingWidth="124.53582775592804" HBox.hgrow="ALWAYS">
+                        <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Student" wrappingWidth="193.53582775592804" HBox.hgrow="ALWAYS">
                            <font>
                               <Font size="25.0" />
                            </font>
                         </Text>
-                        <HBox prefHeight="70.0" prefWidth="219.0" />
-                        <HBox alignment="CENTER" prefHeight="49.0" prefWidth="106.0">
+                        <AnchorPane prefHeight="61.0" prefWidth="256.0">
                            <children>
-                              <Button fx:id="button_return" onAction="#returnHandler" mnemonicParsing="false" style="-fx-background-color: blue;" text="Return" textFill="WHITE">
+                              <Button fx:id="teacher_assistant" layoutX="112.0" layoutY="21.0" mnemonicParsing="false" onAction="#gotoTA" prefHeight="27.0" prefWidth="134.0" style="-fx-background-color: blue;" text="Teacher assistant" textFill="WHITE">
                                  <font>
                                     <Font size="13.0" />
                                  </font>
                               </Button>
                            </children>
-                        </HBox>
+                        </AnchorPane>
                      </children>
                   </HBox>
                </children>
@@ -56,7 +55,7 @@
             </HBox>
             <HBox alignment="CENTER" prefHeight="90.0" prefWidth="800.0">
                <children>
-                  <Button fx:id="button_book_TA" onAction="#bookTAHandler" mnemonicParsing="false" prefHeight="44.0" prefWidth="230.0" style="-fx-background-color: #0099FF;" text="Book assistant times" textFill="WHITE">
+                  <Button fx:id="button_book_TA" mnemonicParsing="false" onAction="#bookTAHandler" prefHeight="44.0" prefWidth="230.0" style="-fx-background-color: #0099FF;" text="Book assistant times" textFill="WHITE">
                      <font>
                         <Font size="20.0" />
                      </font>
@@ -65,7 +64,7 @@
             </HBox>
             <HBox alignment="CENTER" prefHeight="90.0" prefWidth="800.0" VBox.vgrow="ALWAYS">
                <children>
-                  <Button fx:id="button_evaluating" onAction="#evaluatingHandler" mnemonicParsing="false" prefHeight="44.0" prefWidth="230.0" style="-fx-background-color: blue;" text="Evaluating" textFill="WHITE">
+                  <Button fx:id="button_evaluating" mnemonicParsing="false" onAction="#evaluatingHandler" prefHeight="44.0" prefWidth="230.0" style="-fx-background-color: blue;" text="Evaluating" textFill="WHITE">
                      <font>
                         <Font size="20.0" />
                      </font>
@@ -74,7 +73,7 @@
             </HBox>
             <HBox alignment="CENTER" prefHeight="90.0" prefWidth="800.0">
                <children>
-                  <Button fx:id="button_add_subject" onAction="#addSubjectHandler" mnemonicParsing="false" prefHeight="44.0" prefWidth="230.0" style="-fx-background-color: grey;" text="Add subject" textFill="WHITE">
+                  <Button fx:id="button_add_subject" mnemonicParsing="false" onAction="#addSubjectHandler" prefHeight="44.0" prefWidth="230.0" style="-fx-background-color: grey;" text="Add subject" textFill="WHITE">
                      <font>
                         <Font size="20.0" />
                      </font>
@@ -83,7 +82,7 @@
             </HBox>
             <HBox alignment="CENTER" prefHeight="85.0" prefWidth="800.0">
                <children>
-                  <Button fx:id="button_messages" onAction="#messagesHandler" mnemonicParsing="false" prefHeight="44.0" prefWidth="230.0" style="-fx-background-color: black;" text="Messages" textFill="WHITE">
+                  <Button fx:id="button_messages" mnemonicParsing="false" onAction="#messagesHandler" prefHeight="44.0" prefWidth="230.0" style="-fx-background-color: black;" text="Messages" textFill="WHITE">
                      <font>
                         <Font size="20.0" />
                      </font>

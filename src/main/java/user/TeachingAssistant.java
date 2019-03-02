@@ -1,10 +1,3 @@
-/*
-File: TeachingAssistant.java 
-Date 	 	Author 	Changes
---------------------------------------------
-Feb 26 19 	David 	Created
-
-*/
 
 package user;
 
@@ -15,9 +8,9 @@ import java.util.Map;
 import halltimes.Halltime;
 
 public class TeachingAssistant extends Student{
-
 	public TeachingAssistant(String email, String firstName, String lastName, Map<String, Integer> coursesAndRoles) {
 		super(email, firstName, lastName, coursesAndRoles);
+
 		// TODO Auto-generated constructor stub
 	}
 

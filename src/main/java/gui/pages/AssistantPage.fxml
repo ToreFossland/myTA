@@ -7,7 +7,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="800.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="800.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.controllers.AssistantPageController">
    <children>
       <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -16,7 +16,7 @@
                   <HBox prefHeight="100.0" prefWidth="200.0" />
                   <HBox alignment="CENTER_LEFT" prefHeight="61.0" prefWidth="486.0">
                      <children>
-                        <Button fx:id="button_log_out" onAction="#logoutHandler" mnemonicParsing="false" style="-fx-background-color: black;" text="Log out" textFill="WHITE">
+                        <Button fx:id="button_log_out" mnemonicParsing="false" onAction="#logoutHandler" style="-fx-background-color: black;" text="Log out" textFill="WHITE">
                            <font>
                               <Font size="13.0" />
                            </font>
@@ -33,7 +33,7 @@
                         <HBox alignment="CENTER" prefHeight="61.0" prefWidth="339.0">
                            <children>
                               <HBox prefHeight="100.0" prefWidth="200.0" />
-                              <Button fx:id="button_return" onAction="#returnHandler" mnemonicParsing="false" style="-fx-background-color: blue;" text="Return" textFill="WHITE">
+                              <Button fx:id="button_return" mnemonicParsing="false" onAction="#returnHandler" style="-fx-background-color: blue;" text="Student" textFill="WHITE">
                                  <font>
                                     <Font size="13.0" />
                                  </font>

@@ -1,10 +1,4 @@
-/*
-File: Student.java 
-Date 	 	Author 	Changes
---------------------------------------------
-Feb 26 19 	David 	Created
 
-*/
 
 package user;
 
@@ -16,9 +10,11 @@ import database.DBConnection;
 import halltimes.Halltime;
 
 public class Student extends User{
+
 	
 	public Student(String email, String firstName, String lastName, Map<String, Integer> coursesAndRoles) {
 		super(email, firstName, lastName, coursesAndRoles);
+
 		// TODO Auto-generated constructor stub
 	}
 
@@ -26,9 +22,9 @@ public class Student extends User{
 		int role = 1;
 		
 		String courseCode = coursecode.toUpperCase();
-		String username = getEmail();
-		if (DBConnection.brukerHarCourseEksisterer(username,courseCode,role)==false) {
-			DBConnection.leggTilUserHarCourse(username,courseCode,role);
+		String email = getEmail();
+		if (DBConnection.brukerHarCourseEksisterer(email,courseCode,role)==false) {
+			DBConnection.leggTilUserHarCourse(email,courseCode,role);
 		}
 		
 	}

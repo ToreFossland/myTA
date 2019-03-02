@@ -36,6 +36,9 @@ import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.time.LocalTime;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -95,7 +98,7 @@ public class App extends Application {
         return loggedUser;
     }
 
-    public boolean userLogin(String username, String password){
+    public boolean userLogin(String email, String password){
 
 		// encrypts the password with MD5
 		password = toMD5(password);
@@ -103,32 +106,34 @@ public class App extends Application {
 		boolean success = false;
 
 		try {
-			success = DBConnection.usernamePasswordMatch(username, password);
+			success = DBConnection.usernamePasswordMatch(email, password);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
 		if (success) {
-			loggedUser = DBConnection.returnUserObject(username);
+			loggedUser = DBConnection.returnUserObject(email);
 			return true;
 		} else {
 			return false;
 		}
     }
     
+    //Overfloedig?
+    /*
 	public void userRegister(String email, String password, String userName, String firstName, String lastName) {
-		userRegister(email, password, userName, firstName, lastName, false);
+		userRegister(email, password, firstName, lastName, false);
 		// doSomething
 	}
-
+	*/
 	// skipCheck = true skips checking for user existence in database. Useful for
 	// perfomance if this has already been checked.
-	public void userRegister(String email, String password, String userName, String firstName, String lastName,
+	public void userRegister(String email, String password, String firstName, String lastName,
 			Boolean skipCheck) {
 		Map<String, Integer> courses = new HashMap<String, Integer>();
 		password = toMD5(password);
-		DBConnection.registerUser(email, password, userName, firstName, lastName, skipCheck);
+		DBConnection.registerUser(email, password, firstName, lastName, skipCheck);
 		loggedUser = User.generateUserObject(email, firstName, lastName, courses);
 		System.out.println("Registration complete");
 		// doSomething
@@ -146,6 +151,62 @@ public class App extends Application {
             Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
+    public void gotoAdminPage() {
+        try {
+            replaceSceneContent("pages/AdminPage.fxml");
+        } catch (Exception ex) {
+            Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void gotoSupervisorPage() {
+        try {
+            replaceSceneContent("pages/SupervisorPage.fxml");
+        } catch (Exception ex) {
+            Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void gotoAssistantPage() {
+    	try {
+            replaceSceneContent("pages/AssistantPage.fxml");
+        } catch (Exception ex) {
+            Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void gotoStudentPage() {
+        try {
+            replaceSceneContent("pages/StudentPage.fxml");
+        } catch (Exception ex) {
+            Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    	
+    
+    public boolean isRole(String Email, int Role){
+		boolean match = false;
+		try {
+			Connection con = DBConnection.getConnection();
+			String email = Email.toLowerCase();
+			PreparedStatement findEmailRole = con.prepareStatement("SELECT User_email, role FROM User_has_Course "
+					+ " WHERE User_email = '"+email+"' AND role = '"+Role+"'");
+			ResultSet rs = findEmailRole.executeQuery();
+			
+			//Hvis det eksisterer noen objekter
+			if (rs.next() == true) {
+				match=true;
+			}
+			
+		}catch(Exception e) {
+			System.out.println(e);
+		}
+		return match;
+	}
+    
+    
 
     public void gotoLogin() {
         try {
@@ -157,8 +218,7 @@ public class App extends Application {
     
     public void gotoRegistration() {
         try {
-        	setDummyUser();
-            replaceSceneContent("pages/AssistantChooseTime.fxml");
+            replaceSceneContent("pages/RegisterPage.fxml");
         } catch (Exception ex) {
             Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -204,7 +264,7 @@ public class App extends Application {
 
 		return hashtext;
 	}
-	
+
 	
 	
 	public void setDummyUser() {
@@ -214,10 +274,4 @@ public class App extends Application {
 		loggedUser = dummy;
 	}
 }
-
-
-
-
-
-
 
