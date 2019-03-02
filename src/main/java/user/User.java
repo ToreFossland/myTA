@@ -14,6 +14,7 @@ package user;
 import java.util.ArrayList;
 import java.util.Map;
 
+import database.DBBooking;
 import halltimes.Booking;
 import halltimes.Halltime;
 
@@ -101,6 +102,16 @@ public abstract class User{
 	}
 
 	public ArrayList<Booking> getAvailableBookings() {
+		if(getType() == 1 | getType() == 2)
+		{
+			try {
+				DBBooking.getHallTimesFromDb();
+				System.out.println(getAvailableBookings());
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 		return availableBookings;
 	}
 	
@@ -113,6 +124,16 @@ public abstract class User{
 	}
 	
 	public void setAvailableWeeks(ArrayList<Integer> availableWeeks) {
+		if(getType() == 1 | getType() == 2)
+		{
+			try {
+				DBBooking.getHallTimesFromDb();
+				System.out.println(getAvailableBookings());
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 		this.availableWeeks = availableWeeks;
 	}
 }

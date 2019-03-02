@@ -289,17 +289,15 @@ public class DBBooking extends DBConnection {
 	
 	
 	public static void getHallTimesFromDb() throws Exception{
-		
-		App.getInstance().setDummyUser();
-		
+
 		ArrayList<Booking> availableBookingsStudent = new ArrayList<Booking>();
 		ArrayList<Booking> availableBookingsTA = new ArrayList<Booking>();
 		ArrayList<Integer> weeksStudent = new ArrayList<Integer>();
 		ArrayList<Integer> weeksTA = new ArrayList<Integer>();
 		
 		try {
+			Connection con = getConnection();
 			if(App.getInstance().getLoggedUser().getType() == 1) {
-				Connection con = getConnection();
 				PreparedStatement hallTimesStudent = con.prepareStatement("SELECT * FROM HallTime INNER JOIN Booking ON HallTime.idHallTime = "
 						+ "Booking.HallTime_idHallTime WHERE Student_email IS NULL"
 						);
@@ -326,7 +324,6 @@ public class DBBooking extends DBConnection {
 				App.getInstance().getLoggedUser().setAvailableWeeks(weeksStudent);
 			}
 			else if(App.getInstance().getLoggedUser().getType() == 2) {
-				Connection con = getConnection();
 				PreparedStatement hallTimesTA = con.prepareStatement("SELECT * FROM HallTime WHERE HallTime.idHallTime "
 						+ "NOT IN (SELECT HallTime_idHallTime FROM Booking) AND availablePlaces > 0"
 						);
@@ -360,7 +357,7 @@ public class DBBooking extends DBConnection {
 
 	
 	
-
+/*
 	public static void main(String[] args) {
 		Map<String, Integer> coursesAndRoles = new HashMap<String, Integer>();
 		LocalTime timeStart = LocalTime.of(13, 0, 0);
@@ -378,6 +375,6 @@ public class DBBooking extends DBConnection {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	}
+	}*/
 
 }

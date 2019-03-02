@@ -1,6 +1,5 @@
 package gui.controllers;
 
-import java.awt.Button;
 import java.time.LocalDate;
 import java.time.temporal.WeekFields;
 import java.util.ArrayList;
@@ -17,6 +16,7 @@ import halltimes.Booking;
 import halltimes.Halltime;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
 import user.User;
@@ -104,8 +104,8 @@ public class AssistantChooseTime {
 			{ checkBox5, checkBox6, checkBox7, checkBox8 }, { checkBox9, checkBox10, checkBox11, checkBox12 },
 			{ checkBox13, checkBox14, checkBox15, checkBox16 }, { checkBox17, checkBox18, checkBox19, checkBox20 } };
 			
-		List<Halltime> availableHalltimes = user.getAvailableBookings();
-        List<Integer> availableWeeks = new ArrayList<Integer>();
+		List<Booking> availableHalltimes = user.getAvailableBookings();
+        List<Integer> availableWeeks = user.getAvailableWeeks();
         Collections.sort(availableWeeks);
 		
 		week_input.getItems().addAll(availableWeeks);

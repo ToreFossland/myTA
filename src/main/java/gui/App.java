@@ -157,12 +157,8 @@ public class App extends Application {
     
     public void gotoRegistration() {
         try {
-     
-        	DBBooking.getHallTimesFromDb();
-
-        	
-        	
-            replaceSceneContent("pages/SupervisorCreatesTimes.fxml");
+        	setDummyUser();
+            replaceSceneContent("pages/AssistantChooseTime.fxml");
         } catch (Exception ex) {
             Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -213,7 +209,7 @@ public class App extends Application {
 	
 	public void setDummyUser() {
 		Map<String, Integer> dummyCourse = new HashMap<String, Integer>();
-		dummyCourse.put("TMA2000", 1);
+		dummyCourse.put("TDT4140", 2);
 		User dummy = User.generateUserObject("abc@ntnu.no", "dummy", "user", dummyCourse);
 		loggedUser = dummy;
 	}
