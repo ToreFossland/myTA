@@ -1,5 +1,6 @@
 package gui.controllers;
 
+import database.DBConnection;
 import gui.App;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -37,14 +38,18 @@ public class AdminPageController {
 		// Kan dette
 	}
 	
-	public boolean isValidSubject(String subejct) {
-		//
-		return true;
+	public boolean isValidSubject(String subject) throws Exception {
+		boolean valid = true;
+		if (DBConnection.fagEksisterer(subject)){
+			valid=false;
+		}
+		return valid;
 	}
 	
 	public void onClickAddSubject(javafx.event.ActionEvent event) throws Exception {
 		if (isValidSubject(add_subjectCode_input.getText())) {
 			String new_subject = add_subjectCode_input.getText();
+			
 		}
 		//adder fag til DB
 	}
