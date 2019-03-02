@@ -47,10 +47,13 @@
 				</HBox>
 				<HBox alignment="CENTER" prefHeight="90.0" prefWidth="800.0">
 					<children>
+
 						<Button fx:id="button_add_assistants" alignment="CENTER" mnemonicParsing="false" onAction="#addAssistantsHandler" prefHeight="44.0" prefWidth="300.0" style="-fx-background-color: #0099FF;" text="Add assistants" textAlignment="CENTER" textFill="WHITE" HBox.hgrow="ALWAYS">
+						<Button alignment="CENTER" mnemonicParsing="false" prefHeight="44.0" prefWidth="300.0" style="-fx-background-color: #0099FF;" text="Subjects &amp; assistants" textAlignment="CENTER" textFill="WHITE" HBox.hgrow="ALWAYS">
 							<font>
 								<Font size="20.0" />
 							</font>
+						</Button>
 						</Button>
 					</children>
 				</HBox>

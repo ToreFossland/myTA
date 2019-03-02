@@ -35,12 +35,11 @@ package gui;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.time.LocalTime;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -48,7 +47,6 @@ import java.util.logging.Logger;
 import database.DBBooking;
 import database.DBConnection;
 import halltimes.Booking;
-import halltimes.Halltime;
 import javafx.application.Application;
 import javafx.beans.value.ChangeListener;
 import javafx.fxml.FXMLLoader;
@@ -67,6 +65,9 @@ import user.*;
 public class App extends Application {
     private Stage stage;
     private User loggedUser;
+    
+    private ArrayList<Booking> downloadedBookings;
+    private ArrayList<Integer> downloadedWeeks;
 
     private static App instance;
 
@@ -100,7 +101,7 @@ public class App extends Application {
         return loggedUser;
     }
 
-    public boolean userLogin(String email, String password){
+    public boolean userLogin(String email, String password) throws Exception{
 
 		// encrypts the password with MD5
 		password = toMD5(password);
@@ -116,6 +117,10 @@ public class App extends Application {
 
 		if (success) {
 			loggedUser = DBConnection.returnUserObject(email);
+			if(loggedUser.getType() == 1 | loggedUser.getType() == 2)
+			{
+				DBBooking.downloadBookings();
+			}
 			return true;
 		} else {
 			return false;
@@ -170,6 +175,7 @@ public class App extends Application {
         }
     }
     
+    
     public void gotoAssistantPage() {
     	try {
             replaceSceneContent("pages/AssistantPage.fxml");
@@ -186,6 +192,7 @@ public class App extends Application {
         }
     }
     
+
     public void gotoSupervisorAddsAssistants(){
     	try {
             replaceSceneContent("pages/SupervisorAddsAssistantsToSubjects.fxml");
@@ -202,6 +209,16 @@ public class App extends Application {
             Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
+    public void gotoAssistantChooseTime() {
+        try {
+            replaceSceneContent("pages/AssistantChooseTime.fxml");
+        } catch (Exception ex) {
+            Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    	
+
     
     public boolean isRole(String Email, int Role){
 		boolean match = false;
@@ -288,6 +305,22 @@ public class App extends Application {
 		dummyCourse.put("TDT4140", 2);
 		User dummy = User.generateUserObject("abc@ntnu.no", "abc", "def", dummyCourse);
 		loggedUser = dummy;
+	}
+
+	public ArrayList<Booking> getDownloadedBookings() {
+		return downloadedBookings;
+	}
+
+	public void setDownloadedBookings(ArrayList<Booking> downloadedBookings) {
+		this.downloadedBookings = downloadedBookings;
+	}
+
+	public ArrayList<Integer> getDownloadedWeeks() {
+		return downloadedWeeks;
+	}
+
+	public void setDownloadedWeeks(ArrayList<Integer> downloadedWeeks) {
+		this.downloadedWeeks = downloadedWeeks;
 	}
 }
 
