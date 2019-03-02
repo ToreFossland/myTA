@@ -210,7 +210,7 @@ public class App extends Application {
 	public void setDummyUser() {
 		Map<String, Integer> dummyCourse = new HashMap<String, Integer>();
 		dummyCourse.put("TDT4140", 2);
-		User dummy = User.generateUserObject("abc@ntnu.no", "dummy", "user", dummyCourse);
+		User dummy = User.generateUserObject("abc@ntnu.no", "abc", "def", dummyCourse);
 		loggedUser = dummy;
 	}
 }

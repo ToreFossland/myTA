@@ -55,6 +55,11 @@ public class DBBooking extends DBConnection {
 	 * LocalTime.of(15, 00, 00); halltimes.add(new Halltime("TDT4140", 5, 3,
 	 * timeStart, timeEnd, 13)); supervisorAddHalltime(halltimes, 20); }
 	 */
+	
+	private static ArrayList<Booking> downloadedBookings;
+	private static ArrayList<Integer> weeks;
+	
+	
 
 	// Sjekker om halltid ligger inne
 	public static boolean halltimeExists(Halltime halltime) {
@@ -288,7 +293,7 @@ public class DBBooking extends DBConnection {
 	
 	
 	
-	public static void getHallTimesFromDb() throws Exception{
+	public static void downloadBookings(User user) throws Exception{
 
 		ArrayList<Booking> availableBookingsStudent = new ArrayList<Booking>();
 		ArrayList<Booking> availableBookingsTA = new ArrayList<Booking>();
@@ -297,7 +302,7 @@ public class DBBooking extends DBConnection {
 		
 		try {
 			Connection con = getConnection();
-			if(App.getInstance().getLoggedUser().getType() == 1) {
+			if(user.getType() == 1) {
 				PreparedStatement hallTimesStudent = con.prepareStatement("SELECT * FROM HallTime INNER JOIN Booking ON HallTime.idHallTime = "
 						+ "Booking.HallTime_idHallTime WHERE Student_email IS NULL"
 						);
@@ -314,16 +319,16 @@ public class DBBooking extends DBConnection {
 					if(!weeksStudent.contains(week)) {
 						weeksStudent.add(week);
 					}
-					System.out.println(CourseCode + " " + week + " " + day + " " + timeStart + " " + timeEnd + " " + availablePlaces);
+					//System.out.println(CourseCode + " " + week + " " + day + " " + timeStart + " " + timeEnd + " " + availablePlaces);
 					Halltime ht = new Halltime(CourseCode, week, day, timeStart, timeEnd, availablePlaces);
 				
-					Booking book = new Booking(ht, emailTA, App.getInstance().getLoggedUser().getEmail());
-					availableBookingsStudent.add(book);
+					Booking booking = new Booking(ht, emailTA, user.getEmail());
+					availableBookingsStudent.add(booking);
 				}
-				App.getInstance().getLoggedUser().setAvailableBookings(availableBookingsStudent);
-				App.getInstance().getLoggedUser().setAvailableWeeks(weeksStudent);
+				setDownloadedBookings(availableBookingsStudent);
+				setWeeks(weeksStudent);
 			}
-			else if(App.getInstance().getLoggedUser().getType() == 2) {
+			else if(user.getType() == 2) {
 				PreparedStatement hallTimesTA = con.prepareStatement("SELECT * FROM HallTime WHERE HallTime.idHallTime "
 						+ "NOT IN (SELECT HallTime_idHallTime FROM Booking) AND availablePlaces > 0"
 						);
@@ -341,11 +346,11 @@ public class DBBooking extends DBConnection {
 					}
 					
 					Halltime ht = new Halltime(CourseCode, week, day, timeStart, timeEnd, availablePlaces);
-					Booking book = new Booking(ht, App.getInstance().getLoggedUser());
+					Booking book = new Booking(ht, user);
 					availableBookingsTA.add(book);	
 				}
-				App.getInstance().getLoggedUser().setAvailableBookings(availableBookingsTA);
-				App.getInstance().getLoggedUser().setAvailableWeeks(weeksTA);
+				setDownloadedBookings(availableBookingsTA);
+				setWeeks(weeksTA);
 				
 			}
 	} catch (SQLException e) {
@@ -353,28 +358,47 @@ public class DBBooking extends DBConnection {
 		e.printStackTrace();
 	}
 }
+
+	public static ArrayList<Booking> getDownloadedBookings() {
+		return downloadedBookings;
+	}
+
+	public static void setDownloadedBookings(ArrayList<Booking> bookings) {
+		downloadedBookings = bookings;
+	}
+
+	public static ArrayList<Integer> getWeeks() {
+		return weeks;
+	}
+
+	public static void setWeeks(ArrayList<Integer> weekList) {
+		weeks = weekList;
+	}
 	
 
 	
 	
-/*
+
 	public static void main(String[] args) {
 		Map<String, Integer> coursesAndRoles = new HashMap<String, Integer>();
-		LocalTime timeStart = LocalTime.of(13, 0, 0);
+		coursesAndRoles.put("TDT4140", 2);
+		/*LocalTime timeStart = LocalTime.of(13, 0, 0);
 		LocalTime timeEnd = LocalTime.of(15, 0, 0);
-		Halltime ht = new Halltime("TDT4140", 5, 3, timeStart, timeEnd, 15);
+		Halltime ht = new Halltime("TDT4140", 5, 3, timeStart, timeEnd, 15);*/
 		User TA = User.generateUserObject("abc@ntnu.no", "abc", "def", coursesAndRoles);
-		User Student = User.generateUserObject("abc@ntnu.no", "ghi", "jkl", coursesAndRoles);
+		/*User Student = User.generateUserObject("abc@ntnu.no", "ghi", "jkl", coursesAndRoles);
 		Booking bookTA = new Booking(ht, TA);
-		Booking bookStudent = new Booking(ht, TA, Student);
+		Booking bookStudent = new Booking(ht, TA, Student);*/
 		try {
 			//addHalltimeTA(bookTA);
 			//addHalltimeStudent(bookStudent);
-			getHallTimesFromDb();
+			downloadBookings(TA);
+			System.out.println(getDownloadedBookings());
+			System.out.println(getWeeks());
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	}*/
+	}
 
 }

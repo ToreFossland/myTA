@@ -117,7 +117,7 @@ public class AssistantChooseTime {
 	
 	public void loadAvailableTimes() {
 		//Disables all checkboxes
-		for (CheckBox[] checkboxRow : checkboxes) {
+		/*for (CheckBox[] checkboxRow : checkboxes) {
 			for (CheckBox checkbox : checkboxRow) {
 				checkbox.setDisable(true);
 			}
@@ -128,7 +128,7 @@ public class AssistantChooseTime {
 			if(halltime.getWeek() == week && halltime.getTimeStart().getHour() % 2 == 0 && halltime.getTimeStart().getMinute() == 0) {
 				checkboxes[halltime.getTimeStart().getHour()][halltime.getDay()-1].setDisable(false);
 			}
-		}
+		}*/
 	}
 	
 	public void confirmHandler(ActionEvent event) {

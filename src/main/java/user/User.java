@@ -10,61 +10,57 @@ Feb 20 19 	David 	Added new bugfixes
 
 package user;
 
-
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Map;
 
 import database.DBBooking;
 import halltimes.Booking;
-import halltimes.Halltime;
 
-public abstract class User{
+public abstract class User {
 	private String email;
 	private String firstName;
 	private String lastName;
-	private Map<String, Integer> myCourses; //Inneholder permission og fagkode, fagkode er n�kkelen. Se getPosition for kodeforklaring.
-	
+	private Map<String, Integer> myCourses; // Inneholder permission og fagkode, fagkode er n�kkelen. Se getPosition for
+											// kodeforklaring.
+
 	private ArrayList<Booking> availableBookings;
 	private ArrayList<Integer> availableWeeks;
-	
-	public User(String email, String firstName, String lastName,
-			Map<String, Integer> coursesAndRoles) {
+
+	public User(String email, String firstName, String lastName, Map<String, Integer> coursesAndRoles) {
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.email = email;
 		this.myCourses = coursesAndRoles;
 	}
 	/*
-	public boolean checkIfElementExsists(String username, String courseCode, int role) {
-		boolean exists = false;
-	}
-	*/
-	
+	 * public boolean checkIfElementExsists(String username, String courseCode, int
+	 * role) { boolean exists = false; }
+	 */
+
 	public String getFirstName() {
 		return firstName;
 	}
-	
+
 	public String getLastName() {
 		return lastName;
 	}
-	
+
 	public String getEmail() {
 		return email;
 	}
-	
-	
+
 	public Map<String, Integer> getMyCourses() {
 		return myCourses;
 	}
-	
+
 	public Integer getRoleInCourse(String course) {
 		return myCourses.get(course);
 	}
-	
 
 	public int getType() {
 		String className = this.getClass().getSimpleName();
-		
+
 		switch (className) {
 		case "Student":
 			return 1;
@@ -78,15 +74,15 @@ public abstract class User{
 			throw new NullPointerException("Could not determine user type");
 		}
 	}
-	
+
 	public static User generateUserObject(String email, String firstName, String lastName,
 			Map<String, Integer> coursesAndRoles) {
-		
+
 		int permission = 1;
 		for (int role : coursesAndRoles.values()) {
 			permission = role > permission ? role : permission;
 		}
-		
+
 		switch (permission) {
 		case 1:
 			return new Student(email, firstName, lastName, coursesAndRoles);
@@ -102,39 +98,49 @@ public abstract class User{
 	}
 
 	public ArrayList<Booking> getAvailableBookings() {
-		if(getType() == 1 | getType() == 2)
-		{
-			try {
-				DBBooking.getHallTimesFromDb();
-				System.out.println(getAvailableBookings());
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+		if (getType() == 1 | getType() == 2) {
+			if (DBBooking.getDownloadedBookings().isEmpty()) {
+				try {
+					DBBooking.downloadBookings(this);
+					this.availableBookings = DBBooking.getDownloadedBookings();
+
+					System.out.println(getAvailableBookings());
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 		}
-		return availableBookings;
+		return this.availableBookings;
 	}
-	
+
 	public void setAvailableBookings(ArrayList<Booking> availableBookings) {
 		this.availableBookings = availableBookings;
 	}
-	
+
 	public ArrayList<Integer> getAvailableWeeks() {
-		return availableWeeks;
-	}
-	
-	public void setAvailableWeeks(ArrayList<Integer> availableWeeks) {
-		if(getType() == 1 | getType() == 2)
-		{
-			try {
-				DBBooking.getHallTimesFromDb();
-				System.out.println(getAvailableBookings());
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+		if (getType() == 1 | getType() == 2) {
+			if (DBBooking.getWeeks().isEmpty()) {
+				try {
+					DBBooking.downloadBookings(this);
+					this.availableBookings = DBBooking.getDownloadedBookings();
+					this.availableWeeks = DBBooking.getWeeks();
+
+					System.out.println(getAvailableBookings());
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 		}
-		this.availableWeeks = availableWeeks;
+		return this.availableWeeks;
+	}
+
+	public void setAvailableWeeks(ArrayList<Integer> availableWeeks) throws IOException {
+		if (getType() == 1 | getType() == 2) {
+			this.availableWeeks = availableWeeks;
+		} else {
+			throw new IOException("Cannot set availableWeeks to user that is not student/TA");
+		}
 	}
 }
-
