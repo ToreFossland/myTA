@@ -1,11 +1,12 @@
 /*
-File: DBBooking.java    
+File: DBBooking.java     
 Date 	 	Author 	Changes
 --------------------------------------------
 Feb 28 19 	David 	Created
 Mar 01 19   David	Creates booking
 Mar 01 19   Tore	Inserts Student email
 Mar 01 19	Tore 	Decrement avaible places and checks if greater than 0
+Mar 02 19   Tore    Added function for database info gathering to halltime objects
 */
 
 package database;
@@ -20,6 +21,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
+import gui.App;
 import halltimes.Booking;
 import halltimes.Halltime;
 import user.User;
@@ -272,6 +274,75 @@ public class DBBooking extends DBConnection {
 			e.printStackTrace();
 		}
 	}
+	
+	
+	
+	public void getHallTimesFromDb() throws Exception{
+		
+		ArrayList<Booking> availableBookingsStudent = new ArrayList<Booking>();
+		ArrayList<Booking> availableBookingsTA = new ArrayList<Booking>();
+		ArrayList<Integer> weeksStudent = new ArrayList<Integer>();
+		ArrayList<Integer> weeksTA = new ArrayList<Integer>();
+		
+		try {
+			if(App.getInstance().getLoggedUser().getType() == 1) {
+				Connection con = getConnection();
+				PreparedStatement hallTimesStudent = con.prepareStatement("SELECT * FROM HallTime INNER JOIN Booking ON HallTime.idHallTime = "
+						+ "Booking.HallTime_idHallTime WHERE Student_email IS NULL"
+						);
+				ResultSet rs = hallTimesStudent.executeQuery();
+				while(rs.next()) {
+					int id = rs.getInt("idHallTime");
+					String CourseCode = rs.getString("Course_CourseCode");
+					int week = rs.getInt("week");
+					int day = rs.getInt("day");
+					LocalTime timeStart = LocalTime.parse(rs.getString("timeStart"));
+					LocalTime timeEnd = LocalTime.parse(rs.getString("timeEnd"));
+					int availablePlaces = rs.getInt("availablePlaces");
+					String emailTA = rs.getString("TeachingAssistant_email");
+					if(!weeksStudent.contains(week)) {
+						weeksStudent.add(week);
+					}
+					Halltime ht = new Halltime(CourseCode, week, day, timeStart, timeEnd, availablePlaces);
+					Booking book = new Booking(ht, emailTA, App.getInstance().getLoggedUser().getEmail());
+					availableBookingsTA.add(book);	
+				}
+				App.getInstance().getLoggedUser().setAvailableBookings(availableBookingsStudent);
+				App.getInstance().getLoggedUser().setAvailableWeeks(weeksStudent);
+			}
+			else if(App.getInstance().getLoggedUser().getType() == 2) {
+				Connection con = getConnection();
+				PreparedStatement hallTimesTA = con.prepareStatement("SELECT * FROM HallTime WHERE HallTime.idHallTime "
+						+ "NOT IN (SELECT HallTime_idHallTime FROM Booking) AND availablePlaces > 0"
+						);
+				ResultSet rs = hallTimesTA.executeQuery();
+				while(rs.next()) {
+					int id = rs.getInt("idHallTime");
+					String CourseCode = rs.getString("Course_CourseCode");
+					int week = rs.getInt("week");
+					int day = rs.getInt("day");
+					LocalTime timeStart = LocalTime.parse(rs.getString("timeStart"));
+					LocalTime timeEnd = LocalTime.parse(rs.getString("timeEnd"));
+					int availablePlaces = rs.getInt("availablePlaces");
+					if(!weeksTA.contains(week)) {
+						weeksTA.add(week);
+					}
+					
+					Halltime ht = new Halltime(CourseCode, week, day, timeStart, timeEnd, availablePlaces);
+					Booking book = new Booking(ht, App.getInstance().getLoggedUser());
+					availableBookingsTA.add(book);	
+				}
+				App.getInstance().getLoggedUser().setAvailableBookings(availableBookingsTA);
+				App.getInstance().getLoggedUser().setAvailableWeeks(weeksTA);
+				
+			}
+	} catch (SQLException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+}
+	
+
 	
 	
 
