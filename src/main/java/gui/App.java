@@ -92,7 +92,7 @@ public class App extends Application {
     @Override public void start(Stage primaryStage) {
         try {
             stage = primaryStage;
-            gotoLogin();
+            gotoFrontPage();
             primaryStage.show();
             
         } catch (Exception ex) {
@@ -179,6 +179,13 @@ public class App extends Application {
         }
     }
     
+    public void gotoFrontPage() {
+    	 try {
+             replaceSceneContent("pages/FrontPage.fxml");
+         } catch (Exception ex) {
+             Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
+         }
+     }
     
     public void gotoAssistantPage() {
     	try {
