@@ -43,7 +43,7 @@ public class StudentPageController {
 		// switches to ? ikke laget 
 	}
 	public void addSubjectHandler() {
-		// switches to ? ikke laget
+		App.getInstance().gotoAddStudentSubject();
 	}
 	public void messagesHandler() {
 		// ikke laget
