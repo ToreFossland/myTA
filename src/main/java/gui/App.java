@@ -192,6 +192,14 @@ public class App extends Application {
         }
     }
     
+    public void gotoBookingForStudent() {
+        try {
+            replaceSceneContent("pages/BookingForStudent.fxml");
+        } catch (Exception ex) {
+            Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
 
     public void gotoSupervisorAddsAssistants(){
     	try {

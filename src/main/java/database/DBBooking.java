@@ -246,7 +246,6 @@ public class DBBooking extends DBConnection {
 							+ "AND week = ? AND day = ? AND Student_email IS NULL");
 
 			for (Booking booking : bookings) {
-				String emailTA = booking.getEmailTA();
 				String studentEmail = booking.getEmailStudent();
 				String courseCode = booking.getCourseCode();
 				LocalTime timeStart = booking.getStartTime();
@@ -299,7 +298,6 @@ public class DBBooking extends DBConnection {
 								+ "Booking.HallTime_idHallTime WHERE Student_email IS NULL");
 				ResultSet rs = hallTimesStudent.executeQuery();
 				while (rs.next()) {
-					int id = rs.getInt("idHallTime");
 					String CourseCode = rs.getString("Course_CourseCode");
 					int week = rs.getInt("week");
 					int day = rs.getInt("day");
@@ -324,7 +322,6 @@ public class DBBooking extends DBConnection {
 						+ "NOT IN (SELECT HallTime_idHallTime FROM Booking) AND availablePlaces > 0");
 				ResultSet rs = hallTimesTA.executeQuery();
 				while (rs.next()) {
-					int id = rs.getInt("idHallTime");
 					String CourseCode = rs.getString("Course_CourseCode");
 					int week = rs.getInt("week");
 					int day = rs.getInt("day");
