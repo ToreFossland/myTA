@@ -37,7 +37,7 @@ public class StudentPageController {
 		
 	}
 	public void bookTAHandler() {
-		// switched to BookingForStudent.fxml - ikke lagt inn FXML
+		App.getInstance().gotoBookingForStudent();
 	}
 	public void evaluatingHandler() {
 		// switches to ? ikke laget 

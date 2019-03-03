@@ -1,9 +1,10 @@
 package gui.controllers;
 
-import java.awt.Button;
+
 
 import gui.App;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 
 public class BookingForStudent {
 	
@@ -14,7 +15,7 @@ public class BookingForStudent {
 	Button button_confirm_booking;
 	
 	public void returnHandler(javafx.event.ActionEvent event){
-		App.getInstance().gotoProfile();
+		App.getInstance().gotoStudentPage();
 	}
 	
 	public void confirmBooking(javafx.event.ActionEvent event){

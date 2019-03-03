@@ -226,6 +226,15 @@ public class App extends Application {
         }
     
     }
+
+    public void gotoBookingForStudent() {
+    	try {
+            replaceSceneContent("pages/BookingForStudent.fxml");
+        } catch (Exception ex) {
+            Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    
+    }
     
     public boolean isRole(String Email, int Role){
 		boolean match = false;
