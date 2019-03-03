@@ -11,11 +11,11 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="350.0" prefWidth="500.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.controllers.LoginController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="800.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.controllers.LoginController">
    <children>
       <VBox prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="600.0" style="-fx-background-color: #0099FF;">
+            <HBox alignment="CENTER" prefHeight="65.0" prefWidth="600.0" style="-fx-background-color: #0099FF;">
                <children>
                   <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Login">
                      <font>
@@ -24,9 +24,10 @@
                   </Text>
                </children>
             </HBox>
-            <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="10.0" prefHeight="43.0" prefWidth="335.0" style="-fx-background-color: white;" VBox.vgrow="ALWAYS">
+            <HBox alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="98.0" prefWidth="800.0" style="-fx-background-color: white;" VBox.vgrow="ALWAYS">
                <children>
-                  <TextField fx:id="user_input" onKeyTyped="#checkValidUsernameOrEmailOnInput" prefHeight="40.0" prefWidth="360.0" promptText="Username/Email">
+                  <HBox prefHeight="93.0" prefWidth="223.0" />
+                  <TextField fx:id="user_input" onKeyTyped="#checkValidUsernameOrEmailOnInput" prefHeight="44.0" prefWidth="260.0" promptText="Username/Email">
                      <font>
                         <Font size="20.0" />
                      </font>
@@ -44,9 +45,9 @@
                   <Insets top="20.0" />
                </VBox.margin>
             </HBox>
-            <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="110.0" prefHeight="149.0" prefWidth="335.0" style="-fx-background-color: white;">
+            <HBox alignment="CENTER" layoutX="10.0" layoutY="110.0" prefHeight="149.0" prefWidth="335.0" style="-fx-background-color: white;">
                <children>
-                  <PasswordField fx:id="password_input" promptText="Password">
+                  <PasswordField fx:id="password_input" prefHeight="44.0" prefWidth="260.0" promptText="Password">
                      <font>
                         <Font size="20.0" />
                      </font>
@@ -54,13 +55,15 @@
                         <Insets left="40.0" />
                      </HBox.margin>
                   </PasswordField>
+                  <HBox prefHeight="145.0" prefWidth="47.0" />
                </children>
                <VBox.margin>
                   <Insets />
                </VBox.margin>
             </HBox>
-            <HBox alignment="CENTER_LEFT" prefHeight="79.0" prefWidth="335.0">
+            <HBox alignment="CENTER" prefHeight="79.0" prefWidth="335.0">
                <children>
+                  <HBox prefHeight="75.0" prefWidth="133.0" />
                   <Button fx:id="button_log" mnemonicParsing="false" onAction="#OnClickLog" prefHeight="40.0" prefWidth="260.0" style="-fx-background-color: #0099FF;" text="Log in" textFill="WHITE">
                      <font>
                         <Font size="20.0" />
@@ -79,7 +82,7 @@
                   <Insets />
                </VBox.margin>
             </HBox>
-            <HBox alignment="CENTER_LEFT" prefHeight="122.0" prefWidth="335.0" style="-fx-background-color: white;">
+            <HBox alignment="CENTER" prefHeight="122.0" prefWidth="335.0" style="-fx-background-color: white;">
                <children>
                   <Button fx:id="button_reg" mnemonicParsing="false" onAction="#RegButtonHandler" prefHeight="40.0" prefWidth="260.0" style="-fx-background-color: #0099FF;" text="Register" textFill="WHITE">
                      <font>
@@ -89,12 +92,13 @@
                         <Insets left="40.0" />
                      </HBox.margin>
                   </Button>
+                  <HBox prefHeight="117.0" prefWidth="49.0" />
                </children>
                <VBox.margin>
                   <Insets bottom="20.0" />
                </VBox.margin>
             </HBox>
-            <HBox prefHeight="20.0" prefWidth="800.0" style="-fx-background-color: #0099FF;" />
+            <HBox prefHeight="24.0" prefWidth="800.0" style="-fx-background-color: #0099FF;" />
          </children>
       </VBox>
    </children>
