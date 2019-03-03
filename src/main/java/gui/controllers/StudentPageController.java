@@ -37,13 +37,13 @@ public class StudentPageController {
 		
 	}
 	public void bookTAHandler() {
-		App.getInstance().gotoBookingForStudent();;
+		App.getInstance().gotoBookingForStudent();
 	}
 	public void evaluatingHandler() {
 		// switches to ? ikke laget 
 	}
 	public void addSubjectHandler() {
-		// switches to ? ikke laget
+		App.getInstance().gotoAddStudentSubject();
 	}
 	public void messagesHandler() {
 		// ikke laget

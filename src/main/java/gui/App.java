@@ -229,8 +229,15 @@ public class App extends Application {
         }
     }
     	
-
+    public void gotoAddStudentSubject() {
+    	try {
+            replaceSceneContent("pages/SubjectsPageForStudent.fxml");
+        } catch (Exception ex) {
+            Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
+        }
     
+    }
+
     public boolean isRole(String Email, int Role){
 		boolean match = false;
 		try {

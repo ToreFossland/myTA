@@ -4,6 +4,7 @@ import database.DBConnection;
 import gui.App;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
 public class AdminPageController {
@@ -34,10 +35,13 @@ public class AdminPageController {
 	@FXML
 	Button button_add_supervisor;
 	
-	public void checkValidSubject() {
-		// Kan dette
-	}
+	@FXML
+	Label subject_response;
 	
+	@FXML
+	Label supervisor_response;
+	
+	//valid om faget ikke eksisterer
 	public boolean isValidSubject(String subject) throws Exception {
 		boolean valid = true;
 		if (DBConnection.fagEksisterer(subject)){
@@ -49,25 +53,40 @@ public class AdminPageController {
 	public void onClickAddSubject(javafx.event.ActionEvent event) throws Exception {
 		if (isValidSubject(add_subjectCode_input.getText())) {
 			String new_subject = add_subjectCode_input.getText();
-			
+			String new_name = add_subjectName_input.getText();
+			DBConnection.leggTilCourse(new_subject, new_name);	
+			subject_response.setText("Course added");
+		}
+		else {
+			subject_response.setText("Course already exists");
 		}
 		//adder fag til DB
 	}
 	
-	public void checkSubjectExists() {
-		// Sjekker om fag er i DB
+
+	
+	public boolean isValidSupervisor(String email, String course) throws Exception {
+		boolean valid =true;
+		if(DBConnection.brukerHarCourseEksisterer(email, course, 3) || isValidSubject(course) || !checkUserExists(email)) {
+			valid=false;
+		}
+		return valid;
+	}
+	public boolean checkUserExists(String email) throws Exception {
+		return DBConnection.userExists(email);
+		
 	}
 	
-	public boolean isValidSupervisor(String supervisor) {
-		// sjekk om supervisor er i DB
-		return true;
-	}
-	public void checkValidSupervisor() {
-		//Sjekkerom supervisor er valid
-	}
-	
-	public void onClickAddSupervisor(javafx.event.ActionEvent event) {
-		// adder supervisor til fag
+	public void onClickAddSupervisor(javafx.event.ActionEvent event) throws Exception {
+		String email = supervisor_email_input.getText();
+		String course = choose_supervisor_subject_input.getText();
+		if (isValidSupervisor(email, course)) {
+			DBConnection.leggTilUserHarCourse(email,course,3);
+			supervisor_response.setText("Supervisor has been added to " + course + " .");
+		}
+		else {
+			supervisor_response.setText("Could not add supervisor to subject.");
+		}
 	}
 	
 	public void logoutHandler(javafx.event.ActionEvent event) throws Exception {

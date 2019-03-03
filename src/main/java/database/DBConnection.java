@@ -111,12 +111,12 @@ public class DBConnection {
 		String fagKode = fagkode.toUpperCase();
 		try {
 			Connection con = getConnection();
-			PreparedStatement statement = con.prepareStatement("SELECT CourseKode FROM Course");
+			PreparedStatement statement = con.prepareStatement("SELECT courseCode FROM Course");
 
 			ResultSet result = statement.executeQuery();
 
 			while (result.next() && eksisterer == false) {
-				if (Objects.equals(result.getString("CourseKode"), fagKode)) {
+				if (Objects.equals(result.getString("courseCode"), fagKode)) {
 					eksisterer = true;
 				}
 			}
@@ -128,6 +128,88 @@ public class DBConnection {
 		return eksisterer;
 
 	}
+	
+
+	// Legg til fag
+	public static void leggTilCourse(String courseCode, String navn, String description) {
+
+		try {
+			Connection con = getConnection();
+			String coursecode = courseCode.toUpperCase();
+
+			// legger inn kobling om det ikke eksisterer
+
+			if (fagEksisterer(courseCode) == false) {
+
+				PreparedStatement leggInnFag = con
+						.prepareStatement("INSERT INTO Course (courseCode,name,description) VALUES('" + coursecode
+								+ "','" + navn + "','" + description + "')");
+				leggInnFag.executeUpdate();
+
+				System.out.println("Lagt inn fag " + coursecode);
+			} else {
+				System.out.println("Course " + coursecode + " eksisterer.");
+			}
+		} catch (Exception e) {
+			System.out.println(e);
+		} finally {
+			// System.out.println("Insert Completed");
+		}
+
+	}
+
+	// Legg til fag med kode og navn
+	public static void leggTilCourse(String courseCode, String navn) {
+		try {
+			Connection con = getConnection();
+			String coursecode = courseCode.toUpperCase();
+
+			// legger inn kobling om det ikke eksisterer
+			if (fagEksisterer(coursecode) == false) {
+
+				PreparedStatement leggInnFag = con.prepareStatement(
+						"INSERT INTO Course (courseCode,name) VALUES('" + coursecode + "','" + navn + "')");
+				leggInnFag.executeUpdate();
+				System.out.println("Lagt inn fag " + coursecode);
+			} else {
+				System.out.println("Course " + coursecode + " eksisterer.");
+			}
+		} catch (Exception e) {
+			System.out.println(e);
+		} finally {
+			// System.out.println("Insert Completed");
+		}
+
+	}
+
+	// Legg til fag med kode
+	public static void leggTilCourse(String courseCode) {
+
+		try {
+			Connection con = getConnection();
+			String coursecode = courseCode.toUpperCase();
+
+			// legger inn kobling om det ikke eksisterer
+			if (fagEksisterer(coursecode) == false) {
+
+				PreparedStatement leggInnFag = con
+						.prepareStatement("INSERT INTO Course (courseCode) VALUES('" + coursecode + "')");
+
+				leggInnFag.executeUpdate();
+
+				System.out.println("Lagt inn fag " + coursecode);
+			} else {
+				System.out.println("Course " + coursecode + " eksisterer.");
+			}
+		} catch (Exception e) {
+			System.out.println(e);
+		} finally {
+			// System.out.println("Insert Completed");
+		}
+
+		}	
+
+	
 
 	// checks if element exists in specified column
 	public static boolean elementExists(String table, String column, String searchFor) throws Exception {

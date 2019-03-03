@@ -1,5 +1,6 @@
 package gui.controllers;
 
+
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.temporal.WeekFields;
@@ -10,6 +11,7 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Map.Entry;
 
+
 import database.DBBooking;
 import gui.App;
 import halltimes.Booking;
@@ -17,9 +19,11 @@ import halltimes.Halltime;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
+
 
 public class BookingForStudent {
 
@@ -252,6 +256,9 @@ public class BookingForStudent {
 
 		loadAvailableTimes();
 	}
+	public void returnHandler(javafx.event.ActionEvent event){
+		App.getInstance().gotoStudentPage();
+	}
 	
 	public void loadAvailableTimes() {
 		// Disables all checkboxes
@@ -274,10 +281,6 @@ public class BookingForStudent {
 				checkboxes[booking.getDay() - 1][bookingNo].setDisable(false);
 			}
 		}
-	}
-
-	public void returnHandler(javafx.event.ActionEvent event) {
-		App.getInstance().gotoProfile();
 	}
 
 	public void weekInputHandler(ActionEvent event) {
