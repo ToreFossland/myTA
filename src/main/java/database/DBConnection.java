@@ -399,7 +399,7 @@ public class DBConnection {
 			if (brukerHarCourseEksisterer(email, courseCode, role) == false) {
 
 				PreparedStatement leggInnKobling = con
-						.prepareStatement("INSERT INTO User_has_Course (User_email,Course_courseCode,role) VALUES('" + email + "','"
+						.prepareStatement("REPLACE INTO User_has_Course (User_email,Course_courseCode,role) VALUES('" + email + "','"
 								+ courseCode + "','" + role + "')");
 				leggInnKobling.executeUpdate();
 				System.out.println("Lagt inn kobling til email " + email);

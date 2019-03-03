@@ -261,12 +261,7 @@ public class BookingForStudent {
 	}
 	
 	public void loadAvailableTimes() {
-		// Disables all checkboxes
-		for (Booking booking : bookings) {
-			if(!booking.getEmailTA().contentEquals("davidaan@stud.ntnu.no"))
-				System.out.println(booking.getEmailTA());
-		}
-		
+		// Disables all checkboxes		
 		for (CheckBox[] checkboxRow : checkboxes) {
 			for (CheckBox checkbox : checkboxRow) {
 				checkbox.setDisable(true);
