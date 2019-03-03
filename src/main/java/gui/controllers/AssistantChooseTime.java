@@ -146,6 +146,7 @@ public class AssistantChooseTime {
 		for (CheckBox[] checkboxRow : checkboxes) {
 			for (CheckBox checkbox : checkboxRow) {
 				checkbox.setDisable(true);
+				checkbox.setSelected(false);
 			}
 		}
 		int week = week_input.getValue();
@@ -186,6 +187,23 @@ public class AssistantChooseTime {
 		try {
 			DBBooking.addHalltimeTA(bookings);
 			confirm_label.setText("Assistant times added!");
+			System.out.println(bookings);
+			ArrayList<Booking> tempBooking = App.getInstance().getDownloadedBookingsTA();
+			ArrayList<Booking> deleteList = new ArrayList<Booking>();
+			System.out.println(tempBooking.size());
+			for(Booking booking : bookings) {
+				for(Booking booking2 : App.getInstance().getDownloadedBookingsTA()) {
+					if(booking.compareTo(booking2) == 1) {
+						System.out.println(deleteList.add(booking2)	);
+						System.out.println("suksess");
+					}
+				}
+			}
+			tempBooking.removeAll(deleteList);
+			System.out.println(tempBooking.size());
+			App.getInstance().setDownloadedBookingsTA(tempBooking);
+			loadAvailableTimes();
+			
 		} catch (Exception e) {
 			confirm_label.setText("Adding assistant times failed! :(");
 			e.printStackTrace();
