@@ -32,9 +32,10 @@ public class SubjectsPageForStudent {
 		
 		public void onClickAddSubject(javafx.event.ActionEvent event) throws Exception {
 			if (isValidSubject(add_subjectCode_input.getText())) {
-				String new_subject = add_subjectCode_input.getText();
+				String new_subject = add_subjectCode_input.getText().toUpperCase();
 				String email = App.getInstance().getLoggedUser().getEmail();
 				DBConnection.leggTilUserHarCourse(email, new_subject, 1);	
+				App.getInstance().getLoggedUser().addCourse(new_subject, 1);
 				subject_response.setText("Course added");
 			}
 			else {

@@ -99,4 +99,8 @@ public abstract class User {
 			return new Student(email, firstName, lastName, coursesAndRoles);
 		}
 	}
+	
+	public void addCourse(String courseCode, int role) {
+		myCourses.put(courseCode, role);
+	}
 }

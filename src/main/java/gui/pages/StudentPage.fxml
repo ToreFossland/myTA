@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
@@ -55,16 +59,31 @@
             </HBox>
             <HBox alignment="CENTER" prefHeight="90.0" prefWidth="800.0">
                <children>
-                  <Button fx:id="button_book_TA" mnemonicParsing="false" onAction="#bookTAHandler" prefHeight="44.0" prefWidth="230.0" style="-fx-background-color: #0099FF;" text="Book assistant times" textFill="WHITE">
-                     <font>
-                        <Font size="20.0" />
-                     </font>
-                  </Button>
+                  <HBox prefHeight="76.0" prefWidth="144.0" />
+                  <GridPane prefHeight="142.0" prefWidth="374.0">
+                    <columnConstraints>
+                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="281.0" minWidth="10.0" prefWidth="246.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="181.0" minWidth="10.0" prefWidth="128.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints maxHeight="25.0" minHeight="10.0" prefHeight="16.0" vgrow="SOMETIMES" />
+                      <RowConstraints maxHeight="48.0" minHeight="10.0" prefHeight="48.0" vgrow="SOMETIMES" />
+                      <RowConstraints maxHeight="22.0" minHeight="7.0" prefHeight="12.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <Button fx:id="button_book_TA" mnemonicParsing="false" onAction="#bookTAHandler" prefHeight="52.0" prefWidth="232.0" style="-fx-background-color: #0099FF;" text="Book assistant times" textFill="WHITE" GridPane.rowIndex="1">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </Button>
+                        <Label fx:id="booking_response" prefHeight="17.0" prefWidth="119.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                     </children>
+                  </GridPane>
                </children>
             </HBox>
             <HBox alignment="CENTER" prefHeight="90.0" prefWidth="800.0" VBox.vgrow="ALWAYS">
                <children>
-                  <Button fx:id="button_add_subject" mnemonicParsing="false" onAction="#addSubjectHandler" prefHeight="44.0" prefWidth="230.0" style="-fx-background-color: #0099FF;" text="Add subject" textFill="WHITE">
+                  <Button fx:id="button_add_subject" mnemonicParsing="false" onAction="#addSubjectHandler" prefHeight="44.0" prefWidth="232.0" style="-fx-background-color: #0099FF;" text="Add subject" textFill="WHITE">
                      <font>
                         <Font size="20.0" />
                      </font>
