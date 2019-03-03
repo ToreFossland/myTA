@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2008, 2011 Oracle and/or its affiliates.
+ * Copyright (c) 2008, 2011 Oracle and/or its affiliates. 
  * All rights reserved. Use is subject to license terms.
  *
  * This file is available and licensed under the following license:
@@ -66,7 +66,7 @@ public class App extends Application {
     private Stage stage;
     private User loggedUser;
     
-    private ArrayList<Booking> downloadedBookingsTA;
+    private ArrayList<Booking> downloadedBookingsTA; //Fjerne booking fra denne on confirm
     private ArrayList<Integer> downloadedWeeksTA;
     
     private ArrayList<Booking> downloadedBookingsStudent;
@@ -103,6 +103,7 @@ public class App extends Application {
     public User getLoggedUser() {
         return loggedUser;
     }
+    
 
     public boolean userLogin(String email, String password) throws Exception{
 

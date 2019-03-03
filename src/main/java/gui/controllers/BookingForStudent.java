@@ -1,7 +1,7 @@
 package gui.controllers;
 
 
-import java.time.LocalDate;
+import java.time.LocalDate; 
 import java.time.LocalTime;
 import java.time.temporal.WeekFields;
 import java.util.ArrayList;
@@ -261,10 +261,10 @@ public class BookingForStudent {
 	}
 	
 	public void loadAvailableTimes() {
-		// Disables all checkboxes		
 		for (CheckBox[] checkboxRow : checkboxes) {
 			for (CheckBox checkbox : checkboxRow) {
 				checkbox.setDisable(true);
+				checkbox.setSelected(false);
 			}
 		}
 		int week = week_input.getValue();
@@ -305,8 +305,28 @@ public class BookingForStudent {
 		}
 
 		try {
+			
 			DBBooking.addHalltimeStudent(bookings);
 			confirm_label.setText("Assistant times booked!");
+			ArrayList<Booking> tempBooking = App.getInstance().getDownloadedBookingsStudent();
+			ArrayList<Booking> deleteList = new ArrayList<Booking>();
+			System.out.println(tempBooking.size() + "hei");
+			System.out.println(tempBooking);
+			for(Booking booking : bookings) {
+				System.out.println("hei");
+				for(Booking booking2 : App.getInstance().getDownloadedBookingsStudent()) {
+				
+					if(booking.compareTo(booking2) == 1) {
+						deleteList.add(booking2);
+						System.out.println("suksess");
+					}
+				}
+			}
+			tempBooking.removeAll(deleteList);
+			System.out.println(tempBooking.size() + "heihei");
+			App.getInstance().setDownloadedBookingsStudent(tempBooking);
+			loadAvailableTimes();
+			//m� legge inn slette booking her
 		} catch (Exception e) {
 			confirm_label.setText("Booking failed! :(");
 			e.printStackTrace();
