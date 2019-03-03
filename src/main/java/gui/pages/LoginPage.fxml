@@ -26,7 +26,7 @@
             </HBox>
             <HBox alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="98.0" prefWidth="800.0" style="-fx-background-color: white;" VBox.vgrow="ALWAYS">
                <children>
-                  <HBox prefHeight="93.0" prefWidth="223.0" />
+                  <HBox prefHeight="93.0" prefWidth="170.0" />
                   <TextField fx:id="user_input" onKeyTyped="#checkValidUsernameOrEmailOnInput" prefHeight="44.0" prefWidth="260.0" promptText="Username/Email">
                      <font>
                         <Font size="20.0" />
@@ -35,7 +35,7 @@
                         <Insets left="40.0" />
                      </HBox.margin>
                   </TextField>
-                  <Label fx:id="invalid_username_label" text="Enter valid username/email (ends with ntnu.no)" visible="false">
+                  <Label fx:id="invalid_username_label" text="Enter valid email (ends with ntnu.no)" visible="false">
                      <HBox.margin>
                         <Insets left="20.0" />
                      </HBox.margin>
@@ -63,7 +63,7 @@
             </HBox>
             <HBox alignment="CENTER" prefHeight="79.0" prefWidth="335.0">
                <children>
-                  <HBox prefHeight="75.0" prefWidth="133.0" />
+                  <HBox prefHeight="75.0" prefWidth="65.0" />
                   <Button fx:id="button_log" mnemonicParsing="false" onAction="#OnClickLog" prefHeight="40.0" prefWidth="260.0" style="-fx-background-color: #0099FF;" text="Log in" textFill="WHITE">
                      <font>
                         <Font size="20.0" />
@@ -72,7 +72,7 @@
                         <Insets left="40.0" />
                      </HBox.margin>
                   </Button>
-                  <Label fx:id="wrong_combination_label" text="Wrong password combination" visible="false">
+                  <Label fx:id="wrong_combination_label" text="Wrong password " visible="false">
                      <HBox.margin>
                         <Insets left="20.0" />
                      </HBox.margin>
