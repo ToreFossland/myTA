@@ -15,7 +15,7 @@
    <children>
       <VBox prefHeight="600.0" prefWidth="486.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <HBox alignment="CENTER" prefHeight="69.0" prefWidth="800.0" style="-fx-background-color: #0099FF;">
+            <HBox alignment="CENTER" prefHeight="67.0" prefWidth="800.0" style="-fx-background-color: #0099FF;">
                <children>
                   <HBox prefHeight="53.0" prefWidth="190.0" />
                   <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Register" textAlignment="CENTER" wrappingWidth="350.4612922668457">
@@ -40,7 +40,7 @@
                   </TextField>
                </children>
                <VBox.margin>
-                  <Insets left="40.0" />
+                  <Insets />
                </VBox.margin>
             </HBox>
             <HBox alignment="CENTER" minWidth="-Infinity" prefHeight="72.0" prefWidth="316.0">
@@ -52,7 +52,7 @@
                   </TextField>
                </children>
                <VBox.margin>
-                  <Insets left="40.0" />
+                  <Insets />
                </VBox.margin>
             </HBox>
             <HBox alignment="CENTER" prefHeight="90.0" prefWidth="800.0">
@@ -63,7 +63,7 @@
                         <Font size="20.0" />
                      </font>
                   </TextField>
-                  <HBox alignment="CENTER" prefHeight="83.0" prefWidth="175.0">
+                  <HBox alignment="CENTER" prefHeight="83.0" prefWidth="215.0">
                      <children>
                         <Label fx:id="email_invalid_label" text="Enter valid email" visible="false">
                            <HBox.margin>
@@ -86,20 +86,20 @@
                   </PasswordField>
                </children>
                <VBox.margin>
-                  <Insets left="40.0" />
+                  <Insets />
                </VBox.margin>
             </HBox>
             <HBox alignment="CENTER" prefHeight="81.0" prefWidth="698.0" style="-fx-background-color: white;">
                <children>
-                  <HBox prefHeight="100.0" prefWidth="200.0" />
+                  <HBox prefHeight="75.0" prefWidth="241.0" />
                   <PasswordField fx:id="retype_password_input" onKeyTyped="#checkSamePassword" prefHeight="40.0" prefWidth="260.0" promptText="Repeat Password">
                      <font>
                         <Font size="20.0" />
                      </font>
                   </PasswordField>
-                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                  <HBox alignment="CENTER" prefHeight="75.0" prefWidth="239.0">
                      <children>
-                        <Label fx:id="passwords_not_same_label" text="Passwords are not the same" visible="false">
+                        <Label fx:id="passwords_not_same_label" prefHeight="17.0" prefWidth="252.0" text="Passwords do not match" visible="false">
                            <HBox.margin>
                               <Insets left="20.0" />
                            </HBox.margin>
@@ -108,12 +108,12 @@
                   </HBox>
                </children>
                <VBox.margin>
-                  <Insets left="40.0" />
+                  <Insets />
                </VBox.margin>
             </HBox>
             <HBox alignment="CENTER" prefHeight="87.0" prefWidth="800.0">
                <children>
-                  <HBox prefHeight="100.0" prefWidth="200.0" />
+                  <HBox prefHeight="81.0" prefWidth="208.0" />
                   <Button fx:id="confirm_registration" mnemonicParsing="false" onAction="#ConfirmButtonHandler" prefHeight="40.0" prefWidth="263.0" style="-fx-background-color: #0099FF;" text="Confirm" textFill="WHITE">
                      <font>
                         <Font size="20.0" />
@@ -130,10 +130,10 @@
                   </HBox>
                </children>
                <VBox.margin>
-                  <Insets left="40.0" />
+                  <Insets />
                </VBox.margin>
             </HBox>
-            <HBox prefHeight="30.0" prefWidth="800.0" style="-fx-background-color: #0099FF;" />
+            <HBox prefHeight="26.0" prefWidth="800.0" style="-fx-background-color: #0099FF;" />
          </children>
       </VBox>
    </children>
