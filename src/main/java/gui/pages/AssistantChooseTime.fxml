@@ -58,12 +58,6 @@
                         <Font size="15.0" />
                      </font>
                   </Text>
-                  <Button mnemonicParsing="false" style="-fx-background-radius: 15; -fx-background-color: #2bd8ac;" text="Available">
-                     <HBox.margin>
-                        <Insets left="10.0" />
-                     </HBox.margin></Button>
-                  <Button mnemonicParsing="false" style="-fx-background-radius: 15; -fx-background-color: red;" text="Full" />
-                  <Button mnemonicParsing="false" style="-fx-background-radius: 15; -fx-background-color: white; -fx-border-color: black; -fx-border-radius: 15;" text="Not assigned" />
                </children></HBox>
             <HBox prefHeight="322.0" prefWidth="800.0" VBox.vgrow="ALWAYS">
                <children>
@@ -267,6 +261,7 @@
             </HBox>
             <HBox alignment="CENTER" prefHeight="102.0" prefWidth="800.0">
                <children>
+                  <HBox prefHeight="100.0" prefWidth="200.0" />
                   <Button fx:id="button_confirm_assistant_times" mnemonicParsing="false" onAction="#confirmHandler" style="-fx-background-color: black;" text="Confirm selected times" textFill="WHITE">
                      <font>
                         <Font size="17.0" />
