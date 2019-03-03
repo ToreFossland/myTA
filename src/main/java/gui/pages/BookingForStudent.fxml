@@ -15,7 +15,6 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="800.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.controllers.BookingForStudent">
    <children>
       <VBox prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -54,12 +53,6 @@
                      </HBox.margin>
                   </Label>
                   <ChoiceBox fx:id="week_input" onAction="#weekInputHandler" prefWidth="150.0" />
-                  <Button mnemonicParsing="false" style="-fx-background-color: #2bd8ac; -fx-background-radius: 15;" text="       ">
-                     <HBox.margin>
-                        <Insets left="20.0" />
-                     </HBox.margin></Button>
-                  <Button mnemonicParsing="false" style="-fx-background-radius: 15; -fx-background-color: red;" text="       " />
-                  <Button mnemonicParsing="false" style="-fx-border-radius: 15; -fx-background-radius: 15; -fx-border-color: black; -fx-background-color: white;" text="       " />
                </children></HBox>
             <HBox prefHeight="371.0" prefWidth="800.0" VBox.vgrow="ALWAYS">
                <children>
@@ -613,8 +606,9 @@
             </HBox>
             <HBox alignment="CENTER" prefHeight="72.0" prefWidth="800.0">
                <children>
+                  <HBox prefHeight="60.0" prefWidth="47.0" />
                   <HBox prefHeight="59.0" prefWidth="37.0" />
-                  <Label fx:id="confirm_label" text="Label">
+                  <Label fx:id="confirm_label">
                      <HBox.margin>
                         <Insets right="20.0" />
                      </HBox.margin>

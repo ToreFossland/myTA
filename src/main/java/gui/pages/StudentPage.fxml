@@ -31,9 +31,9 @@
                               <Font size="25.0" />
                            </font>
                         </Text>
-                        <AnchorPane prefHeight="61.0" prefWidth="256.0">
+                        <AnchorPane prefHeight="61.0" prefWidth="245.0">
                            <children>
-                              <Button fx:id="teacher_assistant" layoutX="112.0" layoutY="21.0" mnemonicParsing="false" onAction="#gotoTA" prefHeight="27.0" prefWidth="134.0" style="-fx-background-color: blue;" text="Teacher assistant" textFill="WHITE">
+                              <Button fx:id="teacher_assistant" layoutX="89.0" layoutY="17.0" mnemonicParsing="false" onAction="#gotoTA" prefHeight="27.0" prefWidth="134.0" style="-fx-background-color: blue;" text="Teacher assistant" textFill="WHITE">
                                  <font>
                                     <Font size="13.0" />
                                  </font>
@@ -64,7 +64,7 @@
             </HBox>
             <HBox alignment="CENTER" prefHeight="90.0" prefWidth="800.0" VBox.vgrow="ALWAYS">
                <children>
-                  <Button fx:id="button_evaluating" mnemonicParsing="false" onAction="#evaluatingHandler" prefHeight="44.0" prefWidth="230.0" style="-fx-background-color: blue;" text="Evaluating" textFill="WHITE">
+                  <Button fx:id="button_add_subject" mnemonicParsing="false" onAction="#addSubjectHandler" prefHeight="44.0" prefWidth="230.0" style="-fx-background-color: #0099FF;" text="Add subject" textFill="WHITE">
                      <font>
                         <Font size="20.0" />
                      </font>
@@ -73,7 +73,7 @@
             </HBox>
             <HBox alignment="CENTER" prefHeight="90.0" prefWidth="800.0">
                <children>
-                  <Button fx:id="button_add_subject" mnemonicParsing="false" onAction="#addSubjectHandler" prefHeight="44.0" prefWidth="230.0" style="-fx-background-color: grey;" text="Add subject" textFill="WHITE">
+                  <Button fx:id="button_evaluating" mnemonicParsing="false" onAction="#evaluatingHandler" prefHeight="44.0" prefWidth="230.0" style="-fx-background-color: grey;" text="Evaluating" textFill="WHITE">
                      <font>
                         <Font size="20.0" />
                      </font>
@@ -82,7 +82,7 @@
             </HBox>
             <HBox alignment="CENTER" prefHeight="85.0" prefWidth="800.0">
                <children>
-                  <Button fx:id="button_messages" mnemonicParsing="false" onAction="#messagesHandler" prefHeight="44.0" prefWidth="230.0" style="-fx-background-color: black;" text="Messages" textFill="WHITE">
+                  <Button fx:id="button_messages" mnemonicParsing="false" onAction="#messagesHandler" prefHeight="44.0" prefWidth="230.0" style="-fx-background-color: grey;" text="Messages" textFill="WHITE">
                      <font>
                         <Font size="20.0" />
                      </font>

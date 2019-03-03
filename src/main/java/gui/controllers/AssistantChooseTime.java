@@ -196,7 +196,7 @@ public class AssistantChooseTime {
 	}
 
 	public void returnHandler(ActionEvent event) {
-		App.getInstance().gotoProfile();
+		App.getInstance().gotoAssistantPage();
 	}
 
 	private int getCurrentWeek() {
