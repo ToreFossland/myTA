@@ -1,5 +1,5 @@
 /*
-File: DBBooking.java     
+File: DBBooking.java      
 Date 	 	Author 	Changes
 --------------------------------------------
 Feb 28 19 	David 	Created
@@ -422,6 +422,7 @@ public class DBBooking extends DBConnection {
 			e.printStackTrace();
 		}
 	}
+	
 
 	public static void main(String[] args) {
 		Map<String, Integer> coursesAndRoles = new HashMap<String, Integer>();

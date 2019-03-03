@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import gui.App;
 import user.User;
 
-public class Booking {
+public class Booking implements Comparable<Booking>{
 
 	private String emailTA;
 	private String courseCode;
@@ -115,4 +115,16 @@ public class Booking {
 		this.endTime = endTime;
 	}
 
+	@Override
+	public int compareTo(Booking o) {
+		if(this.getCourseCode().equals(o.getCourseCode()) && this.getDay() == o.getDay() &&
+				this.getWeek() == o.getWeek() 
+				&& this.getStartTime().equals(o.getStartTime())) {
+			return 1;
+		}
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	
+	
 }
