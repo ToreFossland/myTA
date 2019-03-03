@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2008, 2011 Oracle and/or its affiliates.
+ * Copyright (c) 2008, 2011 Oracle and/or its affiliates. 
  * All rights reserved. Use is subject to license terms.
  *
  * This file is available and licensed under the following license:
@@ -35,18 +35,27 @@ package gui;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import database.DBBooking;
 import database.DBConnection;
+import halltimes.Booking;
 import javafx.application.Application;
+import javafx.beans.value.ChangeListener;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.JavaFXBuilderFactory;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import user.User;
+import user.*;
 
 
 
@@ -56,6 +65,12 @@ import user.User;
 public class App extends Application {
     private Stage stage;
     private User loggedUser;
+    
+    private ArrayList<Booking> downloadedBookingsTA; //Fjerne booking fra denne on confirm
+    private ArrayList<Integer> downloadedWeeksTA;
+    
+    private ArrayList<Booking> downloadedBookingsStudent;
+    private ArrayList<Integer> downloadedWeeksStudent;
 
     private static App instance;
 
@@ -77,8 +92,9 @@ public class App extends Application {
     @Override public void start(Stage primaryStage) {
         try {
             stage = primaryStage;
-            gotoLogin();
+            gotoFrontPage();
             primaryStage.show();
+            
         } catch (Exception ex) {
             Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -87,8 +103,9 @@ public class App extends Application {
     public User getLoggedUser() {
         return loggedUser;
     }
+    
 
-    public boolean userLogin(String username, String password){
+    public boolean userLogin(String email, String password) throws Exception{
 
 		// encrypts the password with MD5
 		password = toMD5(password);
@@ -96,33 +113,39 @@ public class App extends Application {
 		boolean success = false;
 
 		try {
-			success = DBConnection.usernamePasswordMatch(username, password);
+			success = DBConnection.usernamePasswordMatch(email, password);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
 		if (success) {
-			loggedUser = DBConnection.returnUserObject(username);
+			loggedUser = DBConnection.returnUserObject(email);
+			if(loggedUser.getType() == 1 | loggedUser.getType() == 2)
+			{
+				DBBooking.downloadBookings();
+			}
 			return true;
 		} else {
 			return false;
 		}
     }
     
+    //Overfloedig?
+    /*
 	public void userRegister(String email, String password, String userName, String firstName, String lastName) {
-		userRegister(email, password, userName, firstName, lastName, false);
+		userRegister(email, password, firstName, lastName, false);
 		// doSomething
 	}
-
+	*/
 	// skipCheck = true skips checking for user existence in database. Useful for
 	// perfomance if this has already been checked.
-	public void userRegister(String email, String password, String userName, String firstName, String lastName,
+	public void userRegister(String email, String password, String firstName, String lastName,
 			Boolean skipCheck) {
-		HashMap<String, Character> courses = new HashMap<String, Character>();
+		Map<String, Integer> courses = new HashMap<String, Integer>();
 		password = toMD5(password);
-		DBConnection.registerUser(email, password, userName, firstName, lastName, skipCheck);
-		loggedUser = new User(userName, firstName, lastName, email, password, courses);
+		DBConnection.registerUser(email, password, firstName, lastName, skipCheck);
+		loggedUser = User.generateUserObject(email, firstName, lastName, courses);
 		System.out.println("Registration complete");
 		// doSomething
 	}
@@ -139,6 +162,111 @@ public class App extends Application {
             Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
+    public void gotoAdminPage() {
+        try {
+            replaceSceneContent("pages/AdminPage.fxml");
+        } catch (Exception ex) {
+            Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void gotoSupervisorPage() {
+        try {
+            replaceSceneContent("pages/SupervisorPage.fxml");
+        } catch (Exception ex) {
+            Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void gotoFrontPage() {
+    	 try {
+             replaceSceneContent("pages/FrontPage.fxml");
+         } catch (Exception ex) {
+             Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
+         }
+     }
+    
+    public void gotoAssistantPage() {
+    	try {
+            replaceSceneContent("pages/AssistantPage.fxml");
+        } catch (Exception ex) {
+            Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void gotoStudentPage() {
+        try {
+            replaceSceneContent("pages/StudentPage.fxml");
+        } catch (Exception ex) {
+            Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void gotoBookingForStudent() {
+        try {
+            replaceSceneContent("pages/BookingForStudent.fxml");
+        } catch (Exception ex) {
+            Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+
+    public void gotoSupervisorAddsAssistants(){
+    	try {
+            replaceSceneContent("pages/SupervisorAddsAssistantsToSubjects.fxml");
+    		
+        } catch (Exception ex) {
+            Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void gotoSupervisorCreatesTimes() {
+    	try {
+            replaceSceneContent("pages/SupervisorCreatesTimes.fxml");
+        } catch (Exception ex) {
+            Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void gotoAssistantChooseTime() {
+        try {
+            replaceSceneContent("pages/AssistantChooseTime.fxml");
+        } catch (Exception ex) {
+            Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    	
+    public void gotoAddStudentSubject() {
+    	try {
+            replaceSceneContent("pages/SubjectsPageForStudent.fxml");
+        } catch (Exception ex) {
+            Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    
+    }
+
+    public boolean isRole(String Email, int Role){
+		boolean match = false;
+		try {
+			Connection con = DBConnection.getConnection();
+			String email = Email.toLowerCase();
+			PreparedStatement findEmailRole = con.prepareStatement("SELECT User_email, role FROM User_has_Course "
+					+ " WHERE User_email = '"+email+"' AND role = '"+Role+"'");
+			ResultSet rs = findEmailRole.executeQuery();
+			
+			//Hvis det eksisterer noen objekter
+			if (rs.next() == true) {
+				match=true;
+			}
+			
+		}catch(Exception e) {
+			System.out.println(e);
+		}
+		return match;
+	}
+    
+    
 
     public void gotoLogin() {
         try {
@@ -196,4 +324,45 @@ public class App extends Application {
 
 		return hashtext;
 	}
+
+	
+	public void setDummyUser() {
+		Map<String, Integer> dummyCourse = new HashMap<String, Integer>();
+		dummyCourse.put("TDT4140", 2);
+		User dummy = User.generateUserObject("abc@ntnu.no", "abc", "def", dummyCourse);
+		loggedUser = dummy;
+	}
+
+	public ArrayList<Booking> getDownloadedBookingsStudent() {
+		return downloadedBookingsStudent;
+	}
+
+	public void setDownloadedBookingsStudent(ArrayList<Booking> downloadedBookingsStudent) {
+		this.downloadedBookingsStudent = downloadedBookingsStudent;
+	}
+
+	public ArrayList<Integer> getDownloadedWeeksStudent() {
+		return downloadedWeeksStudent;
+	}
+
+	public void setDownloadedWeeksStudent(ArrayList<Integer> downloadedWeeksStudent) {
+		this.downloadedWeeksStudent = downloadedWeeksStudent;
+	}
+
+	public ArrayList<Booking> getDownloadedBookingsTA() {
+		return downloadedBookingsTA;
+	}
+
+	public void setDownloadedBookingsTA(ArrayList<Booking> downloadedBookingsTA) {
+		this.downloadedBookingsTA = downloadedBookingsTA;
+	}
+
+	public ArrayList<Integer> getDownloadedWeeksTA() {
+		return downloadedWeeksTA;
+	}
+
+	public void setDownloadedWeeksTA(ArrayList<Integer> downloadedWeeksTA) {
+		this.downloadedWeeksTA = downloadedWeeksTA;
+	}
 }
+

@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Spinner?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="800.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.controllers.SupervisorCreatesTimesController">
+	<children>
+		<VBox prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+			<children>
+				<HBox alignment="CENTER" prefHeight="71.0" prefWidth="800.0" style="-fx-background-color: #0099FF;">
+					<children>
+						<HBox alignment="CENTER_LEFT" prefHeight="61.0" prefWidth="245.0" />
+						<HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+							<children>
+								<Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Create assistant times" HBox.hgrow="ALWAYS">
+									<font>
+										<Font size="25.0" />
+									</font>
+								</Text>
+							</children>
+						</HBox>
+						<HBox prefHeight="61.0" prefWidth="206.0" />
+						<Button fx:id="button_return" mnemonicParsing="false" onAction="#returnHandler" style="-fx-background-color: blue;" text="Return" textFill="WHITE">
+							<font>
+								<Font size="13.0" />
+							</font>
+						</Button>
+					</children>
+				</HBox>
+				<HBox alignment="CENTER" prefHeight="53.0" prefWidth="800.0">
+               <children>
+                  <Label fx:id="success_label" text="Assistan times added!" visible="false">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+               </children></HBox>
+				<HBox prefHeight="347.0" prefWidth="800.0" VBox.vgrow="ALWAYS">
+					<children>
+						<GridPane alignment="CENTER" gridLinesVisible="true" prefHeight="346.0" prefWidth="670.0" style="-fx-background-color: white;">
+							<columnConstraints>
+								<ColumnConstraints hgrow="SOMETIMES" maxWidth="70.0" minWidth="70.0" prefWidth="70.0" />
+								<ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+								<ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+								<ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+								<ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+								<ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+							</columnConstraints>
+							<rowConstraints>
+								<RowConstraints maxHeight="30.0" minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
+								<RowConstraints maxHeight="26.0" minHeight="70.0" prefHeight="27.0" valignment="CENTER" vgrow="SOMETIMES" />
+								<RowConstraints maxHeight="26.0" minHeight="70.0" prefHeight="27.0" valignment="CENTER" vgrow="SOMETIMES" />
+								<RowConstraints maxHeight="26.0" minHeight="70.0" prefHeight="27.0" valignment="CENTER" vgrow="SOMETIMES" />
+								<RowConstraints maxHeight="26.0" minHeight="70.0" prefHeight="27.0" valignment="CENTER" vgrow="SOMETIMES" />
+							</rowConstraints>
+							<HBox.margin>
+								<Insets left="65.0" />
+							</HBox.margin>
+							<children>
+								<Text strokeType="OUTSIDE" strokeWidth="0.0" text="Time" textAlignment="CENTER" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+									<font>
+										<Font size="15.0" />
+									</font>
+								</Text>
+								<HBox alignment="CENTER" style="-fx-background-color: #a60c40;" GridPane.columnIndex="1" GridPane.halignment="CENTER">
+									<children>
+										<Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Monday">
+											<font>
+												<Font size="15.0" />
+											</font>
+										</Text>
+									</children>
+								</HBox>
+								<HBox alignment="CENTER" style="-fx-background-color: #a60c40;" GridPane.columnIndex="2" GridPane.halignment="CENTER">
+									<children>
+										<Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Tuesday">
+											<font>
+												<Font size="15.0" />
+											</font>
+										</Text>
+									</children>
+								</HBox>
+								<HBox alignment="CENTER" style="-fx-background-color: #a60c40;" GridPane.columnIndex="3" GridPane.halignment="CENTER">
+									<children>
+										<Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Wednesday">
+											<font>
+												<Font size="15.0" />
+											</font>
+										</Text>
+									</children>
+								</HBox>
+								<HBox alignment="CENTER" style="-fx-background-color: #a60c40;" GridPane.columnIndex="4" GridPane.halignment="CENTER">
+									<children>
+										<Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Thursday">
+											<font>
+												<Font size="15.0" />
+											</font>
+										</Text>
+									</children>
+								</HBox>
+								<HBox alignment="CENTER" style="-fx-background-color: #a60c40;" GridPane.columnIndex="5" GridPane.halignment="CENTER">
+									<children>
+										<Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Friday">
+											<font>
+												<Font size="15.0" />
+											</font>
+										</Text>
+									</children>
+								</HBox>
+								<Text strokeType="OUTSIDE" strokeWidth="0.0" text="08:00" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+									<font>
+										<Font size="15.0" />
+									</font>
+								</Text>
+								<Text strokeType="OUTSIDE" strokeWidth="0.0" text="10:00" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+									<font>
+										<Font size="15.0" />
+									</font>
+								</Text>
+								<Text strokeType="OUTSIDE" strokeWidth="0.0" text="12:00" GridPane.halignment="CENTER" GridPane.rowIndex="3">
+									<font>
+										<Font size="15.0" />
+									</font>
+								</Text>
+								<Text strokeType="OUTSIDE" strokeWidth="0.0" text="14:00" GridPane.halignment="CENTER" GridPane.rowIndex="4">
+									<font>
+										<Font size="15.0" />
+									</font>
+								</Text>
+
+								<CheckBox fx:id="checkBox1" mnemonicParsing="false" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="1" />
+								<CheckBox fx:id="checkBox5" mnemonicParsing="false" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="1" />
+								<CheckBox fx:id="checkBox2" mnemonicParsing="false" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="2" />
+								<CheckBox fx:id="checkBox3" mnemonicParsing="false" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="3" />
+								<CheckBox fx:id="checkBox6" mnemonicParsing="false" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="2" />
+								<CheckBox fx:id="checkBox7" mnemonicParsing="false" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="3" />
+								<CheckBox fx:id="checkBox9" mnemonicParsing="false" GridPane.columnIndex="3" GridPane.halignment="RIGHT" GridPane.rowIndex="1" />
+								<CheckBox fx:id="checkBox10" mnemonicParsing="false" GridPane.columnIndex="3" GridPane.halignment="RIGHT" GridPane.rowIndex="2" />
+								<CheckBox fx:id="checkBox13" mnemonicParsing="false" GridPane.columnIndex="4" GridPane.halignment="RIGHT" GridPane.rowIndex="1" />
+								<CheckBox fx:id="checkBox17" mnemonicParsing="false" GridPane.columnIndex="5" GridPane.halignment="RIGHT" GridPane.rowIndex="1" />
+								<CheckBox fx:id="checkBox14" mnemonicParsing="false" GridPane.columnIndex="4" GridPane.halignment="RIGHT" GridPane.rowIndex="2" />
+								<CheckBox fx:id="checkBox18" mnemonicParsing="false" GridPane.columnIndex="5" GridPane.halignment="RIGHT" GridPane.rowIndex="2" />
+								<CheckBox fx:id="checkBox11" mnemonicParsing="false" GridPane.columnIndex="3" GridPane.halignment="RIGHT" GridPane.rowIndex="3" />
+								<CheckBox fx:id="checkBox15" mnemonicParsing="false" GridPane.columnIndex="4" GridPane.halignment="RIGHT" GridPane.rowIndex="3" />
+								<CheckBox fx:id="checkBox19" mnemonicParsing="false" GridPane.columnIndex="5" GridPane.halignment="RIGHT" GridPane.rowIndex="3" />
+								<CheckBox fx:id="checkBox4" mnemonicParsing="false" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="4" />
+								<CheckBox fx:id="checkBox8" mnemonicParsing="false" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="4" />
+								<CheckBox fx:id="checkBox12" mnemonicParsing="false" GridPane.columnIndex="3" GridPane.halignment="RIGHT" GridPane.rowIndex="4" />
+								<CheckBox fx:id="checkBox16" mnemonicParsing="false" GridPane.columnIndex="4" GridPane.halignment="RIGHT" GridPane.rowIndex="4" />
+								<CheckBox fx:id="checkBox20" mnemonicParsing="false" GridPane.columnIndex="5" GridPane.halignment="RIGHT" GridPane.rowIndex="4" />
+							</children>
+							<styleClass>
+								<String fx:value="-fx-background-radius" />
+								<String fx:value="-fx-background-radius" />
+							</styleClass>
+						</GridPane>
+					</children>
+				</HBox>
+				<HBox alignment="CENTER" prefHeight="99.0" prefWidth="800.0">
+					<children>
+                  <VBox prefHeight="89.0" prefWidth="138.0">
+                     <children>
+      						<Label text="Available places" />
+      						<Spinner fx:id="availablePlaces_input" prefHeight="27.0" prefWidth="131.0" />
+                     </children>
+                  </VBox>
+                  <VBox prefHeight="89.0" prefWidth="46.0" />
+                  <VBox prefHeight="89.0" prefWidth="142.0">
+                     <children>
+      						<Label text="Course" />
+      						<ChoiceBox fx:id="course_input" prefHeight="27.0" prefWidth="135.0" />
+                     </children>
+                  </VBox>
+                  <VBox prefHeight="89.0" prefWidth="52.0" />
+                  <VBox prefHeight="89.0" prefWidth="129.0">
+                     <children>
+      						<Label text="Week" />
+                        <Spinner fx:id="week_input" />
+                     </children>
+                  </VBox>
+                  <VBox prefHeight="89.0" prefWidth="129.0">
+                     <children>
+                        <HBox prefHeight="17.0" prefWidth="100.0" />
+      						<Button fx:id="button_confirm" defaultButton="true" mnemonicParsing="false" onAction="#onClickConfirm" prefHeight="27.0" prefWidth="126.0" style="-fx-background-color: black;" text="Confirm times" textFill="WHITE">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+      						</Button>
+                     </children>
+                  </VBox>
+					</children>
+				</HBox>
+				<HBox prefHeight="30.0" prefWidth="800.0" style="-fx-background-color: #0099FF;" />
+			</children>
+		</VBox>
+	</children>
+</AnchorPane>

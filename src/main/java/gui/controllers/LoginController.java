@@ -8,11 +8,12 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import user.User;
 
 public class LoginController {
 
 	// Login page:
-	@FXML
+	@FXML 
 	TextField user_input;
 
 	@FXML
@@ -32,11 +33,22 @@ public class LoginController {
 
 	@FXML
 	public void OnClickLog(javafx.event.ActionEvent event) throws Exception {
-		if (isValidUsernameOrEmail(user_input.getText())) {
-			String username = user_input.getText().split("@")[0];
-			if (App.getInstance().userLogin(username, password_input.getText())) {
-				App.getInstance().gotoProfile();
-			} else {
+		if (isValidEmail(user_input.getText())) {
+			String email = user_input.getText();
+
+			if (App.getInstance().userLogin(email, password_input.getText())){
+				if (App.getInstance().isRole(email,3)) {
+					App.getInstance().gotoSupervisorPage();
+				}
+				else if (App.getInstance().isRole(email,4)) {
+					App.getInstance().gotoAdminPage();
+					
+				}
+				else{
+					App.getInstance().gotoStudentPage();
+				}
+			} 
+			else {
 				wrong_combination_label.setVisible(true);
 			}
 		}
@@ -74,4 +86,14 @@ public class LoginController {
 
 		return matcher.find();
 	}
+	private boolean isValidEmail(String email) {
+		// matches emails that ends with ntnu.no and has no errounous dots. Returns true
+		// if match
+		Pattern pattern = Pattern.compile(
+				"^(?!\\.)(?!.*\\.$)(?!.*?\\.\\.)([a-zA-Z0-9_.+-])+(@(?!\\.)([a-zA-Z0-9_.+-]+)\\.|@)+ntnu\\.no$");
+		Matcher matcher = pattern.matcher(email);
+
+		return matcher.find();
+	}
 }
+
