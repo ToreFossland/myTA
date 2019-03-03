@@ -67,10 +67,11 @@ public class App extends Application {
     private User loggedUser;
     
     private ArrayList<Booking> downloadedBookingsTA; //Fjerne booking fra denne on confirm
-    private ArrayList<Integer> downloadedWeeksTA;
-    
     private ArrayList<Booking> downloadedBookingsStudent;
-    private ArrayList<Integer> downloadedWeeksStudent;
+    
+    //Fag og uke med mulige bookinger
+    private HashMap<String,ArrayList<Integer>> weeksDerivedFromBookingsTA;
+    private HashMap<String,ArrayList<Integer>> weeksDerivedFromBookingsStudent;
 
     private static App instance;
 
@@ -124,6 +125,7 @@ public class App extends Application {
 			if(loggedUser.getType() == 1 | loggedUser.getType() == 2)
 			{
 				DBBooking.downloadBookings();
+				System.out.println(App.getInstance().getWeeksDerivedFromBookingsTA());
 			}
 			return true;
 		} else {
@@ -334,14 +336,6 @@ public class App extends Application {
 		this.downloadedBookingsStudent = downloadedBookingsStudent;
 	}
 
-	public ArrayList<Integer> getDownloadedWeeksStudent() {
-		return downloadedWeeksStudent;
-	}
-
-	public void setDownloadedWeeksStudent(ArrayList<Integer> downloadedWeeksStudent) {
-		this.downloadedWeeksStudent = downloadedWeeksStudent;
-	}
-
 	public ArrayList<Booking> getDownloadedBookingsTA() {
 		return downloadedBookingsTA;
 	}
@@ -350,12 +344,21 @@ public class App extends Application {
 		this.downloadedBookingsTA = downloadedBookingsTA;
 	}
 
-	public ArrayList<Integer> getDownloadedWeeksTA() {
-		return downloadedWeeksTA;
+	public HashMap<String,ArrayList<Integer>> getWeeksDerivedFromBookingsTA() {
+		return weeksDerivedFromBookingsTA;
 	}
 
-	public void setDownloadedWeeksTA(ArrayList<Integer> downloadedWeeksTA) {
-		this.downloadedWeeksTA = downloadedWeeksTA;
+	public void setWeeksDerivedFromBookingsTA(HashMap<String,ArrayList<Integer>> weeksDerivedFromBookingsTA) {
+		this.weeksDerivedFromBookingsTA = weeksDerivedFromBookingsTA;
 	}
+
+	public HashMap<String,ArrayList<Integer>> getWeeksDerivedFromBookingsStudent() {
+		return weeksDerivedFromBookingsStudent;
+	}
+
+	public void setWeeksDerivedFromBookingsStudent(HashMap<String,ArrayList<Integer>> weeksDerivedFromBookingsStudent) {
+		this.weeksDerivedFromBookingsStudent = weeksDerivedFromBookingsStudent;
+	}
+
 }
 

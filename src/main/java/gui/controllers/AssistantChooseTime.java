@@ -95,7 +95,7 @@ public class AssistantChooseTime {
 
 	@FXML
 	Button button_confirm_assistant_times;
-	
+
 	@FXML
 	Label confirm_label;
 
@@ -111,44 +111,52 @@ public class AssistantChooseTime {
 				{ checkBox17, checkBox18, checkBox19, checkBox20 } };
 
 		// Fills course choicebox
-		Map<String, Integer> allCourses = App.getInstance().getLoggedUser().getMyCourses();
-		List<String> relevantCourses = new ArrayList<String>();
-		for (Entry<String, Integer> entry : allCourses.entrySet()) {
-			String course = entry.getKey();
-			Integer role = entry.getValue();
-			if (role == 2)
-				relevantCourses.add(course);
-		}
-		course_input.getItems().addAll(relevantCourses);
+		ArrayList<String> courses = new ArrayList<String>();
+		courses.addAll(App.getInstance().getWeeksDerivedFromBookingsTA().keySet());
+
+		course_input.getItems().addAll(courses);
 
 		bookings = App.getInstance().getDownloadedBookingsTA();
 
-		List<Integer> availableWeeks = App.getInstance().getDownloadedWeeksTA();
-		Collections.sort(availableWeeks);
+		course_input.setValue(courses.get(0));
 
-		week_input.getItems().addAll(availableWeeks);
-
-		for (Integer week : availableWeeks) {
-			System.out.println(Integer.toString(week));
-			if (week >= getCurrentWeek()) {
-				week_input.setValue(week);
-				break;
-			}
-		}
-		course_input.setValue(relevantCourses.get(0));
-
-		loadAvailableTimes();
+		loadWeeks();
 
 	}
 
-	public void loadAvailableTimes() {
+	public void loadTimesWithinWeek() {
 		// Disables all checkboxes
 		for (CheckBox[] checkboxRow : checkboxes) {
 			for (CheckBox checkbox : checkboxRow) {
 				checkbox.setDisable(true);
 			}
 		}
-		int week = week_input.getValue();
+		String course = course_input.getValue();
+		if (week_input.getValue() != null) {
+			Integer week = week_input.getValue();
+			// Enables checkbox one by one
+			for (Booking booking : bookings) {
+				if (booking.getCourseCode().equals(course_input.getValue()) && booking.getWeek() == week
+						&& booking.getStartTime().getHour() % 2 == 0 && booking.getStartTime().getMinute() == 0) {
+					checkboxes[booking.getDay() - 1][(booking.getStartTime().getHour() - 8) / 2].setDisable(false);
+				}
+			}
+		}
+	}
+
+	public void loadWeeks() {
+		// Disables all checkboxes
+		for (CheckBox[] checkboxRow : checkboxes) {
+			for (CheckBox checkbox : checkboxRow) {
+				checkbox.setDisable(true);
+			}
+		}
+		String course = course_input.getValue();
+		week_input.getItems().clear();
+		ArrayList<Integer> weeks = App.getInstance().getWeeksDerivedFromBookingsTA().get(course);
+		int week = weeks.get(0);
+		week_input.getItems().addAll(weeks);
+		week_input.setValue(weeks.get(0));
 		// Enables checkbox one by one
 		for (Booking booking : bookings) {
 			if (booking.getCourseCode().equals(course_input.getValue()) && booking.getWeek() == week
@@ -159,24 +167,25 @@ public class AssistantChooseTime {
 	}
 
 	public void weekInputHandler(ActionEvent event) {
-		loadAvailableTimes();
+		loadTimesWithinWeek();
 	}
 
 	public void courseInputHandler(ActionEvent event) {
-		loadAvailableTimes();
+		loadWeeks();
 	}
 
 	public void confirmHandler(ActionEvent event) {
 
 		ArrayList<Booking> bookings = new ArrayList<Booking>();
-		
+
 		for (int i = 0; i < checkboxes.length; i++) {
 			for (int j = 0; j < checkboxes[i].length; j++) {
 				if (checkboxes[i][j].isSelected()) {
-					LocalTime timeStart = LocalTime.of(8 + j*2, 0, 0);
-					LocalTime timeEnd = LocalTime.of(10 + j*2, 0, 0);
-					
-					Halltime newHT = new Halltime(course_input.getValue(), week_input.getValue(), i+1, timeStart, timeEnd, 0);
+					LocalTime timeStart = LocalTime.of(8 + j * 2, 0, 0);
+					LocalTime timeEnd = LocalTime.of(10 + j * 2, 0, 0);
+
+					Halltime newHT = new Halltime(course_input.getValue(), week_input.getValue(), i + 1, timeStart,
+							timeEnd, 0);
 					Booking booking = new Booking(newHT, App.getInstance().getLoggedUser().getEmail());
 					bookings.addAll(booking.splitIntoMultipleBookings(30));
 				}

@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Map.Entry;
-
+import java.util.Set;
 
 import database.DBBooking;
 import gui.App;
@@ -228,19 +228,13 @@ public class BookingForStudent {
 						checkBox80 } };
 		checkboxes = checkBoxesInitialized;
 		
-		Map<String, Integer> allCourses = App.getInstance().getLoggedUser().getMyCourses();
-		List<String> relevantCourses = new ArrayList<String>();
-		for (Entry<String, Integer> entry : allCourses.entrySet()) {
-			String course = entry.getKey();
-			Integer role = entry.getValue();
-			if (role == 1)
-				relevantCourses.add(course);
-		}
-		course_input.getItems().addAll(relevantCourses);
+		List<String> courses = new ArrayList<String>(App.getInstance().getWeeksDerivedFromBookingsStudent().keySet());
+
+		course_input.getItems().addAll(courses);
 
 		bookings = App.getInstance().getDownloadedBookingsStudent();
 
-		List<Integer> availableWeeks = App.getInstance().getDownloadedWeeksStudent();
+		List<Integer> availableWeeks = App.getInstance().getWeeksDerivedFromBookingsStudent().get(courses);
 		Collections.sort(availableWeeks);
 
 		week_input.getItems().addAll(availableWeeks);
