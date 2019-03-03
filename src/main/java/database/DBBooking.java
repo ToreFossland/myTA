@@ -361,10 +361,10 @@ public class DBBooking extends DBConnection {
 					availableBookingsTA.add(book);
 				}
 				App.getInstance().setDownloadedBookingsTA(availableBookingsTA);
-				App.getInstance().setDownloadedBookingsTA(availableBookingsStudent);
-
 				App.getInstance().setDownloadedBookingsStudent(availableBookingsStudent);
-				App.getInstance().setDownloadedWeeksStudent(weeksTA);
+
+				App.getInstance().setDownloadedWeeksStudent(weeksStudent);
+				App.getInstance().setDownloadedWeeksTA(weeksTA);
 
 			}
 			
