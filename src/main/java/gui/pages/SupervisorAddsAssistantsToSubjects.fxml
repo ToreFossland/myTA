@@ -2,6 +2,7 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -70,6 +71,11 @@
                         <Font size="17.0" />
                      </font>
                   </Button>
+                  <Label fx:id="confirm_label" text="Label" visible="false">
+                     <HBox.margin>
+                        <Insets left="20.0" />
+                     </HBox.margin>
+                  </Label>
                </children>
             </HBox>
             <HBox prefHeight="23.0" prefWidth="800.0" style="-fx-background-color: #0099FF;" />
