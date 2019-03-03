@@ -234,9 +234,9 @@ public class BookingForStudent {
 		}
 		course_input.getItems().addAll(relevantCourses);
 
-		bookings = App.getInstance().getDownloadedBookings();
+		bookings = App.getInstance().getDownloadedBookingsStudent();
 
-		List<Integer> availableWeeks = App.getInstance().getDownloadedWeeks();
+		List<Integer> availableWeeks = App.getInstance().getDownloadedWeeksStudent();
 		Collections.sort(availableWeeks);
 
 		week_input.getItems().addAll(availableWeeks);
@@ -256,7 +256,7 @@ public class BookingForStudent {
 	public void loadAvailableTimes() {
 		// Disables all checkboxes
 		for (Booking booking : bookings) {
-			if(booking.getEmailTA() != "davidaan@stud.ntnu.no")
+			if(!booking.getEmailTA().contentEquals("davidaan@stud.ntnu.no"))
 				System.out.println(booking.getEmailTA());
 		}
 		

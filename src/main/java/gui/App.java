@@ -66,8 +66,11 @@ public class App extends Application {
     private Stage stage;
     private User loggedUser;
     
-    private ArrayList<Booking> downloadedBookings;
-    private ArrayList<Integer> downloadedWeeks;
+    private ArrayList<Booking> downloadedBookingsTA;
+    private ArrayList<Integer> downloadedWeeksTA;
+    
+    private ArrayList<Booking> downloadedBookingsStudent;
+    private ArrayList<Integer> downloadedWeeksStudent;
 
     private static App instance;
 
@@ -315,20 +318,36 @@ public class App extends Application {
 		loggedUser = dummy;
 	}
 
-	public ArrayList<Booking> getDownloadedBookings() {
-		return downloadedBookings;
+	public ArrayList<Booking> getDownloadedBookingsStudent() {
+		return downloadedBookingsStudent;
 	}
 
-	public void setDownloadedBookings(ArrayList<Booking> downloadedBookings) {
-		this.downloadedBookings = downloadedBookings;
+	public void setDownloadedBookingsStudent(ArrayList<Booking> downloadedBookingsStudent) {
+		this.downloadedBookingsStudent = downloadedBookingsStudent;
 	}
 
-	public ArrayList<Integer> getDownloadedWeeks() {
-		return downloadedWeeks;
+	public ArrayList<Integer> getDownloadedWeeksStudent() {
+		return downloadedWeeksStudent;
 	}
 
-	public void setDownloadedWeeks(ArrayList<Integer> downloadedWeeks) {
-		this.downloadedWeeks = downloadedWeeks;
+	public void setDownloadedWeeksStudent(ArrayList<Integer> downloadedWeeksStudent) {
+		this.downloadedWeeksStudent = downloadedWeeksStudent;
+	}
+
+	public ArrayList<Booking> getDownloadedBookingsTA() {
+		return downloadedBookingsTA;
+	}
+
+	public void setDownloadedBookingsTA(ArrayList<Booking> downloadedBookingsTA) {
+		this.downloadedBookingsTA = downloadedBookingsTA;
+	}
+
+	public ArrayList<Integer> getDownloadedWeeksTA() {
+		return downloadedWeeksTA;
+	}
+
+	public void setDownloadedWeeksTA(ArrayList<Integer> downloadedWeeksTA) {
+		this.downloadedWeeksTA = downloadedWeeksTA;
 	}
 }
 

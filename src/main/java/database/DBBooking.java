@@ -292,6 +292,83 @@ public class DBBooking extends DBConnection {
 
 		try {
 			Connection con = getConnection();
+			
+			if (user.getType() == 1) {
+				PreparedStatement hallTimesStudent = con
+						.prepareStatement("SELECT * FROM HallTime INNER JOIN Booking ON HallTime.idHallTime = "
+								+ "Booking.HallTime_idHallTime WHERE Student_email IS NULL");
+				ResultSet rs = hallTimesStudent.executeQuery();
+				while (rs.next()) {
+					String CourseCode = rs.getString("Course_CourseCode");
+					int week = rs.getInt("week");
+					int day = rs.getInt("day");
+					LocalTime timeStart = LocalTime.parse(rs.getString("timeStart"));
+					LocalTime timeEnd = LocalTime.parse(rs.getString("timeEnd"));
+					int availablePlaces = rs.getInt("availablePlaces");
+					String emailTA = rs.getString("TeachingAssistant_email");
+					if (!weeksStudent.contains(week)) {
+						weeksStudent.add(week);
+					}
+					// System.out.println(CourseCode + " " + week + " " + day + " " + timeStart + "
+					// " + timeEnd + " " + availablePlaces);
+					Halltime ht = new Halltime(CourseCode, week, day, timeStart, timeEnd, availablePlaces);
+
+					Booking booking = new Booking(ht, emailTA, user.getEmail());
+					availableBookingsStudent.add(booking);
+				}
+				App.getInstance().setDownloadedBookingsStudent(availableBookingsStudent);
+				App.getInstance().setDownloadedWeeksStudent(weeksStudent);
+			} else if (App.getInstance().getLoggedUser().getType() == 2) {
+				PreparedStatement hallTimesStudent = con
+						.prepareStatement("SELECT * FROM HallTime INNER JOIN Booking ON HallTime.idHallTime = "
+								+ "Booking.HallTime_idHallTime WHERE Student_email IS NULL");
+				ResultSet rs = hallTimesStudent.executeQuery();
+				while (rs.next()) {
+					String CourseCode = rs.getString("Course_CourseCode");
+					int week = rs.getInt("week");
+					int day = rs.getInt("day");
+					LocalTime timeStart = LocalTime.parse(rs.getString("timeStart"));
+					LocalTime timeEnd = LocalTime.parse(rs.getString("timeEnd"));
+					int availablePlaces = rs.getInt("availablePlaces");
+					String emailTA = rs.getString("TeachingAssistant_email");
+					if (!weeksStudent.contains(week)) {
+						weeksStudent.add(week);
+					}
+					// System.out.println(CourseCode + " " + week + " " + day + " " + timeStart + "
+					// " + timeEnd + " " + availablePlaces);
+					Halltime ht = new Halltime(CourseCode, week, day, timeStart, timeEnd, availablePlaces);
+
+					Booking booking = new Booking(ht, emailTA, user.getEmail());
+					availableBookingsStudent.add(booking);
+				}
+				
+				PreparedStatement hallTimesTA = con.prepareStatement("SELECT * FROM HallTime WHERE HallTime.idHallTime "
+						+ "NOT IN (SELECT HallTime_idHallTime FROM Booking) AND availablePlaces > 0");
+				rs = hallTimesTA.executeQuery();
+				while (rs.next()) {
+					String CourseCode = rs.getString("Course_CourseCode");
+					int week = rs.getInt("week");
+					int day = rs.getInt("day");
+					LocalTime timeStart = LocalTime.parse(rs.getString("timeStart"));
+					LocalTime timeEnd = LocalTime.parse(rs.getString("timeEnd"));
+					int availablePlaces = rs.getInt("availablePlaces");
+					if (!weeksTA.contains(week)) {
+						weeksTA.add(week);
+					}
+
+					Halltime ht = new Halltime(CourseCode, week, day, timeStart, timeEnd, availablePlaces);
+					Booking book = new Booking(ht, user);
+					availableBookingsTA.add(book);
+				}
+				App.getInstance().setDownloadedBookingsTA(availableBookingsTA);
+				App.getInstance().setDownloadedBookingsTA(availableBookingsStudent);
+
+				App.getInstance().setDownloadedBookingsStudent(availableBookingsStudent);
+				App.getInstance().setDownloadedWeeksStudent(weeksTA);
+
+			}
+			
+			/*
 			if (user.getType() == 1) {
 				PreparedStatement hallTimesStudent = con
 						.prepareStatement("SELECT * FROM HallTime INNER JOIN Booking ON HallTime.idHallTime = "
@@ -339,7 +416,7 @@ public class DBBooking extends DBConnection {
 				App.getInstance().setDownloadedBookings(availableBookingsTA);
 				App.getInstance().setDownloadedWeeks(weeksTA);
 
-			}
+			}*/
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

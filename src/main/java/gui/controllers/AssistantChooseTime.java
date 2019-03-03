@@ -121,9 +121,9 @@ public class AssistantChooseTime {
 		}
 		course_input.getItems().addAll(relevantCourses);
 
-		bookings = App.getInstance().getDownloadedBookings();
+		bookings = App.getInstance().getDownloadedBookingsTA();
 
-		List<Integer> availableWeeks = App.getInstance().getDownloadedWeeks();
+		List<Integer> availableWeeks = App.getInstance().getDownloadedWeeksTA();
 		Collections.sort(availableWeeks);
 
 		week_input.getItems().addAll(availableWeeks);
