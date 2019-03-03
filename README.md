@@ -38,7 +38,7 @@
 38. Du vil da få beskjed "Assistants time selected!" til venstre for knappen, og de markerte tekstboksene vil bli grønne som de andre bookede.
 39. Når du har booket de timene du ønsket, trykker du på "return"-knappen. Evt. krysser du ut applikasjonen om du er helt ferdig.
 40. 
-41. For å legge til en studentassist, trykk på knappen "Add assistants".
+41. For å legge til en studentassistent, trykk på knappen "Add assistants".
 42. Velg faget du ønsker å legge til en studass i kolonnen til venstre, f.eks. TDT4140 om det er det faget du er emneansvarlig i.
 43. Skriv så inn NTNU-emailen til den aktuelle studenten du ønsker å gjøre til studentassistent i faget, og trykk på knappen "Confirm assistants". 
 44. Du vil da få beskjed "Assistant added" til høyre for knappen, eller "invalid email" om du har skrevet inn en ugyldig bruker.
