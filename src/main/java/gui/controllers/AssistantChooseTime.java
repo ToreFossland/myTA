@@ -128,7 +128,7 @@ public class AssistantChooseTime {
 		for (Integer week : availableWeeks) {
 			System.out.println(Integer.toString(week));
 			if (week >= getCurrentWeek()) {
-				week_input.setValue(week);
+				week_input.setValue(week); 
 				break;
 			}
 		}
