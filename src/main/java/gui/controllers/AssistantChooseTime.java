@@ -108,17 +108,18 @@ public class AssistantChooseTime {
 		initCheckboxes();
 
 		// Fills course choicebox
-		initRelevantCourses();
+		Map<String, Integer> allCourses = App.getInstance().getLoggedUser().getMyCourses();
+		List<String> relevantCourses = new ArrayList<String>();
+		for (Entry<String, Integer> entry : allCourses.entrySet()) {
+			String course = entry.getKey();
+			Integer role = entry.getValue();
+			if (role == 2)
+				relevantCourses.add(course);
+		}
+		course_input.getItems().addAll(relevantCourses);
 
 		bookings = App.getInstance().getDownloadedBookingsTA();
 
-		initWeeksChoiceBox();
-		
-		loadHalltimes();
-
-	}
-
-	private void initWeeksChoiceBox() {
 		List<Integer> availableWeeks = App.getInstance().getDownloadedWeeksTA();
 		Collections.sort(availableWeeks);
 
@@ -131,19 +132,10 @@ public class AssistantChooseTime {
 				break;
 			}
 		}
-	}
-
-	private void initRelevantCourses() {
-		Map<String, Integer> allCourses = App.getInstance().getLoggedUser().getMyCourses();
-		List<String> relevantCourses = new ArrayList<String>();
-		for (Entry<String, Integer> entry : allCourses.entrySet()) {
-			String course = entry.getKey();
-			Integer role = entry.getValue();
-			if (role == 2)
-				relevantCourses.add(course);
-		}
-		course_input.getItems().addAll(relevantCourses);
 		course_input.setValue(relevantCourses.get(0));
+
+		loadAvailableTimes();
+
 	}
 
 	private void initCheckboxes() {
@@ -153,7 +145,7 @@ public class AssistantChooseTime {
 				{ checkBox17, checkBox18, checkBox19, checkBox20 } };
 	}
 
-	public void loadHalltimes() {
+	public void loadAvailableTimes() {
 		// Disables all checkboxes
 		for (CheckBox[] checkboxRow : checkboxes) {
 			for (CheckBox checkbox : checkboxRow) {
@@ -172,45 +164,15 @@ public class AssistantChooseTime {
 	}
 
 	public void weekInputHandler(ActionEvent event) {
-		loadHalltimes();
+		loadAvailableTimes();
 	}
 
 	public void courseInputHandler(ActionEvent event) {
-		loadHalltimes();
+		loadAvailableTimes();
 	}
 
 	public void confirmHandler(ActionEvent event) {
 
-		ArrayList<Booking> bookings = determineBookingsFromCheckboxes();
-
-		try {
-			DBBooking.addHalltimesTA(bookings);
-			confirm_label.setText("Assistant times added!");
-			removeBookingsFromDownloadedBookings(bookings);
-			loadHalltimes();
-			
-		} catch (Exception e) {
-			confirm_label.setText("Adding assistant times failed! :(");
-			e.printStackTrace();
-		} finally {
-			confirm_label.setVisible(true);
-		}
-
-	}
-
-	private void removeBookingsFromDownloadedBookings(ArrayList<Booking> bookingsToRemove) {
-		ArrayList<Booking> downloadedBookingsTA = App.getInstance().getDownloadedBookingsTA();
-		for(Booking bookingToRemove : bookingsToRemove) {
-			for(Booking bookingFromDownloads : downloadedBookingsTA) {
-				if(bookingToRemove.compareTo(bookingFromDownloads) == 1) {
-					downloadedBookingsTA.remove(bookingToRemove);
-				}
-			}
-		}
-		App.getInstance().setDownloadedBookingsTA(downloadedBookingsTA);
-	}
-
-	private ArrayList<Booking> determineBookingsFromCheckboxes() {
 		ArrayList<Booking> bookings = new ArrayList<Booking>();
 		
 		for (int i = 0; i < checkboxes.length; i++) {
@@ -225,7 +187,34 @@ public class AssistantChooseTime {
 				}
 			}
 		}
-		return bookings;
+
+		try {
+			DBBooking.addHalltimesTA(bookings);
+			confirm_label.setText("Assistant times added!");
+			System.out.println(bookings);
+			ArrayList<Booking> tempBooking = App.getInstance().getDownloadedBookingsTA();
+			ArrayList<Booking> deleteList = new ArrayList<Booking>();
+			System.out.println(tempBooking.size());
+			for(Booking booking : bookings) {
+				for(Booking booking2 : App.getInstance().getDownloadedBookingsTA()) {
+					if(booking.compareTo(booking2) == 1) {
+						System.out.println(deleteList.add(booking2)	);
+						System.out.println("suksess");
+					}
+				}
+			}
+			tempBooking.removeAll(deleteList);
+			System.out.println(tempBooking.size());
+			App.getInstance().setDownloadedBookingsTA(tempBooking);
+			loadAvailableTimes();
+			
+		} catch (Exception e) {
+			confirm_label.setText("Adding assistant times failed! :(");
+			e.printStackTrace();
+		} finally {
+			confirm_label.setVisible(true);
+		}
+
 	}
 
 	public void returnHandler(ActionEvent event) {

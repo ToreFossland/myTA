@@ -44,8 +44,11 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import org.apache.commons.dbcp2.BasicDataSource;
+
 import database.DBBooking;
 import database.DBConnection;
+import database.DataSource;
 import halltimes.Booking;
 import javafx.application.Application;
 import javafx.beans.value.ChangeListener;
@@ -245,23 +248,33 @@ public class App extends Application {
         }
     
     }
-
+    
+    //Database methods should not be placed in this class
     public boolean isRole(String Email, int Role){
+    	Connection con = null;
+        PreparedStatement statement = null;
+        ResultSet result = null;
+    	
 		boolean match = false;
 		try {
-			Connection con = DBConnection.getConnection();
+			BasicDataSource bds = DataSource.getInstance().getBds();
+	        con = bds.getConnection();
 			String email = Email.toLowerCase();
-			PreparedStatement findEmailRole = con.prepareStatement("SELECT User_email, role FROM User_has_Course "
+			statement = con.prepareStatement("SELECT User_email, role FROM User_has_Course "
 					+ " WHERE User_email = '"+email+"' AND role = '"+Role+"'");
-			ResultSet rs = findEmailRole.executeQuery();
+			result = statement.executeQuery();
 			
 			//Hvis det eksisterer noen objekter
-			if (rs.next() == true) {
+			if (result.next() == true) {
 				match=true;
 			}
 			
 		}catch(Exception e) {
 			System.out.println(e);
+		} finally {
+			try { if (result != null) result.close(); } catch (Exception e) {};
+		    try { if (statement != null) statement.close(); } catch (Exception e) {};
+		    try { if (con != null) con.close(); } catch (Exception e) {};
 		}
 		return match;
 	}
