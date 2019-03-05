@@ -105,24 +105,20 @@ public class AssistantChooseTime {
 
 	@FXML
 	public void initialize() {
-		checkboxes = new CheckBox[][] { { checkBox1, checkBox2, checkBox3, checkBox4 },
-				{ checkBox5, checkBox6, checkBox7, checkBox8 }, { checkBox9, checkBox10, checkBox11, checkBox12 },
-				{ checkBox13, checkBox14, checkBox15, checkBox16 },
-				{ checkBox17, checkBox18, checkBox19, checkBox20 } };
+		initCheckboxes();
 
 		// Fills course choicebox
-		Map<String, Integer> allCourses = App.getInstance().getLoggedUser().getMyCourses();
-		List<String> relevantCourses = new ArrayList<String>();
-		for (Entry<String, Integer> entry : allCourses.entrySet()) {
-			String course = entry.getKey();
-			Integer role = entry.getValue();
-			if (role == 2)
-				relevantCourses.add(course);
-		}
-		course_input.getItems().addAll(relevantCourses);
+		initRelevantCourses();
 
 		bookings = App.getInstance().getDownloadedBookingsTA();
 
+		initWeeksChoiceBox();
+		
+		loadHalltimes();
+
+	}
+
+	private void initWeeksChoiceBox() {
 		List<Integer> availableWeeks = App.getInstance().getDownloadedWeeksTA();
 		Collections.sort(availableWeeks);
 
@@ -135,13 +131,29 @@ public class AssistantChooseTime {
 				break;
 			}
 		}
-		course_input.setValue(relevantCourses.get(0));
-
-		loadAvailableTimes();
-
 	}
 
-	public void loadAvailableTimes() {
+	private void initRelevantCourses() {
+		Map<String, Integer> allCourses = App.getInstance().getLoggedUser().getMyCourses();
+		List<String> relevantCourses = new ArrayList<String>();
+		for (Entry<String, Integer> entry : allCourses.entrySet()) {
+			String course = entry.getKey();
+			Integer role = entry.getValue();
+			if (role == 2)
+				relevantCourses.add(course);
+		}
+		course_input.getItems().addAll(relevantCourses);
+		course_input.setValue(relevantCourses.get(0));
+	}
+
+	private void initCheckboxes() {
+		checkboxes = new CheckBox[][] { { checkBox1, checkBox2, checkBox3, checkBox4 },
+				{ checkBox5, checkBox6, checkBox7, checkBox8 }, { checkBox9, checkBox10, checkBox11, checkBox12 },
+				{ checkBox13, checkBox14, checkBox15, checkBox16 },
+				{ checkBox17, checkBox18, checkBox19, checkBox20 } };
+	}
+
+	public void loadHalltimes() {
 		// Disables all checkboxes
 		for (CheckBox[] checkboxRow : checkboxes) {
 			for (CheckBox checkbox : checkboxRow) {
@@ -160,15 +172,45 @@ public class AssistantChooseTime {
 	}
 
 	public void weekInputHandler(ActionEvent event) {
-		loadAvailableTimes();
+		loadHalltimes();
 	}
 
 	public void courseInputHandler(ActionEvent event) {
-		loadAvailableTimes();
+		loadHalltimes();
 	}
 
 	public void confirmHandler(ActionEvent event) {
 
+		ArrayList<Booking> bookings = determineBookingsFromCheckboxes();
+
+		try {
+			DBBooking.addHalltimesTA(bookings);
+			confirm_label.setText("Assistant times added!");
+			removeBookingsFromDownloadedBookings(bookings);
+			loadHalltimes();
+			
+		} catch (Exception e) {
+			confirm_label.setText("Adding assistant times failed! :(");
+			e.printStackTrace();
+		} finally {
+			confirm_label.setVisible(true);
+		}
+
+	}
+
+	private void removeBookingsFromDownloadedBookings(ArrayList<Booking> bookingsToRemove) {
+		ArrayList<Booking> downloadedBookingsTA = App.getInstance().getDownloadedBookingsTA();
+		for(Booking bookingToRemove : bookingsToRemove) {
+			for(Booking bookingFromDownloads : downloadedBookingsTA) {
+				if(bookingToRemove.compareTo(bookingFromDownloads) == 1) {
+					downloadedBookingsTA.remove(bookingToRemove);
+				}
+			}
+		}
+		App.getInstance().setDownloadedBookingsTA(downloadedBookingsTA);
+	}
+
+	private ArrayList<Booking> determineBookingsFromCheckboxes() {
 		ArrayList<Booking> bookings = new ArrayList<Booking>();
 		
 		for (int i = 0; i < checkboxes.length; i++) {
@@ -183,34 +225,7 @@ public class AssistantChooseTime {
 				}
 			}
 		}
-
-		try {
-			DBBooking.addHalltimeTA(bookings);
-			confirm_label.setText("Assistant times added!");
-			System.out.println(bookings);
-			ArrayList<Booking> tempBooking = App.getInstance().getDownloadedBookingsTA();
-			ArrayList<Booking> deleteList = new ArrayList<Booking>();
-			System.out.println(tempBooking.size());
-			for(Booking booking : bookings) {
-				for(Booking booking2 : App.getInstance().getDownloadedBookingsTA()) {
-					if(booking.compareTo(booking2) == 1) {
-						System.out.println(deleteList.add(booking2)	);
-						System.out.println("suksess");
-					}
-				}
-			}
-			tempBooking.removeAll(deleteList);
-			System.out.println(tempBooking.size());
-			App.getInstance().setDownloadedBookingsTA(tempBooking);
-			loadAvailableTimes();
-			
-		} catch (Exception e) {
-			confirm_label.setText("Adding assistant times failed! :(");
-			e.printStackTrace();
-		} finally {
-			confirm_label.setVisible(true);
-		}
-
+		return bookings;
 	}
 
 	public void returnHandler(ActionEvent event) {
