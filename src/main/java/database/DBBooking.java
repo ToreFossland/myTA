@@ -183,10 +183,6 @@ public class DBBooking extends DBConnection {
         PreparedStatement statement = null;
         ResultSet result = null;
 		
-        try { if (result != null) result.close(); } catch (Exception e) {};
-	    try { if (statement != null) statement.close(); } catch (Exception e) {};
-	    try { if (con != null) con.close(); } catch (Exception e) {};
-		
 		try {
 	        BasicDataSource bds = DataSource.getInstance().getBds();
 	        con = bds.getConnection();
@@ -251,19 +247,14 @@ public class DBBooking extends DBConnection {
         PreparedStatement statement = null;
         ResultSet result = null;
 		
-              
-        try { if (result != null) result.close(); } catch (Exception e) {};
-	    try { if (statement != null) statement.close(); } catch (Exception e) {};
-	    try { if (con != null) con.close(); } catch (Exception e) {};
-
-		try {
+        try {
 
 	        BasicDataSource bds = DataSource.getInstance().getBds();
 	        con = bds.getConnection();
 
 			statement = con
 					.prepareStatement("SELECT idHallTime FROM HallTime INNER JOIN Booking ON "
-							+ " HallTime.idHallTime = Booking.HallTime_idHallTime WHERE Course_courseCode = ? AND timeStart = ? "
+							+ "HallTime.idHallTime = Booking.HallTime_idHallTime WHERE Course_courseCode = ? AND timeStart = ? "
 							+ "AND week = ? AND day = ? AND Student_email IS NULL");
 
 			for (Booking booking : bookings) {
@@ -283,19 +274,20 @@ public class DBBooking extends DBConnection {
 				int id = result.getInt("idHallTime");
 				
 				result.close();
-				statement.close();
 
-				statement = con.prepareStatement(
+				PreparedStatement update = con.prepareStatement(
 						// "INSERT INTO Booking (HallTime_idHallTime, TeachingAssistant_email,
 						// Student_email) VALUES (?, ?, ?)");
 						"UPDATE Booking SET Student_email = ? WHERE HallTime_idHallTime = ?");
 
-				statement.setString(1, studentEmail);
-				statement.setInt(2, id);
+				update.setString(1, studentEmail);
+				update.setInt(2, id);
+				
+				//System.out.println(String.format("%s, %s", Integer.toString(id), studentEmail));
 
-				System.out.println(String.format("%s, %s", Integer.toString(id), studentEmail));
-
-				statement.execute();
+				update.execute();
+				
+				result.close();
 			}
 
 		} catch (SQLException e) {
