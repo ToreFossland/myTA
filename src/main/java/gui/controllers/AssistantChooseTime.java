@@ -128,7 +128,6 @@ public class AssistantChooseTime {
 		week_input.getItems().addAll(availableWeeks);
 
 		for (Integer week : availableWeeks) {
-			System.out.println(Integer.toString(week));
 			if (week >= getCurrentWeek()) {
 				week_input.setValue(week);
 				break;
@@ -199,7 +198,6 @@ public class AssistantChooseTime {
 				}
 			}
 			tempBooking.removeAll(deleteList);
-			System.out.println(tempBooking.size());
 			App.getInstance().setDownloadedBookingsTA(tempBooking);
 			loadAvailableTimes();
 			

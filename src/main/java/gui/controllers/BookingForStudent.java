@@ -310,8 +310,6 @@ public class BookingForStudent {
 			confirm_label.setText("Assistant times booked!");
 			ArrayList<Booking> tempBooking = App.getInstance().getDownloadedBookingsStudent();
 			ArrayList<Booking> deleteList = new ArrayList<Booking>();
-			System.out.println(tempBooking.size() + "hei");
-			System.out.println(tempBooking);
 			for(Booking booking : bookings) {
 				System.out.println("hei");
 				for(Booking booking2 : App.getInstance().getDownloadedBookingsStudent()) {
@@ -323,7 +321,6 @@ public class BookingForStudent {
 				}
 			}
 			tempBooking.removeAll(deleteList);
-			System.out.println(tempBooking.size() + "heihei");
 			App.getInstance().setDownloadedBookingsStudent(tempBooking);
 			loadAvailableTimes();
 			//m� legge inn slette booking her
