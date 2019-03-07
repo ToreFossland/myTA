@@ -104,10 +104,7 @@ public class AssistantChooseTime {
 
 	@FXML
 	public void initialize() {
-		checkboxes = new CheckBox[][] { { checkBox1, checkBox2, checkBox3, checkBox4 },
-				{ checkBox5, checkBox6, checkBox7, checkBox8 }, { checkBox9, checkBox10, checkBox11, checkBox12 },
-				{ checkBox13, checkBox14, checkBox15, checkBox16 },
-				{ checkBox17, checkBox18, checkBox19, checkBox20 } };
+		initCheckboxes();
 
 		// Fills course choicebox
 		Map<String, Integer> allCourses = App.getInstance().getLoggedUser().getMyCourses();
@@ -129,7 +126,7 @@ public class AssistantChooseTime {
 
 		for (Integer week : availableWeeks) {
 			if (week >= getCurrentWeek()) {
-				week_input.setValue(week);
+				week_input.setValue(week); 
 				break;
 			}
 		}
@@ -137,6 +134,13 @@ public class AssistantChooseTime {
 
 		loadAvailableTimes();
 
+	}
+
+	private void initCheckboxes() {
+		checkboxes = new CheckBox[][] { { checkBox1, checkBox2, checkBox3, checkBox4 },
+				{ checkBox5, checkBox6, checkBox7, checkBox8 }, { checkBox9, checkBox10, checkBox11, checkBox12 },
+				{ checkBox13, checkBox14, checkBox15, checkBox16 },
+				{ checkBox17, checkBox18, checkBox19, checkBox20 } };
 	}
 
 	public void loadAvailableTimes() {
@@ -183,7 +187,7 @@ public class AssistantChooseTime {
 		}
 
 		try {
-			DBBooking.addHalltimeTA(bookings);
+			DBBooking.addHalltimesTA(bookings);
 			confirm_label.setText("Assistant times added!");
 			System.out.println(bookings);
 			ArrayList<Booking> tempBooking = App.getInstance().getDownloadedBookingsTA();

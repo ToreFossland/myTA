@@ -299,7 +299,6 @@ public class BookingForStudent {
 					Halltime newHT = new Halltime(course_input.getValue(), week_input.getValue(), i+1, timeStart, timeEnd, 0);
 					Booking booking = new Booking(newHT, null, App.getInstance().getLoggedUser().getEmail());
 					bookings.add(booking);
-					System.out.println(booking.getStartTime());
 				}
 			}
 		}
@@ -311,19 +310,16 @@ public class BookingForStudent {
 			ArrayList<Booking> tempBooking = App.getInstance().getDownloadedBookingsStudent();
 			ArrayList<Booking> deleteList = new ArrayList<Booking>();
 			for(Booking booking : bookings) {
-				System.out.println("hei");
 				for(Booking booking2 : App.getInstance().getDownloadedBookingsStudent()) {
 				
 					if(booking.compareTo(booking2) == 1) {
 						deleteList.add(booking2);
-						System.out.println("suksess");
 					}
 				}
 			}
 			tempBooking.removeAll(deleteList);
 			App.getInstance().setDownloadedBookingsStudent(tempBooking);
 			loadAvailableTimes();
-			//m� legge inn slette booking her
 		} catch (Exception e) {
 			confirm_label.setText("Booking failed! :(");
 			e.printStackTrace();
