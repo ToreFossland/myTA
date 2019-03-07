@@ -1,11 +1,7 @@
 
 package user;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
-
-import halltimes.Halltime;
 
 public class TeachingAssistant extends Student{
 	public TeachingAssistant(String email, String firstName, String lastName, Map<String, Integer> coursesAndRoles) {

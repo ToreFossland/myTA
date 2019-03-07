@@ -4,7 +4,6 @@ import java.time.LocalTime;
 import static java.time.temporal.ChronoUnit.MINUTES;
 import java.util.ArrayList;
 
-import gui.App;
 import user.User;
 
 public class Booking implements Comparable<Booking>{

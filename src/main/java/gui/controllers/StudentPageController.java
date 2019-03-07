@@ -4,7 +4,6 @@ import java.util.Iterator;
 import java.util.Map;
 
 import database.DBBooking;
-import database.DBConnection;
 import gui.App;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;

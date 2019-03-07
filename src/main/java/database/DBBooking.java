@@ -17,8 +17,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalTime;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Objects;
 
 import gui.App;
@@ -61,7 +59,6 @@ public class DBBooking extends DBConnection {
 		boolean eksisterer = false;
 		try {
 			Connection con = getConnection();
-			String courseCode = halltime.getCourseCode().toUpperCase();
 			PreparedStatement findHalltime = con
 					.prepareStatement("SELECT Course_courseCode, week, day, timeStart, timeEnd FROM HallTime");
 			// PreparedStatement findCourseCode = con.prepareStatement("SELECT
@@ -422,30 +419,4 @@ public class DBBooking extends DBConnection {
 			e.printStackTrace();
 		}
 	}
-	
-
-	public static void main(String[] args) {
-		Map<String, Integer> coursesAndRoles = new HashMap<String, Integer>();
-		coursesAndRoles.put("TDT4140", 2);
-		/*
-		 * LocalTime timeStart = LocalTime.of(13, 0, 0); LocalTime timeEnd =
-		 * LocalTime.of(15, 0, 0); Halltime ht = new Halltime("TDT4140", 5, 3,
-		 * timeStart, timeEnd, 15);
-		 */
-		User TA = User.generateUserObject("abc@ntnu.no", "abc", "def", coursesAndRoles);
-		/*
-		 * User Student = User.generateUserObject("abc@ntnu.no", "ghi", "jkl",
-		 * coursesAndRoles); Booking bookTA = new Booking(ht, TA); Booking bookStudent =
-		 * new Booking(ht, TA, Student);
-		 */
-		try {
-			// addHalltimeTA(bookTA);
-			// addHalltimeStudent(bookStudent);
-			downloadBookings();
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-
 }

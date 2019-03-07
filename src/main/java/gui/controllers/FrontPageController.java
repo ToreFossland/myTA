@@ -1,7 +1,5 @@
 package gui.controllers;
 
-import java.net.URL;
-
 import gui.App;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;

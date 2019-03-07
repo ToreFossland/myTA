@@ -427,9 +427,6 @@ public class DBConnection {
 
 			String firstName = rs.getString("firstName");
 			String lastName = rs.getString("lastName");
-			String password = rs.getString("password");
-			
-
 			query = String.format("SELECT Course_courseCode, role FROM User_has_Course WHERE User_email = '%s'",
 					email);
 			st = con.prepareStatement(query);

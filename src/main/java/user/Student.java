@@ -2,12 +2,9 @@
 
 package user;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 
 import database.DBConnection;
-import halltimes.Halltime;
 
 public class Student extends User{
 
