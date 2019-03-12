@@ -54,7 +54,7 @@
             </HBox>
             <HBox alignment="CENTER" prefHeight="67.0" prefWidth="800.0">
                <children>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Topic: " wrappingWidth="61.490281760692596">
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Topic: " wrappingWidth="70.4902817606926">
                      <font>
                         <Font size="20.0" />
                      </font>
