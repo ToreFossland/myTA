@@ -41,6 +41,7 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Stack;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -58,55 +59,56 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import user.*;
 
-
-
 /**
  * Main Application. This class handles navigation and user session.
  */
 public class App extends Application {
-    private Stage stage;
-    private User loggedUser;
-    
-    private ArrayList<Booking> downloadedBookingsTA; //Fjerne booking fra denne on confirm
-    private ArrayList<Integer> downloadedWeeksTA;
-    
-    private ArrayList<Booking> downloadedBookingsStudent;
-    private ArrayList<Integer> downloadedWeeksStudent;
+	private Stage stage;
+	private User loggedUser;
 
-    private static App instance;
+	private Stack<String> pagesHistory;
 
-    public App() {
-        instance = this;
-    }
+	private ArrayList<Booking> downloadedBookingsTA; // Fjerne booking fra denne on confirm
+	private ArrayList<Integer> downloadedWeeksTA;
 
-    public static App getInstance() {
-        return instance;
-    }
+	private ArrayList<Booking> downloadedBookingsStudent;
+	private ArrayList<Integer> downloadedWeeksStudent;
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
-        launch(args);
-    }
+	private static App instance;
 
-    @Override public void start(Stage primaryStage) {
-        try {
-            stage = primaryStage;
-            gotoFrontPage();
-            primaryStage.show();
-            
-        } catch (Exception ex) {
-            Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
+	public App() {
+		instance = this;
+		pagesHistory = new Stack<String>();
+	}
 
-    public User getLoggedUser() {
-        return loggedUser;
-    }
-    
+	public static App getInstance() {
+		return instance;
+	}
 
-    public boolean userLogin(String email, String password) throws Exception{
+	/**
+	 * @param args the command line arguments
+	 */
+	public static void main(String[] args) {
+		launch(args);
+	}
+
+	@Override
+	public void start(Stage primaryStage) {
+		try {
+			stage = primaryStage;
+			gotoFrontPage();
+			primaryStage.show();
+
+		} catch (Exception ex) {
+			Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
+		}
+	}
+
+	public User getLoggedUser() {
+		return loggedUser;
+	}
+
+	public boolean userLogin(String email, String password) throws Exception {
 
 		// encrypts the password with MD5
 		password = toMD5(password);
@@ -122,27 +124,24 @@ public class App extends Application {
 
 		if (success) {
 			loggedUser = DBConnection.returnUserObject(email);
-			if(loggedUser.getType() == 1 | loggedUser.getType() == 2)
-			{
+			if (loggedUser.getType() == 1 | loggedUser.getType() == 2) {
 				DBBooking.downloadBookings();
 			}
 			return true;
 		} else {
 			return false;
 		}
-    }
-    
-    //Overfloedig?
-    /*
-	public void userRegister(String email, String password, String userName, String firstName, String lastName) {
-		userRegister(email, password, firstName, lastName, false);
-		// doSomething
 	}
-	*/
+
+	// Overfloedig?
+	/*
+	 * public void userRegister(String email, String password, String userName,
+	 * String firstName, String lastName) { userRegister(email, password, firstName,
+	 * lastName, false); // doSomething }
+	 */
 	// skipCheck = true skips checking for user existence in database. Useful for
 	// perfomance if this has already been checked.
-	public void userRegister(String email, String password, String firstName, String lastName,
-			Boolean skipCheck) {
+	public void userRegister(String email, String password, String firstName, String lastName, Boolean skipCheck) {
 		Map<String, Integer> courses = new HashMap<String, Integer>();
 		password = toMD5(password);
 		DBConnection.registerUser(email, password, firstName, lastName, skipCheck);
@@ -151,172 +150,231 @@ public class App extends Application {
 		// doSomething
 	}
 
-    public void userLogout(){
-        loggedUser = null;
-        gotoLogin();
-    }
+	public void userLogout() {
+		loggedUser = null;
+		gotoLogin();
+	}
 
-    public void gotoProfile() {
-        try {
-            replaceSceneContent("pages/GenericPage.fxml");
-        } catch (Exception ex) {
-            Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-    
-    public void gotoAdminPage() {
-        try {
-            replaceSceneContent("pages/AdminPage.fxml");
-        } catch (Exception ex) {
-            Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-    
-    public void gotoSupervisorPage() {
-        try {
-            replaceSceneContent("pages/SupervisorPage.fxml");
-        } catch (Exception ex) {
-            Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-    
-    public void gotoFrontPage() {
-    	 try {
-             replaceSceneContent("pages/FrontPage.fxml");
-         } catch (Exception ex) {
-             Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
-         }
-     }
-    
-    public void gotoAssistantPage() {
-    	try {
-            replaceSceneContent("pages/AssistantPage.fxml");
-        } catch (Exception ex) {
-            Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-    
-    public void gotoStudentPage() {
-        try {
-            replaceSceneContent("pages/StudentPage.fxml");
-        } catch (Exception ex) {
-            Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-    
-    public void gotoBookingForStudent() {
-        try {
-            replaceSceneContent("pages/BookingForStudent.fxml");
-        } catch (Exception ex) {
-            Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-    
+	public void gotoProfile() {
+		try {
+			String page = "pages/GenericPage.fxml";
+			pagesHistory.push(page);
+			replaceSceneContent(page);
+		} catch (Exception ex) {
+			Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
+		}
+	}
 
-    public void gotoSupervisorAddsAssistants(){
-    	try {
-            replaceSceneContent("pages/SupervisorAddsAssistantsToSubjects.fxml");
-    		
-        } catch (Exception ex) {
-            Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-    
-    public void gotoSupervisorCreatesTimes() {
-    	try {
-            replaceSceneContent("pages/SupervisorCreatesTimes.fxml");
-        } catch (Exception ex) {
-            Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-    
-    public void gotoAssistantChooseTime() {
-        try {
-            replaceSceneContent("pages/AssistantChooseTime.fxml");
-        } catch (Exception ex) {
-            Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-    	
-    public void gotoAddStudentSubject() {
-    	try {
-            replaceSceneContent("pages/SubjectsPageForStudent.fxml");
-        } catch (Exception ex) {
-            Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    
-    }
-    
-    //Database methods should not be placed in this class
-    public boolean isRole(String Email, int Role){
-    	Connection con = null;
-        PreparedStatement statement = null;
-        ResultSet result = null;
-    	
+	public void gotoAdminPage() {
+		try {
+			String page = "pages/AdminPage.fxml";
+			pagesHistory.push(page);
+			replaceSceneContent(page);
+		} catch (Exception ex) {
+			Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
+		}
+	}
+
+	public void gotoSupervisorPage() {
+		try {
+			String page = "pages/SupervisorPage.fxml";
+			pagesHistory.push(page);
+			replaceSceneContent(page);
+		} catch (Exception ex) {
+			Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
+		}
+	}
+
+	public void gotoFrontPage() {
+		try {
+			String page = "pages/FrontPage.fxml";
+			pagesHistory.push(page);
+			replaceSceneContent(page);
+		} catch (Exception ex) {
+			Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
+		}
+	}
+
+	public void gotoAssistantPage() {
+		try {
+			String page = "pages/AssistantPage.fxml";
+			pagesHistory.push(page);
+			replaceSceneContent(page);
+		} catch (Exception ex) {
+			Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
+		}
+	}
+
+	public void gotoStudentPage() {
+		try {
+			String page = "pages/StudentPage.fxml";
+			pagesHistory.push(page);
+			replaceSceneContent(page);
+		} catch (Exception ex) {
+			Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
+		}
+	}
+
+	public void gotoBookingForStudent() {
+		try {
+			String page = "pages/BookingForStudent.fxml";
+			pagesHistory.push(page);
+			replaceSceneContent(page);
+		} catch (Exception ex) {
+			Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
+		}
+	}
+
+	public void gotoSupervisorAddsAssistants() {
+		try {
+			String page = "pages/SupervisorAddsAssistantsToSubjects.fxml";
+			pagesHistory.push(page);
+			replaceSceneContent(page);
+		} catch (Exception ex) {
+			Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
+		}
+	}
+
+	public void gotoSupervisorCreatesTimes() {
+		try {
+			String page = "pages/SupervisorCreatesTimes.fxml";
+			pagesHistory.push(page);
+			replaceSceneContent(page);
+		} catch (Exception ex) {
+			Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
+		}
+	}
+
+	public void gotoAssistantChooseTime() {
+		try {
+			String page = "pages/AssistantChooseTime.fxml";
+			pagesHistory.push(page);
+			replaceSceneContent(page);
+		} catch (Exception ex) {
+			Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
+		}
+	}
+
+	public void gotoAddStudentSubject() {
+		try {
+			String page = "pages/SubjectsPageForStudent.fxml";
+			pagesHistory.push(page);
+			replaceSceneContent(page);
+		} catch (Exception ex) {
+			Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
+		}
+
+	}
+
+	public void gotoRegistration() {
+		try {
+			String page = "pages/RegisterPage.fxml";
+			pagesHistory.push(page);
+			replaceSceneContent(page);
+			Logger.getLogger(App.class.getName()).log(Level.INFO, "Changed to registration (this is just a logger test)");
+		} catch (Exception ex) {
+			Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
+		}
+	}
+
+	public void gotoSendMessagePage() {
+		try {
+			String page = "pages/SendMessagePage.fxml";
+			pagesHistory.push(page);
+			replaceSceneContent(page);
+		} catch (Exception ex) {
+			Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
+		}
+	}
+	
+	public void gotoLogin() {
+		try {
+			String page = "pages/LoginPage.fxml";
+			pagesHistory.push(page);
+			replaceSceneContent(page);
+		} catch (Exception ex) {
+			Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
+		}
+	}
+
+	public void gotoPrevious() {
+		try {
+			if (pagesHistory.size() > 1) {
+				pagesHistory.pop();
+				replaceSceneContent(pagesHistory.peek());
+			} else {
+				Logger.getLogger(App.class.getName()).log(Level.INFO, "Cannot go to previous page as page history is empty");
+			}
+		} catch (Exception ex) {
+			Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
+		}
+	}
+
+	public void clearHistory() {
+		pagesHistory.clear();
+	}
+
+	// Database methods should not be placed in this class
+	public boolean isRole(String Email, int Role) {
+		Connection con = null;
+		PreparedStatement statement = null;
+		ResultSet result = null;
+
 		boolean match = false;
 		try {
 			BasicDataSource bds = DataSource.getInstance().getBds();
-	        con = bds.getConnection();
+			con = bds.getConnection();
 			String email = Email.toLowerCase();
-			statement = con.prepareStatement("SELECT User_email, role FROM User_has_Course "
-					+ " WHERE User_email = '"+email+"' AND role = '"+Role+"'");
+			statement = con.prepareStatement("SELECT User_email, role FROM User_has_Course " + " WHERE User_email = '"
+					+ email + "' AND role = '" + Role + "'");
 			result = statement.executeQuery();
-			
-			//Hvis det eksisterer noen objekter
+
+			// Hvis det eksisterer noen objekter
 			if (result.next() == true) {
-				match=true;
+				match = true;
 			}
-			
-		}catch(Exception e) {
+
+		} catch (Exception e) {
 			System.out.println(e);
 		} finally {
-			try { if (result != null) result.close(); } catch (Exception e) {};
-		    try { if (statement != null) statement.close(); } catch (Exception e) {};
-		    try { if (con != null) con.close(); } catch (Exception e) {};
+			try {
+				if (result != null)
+					result.close();
+			} catch (Exception e) {
+			}
+			;
+			try {
+				if (statement != null)
+					statement.close();
+			} catch (Exception e) {
+			}
+			;
+			try {
+				if (con != null)
+					con.close();
+			} catch (Exception e) {
+			}
+			;
 		}
 		return match;
 	}
-    
-    
 
-    public void gotoLogin() {
-        try {
-            replaceSceneContent("pages/LoginPage.fxml");
-        } catch (Exception ex) {
-            Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-    
-    public void gotoRegistration() {
-        try {
-            replaceSceneContent("pages/RegisterPage.fxml");
-        } catch (Exception ex) {
-            Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-    public void gotoSendMessagePage() {
-    	try {
-            replaceSceneContent("pages/SendMessagePage.fxml");
-        } catch (Exception ex) {
-            Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
+	private Parent replaceSceneContent(String fxml) throws Exception {
+		Parent page = (Parent) FXMLLoader.load(App.class.getResource(fxml), null, new JavaFXBuilderFactory());
+		Scene scene = stage.getScene();
+		if (scene == null) {
+			scene = new Scene(page);
+			// scene = new Scene(page, 700, 450);
+			// scene.getStylesheets().add(App.class.getResource("demo.css").toExternalForm());
+			stage.setScene(scene);
+		} else {
+			stage.getScene().setRoot(page);
+		}
+		stage.sizeToScene();
+		System.out.println(pagesHistory.toString());
+		return page;
+	}
 
-    private Parent replaceSceneContent(String fxml) throws Exception {
-        Parent page = (Parent) FXMLLoader.load(App.class.getResource(fxml), null, new JavaFXBuilderFactory());
-        Scene scene = stage.getScene();
-        if (scene == null) {
-            scene = new Scene(page);
-            //scene = new Scene(page, 700, 450);
-            //scene.getStylesheets().add(App.class.getResource("demo.css").toExternalForm());
-            stage.setScene(scene);
-        } else {
-            stage.getScene().setRoot(page);
-        }
-        stage.sizeToScene();
-        return page;
-    }
-    
 	public static String toMD5(String cleartext) {
 		// Static getInstance method is called with hashing MD5
 		MessageDigest md = null;
@@ -341,14 +399,6 @@ public class App extends Application {
 		}
 
 		return hashtext;
-	}
-
-	
-	public void setDummyUser() {
-		Map<String, Integer> dummyCourse = new HashMap<String, Integer>();
-		dummyCourse.put("TDT4140", 2);
-		User dummy = User.generateUserObject("abc@ntnu.no", "abc", "def", dummyCourse);
-		loggedUser = dummy;
 	}
 
 	public ArrayList<Booking> getDownloadedBookingsStudent() {
@@ -383,4 +433,3 @@ public class App extends Application {
 		this.downloadedWeeksTA = downloadedWeeksTA;
 	}
 }
-
