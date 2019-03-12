@@ -2,6 +2,7 @@ package communication;
 
 import java.time.LocalDateTime;
 
+import gui.App;
 import user.User;
 
 public class Message {
@@ -12,17 +13,15 @@ public class Message {
 	private User sender;
 	private LocalDateTime timestamp;
 	
-	public Message(User sender, String text) {
-		this.sender = sender;
-		this.text = text;
-		this.timestamp = LocalDateTime.now();
+	public Message(User receiver, User sender, String text) {
+		this(receiver, sender,text,LocalDateTime.now());
 		
 	}
-	public Message(User sender, String text, LocalDateTime timestamp) {
+	public Message(User receiver, User sender, String text, LocalDateTime timestamp) {
 		this.sender = sender;
 		this.text = text;
 		this.timestamp = timestamp;
-		
+		this.receiver = receiver;
 	}
 	
 	public String getCourceCode() {
