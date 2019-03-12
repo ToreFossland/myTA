@@ -1,5 +1,7 @@
 package gui.controllers;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -62,7 +64,7 @@ public class LoginController {
 	@FXML
 	public void RegButtonHandler(javafx.event.ActionEvent event) throws Exception {
 		// Switches to registerpage.fxml
-		App.getInstance().gotoRegistration();;
+		App.getInstance().gotoRegistration();
 	}
 
 	public void listeners() {

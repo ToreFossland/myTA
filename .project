@@ -20,16 +20,4 @@
 		<nature>org.eclipse.jdt.core.javanature</nature>
 		<nature>org.eclipse.buildship.core.gradleprojectnature</nature>
 	</natures>
-	<linkedResources>
-		<link>
-			<name>src/main/java/gui/pages/MessagePage.fxml</name>
-			<type>1</type>
-			<locationURI>PARENT-2-PROJECT_LOC/Desktop/PU/Message.fxml</locationURI>
-		</link>
-		<link>
-			<name>src/main/java/gui/pages/ReadMessage.fxml</name>
-			<type>1</type>
-			<locationURI>PARENT-2-PROJECT_LOC/Desktop/PU/ReadMessage.fxml</locationURI>
-		</link>
-	</linkedResources>
 </projectDescription>
