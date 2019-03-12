@@ -12,16 +12,17 @@ public class Message {
 	private User sender;
 	private LocalDateTime timestamp;
 	
-	public Message(User sender, String text) {
+
+	public Message(User sender, User receiver, String subject, String text, LocalDateTime timestamp) {
 		this.sender = sender;
-		this.text = text;
-		this.timestamp = LocalDateTime.now();
-		
-	}
-	public Message(User sender, String text, LocalDateTime timestamp) {
-		this.sender = sender;
+		this.receiver = receiver;
+		this.subject = subject;
 		this.text = text;
 		this.timestamp = timestamp;
+	}
+	
+	public Message(User sender, User receiver, String subject, String text) {
+		this(sender,receiver,subject, text, LocalDateTime.now());
 		
 	}
 	
