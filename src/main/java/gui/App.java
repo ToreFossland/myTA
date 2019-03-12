@@ -371,7 +371,6 @@ public class App extends Application {
 			stage.getScene().setRoot(page);
 		}
 		stage.sizeToScene();
-		System.out.println(pagesHistory.toString());
 		return page;
 	}
 
