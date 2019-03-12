@@ -6,6 +6,7 @@ import gui.App;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import user.User;
 
@@ -23,7 +24,7 @@ public class SendPageController {
 	TextField text_subject;
 	
 	@FXML
-	TextField text_message_content;
+	TextArea text_message_content;
 	
 	@FXML
 	Label label_new_message;

@@ -63,7 +63,7 @@ public class MessageDao {
 		insertMessages(new ArrayList<Message>(Arrays.asList(message)));
 	}
 
-	public static ArrayList<Message> getAllMessages() {
+	public static ArrayList<Message> getAllMessages(User user) {
 		Connection con = null;
 		PreparedStatement statement = null;
 		ResultSet result = null;
@@ -73,13 +73,13 @@ public class MessageDao {
 			BasicDataSource bds = DataSource.getInstance().getBds();
 			con = bds.getConnection();
 			statement = con.prepareStatement("SELECT * FROM Message WHERE Sender = ? OR Receiver = ?");
-			statement.setString(1, App.getInstance().getLoggedUser().getEmail());
-			statement.setString(2, App.getInstance().getLoggedUser().getEmail());
+			statement.setString(1, user.getEmail());
+			statement.setString(2, user.getEmail());
 
 			result = statement.executeQuery();
 
 			while (result.next())
-				messages.add(generateMessageObjectFromResultSet(result));
+				messages.add(generateMessageObjectFromResultSet(result, user));
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -92,18 +92,22 @@ public class MessageDao {
 		return messages;
 	}
 
-	private static Message generateMessageObjectFromResultSet(ResultSet result) throws SQLException {
+	private static Message generateMessageObjectFromResultSet(ResultSet result, User loggedUser) throws SQLException {
 		String subject = result.getString("subject");
 		String text = result.getString("text");
-		User sender = result.getString("Sender").equals(App.getInstance().getLoggedUser().getEmail())
-				? App.getInstance().getLoggedUser()
-				: User.generateUserObject(result.getString("Sender"));
+		User sender = result.getString("Sender").equals(loggedUser.getEmail())
+				? loggedUser : User.generateUserObject(result.getString("Sender"));
 
-		User receiver = result.getString("Receiver").equals(App.getInstance().getLoggedUser().getEmail())
-				? App.getInstance().getLoggedUser()
-				: User.generateUserObject(result.getString("Receiver"));
+		User receiver = result.getString("Receiver").equals(loggedUser.getEmail())
+				? loggedUser : User.generateUserObject(result.getString("Receiver"));
 		LocalDateTime timestamp = result.getTimestamp("timestamp").toLocalDateTime();
 
 		return new Message(sender, receiver, subject, text, timestamp);
 	}
+	/*
+	public static void main(String[] args) {
+		Message test = new Message(User.generateUserObject("abc@ntnu.no"), User.generateUserObject("davidaan@stud.ntnu.no"),"hallo", "står til?");
+		//insertMessage(test);
+		System.out.println(getAllMessages(User.generateUserObject("abc@ntnu.no")));
+	}*/
 }
