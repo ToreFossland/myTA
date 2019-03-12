@@ -58,7 +58,7 @@ public class DBEvaluation{
 		    //System.out.println(evaluation.getScore() + " " + evaluation.getNote() + " " + evaluation.getAssignment().getId() + " " + evaluation.getAssignment().getDeliveredBy().getEmail());
 			
 		    statement = con.prepareStatement(String.format("INSERT INTO Evaluation(score, note, Assignment_idAssignment, "
-					+ "User_email) VALUES('%s', '%s','%s','%s')",evaluation.getScore(), evaluation.getNote(), evaluation.getAssignment().getId(), evaluation.getAssignment().getDeliveredBy().getEmail()));
+					+ "User_email, courseCode) VALUES('%s', '%s','%s','%s','%s')",evaluation.getScore(), evaluation.getNote(), evaluation.getAssignment().getId(), evaluation.getAssignment().getDeliveredBy().getEmail(), evaluation.getCourseCode()));
 		
 			statement.executeUpdate();
 			
@@ -78,6 +78,38 @@ public class DBEvaluation{
 		User user = User.generateUserObject("abc@ntnu.no", "hei", "hei", coursesAndRoles);
 		Assignment assignment = new Assignment(user, "TDT4100", "Tittel", LocalDateTime.of(2019, Month.MARCH, 1, 8, 00));
 		Evaluation eval = new Evaluation("TDT4100", 0, user, assignment, "hei");
-		insertEvaluation(eval);
+		// insertEvaluation(eval);
+		HashMap<String, ArrayList<Evaluation>> evaluations = new HashMap<String, ArrayList<Evaluation>>();
+		getEvaluations(evaluations, "TDT4100");
+		
+	}
+	
+	public static void getEvaluations(HashMap<String, ArrayList<Evaluation>> evaluations, String course) {
+		
+		HashMap<String, ArrayList<Evaluation>> evaluationsInDB = new HashMap<String, ArrayList<Evaluation>>();
+		
+		Connection con = null;
+		PreparedStatement statement = null;
+		ResultSet result = null;
+		try {
+			BasicDataSource bds = DataSource.getInstance().getBds();
+		    con = bds.getConnection();
+		    statement = con.prepareStatement(String.format("SELECT * FROM Evaluation WHERE courseCode = '%s'", course));
+		    result = statement.executeQuery();
+		    while (result.next()) {
+		    System.out.println(result.getString("courseCode"));
+		    System.out.println(result.getString("User_email"));
+		    }
+		    con.close();
+		    
+		} catch (Exception e) {
+			System.out.println(e);
+		
+		} finally {
+		    try { if (result != null) result.close(); } catch (Exception e) {};
+		    try { if (statement != null) statement.close(); } catch (Exception e) {};
+		    try { if (con != null) con.close(); } catch (Exception e) {};
+		} 
+		 
 	}
 }

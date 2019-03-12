@@ -18,4 +18,8 @@ public class EvaluationInbox{
 	public void setEvaluations(HashMap<String, ArrayList<Evaluation>> evaluations) {
 		this.evaluations = evaluations;
 	}
+	
+	public void refresh() {
+		
+	}
 }
