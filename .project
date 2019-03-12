@@ -27,9 +27,9 @@
 			<locationURI>PARENT-2-PROJECT_LOC/Desktop/PU/Message.fxml</locationURI>
 		</link>
 		<link>
-			<name>src/main/java/gui/pages/Read Message.fxml</name>
+			<name>src/main/java/gui/pages/ReadMessage.fxml</name>
 			<type>1</type>
-			<locationURI>PARENT-2-PROJECT_LOC/Desktop/PU/Read%20Message.fxml</locationURI>
+			<locationURI>PARENT-2-PROJECT_LOC/Desktop/PU/ReadMessage.fxml</locationURI>
 		</link>
 	</linkedResources>
 </projectDescription>
