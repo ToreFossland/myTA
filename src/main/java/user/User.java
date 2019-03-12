@@ -78,8 +78,10 @@ public abstract class User {
 			Map<String, Integer> coursesAndRoles) {
 
 		int permission = 1;
-		for (int role : coursesAndRoles.values()) {
-			permission = role > permission ? role : permission;
+		if (coursesAndRoles != null) {
+			for (int role : coursesAndRoles.values()) {
+				permission = role > permission ? role : permission;
+			}
 		}
 
 		switch (permission) {
@@ -99,11 +101,11 @@ public abstract class User {
 			return new Student(email, firstName, lastName, coursesAndRoles);
 		}
 	}
-	
+
 	public static User generateUserObject(String email) {
-		return generateUserObject(email,null,null,null);
+		return generateUserObject(email, null, null, null);
 	}
-	
+
 	public void addCourse(String courseCode, int role) {
 		myCourses.put(courseCode, role);
 	}

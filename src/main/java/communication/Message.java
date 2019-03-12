@@ -72,5 +72,10 @@ public class Message {
 	public void setCourceCode(String courceCode) {
 		this.courceCode = courceCode;
 	}
+	
+	@Override
+	public String toString() {
+		return String.format("From: %s\nTo: %s\nSubject: %s\nText: %s", this.getSender().getEmail(), this.getReceiver().getEmail(), this.getSubject(), this.getText());
+	}
 
 }
