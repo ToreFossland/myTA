@@ -37,4 +37,18 @@ public class SendPageController {
 		Message message = new Message(sender,receiver, subject, message_content);
 		MessageSender.sendMessage(message);
 	}
+	
+	//1 = student, 2 = teacher assistant, 3 = supervisor, 4 = admin
+	public void onClickReturn(javafx.event.ActionEvent event) {
+		int role = App.getInstance().getLoggedUser().getType();
+		if (role == 1) {
+			App.getInstance().gotoStudentPage();
+		}
+		else if (role == 2) {
+			App.getInstance().gotoAssistantPage();
+		}
+		else if (role == 3) {
+			App.getInstance().gotoStudentPage();
+		}
+	}
 }
