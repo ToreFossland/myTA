@@ -100,6 +100,10 @@ public abstract class User {
 		}
 	}
 	
+	public static User generateUserObject(String email) {
+		return generateUserObject(email,null,null,null);
+	}
+	
 	public void addCourse(String courseCode, int role) {
 		myCourses.put(courseCode, role);
 	}
