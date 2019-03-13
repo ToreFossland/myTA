@@ -2,6 +2,8 @@ package gui.controllers;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import communication.Message;
 import database.MessageDao;
@@ -11,7 +13,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import user.User;
 
 public class InboxPageController {
 
@@ -34,6 +35,8 @@ public class InboxPageController {
 		
 		ArrayList<Message> messages = MessageDao.getAllMessages(App.getInstance().getLoggedUser());
 		
+		Logger.getLogger(App.class.getName()).log(Level.INFO, "Messages downloaded");
+		
 		messages = removeMessagesWhereSender(messages);
 		Collections.sort(messages);
 		
@@ -50,7 +53,6 @@ public class InboxPageController {
 	
 	@FXML
 	public void returnHandler(javafx.event.ActionEvent event) throws Exception {
-		// Switches to registerpage.fxml
 		App.getInstance().gotoPrevious();
 	}
 }

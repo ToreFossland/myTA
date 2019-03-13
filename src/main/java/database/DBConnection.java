@@ -14,9 +14,12 @@ import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import org.apache.commons.dbcp2.BasicDataSource;
 
+import gui.App;
 import user.User;
 
 public class DBConnection {
@@ -227,13 +230,13 @@ public class DBConnection {
 
 				if (Objects.equals(fasit, passwordInput)) {
 					match = true;
-					System.out.println("Passwordet er korrekt.");
+					Logger.getLogger(App.class.getName()).log(Level.INFO, "Correct password");
 				} else {
-					System.out.println("Passwordet er feil.");
+					Logger.getLogger(App.class.getName()).log(Level.INFO, "Incorrect password");
 				}
 
 			} else {
-				System.out.println("E-post eksisterer ikke");
+				Logger.getLogger(App.class.getName()).log(Level.INFO, "Email doesn't exist");
 			}
 
 		} catch (Exception e) {
