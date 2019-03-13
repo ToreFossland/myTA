@@ -7,7 +7,7 @@ import user.User;
 
 public class Assignment{
 	private int id;
-	private User deliveredBy;
+	private User deliveredBy; //Satser på at bare mail holder, kanskje trenger helt User object? Samme på eval
 	private String courseCode;
 	private String assigmentName;
 	//String filePath kanskje være med i neste sprint?
@@ -20,6 +20,8 @@ public class Assignment{
 		this.setTimestamp(timestamp);
 		this.setId(-1);
 	}
+	
+	//Konstruktør med fil her
 	
 	public void updateId() {
 		DBEvaluation.updateAssignment(this);

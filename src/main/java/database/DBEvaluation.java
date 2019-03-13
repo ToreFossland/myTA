@@ -57,8 +57,8 @@ public class DBEvaluation{
 		    System.out.println(evaluation.getAssignment().getId());
 		    //System.out.println(evaluation.getScore() + " " + evaluation.getNote() + " " + evaluation.getAssignment().getId() + " " + evaluation.getAssignment().getDeliveredBy().getEmail());
 			
-		    statement = con.prepareStatement(String.format("INSERT INTO Evaluation(score, note, Assignment_idAssignment, "
-					+ "User_email, courseCode) VALUES('%s', '%s','%s','%s','%s')",evaluation.getScore(), evaluation.getNote(), evaluation.getAssignment().getId(), evaluation.getAssignment().getDeliveredBy().getEmail(), evaluation.getCourseCode()));
+		    statement = con.prepareStatement(String.format("REPLACE INTO Evaluation(score, note, Assignment_idAssignment, "
+					+ "TA_email) VALUES('%s', '%s','%s','%s','%s')",evaluation.getScore(), evaluation.getNote(), evaluation.getAssignment().getId(), evaluation.getEvaluator()));
 		
 			statement.executeUpdate();
 			
@@ -73,20 +73,11 @@ public class DBEvaluation{
 		}
 }
 	
-	public static void main(String[] args) {
-		Map<String, Integer> coursesAndRoles  = new HashMap<String, Integer>();
-		User user = User.generateUserObject("abc@ntnu.no", "hei", "hei", coursesAndRoles);
-		Assignment assignment = new Assignment(user, "TDT4100", "Tittel", LocalDateTime.of(2019, Month.MARCH, 1, 8, 00));
-		Evaluation eval = new Evaluation("TDT4100", 0, user, assignment, "hei");
-		// insertEvaluation(eval);
-		HashMap<String, ArrayList<Evaluation>> evaluations = new HashMap<String, ArrayList<Evaluation>>();
-		getEvaluations(evaluations, "TDT4100");
-		
-	}
 	
-	public static void getEvaluations(HashMap<String, ArrayList<Evaluation>> evaluations, String course) {
+	public static HashMap<String, ArrayList<Evaluation>> getEvaluations(String course) {
 		
-		HashMap<String, ArrayList<Evaluation>> evaluationsInDB = new HashMap<String, ArrayList<Evaluation>>();
+		HashMap<String, ArrayList<Evaluation>> evaluations = new HashMap<String, ArrayList<Evaluation>>();
+		ArrayList<Evaluation> evaluationsInDB = new ArrayList<Evaluation>();
 		
 		Connection con = null;
 		PreparedStatement statement = null;
@@ -94,13 +85,32 @@ public class DBEvaluation{
 		try {
 			BasicDataSource bds = DataSource.getInstance().getBds();
 		    con = bds.getConnection();
-		    statement = con.prepareStatement(String.format("SELECT * FROM Evaluation WHERE courseCode = '%s'", course));
+		    statement = con.prepareStatement(String.format("SELECT * FROM Evaluation INNER JOIN Assignment ON "
+		    		+ "Evaluation.Assignment_idAssignment = Assignment.idAssignment WHERE courseCode = '%s'", course));
 		    result = statement.executeQuery();
 		    while (result.next()) {
-		    System.out.println(result.getString("courseCode"));
-		    System.out.println(result.getString("User_email"));
+		    	int assignmentID = result.getInt("idAssignment");
+		    	String title = result.getString("title");
+		    	//String filepath = result.getString("filePath"); kommer neste sprint
+		    	LocalDateTime timestamp = result.getTimestamp("timestamp").toLocalDateTime();
+		    	int id = result.getInt("idEvaluation");
+		    	int score = result.getInt("score");
+		    	String note = result.getString("note");
+		    	int idAssignment = result.getInt("Assignment_idAssignment");
+		    	String TaEmail = result.getString("TA_email");
+		    	String studentEmail = result.getString("Student_email");
+		    	
+		    	
+		    	User student = User.generateUserObject(studentEmail);
+		    	User TA = User.generateUserObject(TaEmail);
+		    	
+			    Assignment assignment = new Assignment(student, course, title, timestamp);
+		    	Evaluation evaluation = new Evaluation(course, score, TA, assignment, note);
+		    	
+		    	evaluationsInDB.add(evaluation);
 		    }
-		    con.close();
+		    
+		   
 		    
 		} catch (Exception e) {
 			System.out.println(e);
@@ -109,7 +119,31 @@ public class DBEvaluation{
 		    try { if (result != null) result.close(); } catch (Exception e) {};
 		    try { if (statement != null) statement.close(); } catch (Exception e) {};
 		    try { if (con != null) con.close(); } catch (Exception e) {};
-		} 
+		}
+		 evaluations.put(course, evaluationsInDB);
+		return evaluations; 
 		 
 	}
+	
+	public static void main(String[] args) {
+		User user = User.generateUserObject("abc@ntnu.no");
+		Assignment assignment = new Assignment(user, "TDT4100", "Tittel", LocalDateTime.of(2019, Month.MARCH, 1, 8, 00));
+		Evaluation eval = new Evaluation("TDT4100", 0, user, assignment, "hei");
+		// insertEvaluation(eval);
+		HashMap<String, ArrayList<Evaluation>> evaluations = new HashMap<String, ArrayList<Evaluation>>();
+		ArrayList<Evaluation> evals = new ArrayList<Evaluation>();
+		evals.add(eval);
+	
+		System.out.println(getEvaluations("TDT4100"));
+		
+		
+		
+	}
+	
+	
+	
+	
+	
+	
+	
 }
