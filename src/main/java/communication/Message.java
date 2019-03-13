@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 import gui.App;
 import user.User;
 
-public class Message {
+public class Message implements Comparable<Message>{
 	private String courceCode;
 	private String subject;
 	private String text;
@@ -76,6 +76,16 @@ public class Message {
 	@Override
 	public String toString() {
 		return String.format("From: %s\nTo: %s\nSubject: %s\nText: %s", this.getSender().getEmail(), this.getReceiver().getEmail(), this.getSubject(), this.getText());
+	}
+	
+	@Override
+	public int compareTo(Message message) {
+		if(message.getTimestamp().isBefore(this.getTimestamp()))
+			return -1;
+		else if (message.getTimestamp().isAfter(this.getTimestamp()))
+			return 1;
+		else
+			return 0;
 	}
 
 }
