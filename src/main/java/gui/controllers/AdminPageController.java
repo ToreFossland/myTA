@@ -63,8 +63,6 @@ public class AdminPageController {
 		//adder fag til DB
 	}
 	
-
-	
 	public boolean isValidSupervisor(String email, String course) throws Exception {
 		boolean valid =true;
 		if(DBConnection.brukerHarCourseEksisterer(email, course, 3) || isValidSubject(course) || !checkUserExists(email)) {

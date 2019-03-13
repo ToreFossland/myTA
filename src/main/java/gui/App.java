@@ -294,6 +294,24 @@ public class App extends Application {
             Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
+    public void gotoViewAssignments() {
+    	try {
+    		replaceSceneContent("pages/ViewAssignmentsPage.fxml");
+    	} catch (Exception ex) {
+    		Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
+    	}
+    }
+    
+    public void gotoAddAssignment() {
+    	try {
+    		replaceSceneContent("pages/AddAssignmentPage.fxml");
+    	} catch (Exception ex) {
+    		Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
+    	}
+    }
+    
+ 
 
     private Parent replaceSceneContent(String fxml) throws Exception {
         Parent page = (Parent) FXMLLoader.load(App.class.getResource(fxml), null, new JavaFXBuilderFactory());

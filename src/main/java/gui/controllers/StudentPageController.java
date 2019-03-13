@@ -69,7 +69,7 @@ public class StudentPageController {
 		}
 	}
 	public void evaluatingHandler() {
-		// switches to ? ikke laget 
+		// switches to addorviewpage
 	}
 	public void addSubjectHandler() {
 		App.getInstance().gotoAddStudentSubject();
