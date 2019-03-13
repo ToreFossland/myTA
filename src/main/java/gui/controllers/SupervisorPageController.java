@@ -27,7 +27,7 @@ public class SupervisorPageController {
 		App.getInstance().gotoSupervisorAddsAssistants();
 	}
 	public void messagesHandler() {
-		// ikke laget
+		App.getInstance().gotoInboxPage();
 	}
 	public void createAssistantTimesHandler() {
 		App.getInstance().gotoSupervisorCreatesTimes();

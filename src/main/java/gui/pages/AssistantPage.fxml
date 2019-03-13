@@ -73,7 +73,7 @@
             </HBox>
             <HBox alignment="CENTER" prefHeight="85.0" prefWidth="800.0">
                <children>
-                  <Button mnemonicParsing="false" prefHeight="44.0" prefWidth="230.0" style="-fx-background-color: grey;" text="Messages" textFill="WHITE">
+                  <Button fx:id="button_messages" mnemonicParsing="false" onAction="#messagesHandler" prefHeight="44.0" prefWidth="230.0" style="-fx-background-color: #0099FF;" text="Messages" textFill="WHITE">
                      <font>
                         <Font size="20.0" />
                      </font>

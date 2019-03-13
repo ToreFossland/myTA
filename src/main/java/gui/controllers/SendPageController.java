@@ -2,6 +2,7 @@ package gui.controllers;
 
 import communication.Message;
 import communication.MessageSender;
+import database.DBConnection;
 import gui.App;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -29,29 +30,25 @@ public class SendPageController {
 	@FXML
 	Text text_response;
 	
-	public void onClickSendMessage(javafx.event.ActionEvent event) {
+	public void onClickSendMessage(javafx.event.ActionEvent event) throws Exception {
 		String subject = text_subject.getText();
 		String message_content = text_message_content.getText();
 		String receiver_email = text_receiver_email.getText();
-		User receiver = User.generateUserObject(receiver_email);
-		User sender = App.getInstance().getLoggedUser();
-		Message message = new Message(sender,receiver, subject, message_content);
-		MessageSender.sendMessage(message);
-		text_response.setText("Message sent");
+		if(DBConnection.userExists(receiver_email)){
+			User receiver = User.generateUserObject(receiver_email);
+			User sender = App.getInstance().getLoggedUser();
+			Message message = new Message(sender,receiver, subject, message_content);
+			MessageSender.sendMessage(message);
+			text_response.setText("Message sent");
+		}
+		else {
+			text_response.setText("The email does not exist.");
+		}
 		
 	}
 	
 	//1 = student, 2 = teacher assistant, 3 = supervisor, 4 = admin
 	public void onClickReturn(javafx.event.ActionEvent event) {
-		int role = App.getInstance().getLoggedUser().getType();
-		if (role == 1) {
-			App.getInstance().gotoStudentPage();
-		}
-		else if (role == 2) {
-			App.getInstance().gotoAssistantPage();
-		}
-		else if (role == 3) {
-			App.getInstance().gotoStudentPage();
-		}
+		App.getInstance().gotoPrevious();
 	}
 }
