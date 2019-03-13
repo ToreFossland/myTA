@@ -56,6 +56,10 @@ public class Message implements Comparable<Message>{
 	public User getSender() {
 		return sender;
 	}
+	
+	public String getSenderEmail() {
+		return sender.getEmail();
+	}
 
 	public void setSender(User sender) {
 		this.sender = sender;
