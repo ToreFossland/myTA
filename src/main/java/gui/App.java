@@ -287,6 +287,16 @@ public class App extends Application {
 		}
 	}
 	
+	public void gotoInboxPage() {
+		try {
+			String page = "pages/InboxPage.fxml";
+			pagesHistory.push(page);
+			replaceSceneContent(page);
+		} catch (Exception ex) {
+			Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
+		}
+	}
+	
 	public void gotoLogin() {
 		try {
 			String page = "pages/LoginPage.fxml";

@@ -47,9 +47,8 @@
                <children>
                   <TableView fx:id="messageTable" editable="true" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: white; -fx-border-color: black; -fx-border-radius: 7; -fx-: black;" HBox.hgrow="ALWAYS">
                     <columns>
-                      <TableColumn fx:id="fromCol" prefWidth="350.0" text="From:" />
-                      <TableColumn fx:id="topicCol" prefWidth="350.0" text="Topic:" />
-                        <TableColumn prefWidth="75.0" text="Column X" />
+                      <TableColumn fx:id="fromCol" prefWidth="350.0" text="From" />
+                      <TableColumn fx:id="topicCol" prefWidth="350.0" text="Topic" />
                     </columns>
                      <HBox.margin>
                         <Insets left="50.0" right="50.0" />

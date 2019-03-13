@@ -57,6 +57,7 @@ public class Message implements Comparable<Message>{
 		return sender;
 	}
 	
+	//Used by InboxPageController
 	public String getSenderEmail() {
 		return sender.getEmail();
 	}

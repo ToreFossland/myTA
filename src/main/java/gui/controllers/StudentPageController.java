@@ -75,7 +75,7 @@ public class StudentPageController {
 		App.getInstance().gotoAddStudentSubject();
 	}
 	public void messagesHandler() {
-		// ikke laget
+		App.getInstance().gotoInboxPage();
 	}
 	
 		 
