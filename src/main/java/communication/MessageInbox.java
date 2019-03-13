@@ -6,14 +6,16 @@ import database.MessageDao;
 import gui.App;
 
 public class MessageInbox {
-	private ArrayList<Message> inbox;
 	
-	public ArrayList<Message> refreshInbox(){
-		this.inbox =  MessageDao.getAllMessages(App.getInstance().getLoggedUser());
+	
+	private static ArrayList<Message> inbox;
+	
+	public static ArrayList<Message> refreshInbox(){
+		inbox =  MessageDao.getAllMessages(App.getInstance().getLoggedUser());
 		return getInbox();
 	
 	}
-	public ArrayList<Message> getInbox(){
+	public static ArrayList<Message> getInbox(){
 		return inbox;
 		
 	}

@@ -296,6 +296,16 @@ public class App extends Application {
 			Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
 		}
 	}
+	public void gotoReadMessagePage() {
+		try {
+			String page = "pages/ReadMessagePage.fxml";
+			pagesHistory.push(page);
+			replaceSceneContent(page);
+		} catch (Exception ex) {
+			Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
+		}
+	}
+	
 	
 	public void gotoLogin() {
 		try {

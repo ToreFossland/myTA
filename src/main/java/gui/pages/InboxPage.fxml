@@ -45,7 +45,7 @@
                </children></HBox>
 				<HBox prefHeight="347.0" prefWidth="800.0" VBox.vgrow="ALWAYS">
                <children>
-                  <TableView fx:id="messageTable" editable="true" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: white; -fx-border-color: black; -fx-border-radius: 7; -fx-: black;" HBox.hgrow="ALWAYS">
+                  <TableView fx:id="messageTable" editable="true" onMouseClicked="#onClickRead" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: white; -fx-border-color: black; -fx-border-radius: 7; -fx-: black;" HBox.hgrow="ALWAYS">
                     <columns>
                       <TableColumn fx:id="fromCol" prefWidth="350.0" text="From" />
                       <TableColumn fx:id="topicCol" prefWidth="350.0" text="Topic" />
@@ -58,7 +58,7 @@
 				</HBox>
 				<HBox alignment="CENTER" prefHeight="99.0" prefWidth="800.0">
                <children>
-                  <Button fx:id="writeMessageButton" mnemonicParsing="false" prefHeight="38.0" prefWidth="259.0" style="-fx-background-color: #0099FF;" text="Wite new message" textFill="WHITE">
+                  <Button fx:id="button_new_message" mnemonicParsing="false" onAction="#onClickNewMessage" prefHeight="38.0" prefWidth="259.0" style="-fx-background-color: #0099FF;" text="New message" textFill="WHITE">
                      <font>
                         <Font size="17.0" />
                      </font>

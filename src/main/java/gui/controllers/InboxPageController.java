@@ -6,6 +6,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import communication.Message;
+import communication.MessageInbox;
 import database.MessageDao;
 import gui.App;
 import javafx.fxml.FXML;
@@ -26,14 +27,15 @@ public class InboxPageController {
 	TableColumn<Message, String> topicCol;
 	
 	@FXML
-	Button writeMessageButton;
+	Button button_new_message;
 	
 	@FXML
 	public void initialize() {
 		fromCol.setCellValueFactory(new PropertyValueFactory<>("senderEmail"));
 		topicCol.setCellValueFactory(new PropertyValueFactory<>("subject"));
 		
-		ArrayList<Message> messages = MessageDao.getAllMessages(App.getInstance().getLoggedUser());
+		MessageInbox.refreshInbox();
+		ArrayList<Message> messages = MessageInbox.getInbox();
 		
 		Logger.getLogger(App.class.getName()).log(Level.INFO, "Messages downloaded");
 		
@@ -49,6 +51,17 @@ public class InboxPageController {
 			if (!message.getSender().getEmail().equals(App.getInstance().getLoggedUser().getEmail()))
 				newList.add(message);
 		return newList;
+	}
+	
+	public void onClickRead() {
+		Message selectedMessage = messageTable.getSelectionModel().getSelectedItem();
+		Message.setSelectedMessage(selectedMessage);
+		if (selectedMessage !=null)
+			App.getInstance().gotoReadMessagePage();
+	}
+	
+	public void onClickNewMessage() {
+		App.getInstance().gotoSendMessagePage();
 	}
 	
 	@FXML

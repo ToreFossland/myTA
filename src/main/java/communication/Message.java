@@ -12,6 +12,8 @@ public class Message implements Comparable<Message>{
 	private User receiver;
 	private User sender;
 	private LocalDateTime timestamp;
+	
+	private static Message selectedMessage;
 
 	public Message(User sender, User receiver, String subject, String text, LocalDateTime timestamp) {
 		this.sender = sender;
@@ -76,6 +78,14 @@ public class Message implements Comparable<Message>{
 
 	public void setCourceCode(String courceCode) {
 		this.courceCode = courceCode;
+	}
+	
+	public static Message getSelectedMessage() {
+		return selectedMessage;
+	}
+	
+	public static void setSelectedMessage(Message message) {
+		selectedMessage = message;
 	}
 	
 	@Override
