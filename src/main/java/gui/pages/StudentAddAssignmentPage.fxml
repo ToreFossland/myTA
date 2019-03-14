@@ -2,14 +2,13 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Hyperlink?>
-<?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="800.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/9.0.4" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="800.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/9.0.4" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.controllers.StudentAddAssignmentPageController">
    <children>
       <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -27,7 +26,7 @@
                         <HBox alignment="CENTER" prefHeight="61.0" prefWidth="339.0">
                            <children>
                               <HBox prefHeight="61.0" prefWidth="140.0" />
-                              <Button mnemonicParsing="false" style="-fx-background-color: blue;" text="Return" textFill="WHITE">
+                              <Button fx:id="button_return" mnemonicParsing="false" onAction="#returnHandler" style="-fx-background-color: blue;" text="Return" textFill="WHITE">
                                  <font>
                                     <Font size="13.0" />
                                  </font>
@@ -45,7 +44,7 @@
                         <Font size="18.0" />
                      </font>
                   </Text>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Student-email">
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Student-email: ">
                      <font>
                         <Font size="18.0" />
                      </font>
@@ -87,17 +86,22 @@
             </HBox>
             <HBox alignment="CENTER" prefHeight="221.0" prefWidth="800.0">
                <children>
-                  <Label alignment="CENTER" prefHeight="60.0" prefWidth="91.0" text="Score:">
-                     <font>
-                        <Font size="20.0" />
-                     </font>
-                  </Label>
                   <HBox prefHeight="90.0" prefWidth="34.0" />
-                  <Label alignment="CENTER" prefHeight="60.0" prefWidth="91.0" text="/100">
-                     <font>
-                        <Font size="20.0" />
-                     </font>
-                  </Label>
+                  <HBox alignment="CENTER" prefHeight="221.0" prefWidth="800.0">
+                     <children>
+                        <VBox prefHeight="25.0" prefWidth="140.0">
+                           <children>
+                              <Button fx:id="upload_assignment" onAction="#uploadHandler" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="39.0" prefWidth="163.0" text="Upload" textAlignment="CENTER">
+                                 <font>
+                                 	 <Label fx:id="upload_label" prefHeight="28.0" prefWidth="141.0" text="Assignment uploaded." visible="false">
+                                    <Font size="16.0" />
+                                 </font>
+                              </Button>
+                           </children>
+                        </VBox>
+                        <HBox prefHeight="90.0" prefWidth="34.0" />
+                     </children>
+                  </HBox>
                </children>
             </HBox>
             <HBox prefHeight="20.0" prefWidth="800.0" style="-fx-background-color: #0099FF;" />

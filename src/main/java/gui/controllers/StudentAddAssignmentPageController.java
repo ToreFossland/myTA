@@ -1,29 +1,30 @@
 package gui.controllers;
 
+import database.DBEvaluation;
 import gui.App;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
 public class StudentAddAssignmentPageController {
 	
 	@FXML
-	Button return_handler;
+	Button return_button;
 	
 	@FXML
 	Button upload_assignment;
 	
-	@FXML 
-	TextField course_code;
-	
-	@FXML 
-	TextField assignment_name;
-	
-	@FXML 
-	Button add_file_handler;
+	@FXML
+	Label upload_label;
 	
 	public void returnHandler(javafx.event.ActionEvent event) {
 		App.getInstance().gotoStudentPage();
+	}
+	
+	public void uploadHandler(javafx.event.ActionEvent event) {
+		DBEvaluation.insertAssignment(assignment);
+		
 	}
 	
 
