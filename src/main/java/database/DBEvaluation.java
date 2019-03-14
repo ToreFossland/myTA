@@ -30,7 +30,7 @@ public class DBEvaluation{
 			result = statement.executeQuery();
 
 			while (result.next()) {
-				if (Objects.equals(result.getString("title"), assignment.getAssigmentName())) {
+				if (Objects.equals(result.getString("title"), assignment.getAssignmentName())) {
 					assignment.setId(result.getInt("idAssignment"));
 				}
 			}
@@ -54,7 +54,7 @@ public class DBEvaluation{
 		    con = bds.getConnection();
 		    
 		    statement = con.prepareStatement(String.format("REPLACE INTO Assignment(title, timestamp, Student_email, courseCode) "
-		    		+ "VALUES('%s', '%s', '%s', '%s')", assignment.getAssigmentName(), LocalDateTime.now(), assignment.getDeliveredBy().getEmail(), assignment.getCourseCode()));
+		    		+ "VALUES('%s', '%s', '%s', '%s')", assignment.getAssignmentName(), LocalDateTime.now(), assignment.getDeliveredBy().getEmail(), assignment.getCourseCode()));
 		
 			statement.executeUpdate();
 		    
