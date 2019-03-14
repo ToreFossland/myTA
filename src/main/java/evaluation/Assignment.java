@@ -10,7 +10,7 @@ public class Assignment{
 	private User deliveredBy; //Satser på at bare mail holder, kanskje trenger helt User object? Samme på eval
 	private String courseCode;
 	private String assigmentName;
-	//String filePath kanskje være med i neste sprint?
+	//String file kanskje være med i neste sprint?
 	private LocalDateTime timestamp;
 	
 	public Assignment(User deliveredBy, String courseCode, String assignmentName, LocalDateTime timestamp){

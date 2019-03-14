@@ -43,7 +43,33 @@ public class DBEvaluation{
 		    try { if (statement != null) statement.close(); } catch (Exception e) {};
 		    try { if (con != null) con.close(); } catch (Exception e) {};
 		}
-}
+	}
+	
+	public static void insertAssignment(Assignment assignment) {
+		Connection con = null;
+		PreparedStatement statement = null;
+		ResultSet result = null;
+		try {
+			BasicDataSource bds = DataSource.getInstance().getBds();
+		    con = bds.getConnection();
+		    
+		    statement = con.prepareStatement(String.format("REPLACE INTO Assignment(title, timestamp, Student_email) "
+		    		+ "VALUES('%s', '%s', '%s')", assignment.getAssigmentName(), LocalDateTime.now(), assignment.getDeliveredBy().getEmail()));
+		
+			statement.executeUpdate();
+		    
+		    
+		    
+		    
+		} catch (Exception e) {
+			System.out.println(e);
+		
+		} finally {
+		    try { if (result != null) result.close(); } catch (Exception e) {};
+		    try { if (statement != null) statement.close(); } catch (Exception e) {};
+		    try { if (con != null) con.close(); } catch (Exception e) {};
+		}
+	}
 	
 	public static void insertEvaluation(Evaluation evaluation) {
 		
@@ -73,6 +99,87 @@ public class DBEvaluation{
 		}
 }
 	
+	public static Evaluation getEvaluation(String course, User evaluator, User student) {
+		Connection con = null;
+		PreparedStatement statement = null;
+		ResultSet result = null;
+		Evaluation evaluation = null;
+
+		try {
+			BasicDataSource bds = DataSource.getInstance().getBds();
+		    con = bds.getConnection();
+		    statement = con.prepareStatement(String.format("SELECT * FROM Evaluation INNER JOIN Assignment ON "
+		    		+ "Evaluation.Assignment_idAssignment = Assignment.idAssignment WHERE courseCode = '%s' "
+		    		+ "AND TA_email = '%s' AND Student_email = '%s'", course, evaluator.getEmail(), student.getEmail()));
+		    result = statement.executeQuery();
+	
+		    while (result.next()) {
+		    	int assignmentID = result.getInt("idAssignment");
+		    	String title = result.getString("title");
+		    	//String filepath = result.getString("filePath"); kommer neste sprint
+		    	LocalDateTime timestamp = result.getTimestamp("timestamp").toLocalDateTime();
+		    	int id = result.getInt("idEvaluation");
+		    	int score = result.getInt("score");
+		    	String note = result.getString("note");
+		    	int idAssignment = result.getInt("Assignment_idAssignment");
+		    	
+			    Assignment assignment = new Assignment(student, course, title, timestamp);
+		    	Evaluation eval = new Evaluation(course, score, evaluator, assignment, note);
+		    	evaluation = eval;
+		    }
+		}catch (Exception e) {
+			System.out.println(e);
+		
+		} finally {
+		    try { if (result != null) result.close(); } catch (Exception e) {};
+		    try { if (statement != null) statement.close(); } catch (Exception e) {};
+		    try { if (con != null) con.close(); } catch (Exception e) {};
+		}
+		return evaluation; 
+	}
+	
+	public static Evaluation getEvaluation(int id) {
+		Connection con = null;
+		PreparedStatement statement = null;
+		ResultSet result = null;
+		Evaluation evaluation = null;
+
+		try {
+			BasicDataSource bds = DataSource.getInstance().getBds();
+		    con = bds.getConnection();
+		    statement = con.prepareStatement(String.format("SELECT * FROM Evaluation INNER JOIN Assignment ON "
+		    		+ "Evaluation.Assignment_idAssignment = Assignment.idAssignment WHERE idEvaluation = '%s'", id));
+		    result = statement.executeQuery();
+	
+		    while (result.next()) {
+		    	int assignmentID = result.getInt("idAssignment");
+		    	String title = result.getString("title");
+		    	//String filepath = result.getString("filePath"); kommer neste sprint
+		    	LocalDateTime timestamp = result.getTimestamp("timestamp").toLocalDateTime();
+		    	int score = result.getInt("score");
+		    	String note = result.getString("note");
+		    	int idAssignment = result.getInt("Assignment_idAssignment");
+		    	String courseCode = result.getString("courseCode");
+		     	String TaEmail = result.getString("TA_email");
+		    	String studentEmail = result.getString("Student_email");
+		    	
+		    	User evaluator = User.generateUserObject(TaEmail);
+		    	User student = User.generateUserObject(studentEmail);
+		    	
+			    Assignment assignment = new Assignment(student, courseCode, title, timestamp);
+		    	Evaluation eval = new Evaluation(courseCode, score, evaluator, assignment, note);
+		    	evaluation = eval;
+		    }
+		}catch (Exception e) {
+			System.out.println(e);
+		
+		} finally {
+		    try { if (result != null) result.close(); } catch (Exception e) {};
+		    try { if (statement != null) statement.close(); } catch (Exception e) {};
+		    try { if (con != null) con.close(); } catch (Exception e) {};
+		}
+		return evaluation; 
+	}
 	
 	public static HashMap<String, ArrayList<Evaluation>> getEvaluations(String course) {
 		
@@ -125,17 +232,43 @@ public class DBEvaluation{
 		 
 	}
 	
+	public static void updateEvaluation(int id, int score) {
+		Connection con = null;
+		PreparedStatement statement = null;
+		ResultSet result = null;
+		try {
+			BasicDataSource bds = DataSource.getInstance().getBds();
+		    con = bds.getConnection();
+		    
+		    statement = con.prepareStatement(String.format("UPDATE Evaluation SET score = '%s' "
+		    		+ "WHERE idEvaluation = %s", score, id));
+			statement.executeUpdate();
+			
+			// System.out.println(eksisterer);
+		} catch (Exception e) {
+			System.out.println(e);
+		
+		} finally {
+		    try { if (result != null) result.close(); } catch (Exception e) {};
+		    try { if (statement != null) statement.close(); } catch (Exception e) {};
+		    try { if (con != null) con.close(); } catch (Exception e) {};
+		}
+	}
+	
 	public static void main(String[] args) {
 		User user = User.generateUserObject("abc@ntnu.no");
+		User user2 = User.generateUserObject("hei@ntnu.no");
 		Assignment assignment = new Assignment(user, "TDT4100", "Tittel", LocalDateTime.of(2019, Month.MARCH, 1, 8, 00));
 		Evaluation eval = new Evaluation("TDT4100", 0, user, assignment, "hei");
 		// insertEvaluation(eval);
 		HashMap<String, ArrayList<Evaluation>> evaluations = new HashMap<String, ArrayList<Evaluation>>();
 		ArrayList<Evaluation> evals = new ArrayList<Evaluation>();
-		evals.add(eval);
-	
-		System.out.println(getEvaluations("TDT4100"));
-		
+		//evals.add(eval);
+		//insertAssignment(assignment);
+		//System.out.println(getEvaluations("TDT4100"));
+		//System.out.println(getEvaluation("TDT4100", user2, user));
+		//System.out.println(getEvaluation(10));
+		updateEvaluation(10, 10);
 		
 		
 	}
