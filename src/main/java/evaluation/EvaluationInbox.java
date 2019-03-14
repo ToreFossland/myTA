@@ -7,13 +7,13 @@ import database.DBEvaluation;
 
 public class EvaluationInbox{
 	private String courseCode;
-	private HashMap<String, ArrayList<Evaluation>> evaluations = new HashMap<String, ArrayList<Evaluation>>();
+	ArrayList<Evaluation> evaluations = new ArrayList<Evaluation>();
 	
 	public void addEval(Evaluation evaluation) {
 		DBEvaluation.insertEvaluation(evaluation);
 	}
 
-	public HashMap<String, ArrayList<Evaluation>> getEvaluations() {
+	public ArrayList<Evaluation> getEvaluations() {
 		return evaluations;
 	}
 
