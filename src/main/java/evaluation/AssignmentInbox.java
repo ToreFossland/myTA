@@ -21,5 +21,4 @@ public class AssignmentInbox {
 		return DBEvaluation.getAssignments(subject);
 	}
 	
-	
 }

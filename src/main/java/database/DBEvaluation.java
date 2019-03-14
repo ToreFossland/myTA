@@ -140,7 +140,7 @@ public class DBEvaluation{
 		}
 }
 	
-	public static Evaluation getEvaluation(String course, User evaluator, User student) {
+	public static Evaluation getEvaluation(String course, User student) {
 		Connection con = null;
 		PreparedStatement statement = null;
 		ResultSet result = null;
@@ -150,8 +150,8 @@ public class DBEvaluation{
 			BasicDataSource bds = DataSource.getInstance().getBds();
 		    con = bds.getConnection();
 		    statement = con.prepareStatement(String.format("SELECT * FROM Evaluation INNER JOIN Assignment ON "
-		    		+ "Evaluation.Assignment_idAssignment = Assignment.idAssignment WHERE courseCode = '%s' "
-		    		+ "AND TA_email = '%s' AND Student_email = '%s'", course, evaluator.getEmail(), student.getEmail()));
+		    		+ "Evaluation.Assignment_idAssignment = Assignment.idAssignment WHERE Evaluation.courseCode = '%s' "
+		    		+ "AND Student_email = '%s'", course, student.getEmail()));
 		    result = statement.executeQuery();
 	
 		    while (result.next()) {
@@ -163,6 +163,8 @@ public class DBEvaluation{
 		    	int score = result.getInt("score");
 		    	String note = result.getString("note");
 		    	int idAssignment = result.getInt("Assignment_idAssignment");
+		    	String TaEmail = result.getString("TA_email");
+		    	User evaluator = User.generateUserObject(TaEmail);
 		    	
 			    Assignment assignment = new Assignment(student, course, title, timestamp);
 		    	Evaluation eval = new Evaluation(course, score, evaluator, assignment, note);
@@ -222,10 +224,8 @@ public class DBEvaluation{
 		return evaluation; 
 	}
 	
-	public static HashMap<String, ArrayList<Evaluation>> getEvaluations(String course) {
-		
-		HashMap<String, ArrayList<Evaluation>> evaluations = new HashMap<String, ArrayList<Evaluation>>();
-		ArrayList<Evaluation> evaluationsInDB = new ArrayList<Evaluation>();
+	public static ArrayList<Evaluation> getEvaluations(String course) {
+		ArrayList<Evaluation> evaluations = new ArrayList<Evaluation>();
 		
 		Connection con = null;
 		PreparedStatement statement = null;
@@ -255,7 +255,7 @@ public class DBEvaluation{
 			    Assignment assignment = new Assignment(student, course, title, timestamp);
 		    	Evaluation evaluation = new Evaluation(course, score, TA, assignment, note);
 		    	
-		    	evaluationsInDB.add(evaluation);
+		    	evaluations.add(evaluation);
 		    }
 		    
 		   
@@ -268,7 +268,6 @@ public class DBEvaluation{
 		    try { if (statement != null) statement.close(); } catch (Exception e) {};
 		    try { if (con != null) con.close(); } catch (Exception e) {};
 		}
-		 evaluations.put(course, evaluationsInDB);
 		return evaluations; 
 		 
 	}
@@ -302,22 +301,14 @@ public class DBEvaluation{
 		Assignment assignment = new Assignment(user, "TDT4100", "Tittel", LocalDateTime.of(2019, Month.MARCH, 1, 8, 00));
 		Evaluation eval = new Evaluation("TDT4100", 0, user, assignment, "hei");
 		// insertEvaluation(eval);
-		HashMap<String, ArrayList<Evaluation>> evaluations = new HashMap<String, ArrayList<Evaluation>>();
-		ArrayList<Evaluation> evals = new ArrayList<Evaluation>();
+		ArrayList<Evaluation> evaluations = new ArrayList<Evaluation>();
 		//evals.add(eval);
 		//insertAssignment(assignment);
 		//System.out.println(getEvaluations("TDT4100"));
-		//System.out.println(getEvaluation("TDT4100", user2, user));
+		System.out.println(getEvaluation("TDT4100", user));
 		//System.out.println(getEvaluation(10));
 		//updateEvaluation(10, 10);
-		System.out.println(getAssignments("TDT4100"));
+		//System.out.println(getAssignments("TDT4100"));
 		//insertEvaluation(eval);
 	}
-	
-	
-	
-	
-	
-	
-	
 }
