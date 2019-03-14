@@ -254,7 +254,7 @@ public class App extends Application {
     
     }
     
-    public void gotoTAViewEval() {
+    public void gotoTAViewEvaluationsPage() {
     	try {
             replaceSceneContent("pages/TAViewEvaluationsPage.fxml");
         } catch (Exception ex) {

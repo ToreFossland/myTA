@@ -12,14 +12,14 @@ import evaluation.AssignmentInbox;
 import gui.App;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 public class TAViewEvaluationsPageController {
 	@FXML
-	ChoiceBox<String> chooseSubject;
+	ComboBox<String> chooseSubject;
 	
 	
 	@FXML
@@ -60,6 +60,7 @@ public class TAViewEvaluationsPageController {
 	}
 	@FXML
 	public void updateTable() {
+		assignmentTable.getItems().clear();
 		assCol.setCellValueFactory(new PropertyValueFactory<>("assignmentName"));
 		delbyCol.setCellValueFactory(new PropertyValueFactory<>("courseCode"));
 		timeCol.setCellValueFactory(new PropertyValueFactory<>("timestamp"));
