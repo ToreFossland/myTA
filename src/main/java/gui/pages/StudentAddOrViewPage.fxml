@@ -26,7 +26,7 @@
                         <HBox prefHeight="61.0" prefWidth="219.0" />
                         <HBox alignment="CENTER" prefHeight="49.0" prefWidth="106.0">
                            <children>
-                              <Button mnemonicParsing="false" style="-fx-background-color: blue;" text="Return" textFill="WHITE">
+                              <Button fx:id="return_button" mnemonicParsing="false" onAction="#returnHandler" style="-fx-background-color: blue;" text="Return" textFill="WHITE">
                                  <font>
                                     <Font size="13.0" />
                                  </font>
@@ -40,7 +40,7 @@
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="800.0" />
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="800.0">
                <children>
-                  <Button mnemonicParsing="false" prefHeight="44.0" prefWidth="230.0" style="-fx-background-color: #0099FF;" text="See evaluations" textFill="WHITE">
+                  <Button fx:id="view_button" mnemonicParsing="false" onAction="#onClickViewAssignments" prefHeight="44.0" prefWidth="230.0" style="-fx-background-color: #0099FF;" text="View evaluations" textFill="WHITE">
                      <font>
                         <Font size="20.0" />
                      </font>
@@ -49,7 +49,7 @@
             </HBox>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="800.0" VBox.vgrow="ALWAYS">
                <children>
-                  <Button mnemonicParsing="false" prefHeight="44.0" prefWidth="230.0" style="-fx-background-color: #0099FF;" text="Upload assignment" textFill="WHITE">
+                  <Button fx:id="add_button" mnemonicParsing="false" onAction="#onClickAddAssignment" prefHeight="44.0" prefWidth="230.0" style="-fx-background-color: #0099FF;" text="Upload assignment" textFill="WHITE">
                      <font>
                         <Font size="20.0" />
                      </font>

@@ -38,7 +38,7 @@
 				</HBox>
 				<HBox alignment="CENTER" prefHeight="53.0" prefWidth="800.0">
                <children>
-                  <Label fx:id="success_label" text="Assistan times added!" visible="false">
+                  <Label fx:id="success_label" text="Assistant times added!" visible="false">
                      <font>
                         <Font size="18.0" />
                      </font>

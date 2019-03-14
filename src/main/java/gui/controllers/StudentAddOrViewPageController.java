@@ -7,13 +7,13 @@ import javafx.scene.control.Button;
 public class StudentAddOrViewPageController {
 	
 	@FXML
-	Button return_handler;
+	Button return_button;
 	
 	@FXML
-	Button view_handler;
+	Button view_button;
 	
 	@FXML
-	Button add_handler;
+	Button add_button;
 	
 	public void onClickViewAssignments(javafx.event.ActionEvent event) throws Exception {
 		App.getInstance().gotoViewAssignments();
