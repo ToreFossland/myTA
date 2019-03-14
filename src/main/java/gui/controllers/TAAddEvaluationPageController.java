@@ -14,7 +14,8 @@ public class TAAddEvaluationPageController {
 	TextField set_score;
 	
 	public void confirmHandler(javafx.event.ActionEvent event) throws Exception {
-		
+		//set score 
+		App.getInstance().gotoTAViewEval();
 	}
 	
 	public void returnHandler(javafx.event.ActionEvent event) {

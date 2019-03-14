@@ -33,7 +33,7 @@ public class LoginController {
 
 	@FXML
 	public void OnClickLog(javafx.event.ActionEvent event) throws Exception {
-		button_log.setDefaultButton(true);
+		button_log.setDefaultButton(true); //enter-key
 		if (isValidEmail(user_input.getText())) {
 			String email = user_input.getText();
 			if (App.getInstance().userLogin(email, password_input.getText())){
