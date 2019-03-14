@@ -140,7 +140,7 @@ public class DBEvaluation{
 		}
 }
 	
-	public static Evaluation getEvaluation(String course, User evaluator, User student) {
+	public static Evaluation getEvaluation(String course, User student) {
 		Connection con = null;
 		PreparedStatement statement = null;
 		ResultSet result = null;
@@ -150,8 +150,8 @@ public class DBEvaluation{
 			BasicDataSource bds = DataSource.getInstance().getBds();
 		    con = bds.getConnection();
 		    statement = con.prepareStatement(String.format("SELECT * FROM Evaluation INNER JOIN Assignment ON "
-		    		+ "Evaluation.Assignment_idAssignment = Assignment.idAssignment WHERE courseCode = '%s' "
-		    		+ "AND TA_email = '%s' AND Student_email = '%s'", course, evaluator.getEmail(), student.getEmail()));
+		    		+ "Evaluation.Assignment_idAssignment = Assignment.idAssignment WHERE Evaluation.courseCode = '%s' "
+		    		+ "AND Student_email = '%s'", course, student.getEmail()));
 		    result = statement.executeQuery();
 	
 		    while (result.next()) {
@@ -163,6 +163,8 @@ public class DBEvaluation{
 		    	int score = result.getInt("score");
 		    	String note = result.getString("note");
 		    	int idAssignment = result.getInt("Assignment_idAssignment");
+		    	String TaEmail = result.getString("TA_email");
+		    	User evaluator = User.generateUserObject(TaEmail);
 		    	
 			    Assignment assignment = new Assignment(student, course, title, timestamp);
 		    	Evaluation eval = new Evaluation(course, score, evaluator, assignment, note);
@@ -307,17 +309,10 @@ public class DBEvaluation{
 		//evals.add(eval);
 		//insertAssignment(assignment);
 		//System.out.println(getEvaluations("TDT4100"));
-		//System.out.println(getEvaluation("TDT4100", user2, user));
+		System.out.println(getEvaluation("TDT4100", user));
 		//System.out.println(getEvaluation(10));
 		//updateEvaluation(10, 10);
-		System.out.println(getAssignments("TDT4100"));
+		//System.out.println(getAssignments("TDT4100"));
 		//insertEvaluation(eval);
 	}
-	
-	
-	
-	
-	
-	
-	
 }
