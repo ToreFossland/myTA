@@ -55,6 +55,5 @@ public class StudentAddAssignmentPageController {
 		Assignment assignment = new Assignment(App.getInstance().getLoggedUser(), course_input.getValue(), user_input.getText(), LocalDateTime.now());
 		DBEvaluation.insertAssignment(assignment);
 	}
-	
 
 }
