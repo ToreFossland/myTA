@@ -9,7 +9,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="800.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="800.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/9.0.4" xmlns:fx="http://javafx.com/fxml/1" fx:controller="TAAddEvaluationPageController">
    <children>
       <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -27,7 +27,7 @@
                         <HBox alignment="CENTER" prefHeight="61.0" prefWidth="339.0">
                            <children>
                               <HBox prefHeight="61.0" prefWidth="140.0" />
-                              <Button mnemonicParsing="false" style="-fx-background-color: blue;" text="Return" textFill="WHITE">
+                              <Button fx:id="button_return" onAction="#returnHandler" mnemonicParsing="false" style="-fx-background-color: blue;" text="Return" textFill="WHITE">
                                  <font>
                                     <Font size="13.0" />
                                  </font>
@@ -45,7 +45,7 @@
                         <Font size="15.0" />
                      </font>
                   </Text>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Student-email eller navn?">
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="114.41384887695312">
                      <font>
                         <Font size="15.0" />
                      </font>
@@ -59,7 +59,7 @@
                         <Font size="15.0" />
                      </font>
                   </Text>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Øvingsnummer">
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="183.41928100585938">
                      <font>
                         <Font size="15.0" />
                      </font>
@@ -87,13 +87,13 @@
             </HBox>
             <HBox alignment="CENTER" prefHeight="221.0" prefWidth="800.0">
                <children>
-                  <TextField promptText="Set Score (0-100)">
+                  <TextField fx:id="set_score" promptText="Set Score (0-100)" >
                      <font>
                         <Font size="17.0" />
                      </font>
                   </TextField>
                   <HBox prefHeight="90.0" prefWidth="34.0" />
-                  <Button mnemonicParsing="false" style="-fx-background-color: #0099FF;" text="Confirm Score" textFill="WHITE">
+                  <Button fx:id="button_confirm_score" onAction="#confirmHandler" mnemonicParsing="false" style="-fx-background-color: #0099FF;" text="Confirm Score" textFill="WHITE">
                      <font>
                         <Font size="17.0" />
                      </font>

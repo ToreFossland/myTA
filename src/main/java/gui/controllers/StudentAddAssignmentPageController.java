@@ -23,6 +23,5 @@ public class StudentAddAssignmentPageController {
 	public void uploadHandler(javafx.event.ActionEvent event) {
 		
 	}
-	
 
 }
