@@ -38,7 +38,7 @@ public class AssistantPageController {
 	
 	public void evaluatingHandler() {
 		// go to TAViewEvaluationspage.fxml
-		App.getInstance().gotoTAViewEval();
+		App.getInstance().gotoTAViewEvaluationsPage();
 		
 	}
 	public void messagesHandler() {
