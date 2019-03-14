@@ -313,11 +313,4 @@ public class DBEvaluation{
 		System.out.println(getAssignments("TDT4100"));
 		//insertEvaluation(eval);
 	}
-	
-	
-	
-	
-	
-	
-	
 }
