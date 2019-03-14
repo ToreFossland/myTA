@@ -195,6 +195,13 @@ public class App extends Application {
             Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    public void gotoTAAddEvaluationPage() {
+    	try {
+            replaceSceneContent("pages/TAAddEvaluationPage.fxml");
+        } catch (Exception ex) {
+            Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     
     public void gotoStudentPage() {
         try {

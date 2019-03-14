@@ -7,7 +7,17 @@ import gui.App;
 
 public class AssignmentInbox {
 	
-	public ArrayList<Assignment> getAssignments(String subject){
+	private static Assignment selectedAssignment;
+	
+	public static Assignment getSelectedAssignment() {
+		return selectedAssignment;
+	}
+	public static void setSelectedAssignment(Assignment assignment) {
+		selectedAssignment = assignment;
+		
+	}
+	
+	public static ArrayList<Assignment> uploadAssignments(String subject){
 		return DBEvaluation.getAssignments(subject);
 	}
 	
