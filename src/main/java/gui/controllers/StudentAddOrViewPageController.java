@@ -4,7 +4,7 @@ import gui.App;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 
-public class AddOrViewStudentPageController {
+public class StudentAddOrViewPageController {
 	
 	@FXML
 	Button return_handler;
