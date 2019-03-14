@@ -66,7 +66,7 @@
             </HBox>
             <HBox alignment="CENTER" prefHeight="89.0" prefWidth="800.0" VBox.vgrow="ALWAYS">
                <children>
-                  <Button fx:id="button_log" mnemonicParsing="false" onAction="#OnClickLog" prefHeight="40.0" prefWidth="260.0" style="-fx-background-color: #0099FF;" text="Log in" textFill="WHITE">
+                  <Button fx:id="button_log" mnemonicParsing="false" onAction="#OnClickLog" prefHeight="40.0" prefWidth="260.0" style="-fx-background-color: #0099FF;" text="Log in" textFill="WHITE" defaultButton="true">
                      <font>
                         <Font size="20.0" />
                      </font>
