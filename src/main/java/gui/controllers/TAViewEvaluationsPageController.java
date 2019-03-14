@@ -60,7 +60,7 @@ public class TAViewEvaluationsPageController {
 	}
 	@FXML
 	public void updateTable() {
-		//assignmentTable.getItems().clear();
+		assignmentTable.getItems().clear();
 		assCol.setCellValueFactory(new PropertyValueFactory<>("assignmentName"));
 		delbyCol.setCellValueFactory(new PropertyValueFactory<>("courseCode"));
 		timeCol.setCellValueFactory(new PropertyValueFactory<>("timestamp"));
