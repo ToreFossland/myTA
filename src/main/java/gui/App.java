@@ -254,6 +254,22 @@ public class App extends Application {
     
     }
     
+    public void gotoTAViewEval() {
+    	try {
+            replaceSceneContent("pages/TAViewEvaluationsPage.fxml");
+        } catch (Exception ex) {
+            Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void gotoStudentAddOrView() {
+    	try {
+            replaceSceneContent("pages/StudentAddOrViewPage.fxml");
+        } catch (Exception ex) {
+            Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
     //Database methods should not be placed in this class
     public boolean isRole(String Email, int Role){
     	Connection con = null;
@@ -304,7 +320,7 @@ public class App extends Application {
     
     public void gotoViewAssignments() {
     	try {
-    		replaceSceneContent("pages/ViewAssignmentsPage.fxml");
+    		replaceSceneContent("pages/StudentViewAssignmentsPage.fxml");
     	} catch (Exception ex) {
     		Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
     	}
@@ -312,7 +328,7 @@ public class App extends Application {
     
     public void gotoAddAssignment() {
     	try {
-    		replaceSceneContent("pages/AddAssignmentPage.fxml");
+    		replaceSceneContent("pages/StudentAddAssignmentPage.fxml");
     	} catch (Exception ex) {
     		Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
     	}
