@@ -30,7 +30,7 @@ public class DBEvaluation{
 			result = statement.executeQuery();
 
 			while (result.next()) {
-				if (Objects.equals(result.getString("title"), assignment.getAssigmentName())) {
+				if (Objects.equals(result.getString("title"), assignment.getAssignmentName())) {
 					assignment.setId(result.getInt("idAssignment"));
 				}
 			}
@@ -53,8 +53,8 @@ public class DBEvaluation{
 			BasicDataSource bds = DataSource.getInstance().getBds();
 		    con = bds.getConnection();
 		    
-		    statement = con.prepareStatement(String.format("REPLACE INTO Assignment(title, timestamp, Student_email) "
-		    		+ "VALUES('%s', '%s', '%s')", assignment.getAssigmentName(), LocalDateTime.now(), assignment.getDeliveredBy().getEmail()));
+		    statement = con.prepareStatement(String.format("REPLACE INTO Assignment(title, timestamp, Student_email, courseCode) "
+		    		+ "VALUES('%s', '%s', '%s', '%s')", assignment.getAssignmentName(), LocalDateTime.now(), assignment.getDeliveredBy().getEmail(), assignment.getCourseCode()));
 		
 			statement.executeUpdate();
 		    
@@ -71,6 +71,47 @@ public class DBEvaluation{
 		}
 	}
 	
+	public static ArrayList<Assignment> getAssignments(String course){
+		
+		ArrayList<Assignment> assignments = new ArrayList<Assignment>();
+		
+		Connection con = null;
+		PreparedStatement statement = null;
+		ResultSet result = null;
+		try {
+			BasicDataSource bds = DataSource.getInstance().getBds();
+		    con = bds.getConnection();
+		    statement = con.prepareStatement(String.format("SELECT * FROM Assignment WHERE idAssignment NOT IN ("
+		    		+ "SELECT Assignment_idAssignment FROM Evaluation) AND courseCode = '%s' ", course));
+		    result = statement.executeQuery();
+		    while (result.next()) {
+		    	
+		    	int assignmentID = result.getInt("idAssignment");
+		    	String title = result.getString("title");
+		    	//String filepath = result.getString("filePath"); kommer neste sprint
+		    	LocalDateTime timestamp = result.getTimestamp("timestamp").toLocalDateTime();
+		    	String studentEmail = result.getString("Student_email");
+		    	
+		    	
+		    	User student = User.generateUserObject(studentEmail);
+		    	
+			    Assignment assignment = new Assignment(student, course, title, timestamp);
+			    assignments.add(assignment);
+		    }
+		    
+		   
+		    
+		} catch (Exception e) {
+			System.out.println(e);
+		
+		} finally {
+		    try { if (result != null) result.close(); } catch (Exception e) {};
+		    try { if (statement != null) statement.close(); } catch (Exception e) {};
+		    try { if (con != null) con.close(); } catch (Exception e) {};
+		}
+		return assignments; 
+	}
+	
 	public static void insertEvaluation(Evaluation evaluation) {
 		
 		Connection con = null;
@@ -82,11 +123,11 @@ public class DBEvaluation{
 		    evaluation.getAssignment().updateId();
 		    System.out.println(evaluation.getAssignment().getId());
 		    //System.out.println(evaluation.getScore() + " " + evaluation.getNote() + " " + evaluation.getAssignment().getId() + " " + evaluation.getAssignment().getDeliveredBy().getEmail());
-			
+		    System.out.println(evaluation.getScore() + " " + evaluation.getNote() + " " + evaluation.getAssignment().getId() + " " + evaluation.getEvaluator() + " " + evaluation.getCourseCode());
 		    statement = con.prepareStatement(String.format("REPLACE INTO Evaluation(score, note, Assignment_idAssignment, "
-					+ "TA_email) VALUES('%s', '%s','%s','%s','%s')",evaluation.getScore(), evaluation.getNote(), evaluation.getAssignment().getId(), evaluation.getEvaluator()));
+					+ "TA_email, courseCode) VALUES('%s', '%s','%s','%s','%s')",evaluation.getScore(), evaluation.getNote(), evaluation.getAssignment().getId(), evaluation.getEvaluator().getEmail(), evaluation.getCourseCode()));
 		
-			statement.executeUpdate();
+			statement.execute();
 			
 			// System.out.println(eksisterer);
 		} catch (Exception e) {
@@ -268,9 +309,9 @@ public class DBEvaluation{
 		//System.out.println(getEvaluations("TDT4100"));
 		//System.out.println(getEvaluation("TDT4100", user2, user));
 		//System.out.println(getEvaluation(10));
-		updateEvaluation(10, 10);
-		
-		
+		//updateEvaluation(10, 10);
+		System.out.println(getAssignments("TDT4100"));
+		//insertEvaluation(eval);
 	}
 	
 	

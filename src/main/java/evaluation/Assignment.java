@@ -7,21 +7,21 @@ import user.User;
 
 public class Assignment{
 	private int id;
-	private User deliveredBy; //Satser på at bare mail holder, kanskje trenger helt User object? Samme på eval
+	private User deliveredBy; //Satser pï¿½ at bare mail holder, kanskje trenger helt User object? Samme pï¿½ eval
 	private String courseCode;
-	private String assigmentName;
-	//String file kanskje være med i neste sprint?
+	private String assignmentName;
+	//String file kanskje vï¿½re med i neste sprint?
 	private LocalDateTime timestamp;
 	
 	public Assignment(User deliveredBy, String courseCode, String assignmentName, LocalDateTime timestamp){
 		this.setDeliveredBy(deliveredBy);
 		this.setCourseCode(courseCode);
-		this.setAssigmentName(assignmentName);
+		this.setAssignmentName(assignmentName);
 		this.setTimestamp(timestamp);
 		this.setId(-1);
 	}
 	
-	//Konstruktør med fil her
+	//Konstruktï¿½r med fil her
 	
 	public void updateId() {
 		DBEvaluation.updateAssignment(this);
@@ -43,12 +43,12 @@ public class Assignment{
 		this.courseCode = courseCode;
 	}
 
-	public String getAssigmentName() {
-		return assigmentName;
+	public String getAssignmentName() {
+		return assignmentName;
 	}
 
-	public void setAssigmentName(String assigmentName) {
-		this.assigmentName = assigmentName;
+	public void setAssignmentName(String assignmentName) {
+		this.assignmentName = assignmentName;
 	}
 
 	public LocalDateTime getTimestamp() {
