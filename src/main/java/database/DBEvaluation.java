@@ -82,7 +82,7 @@ public class DBEvaluation{
 			BasicDataSource bds = DataSource.getInstance().getBds();
 		    con = bds.getConnection();
 		    statement = con.prepareStatement(String.format("SELECT * FROM Assignment WHERE idAssignment NOT IN ("
-		    		+ "SELECT Assignment_idAssignment FROM Evaluation) WHERE courseCode = '%s' ", course));
+		    		+ "SELECT Assignment_idAssignment FROM Evaluation) AND courseCode = '%s' ", course));
 		    result = statement.executeQuery();
 		    while (result.next()) {
 		    	
@@ -123,11 +123,11 @@ public class DBEvaluation{
 		    evaluation.getAssignment().updateId();
 		    System.out.println(evaluation.getAssignment().getId());
 		    //System.out.println(evaluation.getScore() + " " + evaluation.getNote() + " " + evaluation.getAssignment().getId() + " " + evaluation.getAssignment().getDeliveredBy().getEmail());
-			
+		    System.out.println(evaluation.getScore() + " " + evaluation.getNote() + " " + evaluation.getAssignment().getId() + " " + evaluation.getEvaluator() + " " + evaluation.getCourseCode());
 		    statement = con.prepareStatement(String.format("REPLACE INTO Evaluation(score, note, Assignment_idAssignment, "
-					+ "TA_email) VALUES('%s', '%s','%s','%s','%s')",evaluation.getScore(), evaluation.getNote(), evaluation.getAssignment().getId(), evaluation.getEvaluator()));
+					+ "TA_email, courseCode) VALUES('%s', '%s','%s','%s','%s')",evaluation.getScore(), evaluation.getNote(), evaluation.getAssignment().getId(), evaluation.getEvaluator().getEmail(), evaluation.getCourseCode()));
 		
-			statement.executeUpdate();
+			statement.execute();
 			
 			// System.out.println(eksisterer);
 		} catch (Exception e) {
@@ -305,12 +305,13 @@ public class DBEvaluation{
 		HashMap<String, ArrayList<Evaluation>> evaluations = new HashMap<String, ArrayList<Evaluation>>();
 		ArrayList<Evaluation> evals = new ArrayList<Evaluation>();
 		//evals.add(eval);
-		insertAssignment(assignment);
+		//insertAssignment(assignment);
 		//System.out.println(getEvaluations("TDT4100"));
 		//System.out.println(getEvaluation("TDT4100", user2, user));
 		//System.out.println(getEvaluation(10));
 		//updateEvaluation(10, 10);
-		//System.out.println(getAssignments());
+		System.out.println(getAssignments("TDT4100"));
+		//insertEvaluation(eval);
 	}
 	
 	
