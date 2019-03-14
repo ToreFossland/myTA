@@ -121,11 +121,9 @@ public class DBEvaluation{
 			BasicDataSource bds = DataSource.getInstance().getBds();
 		    con = bds.getConnection();
 		    evaluation.getAssignment().updateId();
-		    System.out.println(evaluation.getAssignment().getId());
 		    //System.out.println(evaluation.getScore() + " " + evaluation.getNote() + " " + evaluation.getAssignment().getId() + " " + evaluation.getAssignment().getDeliveredBy().getEmail());
-		    System.out.println(evaluation.getScore() + " " + evaluation.getNote() + " " + evaluation.getAssignment().getId() + " " + evaluation.getEvaluator() + " " + evaluation.getCourseCode());
 		    statement = con.prepareStatement(String.format("REPLACE INTO Evaluation(score, note, Assignment_idAssignment, "
-					+ "TA_email, courseCode) VALUES('%s', '%s','%s','%s','%s')",evaluation.getScore(), evaluation.getNote(), evaluation.getAssignment().getId(), evaluation.getEvaluator().getEmail(), evaluation.getCourseCode()));
+					+ "TA_email) VALUES('%s', '%s','%s','%s')",evaluation.getScore(), evaluation.getNote(), evaluation.getAssignment().getId(), evaluation.getEvaluator().getEmail()));
 		
 			statement.execute();
 			
@@ -167,7 +165,7 @@ public class DBEvaluation{
 		    	User evaluator = User.generateUserObject(TaEmail);
 		    	
 			    Assignment assignment = new Assignment(student, course, title, timestamp);
-		    	Evaluation eval = new Evaluation(course, score, evaluator, assignment, note);
+		    	Evaluation eval = new Evaluation(score, evaluator, assignment, note);
 		    	evaluation = eval;
 		    }
 		}catch (Exception e) {
@@ -210,7 +208,7 @@ public class DBEvaluation{
 		    	User student = User.generateUserObject(studentEmail);
 		    	
 			    Assignment assignment = new Assignment(student, courseCode, title, timestamp);
-		    	Evaluation eval = new Evaluation(courseCode, score, evaluator, assignment, note);
+		    	Evaluation eval = new Evaluation(score, evaluator, assignment, note);
 		    	evaluation = eval;
 		    }
 		}catch (Exception e) {
@@ -253,7 +251,7 @@ public class DBEvaluation{
 		    	User TA = User.generateUserObject(TaEmail);
 		    	
 			    Assignment assignment = new Assignment(student, course, title, timestamp);
-		    	Evaluation evaluation = new Evaluation(course, score, TA, assignment, note);
+		    	Evaluation evaluation = new Evaluation(score, TA, assignment, note);
 		    	
 		    	evaluations.add(evaluation);
 		    }
@@ -299,7 +297,7 @@ public class DBEvaluation{
 		User user = User.generateUserObject("abc@ntnu.no");
 		User user2 = User.generateUserObject("hei@ntnu.no");
 		Assignment assignment = new Assignment(user, "TDT4100", "Tittel", LocalDateTime.of(2019, Month.MARCH, 1, 8, 00));
-		Evaluation eval = new Evaluation("TDT4100", 0, user, assignment, "hei");
+		Evaluation eval = new Evaluation(0, user, assignment, "hei");
 		// insertEvaluation(eval);
 		ArrayList<Evaluation> evaluations = new ArrayList<Evaluation>();
 		//evals.add(eval);

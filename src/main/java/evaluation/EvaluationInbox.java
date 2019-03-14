@@ -1,8 +1,6 @@
 package evaluation;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-
 import database.DBEvaluation;
 
 public class EvaluationInbox{
