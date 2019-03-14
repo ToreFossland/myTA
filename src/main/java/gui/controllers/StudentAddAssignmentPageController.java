@@ -15,15 +15,12 @@ public class StudentAddAssignmentPageController {
 	@FXML
 	Button upload_assignment;
 	
-	@FXML
-	Label upload_label;
 	
 	public void returnHandler(javafx.event.ActionEvent event) {
 		App.getInstance().gotoStudentPage();
 	}
 	
 	public void uploadHandler(javafx.event.ActionEvent event) {
-		DBEvaluation.insertAssignment(assignment);
 		
 	}
 	

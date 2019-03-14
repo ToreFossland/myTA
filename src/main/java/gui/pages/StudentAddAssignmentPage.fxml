@@ -93,7 +93,7 @@
                            <children>
                               <Button fx:id="upload_assignment" onAction="#uploadHandler" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="39.0" prefWidth="163.0" text="Upload" textAlignment="CENTER">
                                  <font>
-                                 	 <Label fx:id="upload_label" prefHeight="28.0" prefWidth="141.0" text="Assignment uploaded." visible="false">
+                          
                                     <Font size="16.0" />
                                  </font>
                               </Button>
