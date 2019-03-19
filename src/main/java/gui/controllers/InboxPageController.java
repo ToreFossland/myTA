@@ -7,7 +7,6 @@ import java.util.logging.Logger;
 
 import communication.Message;
 import communication.MessageInbox;
-import database.MessageDao;
 import gui.App;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;

@@ -2,7 +2,6 @@ package communication;
 
 import java.time.LocalDateTime;
 
-import gui.App;
 import user.User;
 
 public class Message implements Comparable<Message>{

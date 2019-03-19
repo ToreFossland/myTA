@@ -1,7 +1,5 @@
 package gui.controllers;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -34,9 +32,9 @@ public class LoginController {
 
 	@FXML
 	public void OnClickLog(javafx.event.ActionEvent event) throws Exception {
+		button_log.setDefaultButton(true); //enter-key
 		if (isValidEmail(user_input.getText())) {
 			String email = user_input.getText();
-
 			if (App.getInstance().userLogin(email, password_input.getText())){
 				if (App.getInstance().isRole(email,3)) {
 					App.getInstance().gotoSupervisorPage();
@@ -54,6 +52,7 @@ public class LoginController {
 			}
 		}
 	}
+	
 	
 	/*@FXML
 	public void gotoPage(String path) throws Exception {
