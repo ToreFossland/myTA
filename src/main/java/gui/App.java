@@ -347,6 +347,16 @@ public class App extends Application {
     		Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
     	}
     }
+    public void gotoMyCalendar() {
+    	try {
+    		String page = "pages/MyCalendar1.fxml";
+			pagesHistory.push(page);
+			replaceSceneContent(page);
+    		replaceSceneContent("pages/MyCalendar1.fxml");
+    	} catch (Exception ex) {
+    		Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
+    	}
+    }
 
     public void gotoAddAssignment() {
     	try {
