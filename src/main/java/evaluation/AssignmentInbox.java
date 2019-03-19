@@ -17,7 +17,7 @@ public class AssignmentInbox {
 		
 	}
 	
-	public static ArrayList<Assignment> uploadAssignments(String subject){
+	public static ArrayList<Assignment> getAssignments(String subject){
 		return DBEvaluation.getAssignments(subject);
 	}
 	

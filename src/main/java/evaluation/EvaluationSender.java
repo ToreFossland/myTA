@@ -7,7 +7,7 @@ import database.DBEvaluation;
 public class EvaluationSender{
 	ArrayList<Evaluation> Evaluations;
 	
-	public void sendEvaluation(Evaluation evaluation) {
+	public static void sendEvaluation(Evaluation evaluation) {
 		DBEvaluation.insertEvaluation(evaluation);
 	}
 }

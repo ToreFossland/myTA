@@ -66,7 +66,7 @@ public class TAViewEvaluationsPageController {
 		timeCol.setCellValueFactory(new PropertyValueFactory<>("timestamp"));
 		
 		
-		ArrayList<Assignment> assignments = AssignmentInbox.uploadAssignments(chosenSubject);
+		ArrayList<Assignment> assignments = AssignmentInbox.getAssignments(chosenSubject);
 		
 		assignmentTable.getItems().addAll(assignments);
 	}
