@@ -307,6 +307,58 @@ public class App extends Application {
 	}
 	
 	
+    public void gotoTAViewEvaluationsPage() {
+    	try {
+    		String page = "pages/TAViewEvaluationsPage.fxml";
+			pagesHistory.push(page);
+			replaceSceneContent(page);
+        } catch (Exception ex) {
+            Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void gotoTAAddEvaluationPage() {
+    	try {
+    		String page = "pages/TAAddEvaluationPage.fxml";
+			pagesHistory.push(page);
+			replaceSceneContent(page);
+        } catch (Exception ex) {
+            Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void gotoStudentAddOrView() {
+    	try {
+    		String page = "pages/StudentAddOrViewPage.fxml";
+			pagesHistory.push(page);
+			replaceSceneContent(page);
+        } catch (Exception ex) {
+            Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void gotoViewAssignments() {
+    	try {
+    		String page = "pages/StudentViewAssignmentsPage.fxml";
+			pagesHistory.push(page);
+			replaceSceneContent(page);
+    		replaceSceneContent("pages/StudentViewAssignmentsPage.fxml");
+    	} catch (Exception ex) {
+    		Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
+    	}
+    }
+
+    public void gotoAddAssignment() {
+    	try {
+    		String page = "pages/StudentAddAssignmentPage.fxml";
+			pagesHistory.push(page);
+			replaceSceneContent(page);
+    	} catch (Exception ex) {
+    		Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
+    	}
+    }
+	
+	
 	public void gotoLogin() {
 		try {
 			String page = "pages/LoginPage.fxml";
@@ -340,7 +392,7 @@ public class App extends Application {
 		PreparedStatement statement = null;
 		ResultSet result = null;
 
-		boolean match = false;
+				boolean match = false;
 		try {
 			BasicDataSource bds = DataSource.getInstance().getBds();
 			con = bds.getConnection();
@@ -377,7 +429,7 @@ public class App extends Application {
 			;
 		}
 		return match;
-	}
+ }
 
 	private Parent replaceSceneContent(String fxml) throws Exception {
 		Parent page = (Parent) FXMLLoader.load(App.class.getResource(fxml), null, new JavaFXBuilderFactory());

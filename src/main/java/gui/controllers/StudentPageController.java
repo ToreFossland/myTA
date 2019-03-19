@@ -69,8 +69,10 @@ public class StudentPageController {
 		}
 	}
 	public void evaluatingHandler() {
-		// switches to ? ikke laget 
+		// go to StudentAddOrViewPage.fxml
+		App.getInstance().gotoStudentAddOrView();
 	}
+	
 	public void addSubjectHandler() {
 		App.getInstance().gotoAddStudentSubject();
 	}

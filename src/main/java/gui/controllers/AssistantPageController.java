@@ -37,7 +37,9 @@ public class AssistantPageController {
 	}
 	
 	public void evaluatingHandler() {
-		// switches to ? ikke laget 
+		// go to TAViewEvaluationspage.fxml
+		App.getInstance().gotoTAViewEvaluationsPage();
+		
 	}
 	public void messagesHandler() {
 		App.getInstance().gotoInboxPage();

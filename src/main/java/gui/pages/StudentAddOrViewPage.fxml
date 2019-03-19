@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="800.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.controllers.StudentAddOrViewPageController">
+   <children>
+      <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <HBox alignment="CENTER" prefHeight="61.0" prefWidth="800.0" style="-fx-background-color: #0099FF;">
+               <children>
+                  <HBox prefHeight="100.0" prefWidth="200.0" />
+                  <HBox alignment="CENTER_LEFT" prefHeight="60.0" prefWidth="408.0" />
+                  <HBox alignment="CENTER_LEFT" prefHeight="49.0" prefWidth="647.0">
+                     <children>
+                        <HBox prefHeight="49.0" prefWidth="35.0" />
+                        <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Evaluating" wrappingWidth="124.53582775592804" HBox.hgrow="ALWAYS">
+                           <font>
+                              <Font size="25.0" />
+                           </font>
+                        </Text>
+                        <HBox prefHeight="61.0" prefWidth="219.0" />
+                        <HBox alignment="CENTER" prefHeight="49.0" prefWidth="106.0">
+                           <children>
+                              <Button fx:id="return_button" mnemonicParsing="false" onAction="#returnHandler" style="-fx-background-color: blue;" text="Return" textFill="WHITE">
+                                 <font>
+                                    <Font size="13.0" />
+                                 </font>
+                              </Button>
+                           </children>
+                        </HBox>
+                     </children>
+                  </HBox>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="800.0" />
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="800.0">
+               <children>
+                  <Button fx:id="view_button" mnemonicParsing="false" onAction="#onClickViewAssignments" prefHeight="44.0" prefWidth="230.0" style="-fx-background-color: #0099FF;" text="View evaluations" textFill="WHITE">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Button>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="800.0" VBox.vgrow="ALWAYS">
+               <children>
+                  <Button fx:id="add_button" mnemonicParsing="false" onAction="#onClickAddAssignment" prefHeight="44.0" prefWidth="230.0" style="-fx-background-color: #0099FF;" text="Upload assignment" textFill="WHITE">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Button>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" prefHeight="170.0" prefWidth="800.0" />
+            <HBox prefHeight="20.0" prefWidth="800.0" style="-fx-background-color: #0099FF;" />
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>
