@@ -81,7 +81,7 @@ public class RegisterController {
 	}
 	
 	public void gotoLogin(javafx.event.ActionEvent event) throws Exception {
-		App.getInstance().gotoLogin();
+		App.getInstance().gotoPrevious();
 	}
 
 	public void listeners() {

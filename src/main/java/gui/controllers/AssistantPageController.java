@@ -40,7 +40,7 @@ public class AssistantPageController {
 		// switches to ? ikke laget 
 	}
 	public void messagesHandler() {
-		// ikke laget
+		App.getInstance().gotoInboxPage();
 	}
 
 }
