@@ -356,8 +356,7 @@ public class App extends Application {
     	} catch (Exception ex) {
     		Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
     	}
-    }
-	
+    }	
 	
 	public void gotoLogin() {
 		try {

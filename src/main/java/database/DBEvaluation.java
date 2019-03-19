@@ -253,11 +253,10 @@ public class DBEvaluation{
 	
 	public static void main(String[] args) {
 		User user = User.generateUserObject("abc@ntnu.no");
-		User user2 = User.generateUserObject("hei@ntnu.no");
+		User.generateUserObject("hei@ntnu.no");
 		Assignment assignment = new Assignment(user, "TDT4100", "Tittel", LocalDateTime.of(2019, Month.MARCH, 1, 8, 00));
-		Evaluation eval = new Evaluation(0, user, assignment, "hei");
-		// insertEvaluation(eval);
-		ArrayList<Evaluation> evaluations = new ArrayList<Evaluation>();
+		new Evaluation(0, user, assignment, "hei");
+		new ArrayList<Evaluation>();
 		//evals.add(eval);
 		//insertAssignment(assignment);
 		//System.out.println(getEvaluations("TDT4100"));

@@ -1,22 +1,14 @@
 package gui.controllers;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
-import evaluation.Assignment;
-import evaluation.AssignmentInbox;
 import evaluation.Evaluation;
 import evaluation.EvaluationInbox;
 import gui.App;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;

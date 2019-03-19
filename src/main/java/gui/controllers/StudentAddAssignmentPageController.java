@@ -2,7 +2,6 @@ package gui.controllers;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -10,12 +9,9 @@ import java.util.Map.Entry;
 import database.DBEvaluation;
 import evaluation.Assignment;
 import gui.App;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
 public class StudentAddAssignmentPageController {
