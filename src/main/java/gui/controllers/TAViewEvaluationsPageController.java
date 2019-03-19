@@ -82,6 +82,6 @@ public class TAViewEvaluationsPageController {
 	
 	@FXML
 	public void returnHandler(javafx.event.ActionEvent event) throws Exception {
-		//App.getInstance().gotoPrevious();
+		App.getInstance().gotoPrevious();
 	}
 }
