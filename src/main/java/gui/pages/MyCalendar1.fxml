@@ -189,402 +189,402 @@
                            </font></Text>
                         <HBox fx:id="box1" alignment="BOTTOM_RIGHT" onMousePressed="#onClickGoToPrevious" style="-fx-background-color: white;" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
                            <children>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" />
+                              <Text fx:id="text1" strokeType="OUTSIDE" strokeWidth="0.0" />
                            </children>
                         </HBox>
-                        <HBox alignment="BOTTOM_RIGHT" style="-fx-background-color: white;" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="2">
+                        <HBox fx:id="box2" alignment="BOTTOM_RIGHT" style="-fx-background-color: white;" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="2">
                            <children>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" />
+                              <Text fx:id="text2" strokeType="OUTSIDE" strokeWidth="0.0" />
                            </children>
                         </HBox>
-                        <HBox alignment="BOTTOM_RIGHT" style="-fx-background-color: #ffc550;" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
+                        <HBox fx:id="box17" alignment="BOTTOM_RIGHT" style="-fx-background-color: #ffc550;" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
                            <children>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" />
+                              <Text fx:id="text17" strokeType="OUTSIDE" strokeWidth="0.0" />
                            </children>
                         </HBox>
-                        <HBox alignment="BOTTOM_RIGHT" style="-fx-background-color: #ffc550;" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="2">
+                        <HBox fx:id="box18" alignment="BOTTOM_RIGHT" style="-fx-background-color: #ffc550;" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="2">
                            <children>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" />
+                              <Text fx:id="text18" strokeType="OUTSIDE" strokeWidth="0.0" />
                            </children>
                         </HBox>
-                        <HBox alignment="BOTTOM_RIGHT" style="-fx-background-color: white;" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="3">
+                        <HBox fx:id="box3" alignment="BOTTOM_RIGHT" style="-fx-background-color: white;" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="3">
                            <children>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" />
+                              <Text fx:id="text3" strokeType="OUTSIDE" strokeWidth="0.0" />
                            </children>
                         </HBox>
-                        <HBox alignment="BOTTOM_RIGHT" style="-fx-background-color: white;" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="4">
+                        <HBox fx:id="box4" alignment="BOTTOM_RIGHT" style="-fx-background-color: white;" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="4">
                            <children>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" />
+                              <Text fx:id="text4" strokeType="OUTSIDE" strokeWidth="0.0" />
                            </children>
                         </HBox>
-                        <HBox alignment="BOTTOM_RIGHT" style="-fx-background-color: #ff76ad;" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="5">
+                        <HBox fx:id="box5" alignment="BOTTOM_RIGHT" style="-fx-background-color: #ff76ad;" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="5">
                            <children>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" />
+                              <Text fx:id="text5" strokeType="OUTSIDE" strokeWidth="0.0" />
                            </children>
                         </HBox>
-                        <HBox alignment="BOTTOM_RIGHT" style="-fx-background-color: #ffc550;" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="6">
+                        <HBox fx:id="box6" alignment="BOTTOM_RIGHT" style="-fx-background-color: #ffc550;" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="6">
                            <children>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" />
+                              <Text fx:id="text6" strokeType="OUTSIDE" strokeWidth="0.0" />
                            </children>
                         </HBox>
-                        <HBox alignment="BOTTOM_RIGHT" style="-fx-background-color: #ffc550;" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="7">
+                        <HBox fx:id="box7" alignment="BOTTOM_RIGHT" style="-fx-background-color: #ffc550;" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="7">
                            <children>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" />
+                              <Text fx:id="text7" strokeType="OUTSIDE" strokeWidth="0.0" />
                            </children>
                         </HBox>
-                        <HBox alignment="BOTTOM_RIGHT" style="-fx-background-color: white;" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="8">
+                        <HBox fx:id="box8" alignment="BOTTOM_RIGHT" style="-fx-background-color: white;" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="8">
                            <children>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" />
+                              <Text fx:id="text8" strokeType="OUTSIDE" strokeWidth="0.0" />
                            </children>
                         </HBox>
-                        <HBox alignment="BOTTOM_RIGHT" style="-fx-background-color: white;" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="9">
+                        <HBox fx:id="box9" alignment="BOTTOM_RIGHT" style="-fx-background-color: white;" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="9">
                            <children>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" />
+                              <Text fx:id="text9" strokeType="OUTSIDE" strokeWidth="0.0" />
                            </children>
                         </HBox>
-                        <HBox alignment="BOTTOM_RIGHT" style="-fx-background-color: white;" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="10">
+                        <HBox fx:id="box10" alignment="BOTTOM_RIGHT" style="-fx-background-color: white;" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="10">
                            <children>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" />
+                              <Text fx:id="text10" strokeType="OUTSIDE" strokeWidth="0.0" />
                            </children>
                         </HBox>
-                        <HBox alignment="BOTTOM_RIGHT" style="-fx-background-color: #ffc550;" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="3">
+                        <HBox fx:id="box19" alignment="BOTTOM_RIGHT" style="-fx-background-color: #ffc550;" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="3">
                            <children>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" />
+                              <Text fx:id="text19" strokeType="OUTSIDE" strokeWidth="0.0" />
                            </children>
                         </HBox>
-                        <HBox alignment="BOTTOM_RIGHT" style="-fx-background-color: #ffc550;" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="4">
+                        <HBox fx:id="box20" alignment="BOTTOM_RIGHT" style="-fx-background-color: #ffc550;" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="4">
                            <children>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" />
+                              <Text fx:id="text20" strokeType="OUTSIDE" strokeWidth="0.0" />
                            </children>
                         </HBox>
-                        <HBox alignment="BOTTOM_RIGHT" style="-fx-background-color: white;" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="5">
+                        <HBox fx:id="box21" alignment="BOTTOM_RIGHT" style="-fx-background-color: white;" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="5">
                            <children>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" />
+                              <Text fx:id="text21" strokeType="OUTSIDE" strokeWidth="0.0" />
                            </children>
                         </HBox>
-                        <HBox alignment="BOTTOM_RIGHT" style="-fx-background-color: white;" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="6">
+                        <HBox fx:id="box22" alignment="BOTTOM_RIGHT" style="-fx-background-color: white;" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="6">
                            <children>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" />
+                              <Text fx:id="text27" strokeType="OUTSIDE" strokeWidth="0.0" />
                            </children>
                         </HBox>
-                        <HBox alignment="BOTTOM_RIGHT" style="-fx-background-color: white;" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="7">
+                        <HBox fx:id="box23" alignment="BOTTOM_RIGHT" style="-fx-background-color: white;" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="7">
                            <children>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" />
+                              <Text fx:id="text28" strokeType="OUTSIDE" strokeWidth="0.0" />
                            </children>
                         </HBox>
-                        <HBox alignment="BOTTOM_RIGHT" style="-fx-background-color: white;" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="8">
+                        <HBox fx:id="box24" alignment="BOTTOM_RIGHT" style="-fx-background-color: white;" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="8">
                            <children>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" />
+                              <Text fx:id="text29" strokeType="OUTSIDE" strokeWidth="0.0" />
                            </children>
                         </HBox>
-                        <HBox alignment="BOTTOM_RIGHT" style="-fx-background-color: white;" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="9">
+                        <HBox fx:id="box25" alignment="BOTTOM_RIGHT" style="-fx-background-color: white;" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="9">
                            <children>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" />
+                              <Text fx:id="text30" strokeType="OUTSIDE" strokeWidth="0.0" />
                            </children>
                         </HBox>
-                        <HBox alignment="BOTTOM_RIGHT" style="-fx-background-color: white;" GridPane.columnIndex="3" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
+                        <HBox fx:id="box33" alignment="BOTTOM_RIGHT" style="-fx-background-color: white;" GridPane.columnIndex="3" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
                            <children>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" />
+                              <Text fx:id="text33" strokeType="OUTSIDE" strokeWidth="0.0" />
                            </children>
                         </HBox>
-                        <HBox alignment="BOTTOM_RIGHT" style="-fx-background-color: white;" GridPane.columnIndex="3" GridPane.halignment="RIGHT" GridPane.rowIndex="2">
+                        <HBox fx:id="box34" alignment="BOTTOM_RIGHT" style="-fx-background-color: white;" GridPane.columnIndex="3" GridPane.halignment="RIGHT" GridPane.rowIndex="2">
                            <children>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" />
+                              <Text fx:id="text34" strokeType="OUTSIDE" strokeWidth="0.0" />
                            </children>
                         </HBox>
-                        <HBox alignment="BOTTOM_RIGHT" style="-fx-background-color: white;" GridPane.columnIndex="3" GridPane.halignment="RIGHT" GridPane.rowIndex="3">
+                        <HBox fx:id="box35" alignment="BOTTOM_RIGHT" style="-fx-background-color: white;" GridPane.columnIndex="3" GridPane.halignment="RIGHT" GridPane.rowIndex="3">
                            <children>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" />
+                              <Text fx:id="text35" strokeType="OUTSIDE" strokeWidth="0.0" />
                            </children>
                         </HBox>
-                        <HBox alignment="BOTTOM_RIGHT" style="-fx-background-color: white;" GridPane.columnIndex="3" GridPane.halignment="RIGHT" GridPane.rowIndex="4">
+                        <HBox fx:id="box36" alignment="BOTTOM_RIGHT" style="-fx-background-color: white;" GridPane.columnIndex="3" GridPane.halignment="RIGHT" GridPane.rowIndex="4">
                            <children>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" />
+                              <Text fx:id="text36" strokeType="OUTSIDE" strokeWidth="0.0" />
                            </children>
                         </HBox>
-                        <HBox alignment="BOTTOM_RIGHT" style="-fx-background-color: white;" GridPane.columnIndex="3" GridPane.halignment="RIGHT" GridPane.rowIndex="5">
+                        <HBox fx:id="box37" alignment="BOTTOM_RIGHT" style="-fx-background-color: white;" GridPane.columnIndex="3" GridPane.halignment="RIGHT" GridPane.rowIndex="5">
                            <children>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" />
+                              <Text fx:id="text37" strokeType="OUTSIDE" strokeWidth="0.0" />
                            </children>
                         </HBox>
-                        <HBox alignment="BOTTOM_RIGHT" style="-fx-background-color: white;" GridPane.columnIndex="3" GridPane.halignment="RIGHT" GridPane.rowIndex="6">
+                        <HBox fx:id="box38" alignment="BOTTOM_RIGHT" style="-fx-background-color: white;" GridPane.columnIndex="3" GridPane.halignment="RIGHT" GridPane.rowIndex="6">
                            <children>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" />
+                              <Text fx:id="text38" strokeType="OUTSIDE" strokeWidth="0.0" />
                            </children>
                         </HBox>
-                        <HBox alignment="BOTTOM_RIGHT" style="-fx-background-color: white;" GridPane.columnIndex="3" GridPane.halignment="RIGHT" GridPane.rowIndex="7">
+                        <HBox fx:id="box39" alignment="BOTTOM_RIGHT" style="-fx-background-color: white;" GridPane.columnIndex="3" GridPane.halignment="RIGHT" GridPane.rowIndex="7">
                            <children>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" />
+                              <Text fx:id="text39" strokeType="OUTSIDE" strokeWidth="0.0" />
                            </children>
                         </HBox>
-                        <HBox alignment="BOTTOM_RIGHT" style="-fx-background-color: #ff76ad;" GridPane.columnIndex="3" GridPane.halignment="RIGHT" GridPane.rowIndex="8">
+                        <HBox fx:id="box40" alignment="BOTTOM_RIGHT" style="-fx-background-color: #ff76ad;" GridPane.columnIndex="3" GridPane.halignment="RIGHT" GridPane.rowIndex="8">
                            <children>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" />
+                              <Text fx:id="text40" strokeType="OUTSIDE" strokeWidth="0.0" />
                            </children>
                         </HBox>
-                        <HBox alignment="BOTTOM_RIGHT" style="-fx-background-color: #ff76ad;" GridPane.columnIndex="4" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
+                        <HBox fx:id="box49" alignment="BOTTOM_RIGHT" style="-fx-background-color: #ff76ad;" GridPane.columnIndex="4" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
                            <children>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" />
+                              <Text fx:id="text49" strokeType="OUTSIDE" strokeWidth="0.0" />
                            </children>
                         </HBox>
-                        <HBox alignment="BOTTOM_RIGHT" style="-fx-background-color: white;" GridPane.columnIndex="4" GridPane.halignment="RIGHT" GridPane.rowIndex="2">
+                        <HBox fx:id="box50" alignment="BOTTOM_RIGHT" style="-fx-background-color: white;" GridPane.columnIndex="4" GridPane.halignment="RIGHT" GridPane.rowIndex="2">
                            <children>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" />
+                              <Text fx:id="text50" strokeType="OUTSIDE" strokeWidth="0.0" />
                            </children>
                         </HBox>
-                        <HBox alignment="BOTTOM_RIGHT" style="-fx-background-color: white;" GridPane.columnIndex="5" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
+                        <HBox fx:id="box65" alignment="BOTTOM_RIGHT" style="-fx-background-color: white;" GridPane.columnIndex="5" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
                            <children>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" />
+                              <Text fx:id="text65" strokeType="OUTSIDE" strokeWidth="0.0" />
                            </children>
                         </HBox>
-                        <HBox alignment="BOTTOM_RIGHT" style="-fx-background-color: white;" GridPane.columnIndex="5" GridPane.halignment="RIGHT" GridPane.rowIndex="2">
+                        <HBox fx:id="box66" alignment="BOTTOM_RIGHT" style="-fx-background-color: white;" GridPane.columnIndex="5" GridPane.halignment="RIGHT" GridPane.rowIndex="2">
                            <children>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" />
+                              <Text fx:id="text66" strokeType="OUTSIDE" strokeWidth="0.0" />
                            </children>
                         </HBox>
-                        <HBox alignment="BOTTOM_RIGHT" style="-fx-background-color: #ff76ad;" GridPane.columnIndex="4" GridPane.halignment="RIGHT" GridPane.rowIndex="3">
+                        <HBox fx:id="box51" alignment="BOTTOM_RIGHT" style="-fx-background-color: #ff76ad;" GridPane.columnIndex="4" GridPane.halignment="RIGHT" GridPane.rowIndex="3">
                            <children>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" />
+                              <Text fx:id="text51" strokeType="OUTSIDE" strokeWidth="0.0" />
                            </children>
                         </HBox>
-                        <HBox alignment="BOTTOM_RIGHT" style="-fx-background-color: white;" GridPane.columnIndex="5" GridPane.halignment="RIGHT" GridPane.rowIndex="3">
+                        <HBox fx:id="box67" alignment="BOTTOM_RIGHT" style="-fx-background-color: white;" GridPane.columnIndex="5" GridPane.halignment="RIGHT" GridPane.rowIndex="3">
                            <children>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" />
+                              <Text fx:id="text67" strokeType="OUTSIDE" strokeWidth="0.0" />
                            </children>
                         </HBox>
-                        <HBox alignment="BOTTOM_RIGHT" style="-fx-background-color: white;" GridPane.columnIndex="4" GridPane.halignment="RIGHT" GridPane.rowIndex="4">
+                        <HBox fx:id="box52" alignment="BOTTOM_RIGHT" style="-fx-background-color: white;" GridPane.columnIndex="4" GridPane.halignment="RIGHT" GridPane.rowIndex="4">
                            <children>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" />
+                              <Text fx:id="text52" strokeType="OUTSIDE" strokeWidth="0.0" />
                            </children>
                         </HBox>
-                        <HBox alignment="BOTTOM_RIGHT" style="-fx-background-color: white;" GridPane.columnIndex="5" GridPane.halignment="RIGHT" GridPane.rowIndex="4">
+                        <HBox fx:id="box68" alignment="BOTTOM_RIGHT" style="-fx-background-color: white;" GridPane.columnIndex="5" GridPane.halignment="RIGHT" GridPane.rowIndex="4">
                            <children>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" />
+                              <Text fx:id="text68" strokeType="OUTSIDE" strokeWidth="0.0" />
                            </children>
                         </HBox>
-                        <HBox alignment="BOTTOM_RIGHT" style="-fx-background-color: #ffc550;" GridPane.columnIndex="4" GridPane.halignment="RIGHT" GridPane.rowIndex="5">
+                        <HBox fx:id="box53" alignment="BOTTOM_RIGHT" style="-fx-background-color: #ffc550;" GridPane.columnIndex="4" GridPane.halignment="RIGHT" GridPane.rowIndex="5">
                            <children>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" />
+                              <Text fx:id="text53" strokeType="OUTSIDE" strokeWidth="0.0" />
                            </children>
                         </HBox>
-                        <HBox alignment="BOTTOM_RIGHT" style="-fx-background-color: #ffc550;" GridPane.columnIndex="4" GridPane.halignment="RIGHT" GridPane.rowIndex="6">
+                        <HBox fx:id="box54" alignment="BOTTOM_RIGHT" style="-fx-background-color: #ffc550;" GridPane.columnIndex="4" GridPane.halignment="RIGHT" GridPane.rowIndex="6">
                            <children>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" />
+                              <Text fx:id="text54" strokeType="OUTSIDE" strokeWidth="0.0" />
                            </children>
                         </HBox>
-                        <HBox alignment="BOTTOM_RIGHT" style="-fx-background-color: white;" GridPane.columnIndex="5" GridPane.halignment="RIGHT" GridPane.rowIndex="5">
+                        <HBox fx:id="box69" alignment="BOTTOM_RIGHT" style="-fx-background-color: white;" GridPane.columnIndex="5" GridPane.halignment="RIGHT" GridPane.rowIndex="5">
                            <children>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" />
+                              <Text fx:id="text69" strokeType="OUTSIDE" strokeWidth="0.0" />
                            </children>
                         </HBox>
-                        <HBox alignment="BOTTOM_RIGHT" style="-fx-background-color: white;" GridPane.columnIndex="5" GridPane.halignment="RIGHT" GridPane.rowIndex="6">
+                        <HBox fx:id="box70" alignment="BOTTOM_RIGHT" style="-fx-background-color: white;" GridPane.columnIndex="5" GridPane.halignment="RIGHT" GridPane.rowIndex="6">
                            <children>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" />
+                              <Text fx:id="text70" strokeType="OUTSIDE" strokeWidth="0.0" />
                            </children>
                         </HBox>
-                        <HBox alignment="BOTTOM_RIGHT" style="-fx-background-color: #ffc550;" GridPane.columnIndex="4" GridPane.halignment="RIGHT" GridPane.rowIndex="7">
+                        <HBox fx:id="box55" alignment="BOTTOM_RIGHT" style="-fx-background-color: #ffc550;" GridPane.columnIndex="4" GridPane.halignment="RIGHT" GridPane.rowIndex="7">
                            <children>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" />
+                              <Text fx:id="text55" strokeType="OUTSIDE" strokeWidth="0.0" />
                            </children>
                         </HBox>
-                        <HBox alignment="BOTTOM_RIGHT" style="-fx-background-color: white;" GridPane.columnIndex="5" GridPane.halignment="RIGHT" GridPane.rowIndex="7">
+                        <HBox fx:id="box71" alignment="BOTTOM_RIGHT" style="-fx-background-color: white;" GridPane.columnIndex="5" GridPane.halignment="RIGHT" GridPane.rowIndex="7">
                            <children>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" />
+                              <Text fx:id="text71" strokeType="OUTSIDE" strokeWidth="0.0" />
                            </children>
                         </HBox>
-                        <HBox alignment="BOTTOM_RIGHT" style="-fx-background-color: #ffc550;" GridPane.columnIndex="4" GridPane.halignment="RIGHT" GridPane.rowIndex="8">
+                        <HBox fx:id="box56" alignment="BOTTOM_RIGHT" style="-fx-background-color: #ffc550;" GridPane.columnIndex="4" GridPane.halignment="RIGHT" GridPane.rowIndex="8">
                            <children>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" />
+                              <Text fx:id="text56" strokeType="OUTSIDE" strokeWidth="0.0" />
                            </children>
                         </HBox>
-                        <HBox alignment="BOTTOM_RIGHT" style="-fx-background-color: white;" GridPane.columnIndex="5" GridPane.halignment="RIGHT" GridPane.rowIndex="8">
+                        <HBox fx:id="box72" alignment="BOTTOM_RIGHT" style="-fx-background-color: white;" GridPane.columnIndex="5" GridPane.halignment="RIGHT" GridPane.rowIndex="8">
                            <children>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" />
+                              <Text fx:id="text72" strokeType="OUTSIDE" strokeWidth="0.0" />
                            </children>
                         </HBox>
-                        <HBox alignment="BOTTOM_RIGHT" style="-fx-background-color: white;" GridPane.columnIndex="3" GridPane.halignment="RIGHT" GridPane.rowIndex="9">
+                        <HBox fx:id="box41" alignment="BOTTOM_RIGHT" style="-fx-background-color: white;" GridPane.columnIndex="3" GridPane.halignment="RIGHT" GridPane.rowIndex="9">
                            <children>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" />
+                              <Text fx:id="text41" strokeType="OUTSIDE" strokeWidth="0.0" />
                            </children>
                         </HBox>
-                        <HBox alignment="BOTTOM_RIGHT" style="-fx-background-color: white;" GridPane.columnIndex="4" GridPane.halignment="RIGHT" GridPane.rowIndex="9">
+                        <HBox fx:id="box57" alignment="BOTTOM_RIGHT" style="-fx-background-color: white;" GridPane.columnIndex="4" GridPane.halignment="RIGHT" GridPane.rowIndex="9">
                            <children>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" />
+                              <Text fx:id="text57" strokeType="OUTSIDE" strokeWidth="0.0" />
                            </children>
                         </HBox>
-                        <HBox alignment="BOTTOM_RIGHT" style="-fx-background-color: white;" GridPane.columnIndex="5" GridPane.halignment="RIGHT" GridPane.rowIndex="9">
+                        <HBox fx:id="box73" alignment="BOTTOM_RIGHT" style="-fx-background-color: white;" GridPane.columnIndex="5" GridPane.halignment="RIGHT" GridPane.rowIndex="9">
                            <children>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" />
+                              <Text fx:id="text73" strokeType="OUTSIDE" strokeWidth="0.0" />
                            </children>
                         </HBox>
-                        <HBox alignment="BOTTOM_RIGHT" style="-fx-background-color: white;" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="10">
+                        <HBox fx:id="box26" alignment="BOTTOM_RIGHT" style="-fx-background-color: white;" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="10">
                            <children>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" />
+                              <Text fx:id="text26" strokeType="OUTSIDE" strokeWidth="0.0" />
                            </children>
                         </HBox>
-                        <HBox alignment="BOTTOM_RIGHT" style="-fx-background-color: white;" GridPane.columnIndex="3" GridPane.halignment="RIGHT" GridPane.rowIndex="10">
+                        <HBox fx:id="box42" alignment="BOTTOM_RIGHT" style="-fx-background-color: white;" GridPane.columnIndex="3" GridPane.halignment="RIGHT" GridPane.rowIndex="10">
                            <children>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" />
+                              <Text fx:id="text42" strokeType="OUTSIDE" strokeWidth="0.0" />
                            </children>
                         </HBox>
-                        <HBox alignment="BOTTOM_RIGHT" style="-fx-background-color: white;" GridPane.columnIndex="4" GridPane.halignment="RIGHT" GridPane.rowIndex="10">
+                        <HBox fx:id="box58" alignment="BOTTOM_RIGHT" style="-fx-background-color: white;" GridPane.columnIndex="4" GridPane.halignment="RIGHT" GridPane.rowIndex="10">
                            <children>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" />
+                              <Text fx:id="text58" strokeType="OUTSIDE" strokeWidth="0.0" />
                            </children>
                         </HBox>
-                        <HBox alignment="BOTTOM_RIGHT" style="-fx-background-color: #ff76ad;" GridPane.columnIndex="5" GridPane.halignment="RIGHT" GridPane.rowIndex="10">
+                        <HBox fx:id="box74" alignment="BOTTOM_RIGHT" style="-fx-background-color: #ff76ad;" GridPane.columnIndex="5" GridPane.halignment="RIGHT" GridPane.rowIndex="10">
                            <children>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" />
+                              <Text fx:id="text74" strokeType="OUTSIDE" strokeWidth="0.0" />
                            </children>
                         </HBox>
-                        <HBox alignment="BOTTOM_RIGHT" style="-fx-background-color: white;" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="11">
+                        <HBox fx:id="box11" alignment="BOTTOM_RIGHT" style="-fx-background-color: white;" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="11">
                            <children>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" />
+                              <Text fx:id="text11" strokeType="OUTSIDE" strokeWidth="0.0" />
                            </children>
                         </HBox>
-                        <HBox alignment="BOTTOM_RIGHT" style="-fx-background-color: white;" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="12">
+                        <HBox fx:id="box12" alignment="BOTTOM_RIGHT" style="-fx-background-color: white;" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="12">
                            <children>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" />
+                              <Text fx:id="text12" strokeType="OUTSIDE" strokeWidth="0.0" />
                            </children>
                         </HBox>
-                        <HBox alignment="BOTTOM_RIGHT" style="-fx-background-color: white;" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="13">
+                        <HBox fx:id="box13" alignment="BOTTOM_RIGHT" style="-fx-background-color: white;" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="13">
                            <children>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" />
+                              <Text fx:id="text13" strokeType="OUTSIDE" strokeWidth="0.0" />
                            </children>
                         </HBox>
-                        <HBox alignment="BOTTOM_RIGHT" style="-fx-background-color: white;" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="11">
+                        <HBox fx:id="box27" alignment="BOTTOM_RIGHT" style="-fx-background-color: white;" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="11">
                            <children>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" />
+                              <Text fx:id="text27" strokeType="OUTSIDE" strokeWidth="0.0" />
                            </children>
                         </HBox>
-                        <HBox alignment="BOTTOM_RIGHT" style="-fx-background-color: white;" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="12">
+                        <HBox fx:id="box28" alignment="BOTTOM_RIGHT" style="-fx-background-color: white;" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="12">
                            <children>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" />
+                              <Text fx:id="text28" strokeType="OUTSIDE" strokeWidth="0.0" />
                            </children>
                         </HBox>
-                        <HBox alignment="BOTTOM_RIGHT" style="-fx-background-color: #ffc550;" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="13">
+                        <HBox fx:id="box29" alignment="BOTTOM_RIGHT" style="-fx-background-color: #ffc550;" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="13">
                            <children>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" />
+                              <Text fx:id="text29" strokeType="OUTSIDE" strokeWidth="0.0" />
                            </children>
                         </HBox>
-                        <HBox alignment="BOTTOM_RIGHT" style="-fx-background-color: white;" GridPane.columnIndex="3" GridPane.halignment="RIGHT" GridPane.rowIndex="11">
+                        <HBox fx:id="box43" alignment="BOTTOM_RIGHT" style="-fx-background-color: white;" GridPane.columnIndex="3" GridPane.halignment="RIGHT" GridPane.rowIndex="11">
                            <children>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" />
+                              <Text fx:id="text43" strokeType="OUTSIDE" strokeWidth="0.0" />
                            </children>
                         </HBox>
-                        <HBox alignment="BOTTOM_RIGHT" style="-fx-background-color: white;" GridPane.columnIndex="3" GridPane.halignment="RIGHT" GridPane.rowIndex="12">
+                        <HBox fx:id="box44" alignment="BOTTOM_RIGHT" style="-fx-background-color: white;" GridPane.columnIndex="3" GridPane.halignment="RIGHT" GridPane.rowIndex="12">
                            <children>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" />
+                              <Text fx:id="text44" strokeType="OUTSIDE" strokeWidth="0.0" />
                            </children>
                         </HBox>
-                        <HBox alignment="BOTTOM_RIGHT" style="-fx-background-color: #ff76ad;" GridPane.columnIndex="3" GridPane.halignment="RIGHT" GridPane.rowIndex="13">
+                        <HBox fx:id="box45" alignment="BOTTOM_RIGHT" style="-fx-background-color: #ff76ad;" GridPane.columnIndex="3" GridPane.halignment="RIGHT" GridPane.rowIndex="13">
                            <children>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" />
+                              <Text fx:id="text45" strokeType="OUTSIDE" strokeWidth="0.0" />
                            </children>
                         </HBox>
-                        <HBox alignment="BOTTOM_RIGHT" style="-fx-background-color: white;" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="14">
+                        <HBox fx:id="box14" alignment="BOTTOM_RIGHT" style="-fx-background-color: white;" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="14">
                            <children>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" />
+                              <Text fx:id="text14" strokeType="OUTSIDE" strokeWidth="0.0" />
                            </children>
                         </HBox>
-                        <HBox alignment="BOTTOM_RIGHT" style="-fx-background-color: white;" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="15">
+                        <HBox fx:id="box15" alignment="BOTTOM_RIGHT" style="-fx-background-color: white;" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="15">
                            <children>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" />
+                              <Text fx:id="text15" strokeType="OUTSIDE" strokeWidth="0.0" />
                            </children>
                         </HBox>
-                        <HBox alignment="BOTTOM_RIGHT" style="-fx-background-color: white;" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="16">
+                        <HBox fx:id="box16" alignment="BOTTOM_RIGHT" style="-fx-background-color: white;" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="16">
                            <children>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" />
+                              <Text fx:id="text16" strokeType="OUTSIDE" strokeWidth="0.0" />
                            </children>
                         </HBox>
-                        <HBox alignment="BOTTOM_RIGHT" style="-fx-background-color: #ffc550;" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="14">
+                        <HBox fx:id="box30" alignment="BOTTOM_RIGHT" style="-fx-background-color: #ffc550;" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="14">
                            <children>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" />
+                              <Text fx:id="text30" strokeType="OUTSIDE" strokeWidth="0.0" />
                            </children>
                         </HBox>
-                        <HBox alignment="BOTTOM_RIGHT" style="-fx-background-color: #ffc550;" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="15">
+                        <HBox fx:id="box31" alignment="BOTTOM_RIGHT" style="-fx-background-color: #ffc550;" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="15">
                            <children>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" />
+                              <Text fx:id="text31" strokeType="OUTSIDE" strokeWidth="0.0" />
                            </children>
                         </HBox>
-                        <HBox alignment="BOTTOM_RIGHT" style="-fx-background-color: #ffc550;" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="16">
+                        <HBox fx:id="box32" alignment="BOTTOM_RIGHT" style="-fx-background-color: #ffc550;" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="16">
                            <children>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" />
+                              <Text fx:id="text32" strokeType="OUTSIDE" strokeWidth="0.0" />
                            </children>
                         </HBox>
-                        <HBox alignment="BOTTOM_RIGHT" style="-fx-background-color: white;" GridPane.columnIndex="3" GridPane.halignment="RIGHT" GridPane.rowIndex="14">
+                        <HBox fx:id="box46" alignment="BOTTOM_RIGHT" style="-fx-background-color: white;" GridPane.columnIndex="3" GridPane.halignment="RIGHT" GridPane.rowIndex="14">
                            <children>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" />
+                              <Text fx:id="text46" strokeType="OUTSIDE" strokeWidth="0.0" />
                            </children>
                         </HBox>
-                        <HBox alignment="BOTTOM_RIGHT" style="-fx-background-color: white;" GridPane.columnIndex="4" GridPane.halignment="RIGHT" GridPane.rowIndex="11">
+                        <HBox fx:id="box59" alignment="BOTTOM_RIGHT" style="-fx-background-color: white;" GridPane.columnIndex="4" GridPane.halignment="RIGHT" GridPane.rowIndex="11">
                            <children>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" />
+                              <Text fx:id="text59" strokeType="OUTSIDE" strokeWidth="0.0" />
                            </children>
                         </HBox>
-                        <HBox alignment="BOTTOM_RIGHT" style="-fx-background-color: white;" GridPane.columnIndex="4" GridPane.halignment="RIGHT" GridPane.rowIndex="13">
+                        <HBox fx:id="box61" alignment="BOTTOM_RIGHT" style="-fx-background-color: white;" GridPane.columnIndex="4" GridPane.halignment="RIGHT" GridPane.rowIndex="13">
                            <children>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" />
+                              <Text fx:id="text61" strokeType="OUTSIDE" strokeWidth="0.0" />
                            </children>
                         </HBox>
-                        <HBox alignment="BOTTOM_RIGHT" style="-fx-background-color: white;" GridPane.columnIndex="4" GridPane.halignment="RIGHT" GridPane.rowIndex="14">
+                        <HBox fx:id="box62" alignment="BOTTOM_RIGHT" style="-fx-background-color: white;" GridPane.columnIndex="4" GridPane.halignment="RIGHT" GridPane.rowIndex="14">
                            <children>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" />
+                              <Text fx:id="text62" strokeType="OUTSIDE" strokeWidth="0.0" />
                            </children>
                         </HBox>
-                        <HBox alignment="BOTTOM_RIGHT" style="-fx-background-color: white;" GridPane.columnIndex="4" GridPane.halignment="RIGHT" GridPane.rowIndex="15">
+                        <HBox fx:id="box63" alignment="BOTTOM_RIGHT" style="-fx-background-color: white;" GridPane.columnIndex="4" GridPane.halignment="RIGHT" GridPane.rowIndex="15">
                            <children>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" />
+                              <Text fx:id="text63" strokeType="OUTSIDE" strokeWidth="0.0" />
                            </children>
                         </HBox>
-                        <HBox alignment="BOTTOM_RIGHT" style="-fx-background-color: white;" GridPane.columnIndex="4" GridPane.halignment="RIGHT" GridPane.rowIndex="16">
+                        <HBox fx:id="box64" alignment="BOTTOM_RIGHT" style="-fx-background-color: white;" GridPane.columnIndex="4" GridPane.halignment="RIGHT" GridPane.rowIndex="16">
                            <children>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" />
+                              <Text fx:id="text64" strokeType="OUTSIDE" strokeWidth="0.0" />
                            </children>
                         </HBox>
-                        <HBox alignment="BOTTOM_RIGHT" style="-fx-background-color: white;" GridPane.columnIndex="5" GridPane.halignment="RIGHT" GridPane.rowIndex="11">
+                        <HBox fx:id="box75" alignment="BOTTOM_RIGHT" style="-fx-background-color: white;" GridPane.columnIndex="5" GridPane.halignment="RIGHT" GridPane.rowIndex="11">
                            <children>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" />
+                              <Text fx:id="text75" strokeType="OUTSIDE" strokeWidth="0.0" />
                            </children>
                         </HBox>
-                        <HBox alignment="BOTTOM_RIGHT" style="-fx-background-color: white;" GridPane.columnIndex="5" GridPane.halignment="RIGHT" GridPane.rowIndex="12">
+                        <HBox fx:id="box76" alignment="BOTTOM_RIGHT" style="-fx-background-color: white;" GridPane.columnIndex="5" GridPane.halignment="RIGHT" GridPane.rowIndex="12">
                            <children>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" />
+                              <Text fx:id="text76" strokeType="OUTSIDE" strokeWidth="0.0" />
                            </children>
                         </HBox>
-                        <HBox alignment="BOTTOM_RIGHT" style="-fx-background-color: white;" GridPane.columnIndex="5" GridPane.halignment="RIGHT" GridPane.rowIndex="13">
+                        <HBox fx:id="box77" alignment="BOTTOM_RIGHT" style="-fx-background-color: white;" GridPane.columnIndex="5" GridPane.halignment="RIGHT" GridPane.rowIndex="13">
                            <children>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" />
+                              <Text fx:id="text77" strokeType="OUTSIDE" strokeWidth="0.0" />
                            </children>
                         </HBox>
-                        <HBox alignment="BOTTOM_RIGHT" style="-fx-background-color: white;" GridPane.columnIndex="5" GridPane.halignment="RIGHT" GridPane.rowIndex="14">
+                        <HBox fx:id="box78" alignment="BOTTOM_RIGHT" style="-fx-background-color: white;" GridPane.columnIndex="5" GridPane.halignment="RIGHT" GridPane.rowIndex="14">
                            <children>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" />
+                              <Text fx:id="text78" strokeType="OUTSIDE" strokeWidth="0.0" />
                            </children>
                         </HBox>
-                        <HBox alignment="BOTTOM_RIGHT" style="-fx-background-color: white;" GridPane.columnIndex="5" GridPane.halignment="RIGHT" GridPane.rowIndex="15">
+                        <HBox fx:id="box79" alignment="BOTTOM_RIGHT" style="-fx-background-color: white;" GridPane.columnIndex="5" GridPane.halignment="RIGHT" GridPane.rowIndex="15">
                            <children>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" />
+                              <Text fx:id="text79" strokeType="OUTSIDE" strokeWidth="0.0" />
                            </children>
                         </HBox>
-                        <HBox alignment="BOTTOM_RIGHT" style="-fx-background-color: white;" GridPane.columnIndex="5" GridPane.halignment="RIGHT" GridPane.rowIndex="16">
+                        <HBox fx:id="box80" alignment="BOTTOM_RIGHT" style="-fx-background-color: white;" GridPane.columnIndex="5" GridPane.halignment="RIGHT" GridPane.rowIndex="16">
                            <children>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" />
+                              <Text fx:id="text80" strokeType="OUTSIDE" strokeWidth="0.0" />
                            </children>
                         </HBox>
-                        <HBox alignment="BOTTOM_RIGHT" style="-fx-background-color: white;" GridPane.columnIndex="3" GridPane.halignment="RIGHT" GridPane.rowIndex="15">
+                        <HBox fx:id="box47" alignment="BOTTOM_RIGHT" style="-fx-background-color: white;" GridPane.columnIndex="3" GridPane.halignment="RIGHT" GridPane.rowIndex="15">
                            <children>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" />
+                              <Text fx:id="text47" strokeType="OUTSIDE" strokeWidth="0.0" />
                            </children>
                         </HBox>
-                        <HBox alignment="BOTTOM_RIGHT" style="-fx-background-color: white;" GridPane.columnIndex="3" GridPane.halignment="RIGHT" GridPane.rowIndex="16">
+                        <HBox fx:id="box48" alignment="BOTTOM_RIGHT" style="-fx-background-color: white;" GridPane.columnIndex="3" GridPane.halignment="RIGHT" GridPane.rowIndex="16">
                            <children>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" />
+                              <Text fx:id="text48" strokeType="OUTSIDE" strokeWidth="0.0" />
                            </children>
                         </HBox>
-                        <HBox alignment="BOTTOM_RIGHT" style="-fx-background-color: white;" GridPane.columnIndex="4" GridPane.halignment="RIGHT" GridPane.rowIndex="12">
+                        <HBox fx:id="box60" alignment="BOTTOM_RIGHT" style="-fx-background-color: white;" GridPane.columnIndex="4" GridPane.halignment="RIGHT" GridPane.rowIndex="12">
                            <children>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" />
+                              <Text fx:id="text60" strokeType="OUTSIDE" strokeWidth="0.0" />
                            </children>
                         </HBox>
                      </children>
