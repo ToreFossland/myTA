@@ -12,7 +12,6 @@ import java.util.Arrays;
 import org.apache.commons.dbcp2.BasicDataSource;
 
 import communication.Message;
-import gui.App;
 import user.User;
 
 public class MessageDao {

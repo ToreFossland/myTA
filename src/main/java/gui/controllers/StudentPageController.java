@@ -71,6 +71,7 @@ public class StudentPageController {
 	public void evaluatingHandler() {
 		// go to StudentAddOrViewPage.fxml
 		App.getInstance().gotoStudentAddOrView();
+		
 	}
 	
 	public void addSubjectHandler() {
