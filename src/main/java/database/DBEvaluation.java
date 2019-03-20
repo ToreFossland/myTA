@@ -1,17 +1,22 @@
 package database;
 
+import java.io.FileInputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.time.Month;
 import java.util.ArrayList;
 import java.util.Objects;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import org.apache.commons.dbcp2.BasicDataSource;
 
 import evaluation.Assignment;
 import evaluation.Evaluation;
+import gui.App;
 import user.User;
 
 public class DBEvaluation{
@@ -47,19 +52,28 @@ public class DBEvaluation{
 		try {
 			BasicDataSource bds = DataSource.getInstance().getBds();
 		    con = bds.getConnection();
-		    statement = con.prepareStatement(String.format("REPLACE INTO Assignment(title, timestamp, Student_email, courseCode) "
-		    		+ "VALUES('%s', '%s', '%s', '%s')", assignment.getAssignmentName(), LocalDateTime.now(), 
-		    		assignment.getDeliveredBy().getEmail(), assignment.getCourseCode()));
+		    
+		    FileInputStream fileInput = assignment.getFile() == null ? null : new FileInputStream(assignment.getFile());
+		    
+		    statement = con.prepareStatement("REPLACE INTO Assignment(title, file, timestamp, Student_email, courseCode) "
+		    		+ "VALUES(?, ?, ?, ?, ?)");
+		    statement.setString(1, assignment.getAssignmentName());
+		    statement.setBinaryStream(2, fileInput);
+		    statement.setTimestamp(3, Timestamp.valueOf(LocalDateTime.now()));
+		    statement.setString(4, assignment.getDeliveredBy().getEmail());
+		    statement.setString(5, assignment.getCourseCode());
 			statement.executeUpdate();
 		} catch (Exception e) {
-			System.out.println(e);
+			Logger.getLogger(App.class.getName()).log(Level.SEVERE, "Could not insert assignment");
 		} finally {
+			Logger.getLogger(App.class.getName()).log(Level.INFO, "Assignment inserted");
 		    try { if (result != null) result.close(); } catch (Exception e) {};
 		    try { if (statement != null) statement.close(); } catch (Exception e) {};
 		    try { if (con != null) con.close(); } catch (Exception e) {};
 		}
 	}
 	
+	//Files are downloaded separately when needed by calling assignment.downloadFile()
 	public static ArrayList<Assignment> getAssignments(String course){
 		
 		ArrayList<Assignment> assignments = new ArrayList<Assignment>();
@@ -70,7 +84,7 @@ public class DBEvaluation{
 		try {
 			BasicDataSource bds = DataSource.getInstance().getBds();
 		    con = bds.getConnection();
-		    statement = con.prepareStatement(String.format("SELECT * FROM Assignment WHERE idAssignment NOT IN ("
+		    statement = con.prepareStatement(String.format("SELECT idAssignment, title, timestamp, Student_email, IF(IFNULL(file,true)=0, 1, 0) as hasFile FROM Assignment WHERE idAssignment NOT IN ("
 		    		+ "SELECT Assignment_idAssignment FROM Evaluation) AND courseCode = '%s' ", course));
 		    result = statement.executeQuery();
 		    while (result.next()) {
@@ -80,6 +94,8 @@ public class DBEvaluation{
 		    	String studentEmail = result.getString("Student_email");
 		    	User student = User.generateUserObject(studentEmail);		    	
 			    Assignment assignment = new Assignment(student, course, title, timestamp);
+			    assignment.setId(result.getInt("idAssignment"));
+			    assignment.setHasFileInDB(result.getBoolean("hasFile"));
 			    assignments.add(assignment);
 		    }
 		} catch (Exception e) {

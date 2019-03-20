@@ -479,6 +479,10 @@ public class App extends Application {
 
 		return hashtext;
 	}
+	
+	public Stage getStage() {
+		return this.stage;
+	}
 
 	public ArrayList<Booking> getDownloadedBookingsStudent() {
 		return downloadedBookingsStudent;
