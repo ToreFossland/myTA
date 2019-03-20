@@ -239,22 +239,22 @@ public class BookingForStudent {
 		course_input.getItems().addAll(relevantCourses);
 
 		bookings = App.getInstance().getDownloadedBookingsStudent();
-
-		List<Integer> availableWeeks = App.getInstance().getDownloadedWeeksStudent();
-		Collections.sort(availableWeeks);
-
-		week_input.getItems().addAll(availableWeeks);
-
-		for (Integer week : availableWeeks) {
-			System.out.println(Integer.toString(week));
-			if (week >= getCurrentWeek()) {
-				week_input.setValue(week);
-				break;
-			}
-		}
+		System.out.println(relevantCourses.get(0) + "hfhfdsh");
+		App.getInstance().refreshBookingWeeks(relevantCourses.get(0));
+		//System.out.println(App.getInstance().getDownloadedWeeksStudent() + "fuuu");
+//		List<Integer> availableWeeks = App.getInstance().getDownloadedWeeksStudent();
+//		Collections.sort(availableWeeks);
+//
+//		week_input.getItems().addAll(availableWeeks);
+//
+//		for (Integer week : availableWeeks) {
+//			System.out.println(Integer.toString(week));
+//			if (week >= getCurrentWeek()) {
+//				week_input.setValue(week);
+//				break;
+//			}
+//		}
 		course_input.setValue(relevantCourses.get(0));
-
-		loadAvailableTimes();
 	}
 	public void returnHandler(javafx.event.ActionEvent event){
 		App.getInstance().gotoStudentPage();
@@ -267,7 +267,42 @@ public class BookingForStudent {
 				checkbox.setSelected(false);
 			}
 		}
-		int week = week_input.getValue();
+		App.getInstance().refreshBookingWeeks(course_input.getValue());
+		List<Integer> availableWeeks = App.getInstance().getDownloadedWeeksStudent();
+		Collections.sort(availableWeeks);
+		
+		week_input.getItems().setAll(availableWeeks);
+
+
+		for (Integer week : availableWeeks) {
+			System.out.println(Integer.toString(week) + "hallo");
+			if (week >= getCurrentWeek()) {
+				week_input.setValue(week);
+				break;
+			}
+			}
+		}
+//		int week = week_input.getValue();
+//		int bookingNo = 0;
+//		// Enables checkbox one by one
+//		for (Booking booking : bookings) {
+//			if (booking.getCourseCode().equals(course_input.getValue()) && booking.getWeek() == week) {
+//				bookingNo = (booking.getStartTime().getHour() -8) * 2 + booking.getStartTime().getMinute() / BOOKINGLENGTH; 
+//				checkboxes[booking.getDay() - 1][bookingNo].setDisable(false);
+//			}
+//		}
+//	}
+	
+	public void loadTimesInWeek(){
+		for (CheckBox[] checkboxRow : checkboxes) {
+			for (CheckBox checkbox : checkboxRow) {
+				checkbox.setDisable(true);
+				checkbox.setSelected(false);
+			}
+		}
+			int week = week_input.getValue();
+			
+
 		int bookingNo = 0;
 		// Enables checkbox one by one
 		for (Booking booking : bookings) {
@@ -279,7 +314,7 @@ public class BookingForStudent {
 	}
 
 	public void weekInputHandler(ActionEvent event) {
-		loadAvailableTimes();
+		loadTimesInWeek();
 	}
 
 	public void courseInputHandler(ActionEvent event) {

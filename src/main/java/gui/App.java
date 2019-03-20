@@ -503,4 +503,32 @@ public class App extends Application {
 	public void setDownloadedWeeksTA(ArrayList<Integer> downloadedWeeksTA) {
 		this.downloadedWeeksTA = downloadedWeeksTA;
 	}
+	
+	public void refreshBookingWeeks(String courseCode) {
+		ArrayList<Integer> weekStudent = new ArrayList<Integer>();
+		ArrayList<Integer> weekTA = new ArrayList<Integer>();
+		
+		if(getDownloadedBookingsTA() != null) {
+			for(Booking booking:getDownloadedBookingsTA()) {
+				if(!weekTA.contains(booking.getWeek()) && booking.getCourseCode().equals(courseCode)) {
+					weekTA.add(booking.getWeek());
+					}
+				}
+			System.out.println(weekTA);
+			if(weekTA != null) {
+				setDownloadedWeeksTA(weekTA);
+			}
+		}
+		
+		if(getDownloadedBookingsStudent() != null) {
+		for(Booking booking:getDownloadedBookingsStudent()) {
+			if(!weekStudent.contains(booking.getWeek()) && booking.getCourseCode().equals(courseCode)) {
+				weekStudent.add(booking.getWeek());
+				}
+			}
+		if(weekStudent != null) {
+			setDownloadedWeeksStudent(weekStudent);
+		}
+	}
+	}
 }
