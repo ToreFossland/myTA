@@ -33,6 +33,9 @@ public class StudentPageController {
 	@FXML
 	Label booking_response;
 	
+	@FXML
+	Button button_my_calendar;
+	
 	public void logoutHandler(javafx.event.ActionEvent event) throws Exception {
 		App.getInstance().gotoLogin();;
 	}
@@ -43,6 +46,10 @@ public class StudentPageController {
 			App.getInstance().gotoAssistantPage();
 		}
 		
+	}
+	
+	public void myCalendarHandler(javafx.event.ActionEvent event) {
+		App.getInstance().gotoMyCalendar();
 	}
 	
 	public boolean subjectsExist(){

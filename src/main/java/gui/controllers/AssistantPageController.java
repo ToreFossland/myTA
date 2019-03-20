@@ -24,6 +24,13 @@ public class AssistantPageController {
 	@FXML
 	Button addAssistantTimes_button;
 	
+	@FXML
+	Button button_my_calendar;
+	
+	public void myCalendarHandler(javafx.event.ActionEvent event) {
+		App.getInstance().gotoMyCalendar();
+	}
+	
 	public void logoutHandler(javafx.event.ActionEvent event) throws Exception {
 		App.getInstance().gotoLogin();
 	}
