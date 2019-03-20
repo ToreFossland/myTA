@@ -109,7 +109,7 @@
             <HBox prefHeight="50.0" prefWidth="200.0" />
             <HBox alignment="CENTER" prefHeight="65.0" prefWidth="200.0">
                <children>
-                  <Button fx:id="delete_booking" mnemonicParsing="false" prefHeight="31.0" prefWidth="149.0" style="-fx-background-color: black;" text="Delete booking" textFill="WHITE">
+                  <Button fx:id="delete_booking" mnemonicParsing="false" onAction="#deleteHandler" prefHeight="31.0" prefWidth="149.0" style="-fx-background-color: black;" text="Delete booking" textFill="WHITE">
                      <font>
                         <Font size="15.0" />
                      </font>
@@ -118,7 +118,7 @@
             </HBox>
             <HBox alignment="CENTER" prefHeight="65.0" prefWidth="200.0">
                <children>
-                  <Button fx:id="Send_message_to_assistant" mnemonicParsing="false" style="-fx-background-color: #0099ff;" text="Send message to assistant" textFill="WHITE">
+                  <Button fx:id="send_message_to_assistant" mnemonicParsing="false" onAction="#sendMessageHandler" style="-fx-background-color: #0099ff;" text="Send message to assistant" textFill="WHITE">
                      <font>
                         <Font size="15.0" />
                      </font>
