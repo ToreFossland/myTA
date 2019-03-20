@@ -1,6 +1,8 @@
 package evaluation;
 
+import java.awt.Desktop;
 import java.io.File;
+import java.io.IOException;
 import java.time.LocalDateTime;
 
 import database.DBEvaluation;
@@ -11,9 +13,9 @@ public class Assignment{
 	private int id;
 	private User deliveredBy; //Satser p� at bare mail holder, kanskje trenger helt User object? Samme p� eval
 	private String courseCode;
-	private String assignmentName;
-	private Boolean hasFileInDB;
+	private String assignmentName;;
 	private File file;
+	private String fileName;
 	private LocalDateTime timestamp;
 	
 	public Assignment(User deliveredBy, String courseCode, String assignmentName, LocalDateTime timestamp){
@@ -27,10 +29,33 @@ public class Assignment{
 		this.setTimestamp(timestamp);
 		this.setId(-1);
 		this.setFile(file);
+		this.fileName = this.getFile() == null ? null : this.getFile().getName();
 	}
 	
 	public void downloadFile() {
-		//DBFile.downloadFile(this, filepath);
+		this.file = DBFile.downloadFile(this);
+	}
+	
+	public void openFile() {
+		if (file == null) {
+			throw new NullPointerException("Assignment does not have a file. Try downloading first");
+		} else {
+        //first check if Desktop is supported by Platform or not
+	        if(!Desktop.isDesktopSupported()){
+	            System.out.println("Desktop is not supported");
+	            return;
+	        }
+	        
+	        Desktop desktop = Desktop.getDesktop();
+	        if(file.exists())
+				try {
+					desktop.open(file);
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+		}
+		
 	}
 	
 	public void updateId() {
@@ -85,11 +110,11 @@ public class Assignment{
 		this.file = file;
 	}
 
-	public Boolean getHasFileInDB() {
-		return hasFileInDB;
+	public String getFileName() {
+		return fileName;
 	}
 
-	public void setHasFileInDB(Boolean hasFileInDB) {
-		this.hasFileInDB = hasFileInDB;
+	public void setFileName(String fileName) {
+		this.fileName = fileName;
 	}
 }

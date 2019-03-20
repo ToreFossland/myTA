@@ -54,14 +54,16 @@ public class DBEvaluation{
 		    con = bds.getConnection();
 		    
 		    FileInputStream fileInput = assignment.getFile() == null ? null : new FileInputStream(assignment.getFile());
+		    String fileName = assignment.getFile() == null ? null : assignment.getFile().getName();
 		    
-		    statement = con.prepareStatement("REPLACE INTO Assignment(title, file, timestamp, Student_email, courseCode) "
-		    		+ "VALUES(?, ?, ?, ?, ?)");
+		    statement = con.prepareStatement("REPLACE INTO Assignment(title, timestamp, Student_email, courseCode, file, fileName) "
+		    		+ "VALUES(?, ?, ?, ?, ?, ?)");
 		    statement.setString(1, assignment.getAssignmentName());
-		    statement.setBinaryStream(2, fileInput);
-		    statement.setTimestamp(3, Timestamp.valueOf(LocalDateTime.now()));
-		    statement.setString(4, assignment.getDeliveredBy().getEmail());
-		    statement.setString(5, assignment.getCourseCode());
+		    statement.setTimestamp(2, Timestamp.valueOf(LocalDateTime.now()));
+		    statement.setString(3, assignment.getDeliveredBy().getEmail());
+		    statement.setString(4, assignment.getCourseCode());
+		    statement.setBinaryStream(5, fileInput);
+		    statement.setString(6, fileName);
 			statement.executeUpdate();
 		} catch (Exception e) {
 			Logger.getLogger(App.class.getName()).log(Level.SEVERE, "Could not insert assignment");
@@ -84,7 +86,7 @@ public class DBEvaluation{
 		try {
 			BasicDataSource bds = DataSource.getInstance().getBds();
 		    con = bds.getConnection();
-		    statement = con.prepareStatement(String.format("SELECT idAssignment, title, timestamp, Student_email, IF(IFNULL(file,true)=0, 1, 0) as hasFile FROM Assignment WHERE idAssignment NOT IN ("
+		    statement = con.prepareStatement(String.format("SELECT idAssignment, title, timestamp, Student_email, fileName FROM Assignment WHERE idAssignment NOT IN ("
 		    		+ "SELECT Assignment_idAssignment FROM Evaluation) AND courseCode = '%s' ", course));
 		    result = statement.executeQuery();
 		    while (result.next()) {
@@ -95,7 +97,7 @@ public class DBEvaluation{
 		    	User student = User.generateUserObject(studentEmail);		    	
 			    Assignment assignment = new Assignment(student, course, title, timestamp);
 			    assignment.setId(result.getInt("idAssignment"));
-			    assignment.setHasFileInDB(result.getBoolean("hasFile"));
+			    assignment.setFileName(result.getString("fileName"));
 			    assignments.add(assignment);
 		    }
 		} catch (Exception e) {
