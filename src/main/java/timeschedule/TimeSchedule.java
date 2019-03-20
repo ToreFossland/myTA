@@ -1,20 +1,22 @@
-package timeshedule;
+package timeschedule;
 
 import java.util.ArrayList;
 
 import halltimes.Booking;
 import user.User;
 
-public class TimeShedule {
+public class TimeSchedule {
 	
 	
 	private ArrayList<Booking> whereStudent; // listen over bookinger hvor han er student
 	private ArrayList<Booking> whereTA;
 	private User user;
 	
-	public TimeShedule(User user, ArrayList<Booking> bookings) {
+	public TimeSchedule(User user, ArrayList<Booking> bookingsStudent, ArrayList<Booking> bookingsTA) {
 		setUser(user);
-		addBookings(bookings);
+		this.whereStudent = bookingsStudent;
+		this.whereTA = bookingsTA;
+		
 	}
 	
 	public void setUser(User user) {
@@ -26,7 +28,7 @@ public class TimeShedule {
 			if (booking.getEmailStudent() == user.getEmail()) {
 				whereStudent.add(booking);
 			}
-			else { whereTA.add(booking);	
+			else {whereTA.add(booking);	
 			}
 		}
 	}

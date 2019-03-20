@@ -57,6 +57,7 @@ import javafx.fxml.JavaFXBuilderFactory;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import timeschedule.TimeSchedule;
 import user.*;
 
 /**
@@ -67,7 +68,7 @@ public class App extends Application {
 	private User loggedUser;
 
 	private Stack<String> pagesHistory;
-
+	private TimeSchedule myTimeSchedule; 
 	private ArrayList<Booking> downloadedBookingsTA; // Fjerne booking fra denne on confirm
 	private ArrayList<Integer> downloadedWeeksTA;
 
@@ -126,6 +127,8 @@ public class App extends Application {
 			loggedUser = DBConnection.returnUserObject(email);
 			if (loggedUser.getType() == 1 | loggedUser.getType() == 2) {
 				DBBooking.downloadBookings();
+				TimeSchedule ts = new TimeSchedule(loggedUser, downloadedBookingsStudent, downloadedBookingsTA);
+				setMyTimeSchedule(ts);
 			}
 			return true;
 		} else {
@@ -510,5 +513,13 @@ public class App extends Application {
 
 	public void setDownloadedWeeksTA(ArrayList<Integer> downloadedWeeksTA) {
 		this.downloadedWeeksTA = downloadedWeeksTA;
+	}
+
+	public TimeSchedule getMyTimeSchedule() {
+		return myTimeSchedule;
+	}
+
+	public void setMyTimeSchedule(TimeSchedule myTimeSchedule) {
+		this.myTimeSchedule = myTimeSchedule;
 	}
 }
