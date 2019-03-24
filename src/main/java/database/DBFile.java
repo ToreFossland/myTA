@@ -42,7 +42,7 @@ public class DBFile {
                 }
             }
             output.close();
-            
+            Logger.getLogger(App.class.getName()).log(Level.INFO, "File downloaded");
             return file;
 
 		} catch (Exception e) {

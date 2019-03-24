@@ -94,10 +94,10 @@ public class DBEvaluation{
 		    	//String filepath = result.getString("filePath"); kommer neste sprint
 		    	LocalDateTime timestamp = result.getTimestamp("timestamp").toLocalDateTime();
 		    	String studentEmail = result.getString("Student_email");
-		    	User student = User.generateUserObject(studentEmail);		    	
-			    Assignment assignment = new Assignment(student, course, title, timestamp);
+		    	User student = User.generateUserObject(studentEmail);		
+		    	String filename = result.getString("fileName");
+			    Assignment assignment = new Assignment(student, course, title, timestamp, filename);
 			    assignment.setId(result.getInt("idAssignment"));
-			    assignment.setFileName(result.getString("fileName"));
 			    assignments.add(assignment);
 		    }
 		} catch (Exception e) {
@@ -153,8 +153,9 @@ public class DBEvaluation{
 		    	String note = result.getString("note");
 		    	String TaEmail = result.getString("TA_email");
 		    	User evaluator = User.generateUserObject(TaEmail);
+		    	String filename = result.getString("fileName");
 		    	
-			    Assignment assignment = new Assignment(student, course, title, timestamp);
+			    Assignment assignment = new Assignment(student, course, title, timestamp, filename);
 		    	Evaluation eval = new Evaluation(score, evaluator, assignment, note);
 		    	evaluation = eval;
 		    }
@@ -191,11 +192,12 @@ public class DBEvaluation{
 		    	String courseCode = result.getString("courseCode");
 		     	String TaEmail = result.getString("TA_email");
 		    	String studentEmail = result.getString("Student_email");
+		    	String filename = result.getString("fileName");
 		    	
 		    	User evaluator = User.generateUserObject(TaEmail);
 		    	User student = User.generateUserObject(studentEmail);
 		    	
-			    Assignment assignment = new Assignment(student, courseCode, title, timestamp);
+			    Assignment assignment = new Assignment(student, courseCode, title, timestamp, filename);
 		    	Evaluation eval = new Evaluation(score, evaluator, assignment, note);
 		    	evaluation = eval;
 		    }
@@ -229,11 +231,12 @@ public class DBEvaluation{
 		    	String note = result.getString("note");
 		    	String TaEmail = result.getString("TA_email");
 		    	String studentEmail = result.getString("Student_email");
+		    	String filename = result.getString("fileName");
 		    	
 		    	User student = User.generateUserObject(studentEmail);
 		    	User TA = User.generateUserObject(TaEmail);
 		    	
-			    Assignment assignment = new Assignment(student, course, title, timestamp);
+			    Assignment assignment = new Assignment(student, course, title, timestamp, filename);
 		    	Evaluation evaluation = new Evaluation(score, TA, assignment, note);
 		    	
 				evaluations.add(evaluation);
@@ -272,7 +275,7 @@ public class DBEvaluation{
 	public static void main(String[] args) {
 		User user = User.generateUserObject("abc@ntnu.no");
 		User.generateUserObject("hei@ntnu.no");
-		Assignment assignment = new Assignment(user, "TDT4100", "Tittel", LocalDateTime.of(2019, Month.MARCH, 1, 8, 00));
+		Assignment assignment = new Assignment(user, "TDT4100", "Tittel", LocalDateTime.of(2019, Month.MARCH, 1, 8, 00), (String) null);
 		new Evaluation(0, user, assignment, "hei");
 		new ArrayList<Evaluation>();
 		//evals.add(eval);

@@ -11,29 +11,33 @@ import user.User;
 
 public class Assignment{
 	private int id;
-	private User deliveredBy; //Satser p� at bare mail holder, kanskje trenger helt User object? Samme p� eval
+	private User deliveredBy; //Satser på at bare mail holder, kanskje trenger helt User object? Samme på eval
 	private String courseCode;
-	private String assignmentName;;
+	private String assignmentName;
 	private File file;
+	//File name on DB. File variable above stores local file path.
 	private String fileName;
 	private LocalDateTime timestamp;
 	
-	public Assignment(User deliveredBy, String courseCode, String assignmentName, LocalDateTime timestamp){
-		this(deliveredBy,courseCode,assignmentName,timestamp,null);
-	}
-	
-	public Assignment(User deliveredBy, String courseCode, String assignmentName, LocalDateTime timestamp, File file){
+	public Assignment(User deliveredBy, String courseCode, String assignmentName, LocalDateTime timestamp, String filename){
 		this.setDeliveredBy(deliveredBy);
 		this.setCourseCode(courseCode);
 		this.setAssignmentName(assignmentName);
 		this.setTimestamp(timestamp);
 		this.setId(-1);
+		this.fileName = filename;
+	}
+	
+	public Assignment(User deliveredBy, String courseCode, String assignmentName, LocalDateTime timestamp, File file){
+		this(deliveredBy,courseCode,assignmentName,timestamp,file == null ? null : file.getName());
 		this.setFile(file);
-		this.fileName = this.getFile() == null ? null : this.getFile().getName();
 	}
 	
 	public void downloadFile() {
-		this.file = DBFile.downloadFile(this);
+		if(this.fileName != null)
+			this.file = DBFile.downloadFile(this);
+		else
+			throw new IllegalStateException("According to local information, this assignment does not have a file associated to it");
 	}
 	
 	public void openFile() {
@@ -117,4 +121,22 @@ public class Assignment{
 	public void setFileName(String fileName) {
 		this.fileName = fileName;
 	}
+	/*
+	 * Might be used for table view
+	public Button getButton() {
+		if(this.fileName == null | this.id == -1)
+			return null;
+		Button downloadButton = new Button("Download");
+		Assignment assignment = this;
+		EventHandler<ActionEvent> event = new EventHandler<ActionEvent>() { 
+            public void handle(ActionEvent e) 
+            { 
+                assignment.setFile(DBFile.downloadFile(assignment));
+                assignment.openFile();    
+            } 
+        }; 
+        downloadButton.setOnAction(event);
+		
+		return downloadButton;
+	}*/
 }
