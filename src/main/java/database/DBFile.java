@@ -28,9 +28,10 @@ public class DBFile {
 			statement.setInt(1, assignment.getId());
 			
 			result = statement.executeQuery();
-			
+			String path = System.getProperty("java.io.tmpdir").toString() + "myTA\\" + assignment.getFileName();
 			// write binary stream into file
-            File file = new File(assignment.getFileName());
+            File file = new File(path);
+            file.getParentFile().mkdirs();
             FileOutputStream output = new FileOutputStream(file);
  
             System.out.println("Writing to file " + file.getAbsolutePath());
