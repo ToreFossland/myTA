@@ -154,7 +154,7 @@ public class App extends Application {
 		loggedUser = null;
 		gotoLogin();
 	}
-
+	
 	public void gotoProfile() {
 		try {
 			String page = "pages/GenericPage.fxml";
@@ -357,7 +357,6 @@ public class App extends Application {
     		Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
     	}
     }
-
     public void gotoAddAssignment() {
     	try {
     		String page = "pages/StudentAddAssignmentPage.fxml";
@@ -479,6 +478,10 @@ public class App extends Application {
 		}
 
 		return hashtext;
+	}
+	
+	public Stage getStage() {
+		return this.stage;
 	}
 
 	public ArrayList<Booking> getDownloadedBookingsStudent() {
