@@ -44,7 +44,7 @@ public class RegisterController {
 	
 	@FXML
 	public void ConfirmButtonHandler(javafx.event.ActionEvent event) throws Exception {
-
+		confirm_registration.setDefaultButton(true); //enter-key
 		// Checks if username and password is valid. Sets to null if not.
 		String email = isValidEmail(email_input.getText()) ? email_input.getText(): null;
 		String password = password_input.getText().equals(retype_password_input.getText()) ? password_input.getText()
