@@ -37,7 +37,7 @@ public class ViewBookingInfoController {
 	public void initialize() {
 		// for (Booking booking:App.getInstance().getDownloadedBookingsStudent())
 			
-		Booking selectedBooking = getBooking(); // her må man hente booking fra noe sted
+		Booking selectedBooking = MyCalendarController.getChosenBooking(); // her må man hente booking fra noe sted
 
 		String course = selectedBooking.getCourseCode();
 		String assistantName = selectedBooking.getEmailTA();

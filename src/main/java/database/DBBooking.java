@@ -451,4 +451,62 @@ public class DBBooking extends DBConnection {
 		    try { if (con != null) con.close(); } catch (Exception e) {};
 		}
 	}
+
+	public static void downloadMyBookings() throws Exception{
+		Connection con = null;
+        PreparedStatement statement = null;
+        ResultSet result = null;
+		
+        ArrayList<Booking> myBookingsStudent = new ArrayList<Booking>();
+		ArrayList<Booking> myBookingsTA = new ArrayList<Booking>();
+		
+		User user = App.getInstance().getLoggedUser();
+		String myEmail= user.getEmail();
+		
+		BasicDataSource bds = DataSource.getInstance().getBds();
+        con = bds.getConnection();
+		statement = con
+				.prepareStatement("SELECT * FROM HallTime INNER JOIN Booking ON HallTime.idHallTime = "
+						+ "Booking.HallTime_idHallTime WHERE Student_email = '"+myEmail+"'");
+		result = statement.executeQuery();
+		while (result.next()) {
+			String CourseCode = result.getString("Course_CourseCode");
+			int week = result.getInt("week");
+			int day = result.getInt("day");
+			LocalTime timeStart = LocalTime.parse(result.getString("timeStart"));
+			LocalTime timeEnd = LocalTime.parse(result.getString("timeEnd"));
+			int availablePlaces = result.getInt("availablePlaces");
+			String emailTA = result.getString("TeachingAssistant_email");
+			// System.out.println(CourseCode + " " + week + " " + day + " " + timeStart + "
+			// " + timeEnd + " " + availablePlaces);
+			Halltime ht = new Halltime(CourseCode, week, day, timeStart, timeEnd, availablePlaces);
+			Booking booking = new Booking(ht, emailTA, user.getEmail());
+			myBookingsStudent.add(booking);
+		}
+		statement = con
+				.prepareStatement("SELECT * FROM HallTime INNER JOIN Booking ON HallTime.idHallTime = "
+						+ "Booking.HallTime_idHallTime WHERE TeachingAssistant_email = '"+myEmail+"'");
+		result =statement.executeQuery();
+		while (result.next()) {
+			String CourseCode = result.getString("Course_CourseCode");
+			int week = result.getInt("week");
+			int day = result.getInt("day");
+			LocalTime timeStart = LocalTime.parse(result.getString("timeStart"));
+			LocalTime timeEnd = LocalTime.parse(result.getString("timeEnd"));
+			int availablePlaces = result.getInt("availablePlaces");
+			String studentEmail = result.getString("Student_email");
+			// System.out.println(CourseCode + " " + week + " " + day + " " + timeStart + "
+			// " + timeEnd + " " + availablePlaces);
+			Halltime ht = new Halltime(CourseCode, week, day, timeStart, timeEnd, availablePlaces);
+			Booking booking = new Booking(ht, user.getEmail(), studentEmail);
+			myBookingsTA.add(booking);
+		}
+		
+		App.getInstance().setMyBookingsStudent(myBookingsStudent);
+		App.getInstance().setMyBookingsTA(myBookingsTA);
+		
+		
+	}
+		
+
 }

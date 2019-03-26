@@ -74,6 +74,9 @@ public class App extends Application {
 
 	private ArrayList<Booking> downloadedBookingsStudent;
 	private ArrayList<Integer> downloadedWeeksStudent;
+	
+	private ArrayList<Booking> myBookingsTA;
+	private ArrayList<Booking> myBookingsStudent;
 
 	private static App instance;
 
@@ -522,4 +525,20 @@ public class App extends Application {
 	public void setMyTimeSchedule(TimeSchedule myTimeSchedule) {
 		this.myTimeSchedule = myTimeSchedule;
 	}
+	
+	public ArrayList<Booking> getMyBookingsTA() {
+		return myBookingsTA;
+	}
+
+	public void setMyBookingsTA(ArrayList<Booking> myBookingsTA) {
+		this.myBookingsTA = myBookingsTA;
+	}
+	public ArrayList<Booking> getMyBookingsStudent() {
+		return myBookingsStudent;
+	}
+
+	public void setMyBookingsStudent(ArrayList<Booking> myBookingsStudent) {
+		this.myBookingsStudent = myBookingsStudent;
+	}
+
 }

@@ -513,9 +513,11 @@ public class MyCalendarController {
 	List<Booking> studentBookings;
 	List<Booking> taBookings;
 	
-	Booking chosenBooking;
+	static Booking chosenBooking;
 	@FXML
 	public void initialize() {
+		
+		
 		HBox[][] boxesInitialized = {
 			{
 				box1, box2, box3, box4, box5, box6, box7, box8, box9, box10, box11,
@@ -559,42 +561,58 @@ public class MyCalendarController {
 		//Fiks denne
 		List<Integer> availableWeeks = App.getInstance().getDownloadedWeeksStudent();
 		Collections.sort(availableWeeks);
-		
+		System.out.println(availableWeeks);
 		week_input.getItems().addAll(availableWeeks);
-		studentBookings = App.getInstance().getDownloadedBookingsStudent();
-		taBookings = App.getInstance().getDownloadedBookingsTA();
+	
+		studentBookings = App.getInstance().getMyBookingsStudent();
+		taBookings = App.getInstance().getMyBookingsTA();
 		for (Integer week : availableWeeks) {
 			System.out.println(Integer.toString(week));
 			if (week >= getCurrentWeek()) {
 				week_input.setValue(week);
+				
 				break;
 			}
 		}
-		
 		loadCalendar();
 		
 	}
 		
 	
 	public void loadCalendar() {
+		emptyCalendar();
 		int week = week_input.getValue();
 		int bookingNo=0;
 		for(Booking booking : studentBookings) {
 			if (booking.getWeek()==week) {
 				bookingNo = (booking.getStartTime().getHour() -8) * 2 + booking.getStartTime().getMinute() / BOOKINGLENGTH; 
-				boxes[booking.getDay() - 1][bookingNo].setStyle("-fx-control-inner-background: #"+Paint.valueOf("ff76ad").toString().substring(2));
-				text[booking.getDay() - 1][bookingNo].setText(booking.getEmailTA() + " " + booking.getCourseCode());
+				boxes[booking.getDay() - 1][bookingNo].setStyle("-fx-background-color: #FF76AD");
+				text[booking.getDay() - 1][bookingNo].setText(booking.getCourseCode());
 			}
 		}
+		
 		for(Booking booking : taBookings) {
 			if (booking.getWeek()==week) {
 				bookingNo = (booking.getStartTime().getHour() -8) * 2 + booking.getStartTime().getMinute() / BOOKINGLENGTH; 
-				boxes[booking.getDay() - 1][bookingNo].setStyle("-fx-control-inner-background: #"+Paint.valueOf("ffc550").toString().substring(2));
-				text[booking.getDay() - 1][bookingNo].setText(booking.getEmailStudent() + " " + booking.getCourseCode());
+				boxes[booking.getDay() - 1][bookingNo].setStyle("-fx-background-color: #FFC550");
+				text[booking.getDay() - 1][bookingNo].setText(booking.getCourseCode());
 			}
 		}
-	}
 		
+	}
+	public void emptyCalendar() {
+		System.out.println(boxes.length);
+		for (int i = 0; i < boxes.length; i++) {
+			for (int j = 0; j < boxes[i].length; j++) {
+				System.out.println(boxes[i].length);
+				System.out.println(boxes[i][j]);
+				boxes[i][j].setStyle(null);
+				text[i][j].setText(null);
+			}
+			System.out.println("ferdig1");
+		}
+		System.out.println("ferdig");
+	}
 	public void weekInputHandler(ActionEvent event) {
 		loadCalendar();
 		}
@@ -607,6 +625,13 @@ public class MyCalendarController {
 			
 		}
 		*/
+	}
+	
+	public static Booking getChosenBooking() {
+		return chosenBooking;
+	}
+	public void onClickGetInfo() {
+		System.out.println(text2.getUserData());
 	}
 		/*	
 		for (int i = 0; i < boxes.length; i++) {
