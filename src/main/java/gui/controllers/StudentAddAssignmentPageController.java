@@ -12,6 +12,7 @@ import gui.App;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
 public class StudentAddAssignmentPageController {
@@ -24,6 +25,9 @@ public class StudentAddAssignmentPageController {
 	
 	@FXML
 	Button upload_assignment;
+	
+	@FXML 
+	Label upload_successful;
 	
 	@FXML
 	ChoiceBox<String> course_input;
@@ -48,8 +52,10 @@ public class StudentAddAssignmentPageController {
 	}
 	
 	public void uploadHandler(javafx.event.ActionEvent event) {
+		upload_assignment.setDefaultButton(true); //enter-key
 		Assignment assignment = new Assignment(App.getInstance().getLoggedUser(), course_input.getValue(), user_input.getText(), LocalDateTime.now());
 		DBEvaluation.insertAssignment(assignment);
+		upload_successful.setVisible(true);
 	}
 
 }
