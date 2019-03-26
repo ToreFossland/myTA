@@ -340,6 +340,7 @@ public class DBBooking extends DBConnection {
 					availableBookingsStudent.add(booking);
 				}
 				App.getInstance().setDownloadedBookingsStudent(availableBookingsStudent);
+				System.out.println(weeksStudent + "yes");
 				App.getInstance().setDownloadedWeeksStudent(weeksStudent);
 			} else if (App.getInstance().getLoggedUser().getType() == 2) {
 				statement = con
