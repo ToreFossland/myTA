@@ -120,7 +120,10 @@ public class AssistantChooseTime {
 		bookings = App.getInstance().getDownloadedBookingsTA();
 
 		List<Integer> availableWeeks = App.getInstance().getDownloadedWeeksTA();
-		Collections.sort(availableWeeks);
+		System.out.println(availableWeeks);
+		if(!availableWeeks.isEmpty()){
+			Collections.sort(availableWeeks);
+		}
 
 		week_input.getItems().addAll(availableWeeks);
 
@@ -151,12 +154,14 @@ public class AssistantChooseTime {
 				checkbox.setSelected(false);
 			}
 		}
-		int week = week_input.getValue();
-		// Enables checkbox one by one
-		for (Booking booking : bookings) {
-			if (booking.getCourseCode().equals(course_input.getValue()) && booking.getWeek() == week
-					&& booking.getStartTime().getHour() % 2 == 0 && booking.getStartTime().getMinute() == 0) {
-				checkboxes[booking.getDay() - 1][(booking.getStartTime().getHour() - 8) / 2].setDisable(false);
+		if(week_input.getValue() != null) {
+			int week = week_input.getValue();
+			// Enables checkbox one by one
+			for (Booking booking : bookings) {
+				if (booking.getCourseCode().equals(course_input.getValue()) && booking.getWeek() == week
+						&& booking.getStartTime().getHour() % 2 == 0 && booking.getStartTime().getMinute() == 0) {
+					checkboxes[booking.getDay() - 1][(booking.getStartTime().getHour() - 8) / 2].setDisable(false);
+				}
 			}
 		}
 	}

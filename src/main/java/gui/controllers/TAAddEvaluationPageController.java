@@ -22,6 +22,9 @@ public class TAAddEvaluationPageController {
 	TextField set_score;
 	
 	@FXML
+	TextField set_comment;
+	
+	@FXML
 	Text student_email;
 	
 	@FXML
@@ -71,10 +74,18 @@ public class TAAddEvaluationPageController {
 			if (score>=0 && score<=100) {
 				Assignment selectedAssignment = AssignmentInbox.getSelectedAssignment();
 				User evaluator = App.getInstance().getLoggedUser();
-				
-				Evaluation eval = new Evaluation(score,evaluator,selectedAssignment);
-				EvaluationSender.sendEvaluation(eval);
-				App.getInstance().gotoTAViewEvaluationsPage();
+				if(set_comment.getText() != null) {
+					String comment = set_comment.getText();
+					Evaluation eval = new Evaluation(score,evaluator,selectedAssignment, comment);
+					EvaluationSender.sendEvaluation(eval);
+					App.getInstance().gotoTAViewEvaluationsPage();
+				}
+				else{
+					Evaluation eval = new Evaluation(score,evaluator,selectedAssignment);
+					EvaluationSender.sendEvaluation(eval);
+					App.getInstance().gotoTAViewEvaluationsPage();
+				}
+			
 			}
 			text_response.setText("Write a number between 0 and 100");
 		}

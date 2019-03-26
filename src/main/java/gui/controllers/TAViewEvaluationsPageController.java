@@ -51,6 +51,9 @@ public class TAViewEvaluationsPageController {
 				relevantCourses.add(course);
 		}
 		chooseSubject.getItems().addAll(relevantCourses);
+		if(!relevantCourses.isEmpty()) {
+			chooseSubject.setValue(relevantCourses.get(0));;
+		}
 	}
 	
 	public void onSubjectChoice() {
