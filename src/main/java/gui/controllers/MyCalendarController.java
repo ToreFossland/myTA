@@ -16,7 +16,10 @@ import halltimes.Booking;
 import halltimes.Halltime;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Text;
@@ -506,6 +509,9 @@ public class MyCalendarController {
 	@FXML
 	ComboBox<Integer> week_input;
 	
+	@FXML
+	Button button_return;
+	
 	HBox[][] boxes;
 	Text[][] text;
 	
@@ -513,7 +519,7 @@ public class MyCalendarController {
 	List<Booking> studentBookings;
 	List<Booking> taBookings;
 	
-	static Booking chosenBooking;
+	private static Booking chosenBooking;
 	@FXML
 	public void initialize() {
 		
@@ -561,13 +567,11 @@ public class MyCalendarController {
 		//Fiks denne
 		List<Integer> availableWeeks = App.getInstance().getDownloadedWeeksStudent();
 		Collections.sort(availableWeeks);
-		System.out.println(availableWeeks);
 		week_input.getItems().addAll(availableWeeks);
 	
 		studentBookings = App.getInstance().getMyBookingsStudent();
 		taBookings = App.getInstance().getMyBookingsTA();
 		for (Integer week : availableWeeks) {
-			System.out.println(Integer.toString(week));
 			if (week >= getCurrentWeek()) {
 				week_input.setValue(week);
 				
@@ -583,20 +587,26 @@ public class MyCalendarController {
 		emptyCalendar();
 		int week = week_input.getValue();
 		int bookingNo=0;
+		int index =0;
 		for(Booking booking : studentBookings) {
 			if (booking.getWeek()==week) {
 				bookingNo = (booking.getStartTime().getHour() -8) * 2 + booking.getStartTime().getMinute() / BOOKINGLENGTH; 
 				boxes[booking.getDay() - 1][bookingNo].setStyle("-fx-background-color: #FF76AD");
+				boxes[booking.getDay() -1][bookingNo].setUserData(("s"+index));
 				text[booking.getDay() - 1][bookingNo].setText(booking.getCourseCode());
 			}
+			index++; 
 		}
-		
+		index=0;
 		for(Booking booking : taBookings) {
 			if (booking.getWeek()==week) {
 				bookingNo = (booking.getStartTime().getHour() -8) * 2 + booking.getStartTime().getMinute() / BOOKINGLENGTH; 
 				boxes[booking.getDay() - 1][bookingNo].setStyle("-fx-background-color: #FFC550");
+				//boxes[booking.getDay() -1][bookingNo].setUserData(booking);
+				boxes[booking.getDay() -1][bookingNo].setUserData("t"+index);
 				text[booking.getDay() - 1][bookingNo].setText(booking.getCourseCode());
 			}
+			index++;
 		}
 		
 	}
@@ -604,68 +614,83 @@ public class MyCalendarController {
 		System.out.println(boxes.length);
 		for (int i = 0; i < boxes.length; i++) {
 			for (int j = 0; j < boxes[i].length; j++) {
-				System.out.println(boxes[i].length);
-				System.out.println(boxes[i][j]);
 				boxes[i][j].setStyle(null);
 				text[i][j].setText(null);
 			}
-			System.out.println("ferdig1");
 		}
-		System.out.println("ferdig");
 	}
 	public void weekInputHandler(ActionEvent event) {
 		loadCalendar();
 		}
 		
-	public void onClickTime(ActionEvent event) {
-		//tiss = event.getSource();
-		System.out.println(event.getSource().toString());
-		/*
-		if(event.getSource().toString()!=null) {
-			
-		}
-		*/
-	}
 	
 	public static Booking getChosenBooking() {
 		return chosenBooking;
 	}
-	public void onClickGetInfo() {
-		System.out.println(text2.getUserData());
+	public void setChosenBooking(Booking chosen) {
+		chosenBooking = chosen;
 	}
-		/*	
-		for (int i = 0; i < boxes.length; i++) {
-			for (int j = 0; j < boxes[i].length; j++) {
-				LocalTime timeStart = LocalTime.of(8 + j / 2, ((j) % 2)*BOOKINGLENGTH, 0);
-				LocalTime timeEnd = timeStart.plusMinutes(BOOKINGLENGTH);
-				int week = week_input.getValue();
-				int bookingNo=0;
-				for(Booking booking : studentBookings) {
-					if (booking.getWeek()==week) {
-						bookingNo = (booking.getStartTime().getHour() -8) * 2 + booking.getStartTime().getMinute() / BOOKINGLENGTH; 
-						boxes[booking.getDay() - 1][bookingNo].setStyle("-fx-control-inner-background: #"+Paint.valueOf("00FF69").toString().substring(2));
-						text[booking.getDay() - 1][bookingNo].setText(booking.getEmailTA() + " " + booking.getCourseCode());
-					}
-				}
-				if (boxes[i][j].isSelected()) {
-					LocalTime timeStart = LocalTime.of(8 + j / 2, ((j) % 2)*BOOKINGLENGTH, 0);
-					LocalTime timeEnd = timeStart.plusMinutes(BOOKINGLENGTH);
-					
-					Halltime newHT = new Halltime(course_input.getValue(), week_input.getValue(), i+1, timeStart, timeEnd, 0);
-					Booking booking = new Booking(newHT, null, App.getInstance().getLoggedUser().getEmail());
-					bookings.add(booking);
-				}
+	
+	public void onClickGetInfo(MouseEvent event) {
+		String box = event.getSource().toString();
+
+		int boxnummer=0;
+		if (box.length()==13) {
+			String numberasstring = Character.toString(box.charAt(11));
+			boxnummer = Integer.parseInt(numberasstring);
+		}
+		else if (box.length()==14) {
+			boxnummer = Integer.valueOf(box.substring(11, 13));
+		}
+		
+		System.out.println("Boxnummer= "+ boxnummer);
+		
+		int i=0;
+		int j=0;
+		if (boxnummer<=16) {
+			i=0;
+			j=boxnummer-1;
+		}
+		else if (boxnummer>16 && boxnummer<=32) {
+			i=1;
+			j=boxnummer-17;
+		}
+		else if (boxnummer>32 && boxnummer<=48) {
+			i=2;
+			j=boxnummer-33;
+		}
+		else if (boxnummer>48 && boxnummer<=64) {
+			i=3;
+			j=boxnummer-49;
+		}
+		else {
+			i=4;
+			j=boxnummer-65;
+		}
+		
+		if(boxes[i][j].getUserData()!=null) {
+			System.out.println(boxes[i][j].getUserData().toString());
+			String boxdata = boxes[i][j].getUserData().toString();
+			System.out.println(boxdata.charAt(0));
+			if(boxdata.charAt(0)=='s') {
+				int index = Integer.valueOf(boxdata.substring(1));
+				Booking chosen = studentBookings.get(index);
+				setChosenBooking(chosen);
+				//App.getInstance().goto
+				
+			}
+			else if(boxdata.charAt(0)=='t') {
+				int index= Integer.valueOf(boxdata.substring(1));
+				Booking chosen = taBookings.get(index);
+				setChosenBooking(chosen);
+				//App.getInstance().goto
+				
 			}
 			
 		}
-		*/
-		/*
-		int week = week_input.getValue();
-		for (HBox[] boxRow : boxes) {
-			for (HBox box : boxRow) {
-				if ()
-			}
-		*/
+		
+		
+	}
 	
 	
 	private int getCurrentWeek() {
@@ -675,11 +700,12 @@ public class MyCalendarController {
 	}
 	
 	@FXML
-	public void onClickGoToPrevious() {
+	public void returnHandler() {
 		App.getInstance().gotoPrevious();
 	}
 	
 	
+
 	
 
 }
