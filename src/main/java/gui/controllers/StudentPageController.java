@@ -60,7 +60,7 @@ public class StudentPageController {
 		return hasSubjects;
 	}
 	public void bookTAHandler() throws Exception {
-		DBBooking.downloadBookings();
+		DBBooking.downloadBookings(App.getInstance().getLoggedUser());
 		if(subjectsExist()) {
 			App.getInstance().gotoBookingForStudent();
 		}

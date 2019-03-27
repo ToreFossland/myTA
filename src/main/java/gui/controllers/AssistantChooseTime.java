@@ -118,12 +118,11 @@ public class AssistantChooseTime {
 				relevantCourses.add(course);
 		}
 		course_input.getItems().addAll(relevantCourses);
-		App.getInstance().refreshBookingWeeks(relevantCourses.get(0));
-		System.out.println(App.getInstance().getDownloadedBookingsTA() + "pid");
+		DBBooking.refreshBookingWeeks(relevantCourses.get(0));
 
-		bookings = App.getInstance().getDownloadedBookingsTA();
+		bookings = DBBooking.getDownloadedBookingsTA();
 
-		List<Integer> availableWeeks = App.getInstance().getDownloadedWeeksTA();
+		List<Integer> availableWeeks = DBBooking.getDownloadedWeeksTA();
 		System.out.println(availableWeeks);
 		if(availableWeeks != null){
 			Collections.sort(availableWeeks);
@@ -156,8 +155,8 @@ public class AssistantChooseTime {
 			}
 		}
 		
-		App.getInstance().refreshBookingWeeks(course_input.getValue());
-		List<Integer> availableWeeks = App.getInstance().getDownloadedWeeksTA();
+		DBBooking.refreshBookingWeeks(course_input.getValue());
+		List<Integer> availableWeeks = DBBooking.getDownloadedWeeksTA();
 		Collections.sort(availableWeeks);
 		
 		week_input.getItems().setAll(availableWeeks);
@@ -211,8 +210,8 @@ public class AssistantChooseTime {
 //				}
 //			}
 		
-		App.getInstance().refreshBookingWeeks(course_input.getValue());
-		List<Integer> availableWeeks = App.getInstance().getDownloadedWeeksTA();
+		DBBooking.refreshBookingWeeks(course_input.getValue());
+		List<Integer> availableWeeks = DBBooking.getDownloadedWeeksTA();
 		Collections.sort(availableWeeks);
 		if(!availableWeeks.isEmpty()) {
 			if(week_input.getValue() == null) {
@@ -260,11 +259,11 @@ public class AssistantChooseTime {
 			DBBooking.addHalltimesTA(bookings);
 			confirm_label.setText("Assistant times added!");
 			System.out.println(bookings);
-			ArrayList<Booking> tempBooking = App.getInstance().getDownloadedBookingsTA();
+			ArrayList<Booking> tempBooking = DBBooking.getDownloadedBookingsTA();
 			ArrayList<Booking> deleteList = new ArrayList<Booking>();
 			System.out.println(tempBooking.size());
 			for(Booking booking : bookings) {
-				for(Booking booking2 : App.getInstance().getDownloadedBookingsTA()) {
+				for(Booking booking2 : DBBooking.getDownloadedBookingsTA()) {
 					if(booking.compareTo(booking2) == 1) {
 						System.out.println(deleteList.add(booking2)	);
 						System.out.println("suksess");
@@ -272,7 +271,7 @@ public class AssistantChooseTime {
 				}
 			}
 			tempBooking.removeAll(deleteList);
-			App.getInstance().setDownloadedBookingsTA(tempBooking);
+			DBBooking.setDownloadedBookingsTA(tempBooking);
 			loadAvailableTimes();
 			
 		} catch (Exception e) {

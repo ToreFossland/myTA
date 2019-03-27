@@ -68,12 +68,6 @@ public class App extends Application {
 
 	private Stack<String> pagesHistory;
 
-	private ArrayList<Booking> downloadedBookingsTA; // Fjerne booking fra denne on confirm
-	private ArrayList<Integer> downloadedWeeksTA;
-
-	private ArrayList<Booking> downloadedBookingsStudent;
-	private ArrayList<Integer> downloadedWeeksStudent;
-
 	private static App instance;
 
 	public App() {
@@ -125,7 +119,7 @@ public class App extends Application {
 		if (success) {
 			loggedUser = DBConnection.returnUserObject(email);
 			if (loggedUser.getType() == 1 | loggedUser.getType() == 2) {
-				DBBooking.downloadBookings();
+				DBBooking.downloadBookings(getLoggedUser());
 			}
 			return true;
 		} else {
@@ -484,63 +478,6 @@ public class App extends Application {
 		return this.stage;
 	}
 
-	public ArrayList<Booking> getDownloadedBookingsStudent() {
-		return downloadedBookingsStudent;
-	}
-
-	public void setDownloadedBookingsStudent(ArrayList<Booking> downloadedBookingsStudent) {
-		this.downloadedBookingsStudent = downloadedBookingsStudent;
-	}
-
-	public ArrayList<Integer> getDownloadedWeeksStudent() {
-		return downloadedWeeksStudent;
-	}
-
-	public void setDownloadedWeeksStudent(ArrayList<Integer> downloadedWeeksStudent) {
-		this.downloadedWeeksStudent = downloadedWeeksStudent;
-	}
-
-	public ArrayList<Booking> getDownloadedBookingsTA() {
-		return downloadedBookingsTA;
-	}
-
-	public void setDownloadedBookingsTA(ArrayList<Booking> downloadedBookingsTA) {
-		this.downloadedBookingsTA = downloadedBookingsTA;
-	}
-
-	public ArrayList<Integer> getDownloadedWeeksTA() {
-		return downloadedWeeksTA;
-	}
-
-	public void setDownloadedWeeksTA(ArrayList<Integer> downloadedWeeksTA) {
-		this.downloadedWeeksTA = downloadedWeeksTA;
-	}
 	
-	public void refreshBookingWeeks(String courseCode) {
-		ArrayList<Integer> weekStudent = new ArrayList<Integer>();
-		ArrayList<Integer> weekTA = new ArrayList<Integer>();
-		System.out.println("hallo");
-		if(getDownloadedBookingsTA() != null) {
-			System.out.println("heiiiii");
-			for(Booking booking:getDownloadedBookingsTA()) {
-				if(!weekTA.contains(booking.getWeek()) && booking.getCourseCode().equals(courseCode)) {
-					weekTA.add(booking.getWeek());
-					}
-				}
-			if(weekTA != null) {
-				setDownloadedWeeksTA(weekTA);
-			}
-		}
-		
-		if(getDownloadedBookingsStudent() != null) {
-		for(Booking booking:getDownloadedBookingsStudent()) {
-			if(!weekStudent.contains(booking.getWeek()) && booking.getCourseCode().equals(courseCode)) {
-				weekStudent.add(booking.getWeek());
-				}
-			}
-		if(weekStudent != null) {
-			setDownloadedWeeksStudent(weekStudent);
-		}
-	}
-	}
+
 }
