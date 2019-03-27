@@ -38,7 +38,6 @@ import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Stack;
@@ -50,13 +49,13 @@ import org.apache.commons.dbcp2.BasicDataSource;
 import database.DBBooking;
 import database.DBConnection;
 import database.DataSource;
-import halltimes.Booking;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.JavaFXBuilderFactory;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import timeschedule.TimeSchedule;
 import user.*;
 
 /**
@@ -67,6 +66,8 @@ public class App extends Application {
 	private User loggedUser;
 
 	private Stack<String> pagesHistory;
+	
+	TimeSchedule myTimeSchedule;
 
 	private static App instance;
 
@@ -92,10 +93,13 @@ public class App extends Application {
 			stage = primaryStage;
 			gotoFrontPage();
 			primaryStage.show();
-
 		} catch (Exception ex) {
 			Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
 		}
+	}
+	
+	public Stage getStage() {
+		return this.stage;
 	}
 
 	public User getLoggedUser() {
@@ -120,6 +124,8 @@ public class App extends Application {
 			loggedUser = DBConnection.returnUserObject(email);
 			if (loggedUser.getType() == 1 | loggedUser.getType() == 2) {
 				DBBooking.downloadBookings(getLoggedUser());
+				TimeSchedule ts = new TimeSchedule(loggedUser, DBBooking.getBookingsStudent(), DBBooking.getBookingsTA());
+				setMyTimeSchedule(ts);
 			}
 			return true;
 		} else {
@@ -147,6 +153,7 @@ public class App extends Application {
 	public void userLogout() {
 		loggedUser = null;
 		gotoLogin();
+
 	}
 	
 	public void gotoProfile() {
@@ -321,6 +328,7 @@ public class App extends Application {
         }
     }
     
+
     public void gotoStudentAddOrView() {
     	try {
     		String page = "pages/StudentAddOrViewPage.fxml";
@@ -351,6 +359,24 @@ public class App extends Application {
     		Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
     	}
     }
+    public void gotoBookingInfoStudent() {
+		try {
+			String page = "pages/BookingInfoStudent.fxml";
+			pagesHistory.push(page);
+			replaceSceneContent(page);
+		} catch (Exception ex) {
+			Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
+		}
+	}
+    public void gotoBookingInfoTA() {
+		try {
+			String page = "pages/BookingInfoTA.fxml";
+			pagesHistory.push(page);
+			replaceSceneContent(page);
+		} catch (Exception ex) {
+			Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
+		}
+	}
     public void gotoAddAssignment() {
     	try {
     		String page = "pages/StudentAddAssignmentPage.fxml";
@@ -429,7 +455,9 @@ public class App extends Application {
 			} catch (Exception e) {
 			}
 			;
+
 		}
+
 		return match;
  }
 
@@ -473,11 +501,14 @@ public class App extends Application {
 
 		return hashtext;
 	}
-	
-	public Stage getStage() {
-		return this.stage;
+
+
+	public TimeSchedule getMyTimeSchedule() {
+		return myTimeSchedule;
 	}
 
-	
+	public void setMyTimeSchedule(TimeSchedule myTimeSchedule) {
+		this.myTimeSchedule = myTimeSchedule;
+	}
 
 }

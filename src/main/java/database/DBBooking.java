@@ -391,6 +391,7 @@ public class DBBooking extends DBConnection {
 //				App.getInstance().setDownloadedWeeksTA(weeksTA);
 
 	}
+<<<<<<< HEAD
 	*/
 	
 	public static void downloadBookings(User user) {
@@ -570,6 +571,36 @@ public class DBBooking extends DBConnection {
 		}
 	}
 	
+	//Used by calendar
+	public static void refreshBookingWeeks(User user) {
+
+		ArrayList<Integer> weeksStudent = new ArrayList<Integer>();
+
+
+		if (getBookingsStudent() != null) {
+			for (Booking booking : getBookingsStudent()) {
+				if (!weeksStudent.contains(booking.getWeek())) {
+					weeksStudent.add(booking.getWeek());
+				}
+			}
+			setWeeksStudent(weeksStudent);
+		}
+
+		if (user.getType() == 2) {
+			ArrayList<Integer> weeksTA = new ArrayList<Integer>();
+
+
+			if (getBookingsTA() != null) {
+				for (Booking booking : getAvailableBookingsTA()) {
+					if (!weeksTA.contains(booking.getWeek())) {
+						weeksTA.add(booking.getWeek());
+					}
+				}
+				setWeeksTA(weeksTA);
+			}
+		}
+	}
+	
 
 	public static ArrayList<Booking> getBookingsTA() {
 		return bookingsTA;
@@ -666,6 +697,119 @@ public class DBBooking extends DBConnection {
 		
 		return number;
 	}*/
+/*
+	public static void downloadMyBookings() throws Exception{
+		Connection con = null;
+        PreparedStatement statement = null;
+        ResultSet result = null;
+		
+        ArrayList<Booking> myBookingsStudent = new ArrayList<Booking>();
+		ArrayList<Booking> myBookingsTA = new ArrayList<Booking>();
+		
+		User user = App.getInstance().getLoggedUser();
+		String myEmail= user.getEmail();
+		
+		BasicDataSource bds = DataSource.getInstance().getBds();
+        con = bds.getConnection();
+		statement = con
+				.prepareStatement("SELECT * FROM HallTime INNER JOIN Booking ON HallTime.idHallTime = "
+						+ "Booking.HallTime_idHallTime WHERE Student_email = '"+myEmail+"'");
+		result = statement.executeQuery();
+		while (result.next()) {
+			String CourseCode = result.getString("Course_CourseCode");
+			int week = result.getInt("week");
+			int day = result.getInt("day");
+			LocalTime timeStart = LocalTime.parse(result.getString("timeStart"));
+			LocalTime timeEnd = LocalTime.parse(result.getString("timeEnd"));
+			int availablePlaces = result.getInt("availablePlaces");
+			String emailTA = result.getString("TeachingAssistant_email");
+			// System.out.println(CourseCode + " " + week + " " + day + " " + timeStart + "
+			// " + timeEnd + " " + availablePlaces);
+			Halltime ht = new Halltime(CourseCode, week, day, timeStart, timeEnd, availablePlaces);
+			Booking booking = new Booking(ht, emailTA, user.getEmail());
+			myBookingsStudent.add(booking);
+		}
+		statement = con
+				.prepareStatement("SELECT * FROM HallTime INNER JOIN Booking ON HallTime.idHallTime = "
+						+ "Booking.HallTime_idHallTime WHERE TeachingAssistant_email = '"+myEmail+"'");
+		result =statement.executeQuery();
+		while (result.next()) {
+			String CourseCode = result.getString("Course_CourseCode");
+			int week = result.getInt("week");
+			int day = result.getInt("day");
+			LocalTime timeStart = LocalTime.parse(result.getString("timeStart"));
+			LocalTime timeEnd = LocalTime.parse(result.getString("timeEnd"));
+			int availablePlaces = result.getInt("availablePlaces");
+			String studentEmail = result.getString("Student_email");
+			// System.out.println(CourseCode + " " + week + " " + day + " " + timeStart + "
+			// " + timeEnd + " " + availablePlaces);
+			Halltime ht = new Halltime(CourseCode, week, day, timeStart, timeEnd, availablePlaces);
+			Booking booking = new Booking(ht, user.getEmail(), studentEmail);
+			myBookingsTA.add(booking);
+		}
+		
+		setMyBookingsStudent(myBookingsStudent);
+		setMyBookingsTA(myBookingsTA);
+		
+		
+	}*/
+		
+	public static void deleteBooking(Booking booking) throws Exception {
+		
+        
+try {
+	BasicDataSource bds = DataSource.getInstance().getBds();
+	con = bds.getConnection();
+	statement = con.prepareStatement(String.format(
+			"SELECT idHallTime FROM HallTime WHERE Course_courseCode = '%s' "
+					+ "AND week = '%s' AND day = '%s'AND timeStart = '%s' AND timeEnd = '%s' ",
+			booking.getCourseCode(), booking.getWeek(), booking.getDay(), booking.getStartTime(),
+			booking.getEndTime()));
+
+	result = statement.executeQuery();
+	result.next();
+	int idHallTime = result.getInt("idHallTime");
+	PreparedStatement deleteBooking = con.prepareStatement(
+			"DELETE FROM Booking WHERE Halltime_idHalltime ='" + idHallTime + "' " + "AND Student_email ='"
+					+ booking.getEmailStudent() + "' AND TeachingAssistant_email = '" + booking.getEmailTA() + "'");
+
+	deleteBooking.execute();
+	con.close();
+} catch (Exception e) {
+	// TODO: handle exception
+} finally {
+	try { if (result != null) result.close(); } catch (Exception e) {};
+    try { if (statement != null) statement.close(); } catch (Exception e) {};
+    try { if (con != null) con.close(); } catch (Exception e) {};
+}
+
+		
+		
+		
+	}
+
+	/*
+	public static ArrayList<Booking> getMyBookingsTA() {
+		return myBookingsTA;
+	}
+
+	public static void setMyBookingsTA(ArrayList<Booking> bookingsTA) {
+		myBookingsTA = bookingsTA;
+	}
+	public static ArrayList<Booking> getMyBookingsStudent() {
+		return myBookingsStudent;
+	}
+
+	public static void setMyBookingsStudent(ArrayList<Booking> bookingsStudent) {
+		myBookingsStudent = bookingsStudent;
+	}
+*/
+	public static void removeBookingStudent(Booking booking) {
+		bookingsStudent.remove(booking);
+	}
+	public static void removeBookingTA(Booking booking) {
+		bookingsTA.remove(booking);
+	}
 }
 
 	/*

@@ -1,3 +1,4 @@
+
 package gui.controllers;
 
 import java.util.Iterator;
@@ -33,6 +34,11 @@ public class StudentPageController {
 	@FXML
 	Label booking_response;
 	
+	@FXML
+	Button button_my_calendar;
+
+	
+	
 	public void logoutHandler(javafx.event.ActionEvent event) throws Exception {
 		App.getInstance().gotoLogin();;
 	}
@@ -43,6 +49,11 @@ public class StudentPageController {
 			App.getInstance().gotoAssistantPage();
 		}
 		
+	}
+	
+	public void myCalendarHandler(javafx.event.ActionEvent event) throws Exception {
+		DBBooking.downloadBookings(App.getInstance().getLoggedUser());
+		App.getInstance().gotoMyCalendar();
 	}
 	
 	public boolean subjectsExist(){
