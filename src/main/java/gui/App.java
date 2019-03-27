@@ -519,14 +519,14 @@ public class App extends Application {
 	public void refreshBookingWeeks(String courseCode) {
 		ArrayList<Integer> weekStudent = new ArrayList<Integer>();
 		ArrayList<Integer> weekTA = new ArrayList<Integer>();
-		
+		System.out.println("hallo");
 		if(getDownloadedBookingsTA() != null) {
+			System.out.println("heiiiii");
 			for(Booking booking:getDownloadedBookingsTA()) {
 				if(!weekTA.contains(booking.getWeek()) && booking.getCourseCode().equals(courseCode)) {
 					weekTA.add(booking.getWeek());
 					}
 				}
-			System.out.println(weekTA);
 			if(weekTA != null) {
 				setDownloadedWeeksTA(weekTA);
 			}
