@@ -107,7 +107,7 @@ public class AssistantChooseTime {
 	@FXML
 	public void initialize() {
 		initCheckboxes();
-
+		
 		// Fills course choicebox
 		Map<String, Integer> allCourses = App.getInstance().getLoggedUser().getMyCourses();
 		List<String> relevantCourses = new ArrayList<String>();
@@ -118,11 +118,11 @@ public class AssistantChooseTime {
 				relevantCourses.add(course);
 		}
 		course_input.getItems().addAll(relevantCourses);
-		DBBooking.refreshBookingWeeks(relevantCourses.get(0));
+		DBBooking.refreshBookingWeeks(App.getInstance().getLoggedUser(),relevantCourses.get(0));
 
-		bookings = DBBooking.getDownloadedBookingsTA();
+		bookings = DBBooking.getAvailableBookingsTA();
 
-		List<Integer> availableWeeks = DBBooking.getDownloadedWeeksTA();
+		List<Integer> availableWeeks = DBBooking.getAvailableWeeksTA();
 		System.out.println(availableWeeks);
 		if(availableWeeks != null){
 			Collections.sort(availableWeeks);
@@ -154,22 +154,24 @@ public class AssistantChooseTime {
 				checkbox.setSelected(false);
 			}
 		}
-		
-		DBBooking.refreshBookingWeeks(course_input.getValue());
-		List<Integer> availableWeeks = DBBooking.getDownloadedWeeksTA();
-		Collections.sort(availableWeeks);
-		
-		week_input.getItems().setAll(availableWeeks);
-		if(!availableWeeks.isEmpty()) {
-			week_input.setValue(availableWeeks.get(0));
-		}
-		for (Integer week : availableWeeks) {
-			if (week >= getCurrentWeek()) {
-				week_input.setValue(week);
-				break;
+
+		DBBooking.refreshBookingWeeks(App.getInstance().getLoggedUser(), course_input.getValue());
+		List<Integer> availableWeeks = DBBooking.getAvailableWeeksTA();
+		if (availableWeeks != null) {
+			Collections.sort(availableWeeks);
+
+			week_input.getItems().setAll(availableWeeks);
+			if (!availableWeeks.isEmpty()) {
+				week_input.setValue(availableWeeks.get(0));
 			}
+			for (Integer week : availableWeeks) {
+				if (week >= getCurrentWeek()) {
+					week_input.setValue(week);
+					break;
+				}
 			}
 		}
+	}
 		
 		
 //		if(week_input.getValue() != null) {
@@ -210,8 +212,8 @@ public class AssistantChooseTime {
 //				}
 //			}
 		
-		DBBooking.refreshBookingWeeks(course_input.getValue());
-		List<Integer> availableWeeks = DBBooking.getDownloadedWeeksTA();
+		DBBooking.refreshBookingWeeks(App.getInstance().getLoggedUser(), course_input.getValue());
+		List<Integer> availableWeeks = DBBooking.getAvailableWeeksTA();
 		Collections.sort(availableWeeks);
 		if(!availableWeeks.isEmpty()) {
 			if(week_input.getValue() == null) {
@@ -259,11 +261,11 @@ public class AssistantChooseTime {
 			DBBooking.addHalltimesTA(bookings);
 			confirm_label.setText("Assistant times added!");
 			System.out.println(bookings);
-			ArrayList<Booking> tempBooking = DBBooking.getDownloadedBookingsTA();
+			ArrayList<Booking> tempBooking = DBBooking.getAvailableBookingsTA();
 			ArrayList<Booking> deleteList = new ArrayList<Booking>();
 			System.out.println(tempBooking.size());
 			for(Booking booking : bookings) {
-				for(Booking booking2 : DBBooking.getDownloadedBookingsTA()) {
+				for(Booking booking2 : DBBooking.getAvailableBookingsTA()) {
 					if(booking.compareTo(booking2) == 1) {
 						System.out.println(deleteList.add(booking2)	);
 						System.out.println("suksess");
@@ -271,7 +273,7 @@ public class AssistantChooseTime {
 				}
 			}
 			tempBooking.removeAll(deleteList);
-			DBBooking.setDownloadedBookingsTA(tempBooking);
+			DBBooking.setAvailableBookingsTA(tempBooking);
 			loadAvailableTimes();
 			
 		} catch (Exception e) {

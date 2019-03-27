@@ -238,8 +238,8 @@ public class BookingForStudent {
 		}
 		course_input.getItems().addAll(relevantCourses);
 
-		bookings = DBBooking.getDownloadedBookingsStudent();
-		DBBooking.refreshBookingWeeks(relevantCourses.get(0));
+		bookings = DBBooking.getAvailableBookingsStudent();
+		DBBooking.refreshBookingWeeks(App.getInstance().getLoggedUser(), relevantCourses.get(0));
 		// System.out.println(App.getInstance().getDownloadedWeeksStudent() + "fuuu");
 //		List<Integer> availableWeeks = App.getInstance().getDownloadedWeeksStudent();
 //		Collections.sort(availableWeeks);
@@ -267,8 +267,8 @@ public class BookingForStudent {
 				checkbox.setSelected(false);
 			}
 		}
-		DBBooking.refreshBookingWeeks(course_input.getValue());
-		List<Integer> availableWeeks = DBBooking.getDownloadedWeeksStudent();
+		DBBooking.refreshBookingWeeks(App.getInstance().getLoggedUser(), course_input.getValue());
+		List<Integer> availableWeeks = DBBooking.getAvailableWeeksStudent();
 		Collections.sort(availableWeeks);
 
 		week_input.getItems().setAll(availableWeeks);
@@ -300,8 +300,8 @@ public class BookingForStudent {
 				checkbox.setSelected(false);
 			}
 		}
-		DBBooking.refreshBookingWeeks(course_input.getValue());
-		List<Integer> availableWeeks = DBBooking.getDownloadedWeeksStudent();
+		DBBooking.refreshBookingWeeks(App.getInstance().getLoggedUser(), course_input.getValue());
+		List<Integer> availableWeeks = DBBooking.getAvailableWeeksStudent();
 		Collections.sort(availableWeeks);
 		if (!availableWeeks.isEmpty()) {
 			if (week_input.getValue() == null) {
@@ -346,7 +346,7 @@ public class BookingForStudent {
 			}
 		}
 		
-		Integer alreadyBooked = numberOfBookingsInWeek(course_input.getValue(), week_input.getValue(), App.getInstance().getLoggedUser());
+		int alreadyBooked = numberOfBookingsInWeek(course_input.getValue(), week_input.getValue(), App.getInstance().getLoggedUser());
 
 		if (bookings.size() + alreadyBooked > MAX_BOOKINGS)
 		{
@@ -362,10 +362,10 @@ public class BookingForStudent {
 
 				DBBooking.addHalltimeStudent(bookings);
 				confirm_label.setText("Assistant times booked!");
-				ArrayList<Booking> tempBooking = DBBooking.getDownloadedBookingsStudent();
+				ArrayList<Booking> tempBooking = DBBooking.getAvailableBookingsStudent();
 				ArrayList<Booking> deleteList = new ArrayList<Booking>();
 				for (Booking booking : bookings) {
-					for (Booking booking2 : DBBooking.getDownloadedBookingsStudent()) {
+					for (Booking booking2 : DBBooking.getAvailableBookingsStudent()) {
 
 						if (booking.compareTo(booking2) == 1) {
 							deleteList.add(booking2);
@@ -373,7 +373,7 @@ public class BookingForStudent {
 					}
 				}
 				tempBooking.removeAll(deleteList);
-				DBBooking.setDownloadedBookingsStudent(tempBooking);
+				DBBooking.setAvailableBookingsStudent(tempBooking);
 				loadAvailableTimes();
 			} catch (Exception e) {
 				confirm_label.setText("Booking failed! :(");
@@ -390,15 +390,15 @@ public class BookingForStudent {
 	}
 
 	private int numberOfBookingsInWeek(String course, int week, User user) {
-		ArrayList<Booking> bookings = DBBooking.getDownloadedBookingsStudent();
+		ArrayList<Booking> bookings = DBBooking.getAvailableBookingsStudent();
 		int count = 0;
 		for (Booking booking : bookings) {
-			if(booking.getCourseCode().equals(course) && booking.getWeek() == week && booking.getEmailStudent().equals(user.getEmail()))
-			{
+			if (booking.getEmailStudent() != null && booking.getCourseCode().equals(course) && booking.getWeek() == week
+					&& booking.getEmailStudent().equals(user.getEmail())) {
 				count++;
-				System.out.println(booking.getStartTime() + " " + booking.getWeek() + " " + booking.getCourseCode() + " " + booking.getEmailStudent());
 			}
 		}
+
 		return count;
 	}
 	

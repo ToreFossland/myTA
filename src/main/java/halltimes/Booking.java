@@ -24,6 +24,10 @@ public class Booking implements Comparable<Booking>{
 		this.setDay(halltime.getDay());
 		this.courseCode = halltime.getCourseCode();
 	}
+	
+	public Booking(Halltime halltime) {
+		this(halltime, (String) null);
+	}
 
 	public Booking(Halltime halltime, User TA) {
 		this(halltime, TA.getEmail());
@@ -125,5 +129,10 @@ public class Booking implements Comparable<Booking>{
 		return 0;
 	}
 	
+	
+	@Override
+	public String toString() {
+		return String.format("\n{TA: %s, Student: %s, Course: %s, Week: %s, Day: %s}", getEmailTA(), getEmailStudent(), getCourseCode(), getWeek(), getDay());
+	}
 	
 }

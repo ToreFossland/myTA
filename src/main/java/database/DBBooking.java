@@ -30,11 +30,15 @@ import user.User;
 
 public class DBBooking extends DBConnection {
 	
-	private static ArrayList<Booking> downloadedBookingsTA; // Fjerne booking fra denne on confirm
-	private static ArrayList<Integer> downloadedWeeksTA;
+	private static ArrayList<Booking> bookingsTA = new ArrayList<Booking>(); // Fjerne booking fra denne on confirm
+	private static ArrayList<Integer> weeksTA = new ArrayList<Integer>();
+	private static ArrayList<Booking> availableBookingsTA = new ArrayList<Booking>();
+	private static ArrayList<Integer> availableWeeksTA = new ArrayList<Integer>();
 
-	private static ArrayList<Booking> downloadedBookingsStudent;
-	private static ArrayList<Integer> downloadedWeeksStudent;
+	private static ArrayList<Booking> bookingsStudent = new ArrayList<Booking>();
+	private static ArrayList<Integer> weeksStudent = new ArrayList<Integer>();
+	private static ArrayList<Booking> availableBookingsStudent = new ArrayList<Booking>();
+	private static ArrayList<Integer> availableWeeksStudent = new ArrayList<Integer>();
 
 //	//ny HallTimeID
 //	public static int newHtId() throws Exception {
@@ -164,7 +168,7 @@ public class DBBooking extends DBConnection {
 			}
 
 			statement.executeBatch();
-			System.out.println("Entries added");
+			Logger.getLogger(App.class.getName()).log(Level.INFO, "Entries added");
 
 		} catch (Exception e) {
 			System.out.println(e);
@@ -390,51 +394,109 @@ public class DBBooking extends DBConnection {
 	*/
 	
 	public static void downloadBookings(User user) {
-		
-		if(user.getType() != 1 && user.getType() != 2)
+
+		if (user.getType() != 1 && user.getType() != 2)
 			return;
-		
-		ArrayList<Booking> bookingsWhereTA = new ArrayList<Booking>();
-		ArrayList<Booking> bookingsWhereStudent = new ArrayList<Booking>();
-		
-		
+
+		ArrayList<Booking> tempBookingsTA = new ArrayList<Booking>();
+		ArrayList<Booking> tempAvailableBookingsTA = new ArrayList<Booking>();
+		ArrayList<Booking> tempBookingsStudent = new ArrayList<Booking>();
+		ArrayList<Booking> tempAvailableBookingsStudent = new ArrayList<Booking>();
+
 		try {
 			BasicDataSource bds = DataSource.getInstance().getBds();
 			con = bds.getConnection();
-			statement = con.prepareStatement("SELECT Student_email, TeachingAssistant_email as TA_email, "
-					+ "Course_courseCode as course, day, timeEnd, timeStart, week, availablePlaces as places "
-					+ "FROM Booking INNER JOIN HallTime "
-					+ "ON idHallTime = HallTime_idHallTime "
-					+ "WHERE Student_email = ? OR TeachingAssistant_email = ?");
-			
-			statement.setString(1, user.getEmail());
-			statement.setString(2, user.getEmail());
-			
-			result = statement.executeQuery();
-			
-			Booking booking;
-			while(result.next()) {
-				booking = createBookingObjectFromResultSet(result);
-				if(booking.getEmailTA().equals(user.getEmail()))
-					bookingsWhereTA.add(booking);
-				if (booking.getEmailStudent() != null && booking.getEmailStudent().equals(user.getEmail()))
-					bookingsWhereStudent.add(booking);
+
+			if (user.getType() == 1) {
+				statement = con.prepareStatement("SELECT Student_email, TeachingAssistant_email as TA_email, "
+						+ "Course_courseCode as course, day, timeEnd, timeStart, week, availablePlaces as places "
+						+ "FROM Booking INNER JOIN HallTime ON idHallTime = HallTime_idHallTime "
+						+ "WHERE Student_email = ? OR Student_email IS NULL");
+
+				statement.setString(1, user.getEmail());
+
+				result = statement.executeQuery();
+
+				Booking booking;
+				while (result.next()) {
+					booking = createBookingObjectFromResultSet(result);
+					System.out.println(booking.getEmailStudent());
+					
+					if (booking.getEmailStudent() == null)
+						tempAvailableBookingsStudent.add(booking);
+					else if (booking.getEmailStudent().equals(user.getEmail()))
+						tempBookingsStudent.add(booking);
+				}
+			} else if (user.getType() == 2) {
+				statement = con.prepareStatement("SELECT Student_email, TeachingAssistant_email as TA_email, "
+						+ "Course_courseCode as course, day, timeEnd, timeStart, week, availablePlaces as places "
+						+ "FROM Booking INNER JOIN HallTime " + "ON idHallTime = HallTime_idHallTime "
+						+ "WHERE TeachingAssistant_email = ? "
+						+ "OR (Student_email IS NULL AND TeachingAssistant_email <> ?)");
+
+				statement.setString(1, user.getEmail());
+				statement.setString(2, user.getEmail());
+
+				result = statement.executeQuery();
+				Booking booking;
+				while (result.next()) {
+					booking = createBookingObjectFromResultSet(result);
+					// System.out.println(booking);
+					if (booking.getEmailTA() != user.getEmail() && booking.getEmailStudent() == null)
+						tempAvailableBookingsStudent.add(booking);
+					else if (booking.getEmailStudent() != null && booking.getEmailStudent().equals(user.getEmail()))
+						tempBookingsStudent.add(booking);
+
+					if (booking.getEmailTA().equals(user.getEmail()))
+						tempBookingsTA.add(booking);
+				}
+
+				statement.close();
+				result.close();
+
+				statement = con.prepareStatement("SELECT * FROM HallTime WHERE HallTime.idHallTime "
+						+ "NOT IN (SELECT HallTime_idHallTime FROM Booking) AND availablePlaces > 0");
+
+				result = statement.executeQuery();
+
+				while (result.next()) {
+					booking = createEmptyBookingObjectFromResultSet(result);
+					tempAvailableBookingsTA.add(booking);
+				}
 			}
-			
-		}  catch (SQLException e) {
+
+		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
-			try { if (result != null) result.close(); } catch (Exception e) {};
-		    try { if (statement != null) statement.close(); } catch (Exception e) {};
-		    try { if (con != null) con.close(); } catch (Exception e) {};
+			try {
+				if (result != null)
+					result.close();
+			} catch (Exception e) {
+			}
+			;
+			try {
+				if (statement != null)
+					statement.close();
+			} catch (Exception e) {
+			}
+			;
+			try {
+				if (con != null)
+					con.close();
+			} catch (Exception e) {
+			}
+			;
 		}
-		
-		setDownloadedBookingsTA(bookingsWhereTA);
-		setDownloadedBookingsStudent(bookingsWhereStudent);
-		Logger.getLogger(App.class.getName()).log(Level.INFO, "Bookings downloaded");	
+
+		bookingsTA = tempBookingsTA;
+		availableBookingsTA = tempAvailableBookingsTA;
+		bookingsStudent = tempBookingsStudent;
+		availableBookingsStudent = tempAvailableBookingsStudent;
+
+		Logger.getLogger(App.class.getName()).log(Level.INFO, "Bookings downloaded");
 	}
-		
+
 	private static Booking createBookingObjectFromResultSet(ResultSet result) throws SQLException {
 		String emailTA = result.getString("TA_email");
 		String course = result.getString("course");
@@ -444,67 +506,133 @@ public class DBBooking extends DBConnection {
 		LocalTime startTime = LocalTime.parse(result.getString("timeStart"));
 		LocalTime endTime = LocalTime.parse(result.getString("timeEnd"));
 		String emailStudent = result.getString("Student_email");
-		
+
 		Halltime ht = new Halltime(course, week, day, startTime, endTime, places);
 		return new Booking(ht, emailTA, emailStudent);
 	}
-	
-	public static void refreshBookingWeeks(String courseCode) {
-		ArrayList<Integer> weekStudent = new ArrayList<Integer>();
-		ArrayList<Integer> weekTA = new ArrayList<Integer>();
-		if(getDownloadedBookingsTA() != null) {
-			for(Booking booking:getDownloadedBookingsTA()) {
-				if(!weekTA.contains(booking.getWeek()) && booking.getCourseCode().equals(courseCode)) {
-					weekTA.add(booking.getWeek());
+
+	private static Booking createEmptyBookingObjectFromResultSet(ResultSet result) throws SQLException {
+		String course = result.getString("Course_courseCode");
+		int week = result.getInt("week");
+		int day = result.getInt("day");
+		int places = result.getInt("availablePlaces");
+		LocalTime startTime = LocalTime.parse(result.getString("timeStart"));
+		LocalTime endTime = LocalTime.parse(result.getString("timeEnd"));
+
+		Halltime ht = new Halltime(course, week, day, startTime, endTime, places);
+		return new Booking(ht);
+	}
+
+	public static void refreshBookingWeeks(User user, String courseCode) {
+
+		ArrayList<Integer> weeksStudent = new ArrayList<Integer>();
+		ArrayList<Integer> availableWeeksStudent = new ArrayList<Integer>();
+
+		if (getAvailableBookingsStudent() != null) {
+			for (Booking booking : getAvailableBookingsStudent()) {
+				if (!availableWeeksStudent.contains(booking.getWeek()) && booking.getCourseCode().equals(courseCode)) {
+					availableWeeksStudent.add(booking.getWeek());
+				}
+			}
+			setAvailableWeeksStudent(availableWeeksStudent);
+		}
+
+		if (getBookingsStudent() != null) {
+			for (Booking booking : getBookingsStudent()) {
+				if (!weeksStudent.contains(booking.getWeek()) && booking.getCourseCode().equals(courseCode)) {
+					weeksStudent.add(booking.getWeek());
+				}
+			}
+			setWeeksStudent(weeksStudent);
+		}
+
+		if (user.getType() == 2) {
+			ArrayList<Integer> weeksTA = new ArrayList<Integer>();
+			ArrayList<Integer> availableWeeksTA = new ArrayList<Integer>();
+
+			if (getAvailableBookingsTA() != null) {
+				for (Booking booking : getAvailableBookingsTA()) {
+					if (!availableWeeksTA.contains(booking.getWeek()) && booking.getCourseCode().equals(courseCode)) {
+						availableWeeksTA.add(booking.getWeek());
 					}
 				}
-			if(weekTA != null) {
-				setDownloadedWeeksTA(weekTA);
+				setAvailableWeeksTA(availableWeeksTA);
 			}
-		}
-		
-		if(getDownloadedBookingsStudent() != null) {
-		for(Booking booking:getDownloadedBookingsStudent()) {
-			if(!weekStudent.contains(booking.getWeek()) && booking.getCourseCode().equals(courseCode)) {
-				weekStudent.add(booking.getWeek());
+
+			if (getBookingsTA() != null) {
+				for (Booking booking : getAvailableBookingsTA()) {
+					if (!weeksTA.contains(booking.getWeek()) && booking.getCourseCode().equals(courseCode)) {
+						weeksTA.add(booking.getWeek());
+					}
 				}
+				setWeeksTA(weeksTA);
 			}
-		if(weekStudent != null) {
-			setDownloadedWeeksStudent(weekStudent);
 		}
 	}
+	
+
+	public static ArrayList<Booking> getBookingsTA() {
+		return bookingsTA;
 	}
 
-	public static ArrayList<Booking> getDownloadedBookingsTA() {
-		return downloadedBookingsTA;
+	public static void setBookingsTA(ArrayList<Booking> bookingsTA) {
+		DBBooking.bookingsTA = bookingsTA;
 	}
 
-	public static void setDownloadedBookingsTA(ArrayList<Booking> downloadedBookingsTA) {
-		DBBooking.downloadedBookingsTA = downloadedBookingsTA;
+	public static ArrayList<Booking> getAvailableBookingsTA() {
+		return availableBookingsTA;
 	}
 
-	public static ArrayList<Integer> getDownloadedWeeksTA() {
-		return downloadedWeeksTA;
+	public static void setAvailableBookingsTA(ArrayList<Booking> availableBookingsTA) {
+		DBBooking.availableBookingsTA = availableBookingsTA;
 	}
 
-	public static void setDownloadedWeeksTA(ArrayList<Integer> downloadedWeeksTA) {
-		DBBooking.downloadedWeeksTA = downloadedWeeksTA;
+	public static ArrayList<Integer> getWeeksTA() {
+		return weeksTA;
 	}
 
-	public static ArrayList<Booking> getDownloadedBookingsStudent() {
-		return downloadedBookingsStudent;
+	public static void setWeeksTA(ArrayList<Integer> weeksTA) {
+		DBBooking.weeksTA = weeksTA;
 	}
 
-	public static void setDownloadedBookingsStudent(ArrayList<Booking> downloadedBookingsStudent) {
-		DBBooking.downloadedBookingsStudent = downloadedBookingsStudent;
+	public static ArrayList<Booking> getBookingsStudent() {
+		return bookingsStudent;
 	}
 
-	public static ArrayList<Integer> getDownloadedWeeksStudent() {
-		return downloadedWeeksStudent;
+	public static void setBookingsStudent(ArrayList<Booking> bookingsStudent) {
+		DBBooking.bookingsStudent = bookingsStudent;
 	}
 
-	public static void setDownloadedWeeksStudent(ArrayList<Integer> downloadedWeeksStudent) {
-		DBBooking.downloadedWeeksStudent = downloadedWeeksStudent;
+	public static ArrayList<Integer> getWeeksStudent() {
+		return weeksStudent;
+	}
+
+	public static void setWeeksStudent(ArrayList<Integer> weeksStudent) {
+		DBBooking.weeksStudent = weeksStudent;
+	}
+
+	public static ArrayList<Integer> getAvailableWeeksTA() {
+		return availableWeeksTA;
+	}
+
+	public static void setAvailableWeeksTA(ArrayList<Integer> availableWeeksTA) {
+		DBBooking.availableWeeksTA = availableWeeksTA;
+	}
+
+	public static ArrayList<Booking> getAvailableBookingsStudent() {
+		return availableBookingsStudent;
+	}
+
+	public static void setAvailableBookingsStudent(ArrayList<Booking> availableBookingsStudent) {
+		DBBooking.availableBookingsStudent = availableBookingsStudent;
+	}
+
+	public static ArrayList<Integer> getAvailableWeeksStudent() {
+		return availableWeeksStudent;
+	}
+
+	public static void setAvailableWeeksStudent(ArrayList<Integer> availableWeeksStudent) {
+		DBBooking.availableWeeksStudent = availableWeeksStudent;
 	}
 	
 	/*
