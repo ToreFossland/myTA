@@ -559,23 +559,26 @@ public class MyCalendarController {
 		boxes = boxesInitialized;
 		text = textInitialized;
 		//Fiks denne
-		List<Integer> weeks = DBBooking.getWeeksTA();
-		for (Integer i : DBBooking.getWeeksStudent()) {
-			if(i >= getCurrentWeek() && !weeks.contains(i))
-				weeks.add(i);	
+		List<Integer> weeks = new ArrayList<Integer>();
+		int currentWeek = DBBooking.getCurrentWeek();
+		
+		for (Integer week : DBBooking.getWeeksStudent()) {
+			if(week >= currentWeek)
+				weeks.add(week);
 		}
+		
+		for (Booking booking : DBBooking.getBookingsTA()) {
+			if(booking.getEmailStudent() != null && booking.getWeek() >= currentWeek && !weeks.contains(booking.getWeek()))
+				weeks.add(booking.getWeek());
+		}
+		
 		Collections.sort(weeks);
 		week_input.getItems().addAll(weeks);
 	
-		week_input.setValue(getCurrentWeek());
-		loadCalendar();
-		/*
 		if(weeks.size() > 0) {
 			week_input.setValue(weeks.get(0));
 			loadCalendar();
 		}
-		*/
-		
 	}
 		
 	
@@ -690,13 +693,6 @@ public class MyCalendarController {
 		}
 		
 		
-	}
-	
-	
-	private int getCurrentWeek() {
-		LocalDate date = LocalDate.now();
-		WeekFields weekFields = WeekFields.of(Locale.getDefault());
-		return date.get(weekFields.weekOfWeekBasedYear());
 	}
 	
 	@FXML
