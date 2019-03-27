@@ -2,6 +2,7 @@ package gui.controllers;
 
 import java.time.LocalDate;
 import java.time.temporal.WeekFields;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
@@ -566,19 +567,23 @@ public class MyCalendarController {
 		Collections.sort(weeks);
 		week_input.getItems().addAll(weeks);
 	
-
+		week_input.setValue(getCurrentWeek());
+		loadCalendar();
+		/*
 		if(weeks.size() > 0) {
 			week_input.setValue(weeks.get(0));
 			loadCalendar();
 		}
-		
+		*/
 		
 	}
 		
 	
 	public void loadCalendar() {
 		studentBookings = DBBooking.getBookingsStudent();
-		taBookings = DBBooking.getBookingsTA();
+		System.out.println(taBookings);
+		taBookings = getBookingsTA();
+		System.out.println(taBookings);
 		DBBooking.refreshBookingWeeks(App.getInstance().getLoggedUser());
 		emptyCalendar();
 		int week = week_input.getValue();
@@ -695,6 +700,28 @@ public class MyCalendarController {
 	}
 	
 	@FXML
+	private List<Booking> getBookingsTA(){
+		List<Booking> temp = new ArrayList<Booking>();
+		
+		for (Booking booking : DBBooking.getBookingsTA()) {
+			if(booking.getEmailStudent() != null)
+				temp.add(booking);
+		}
+		Collections.sort(temp);
+		
+		/*System.out.println(taBookings);
+		for (Booking booking : temp) {
+			System.out.println(booking.getEmailStudent());
+			if(booking.getEmailStudent()!=null) {
+				taBookings.add(booking);
+				System.out.println("ok");
+			}
+		}
+		System.out.println(taBookings);*/
+		return temp;
+		
+	}
+	
 	public void returnHandler() {
 		App.getInstance().gotoPrevious();
 	}
