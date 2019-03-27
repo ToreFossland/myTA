@@ -346,7 +346,7 @@ public class BookingForStudent {
 			}
 		}
 		
-		Integer alreadyBooked = numberOfBookingsInWeek(week_input.getValue(), App.getInstance().getLoggedUser());
+		Integer alreadyBooked = numberOfBookingsInWeek(course_input.getValue(), week_input.getValue(), App.getInstance().getLoggedUser());
 
 		if (bookings.size() + alreadyBooked > MAX_BOOKINGS)
 		{
@@ -389,12 +389,15 @@ public class BookingForStudent {
 		return date.get(weekFields.weekOfWeekBasedYear());
 	}
 
-	private int numberOfBookingsInWeek(int week, User user) {
+	private int numberOfBookingsInWeek(String course, int week, User user) {
 		ArrayList<Booking> bookings = App.getInstance().getDownloadedBookingsStudent();
 		int count = 0;
 		for (Booking booking : bookings) {
-			if(booking.getWeek() == week && booking.getEmailStudent().equals(user.getEmail()))
+			if(booking.getCourseCode().equals(course) && booking.getWeek() == week && booking.getEmailStudent().equals(user.getEmail()))
+			{
 				count++;
+				System.out.println(booking.getStartTime() + " " + booking.getWeek() + " " + booking.getCourseCode() + " " + booking.getEmailStudent());
+			}
 		}
 		return count;
 	}
