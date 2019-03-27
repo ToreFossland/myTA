@@ -11,6 +11,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
 
+import database.DBBooking;
 import gui.App;
 import halltimes.Booking;
 import halltimes.Halltime;
@@ -569,12 +570,9 @@ public class MyCalendarController {
 		Collections.sort(availableWeeks);
 		week_input.getItems().addAll(availableWeeks);
 	
-		studentBookings = App.getInstance().getMyBookingsStudent();
-		taBookings = App.getInstance().getMyBookingsTA();
 		for (Integer week : availableWeeks) {
 			if (week >= getCurrentWeek()) {
 				week_input.setValue(week);
-				
 				break;
 			}
 		}
@@ -584,6 +582,8 @@ public class MyCalendarController {
 		
 	
 	public void loadCalendar() {
+		studentBookings = DBBooking.getMyBookingsStudent();
+		taBookings = DBBooking.getMyBookingsTA();
 		emptyCalendar();
 		int week = week_input.getValue();
 		int bookingNo=0;
@@ -611,7 +611,6 @@ public class MyCalendarController {
 		
 	}
 	public void emptyCalendar() {
-		System.out.println(boxes.length);
 		for (int i = 0; i < boxes.length; i++) {
 			for (int j = 0; j < boxes[i].length; j++) {
 				boxes[i][j].setStyle(null);
@@ -676,14 +675,14 @@ public class MyCalendarController {
 				int index = Integer.valueOf(boxdata.substring(1));
 				Booking chosen = studentBookings.get(index);
 				setChosenBooking(chosen);
-				//App.getInstance().goto
+				App.getInstance().gotoBookingInfoStudent();
 				
 			}
 			else if(boxdata.charAt(0)=='t') {
 				int index= Integer.valueOf(boxdata.substring(1));
 				Booking chosen = taBookings.get(index);
 				setChosenBooking(chosen);
-				//App.getInstance().goto
+				App.getInstance().gotoBookingInfoTA();
 				
 			}
 			

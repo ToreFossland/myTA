@@ -75,8 +75,6 @@ public class App extends Application {
 	private ArrayList<Booking> downloadedBookingsStudent;
 	private ArrayList<Integer> downloadedWeeksStudent;
 	
-	private ArrayList<Booking> myBookingsTA;
-	private ArrayList<Booking> myBookingsStudent;
 
 	private static App instance;
 
@@ -363,6 +361,24 @@ public class App extends Application {
     		Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
     	}
     }
+    public void gotoBookingInfoStudent() {
+		try {
+			String page = "pages/BookingInfoStudent.fxml";
+			pagesHistory.push(page);
+			replaceSceneContent(page);
+		} catch (Exception ex) {
+			Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
+		}
+	}
+    public void gotoBookingInfoTA() {
+		try {
+			String page = "pages/BookingInfoTA.fxml";
+			pagesHistory.push(page);
+			replaceSceneContent(page);
+		} catch (Exception ex) {
+			Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
+		}
+	}
     public void gotoAddAssignment() {
     	try {
     		String page = "pages/StudentAddAssignmentPage.fxml";
@@ -526,19 +542,6 @@ public class App extends Application {
 		this.myTimeSchedule = myTimeSchedule;
 	}
 	
-	public ArrayList<Booking> getMyBookingsTA() {
-		return myBookingsTA;
-	}
 
-	public void setMyBookingsTA(ArrayList<Booking> myBookingsTA) {
-		this.myBookingsTA = myBookingsTA;
-	}
-	public ArrayList<Booking> getMyBookingsStudent() {
-		return myBookingsStudent;
-	}
-
-	public void setMyBookingsStudent(ArrayList<Booking> myBookingsStudent) {
-		this.myBookingsStudent = myBookingsStudent;
-	}
 
 }

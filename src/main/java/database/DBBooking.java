@@ -56,6 +56,11 @@ public class DBBooking extends DBConnection {
 	 * timeStart, timeEnd, 13)); supervisorAddHalltime(halltimes, 20); }
 	 */
 
+	private static ArrayList<Booking> myBookingsTA;
+	private static ArrayList<Booking> myBookingsStudent;
+	
+	
+	
 	// Sjekker om halltid ligger inne
 	public static boolean halltimeExists(Halltime halltime) {
 		Connection con = null;
@@ -502,11 +507,62 @@ public class DBBooking extends DBConnection {
 			myBookingsTA.add(booking);
 		}
 		
-		App.getInstance().setMyBookingsStudent(myBookingsStudent);
-		App.getInstance().setMyBookingsTA(myBookingsTA);
+		setMyBookingsStudent(myBookingsStudent);
+		setMyBookingsTA(myBookingsTA);
 		
 		
 	}
 		
+	public static void deleteBooking(Booking booking) throws Exception {
+		
+		Connection con = null;
+        PreparedStatement findHalltime = null;
+        ResultSet rs = null;
+		
+        
 
+		BasicDataSource bds = DataSource.getInstance().getBds();
+		con = bds.getConnection();
+		findHalltime = con.prepareStatement(String.format(
+				"SELECT idHallTime FROM HallTime WHERE Course_courseCode = '%s' "
+						+ "AND week = '%s' AND day = '%s'AND timeStart = '%s' AND timeEnd = '%s' ",
+				booking.getCourseCode(), booking.getWeek(), booking.getDay(), booking.getStartTime(),
+				booking.getEndTime()));
+
+		rs = findHalltime.executeQuery();
+		rs.next();
+		int idHallTime = rs.getInt("idHallTime");
+		PreparedStatement deleteBooking = con.prepareStatement(
+				"DELETE FROM Booking WHERE Halltime_idHalltime ='" + idHallTime + "' " + "AND Student_email ='"
+						+ booking.getEmailStudent() + "' AND TeachingAssistant_email = '" + booking.getEmailTA() + "'");
+
+		deleteBooking.execute();
+		con.close();
+		
+		
+		
+	}
+
+	
+	public static ArrayList<Booking> getMyBookingsTA() {
+		return myBookingsTA;
+	}
+
+	public static void setMyBookingsTA(ArrayList<Booking> bookingsTA) {
+		myBookingsTA = bookingsTA;
+	}
+	public static ArrayList<Booking> getMyBookingsStudent() {
+		return myBookingsStudent;
+	}
+
+	public static void setMyBookingsStudent(ArrayList<Booking> bookingsStudent) {
+		myBookingsStudent = bookingsStudent;
+	}
+
+	public static void removeBookingStudent(Booking booking) {
+		myBookingsStudent.remove(booking);
+	}
+	public static void removeBookingTA(Booking booking) {
+		myBookingsTA.remove(booking);
+	}
 }
