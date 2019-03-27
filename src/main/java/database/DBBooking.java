@@ -379,8 +379,8 @@ public class DBBooking extends DBConnection {
 //				App.getInstance().setDownloadedWeeksTA(weeksTA);
 
 	}
-
-	public Integer numberOfBookingsInWeek(Integer week, User user) {
+	/*
+	public static Integer numberOfBookingsInWeek(Integer week, User user) {
 		Integer number = null;
 		try {
 			
@@ -409,7 +409,7 @@ public class DBBooking extends DBConnection {
 		}
 		
 		return number;
-	}
+	}*/
 }
 
 	/*

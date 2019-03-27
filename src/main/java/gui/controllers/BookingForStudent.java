@@ -21,6 +21,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
+import user.User;
 
 public class BookingForStudent {
 
@@ -344,9 +345,18 @@ public class BookingForStudent {
 				}
 			}
 		}
+		
+		Integer alreadyBooked = numberOfBookingsInWeek(week_input.getValue(), App.getInstance().getLoggedUser());
 
-		if (bookings.size() > MAX_BOOKINGS)
-			confirm_label.setText("Number of bookings per week cannot exceed " + Integer.toString(MAX_BOOKINGS));
+		if (bookings.size() + alreadyBooked > MAX_BOOKINGS)
+		{
+			String output = "Number of bookings per week cannot exceed " + Integer.toString(MAX_BOOKINGS);
+			if(alreadyBooked == 1)
+				output += ". You already have 1 booking";
+			else if (alreadyBooked > 1)
+				output += (". You already have " + Integer.toString(alreadyBooked) + " bookings");
+			confirm_label.setText(output);
+		}
 		else {
 			try {
 
@@ -379,4 +389,14 @@ public class BookingForStudent {
 		return date.get(weekFields.weekOfWeekBasedYear());
 	}
 
+	private int numberOfBookingsInWeek(int week, User user) {
+		ArrayList<Booking> bookings = App.getInstance().getDownloadedBookingsStudent();
+		int count = 0;
+		for (Booking booking : bookings) {
+			if(booking.getWeek() == week && booking.getEmailStudent().equals(user.getEmail()))
+				count++;
+		}
+		return count;
+	}
+	
 }
