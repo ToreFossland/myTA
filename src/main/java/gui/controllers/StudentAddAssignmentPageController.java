@@ -1,5 +1,6 @@
 package gui.controllers;
 
+import java.io.File;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,6 +15,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.stage.FileChooser;
 
 public class StudentAddAssignmentPageController {
 	
@@ -24,15 +26,21 @@ public class StudentAddAssignmentPageController {
 	TextField user_input;
 	
 	@FXML
-	Button upload_assignment;
+	Button choose_file;
 	
-	@FXML 
-	Label upload_successful;
+	@FXML
+	Label file_name;
+	
+	@FXML
+	Label response_label;
 	
 	@FXML
 	ChoiceBox<String> course_input;
 	
+	File file;
+	
 	public void initialize() {
+		file = null;
 		Map<String, Integer> allCourses = App.getInstance().getLoggedUser().getMyCourses();
 		List<String> relevantCourses = new ArrayList<String>();
 		for (Entry<String, Integer> entry : allCourses.entrySet()) {
@@ -51,11 +59,27 @@ public class StudentAddAssignmentPageController {
 		App.getInstance().gotoStudentPage();
 	}
 	
+	public void chooseFileHandler(javafx.event.ActionEvent event) {
+		final FileChooser fileChooser = new FileChooser();
+        file = fileChooser.showOpenDialog(App.getInstance().getStage());
+        if (file != null)
+        	file_name.setText(file.getName());
+	}
+	
 	public void uploadHandler(javafx.event.ActionEvent event) {
-		upload_assignment.setDefaultButton(true); //enter-key
-		Assignment assignment = new Assignment(App.getInstance().getLoggedUser(), course_input.getValue(), user_input.getText(), LocalDateTime.now());
-		DBEvaluation.insertAssignment(assignment);
-		upload_successful.setVisible(true);
+		Assignment assignment = new Assignment(App.getInstance().getLoggedUser(), course_input.getValue(), user_input.getText(), LocalDateTime.now(), file);
+		if(assignment.getFile().length() > 1024)
+			response_label.setText("File size cannot exceed 1 MB");
+		else {
+			try {
+				DBEvaluation.insertAssignment(assignment);
+				response_label.setText("Assignment inserted!");
+			} catch(Exception e) {
+				response_label.setText("Adding assignment failed");
+			}
+		}
+		
+		response_label.setVisible(true);
 	}
 
 }

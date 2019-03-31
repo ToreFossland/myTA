@@ -1,3 +1,4 @@
+
 package gui.controllers;
 
 import java.util.Iterator;
@@ -48,7 +49,8 @@ public class StudentPageController {
 		
 	}
 	
-	public void myCalendarHandler(javafx.event.ActionEvent event) {
+	public void myCalendarHandler(javafx.event.ActionEvent event) throws Exception {
+		DBBooking.downloadBookings(App.getInstance().getLoggedUser());
 		App.getInstance().gotoMyCalendar();
 	}
 	
@@ -67,7 +69,7 @@ public class StudentPageController {
 		return hasSubjects;
 	}
 	public void bookTAHandler() throws Exception {
-		DBBooking.downloadBookings();
+		DBBooking.downloadBookings(App.getInstance().getLoggedUser());
 		if(subjectsExist()) {
 			App.getInstance().gotoBookingForStudent();
 		}

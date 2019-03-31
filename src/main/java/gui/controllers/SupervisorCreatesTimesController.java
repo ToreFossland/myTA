@@ -176,9 +176,7 @@ public class SupervisorCreatesTimesController {
 
 	public void handleCheckBox(ActionEvent event) {
 		if (checkBox1.isSelected()) {
-			System.out.println("Time is chosen.");
-			// her skjer det noe: blir rød og tid velges ???
-			// DBBooking.supervisorAddHalltime(halltime, interval);
+
 		}
 	}
 

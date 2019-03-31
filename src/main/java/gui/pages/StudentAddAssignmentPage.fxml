@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ChoiceBox?>
-<?import javafx.scene.control.Hyperlink?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -66,16 +66,17 @@
                         <Font size="18.0" />
                      </font>
                   </Text>
+                  <Button fx:id="choose_file" mnemonicParsing="false" onAction="#chooseFileHandler" text="Choose file ..." />
                   <Text strokeType="OUTSIDE" strokeWidth="0.0">
                      <font>
                         <Font size="15.0" />
                      </font>
                   </Text>
-                  <Hyperlink text="Hyperlink">
-                     <font>
-                        <Font size="18.0" />
-                     </font>
-                  </Hyperlink>
+                  <Label fx:id="file_name" text="File name">
+                     <HBox.margin>
+                        <Insets left="10.0" />
+                     </HBox.margin>
+                  </Label>
                </children>
             </HBox>
             <HBox alignment="CENTER" prefHeight="221.0" prefWidth="800.0">
@@ -91,11 +92,11 @@
                                     <Font size="16.0" />
                                  </font>
                               </Button>
-                              <HBox prefHeight="34.0" prefWidth="98.0">
-                                 <children>
-                                    <Label fx:id="upload_successful" alignment="CENTER" contentDisplay="CENTER" prefHeight="34.0" prefWidth="145.0" text="Upload successful!" textAlignment="CENTER" visible="false" />
-                                 </children>
-                              </HBox>
+                              <Label fx:id="response_label" maxWidth="100.0" minWidth="200.0" prefWidth="200.0" text="Assignment added!" visible="false">
+                                 <VBox.margin>
+                                    <Insets top="10.0" />
+                                 </VBox.margin>
+                              </Label>
                            </children>
                         </VBox>
                         <HBox prefHeight="90.0" prefWidth="34.0" />

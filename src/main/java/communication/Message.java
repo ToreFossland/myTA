@@ -1,7 +1,6 @@
 package communication;
 
 import java.time.LocalDateTime;
-
 import user.User;
 
 public class Message implements Comparable<Message>{

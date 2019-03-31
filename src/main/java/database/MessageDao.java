@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import org.apache.commons.dbcp2.BasicDataSource;
-
 import communication.Message;
 import user.User;
 
@@ -103,10 +102,4 @@ public class MessageDao {
 
 		return new Message(sender, receiver, subject, text, timestamp);
 	}
-	/*
-	public static void main(String[] args) {
-		Message test = new Message(User.generateUserObject("abc@ntnu.no"), User.generateUserObject("davidaan@stud.ntnu.no"),"hallo", "står til?");
-		//insertMessage(test);
-		System.out.println(getAllMessages(User.generateUserObject("abc@ntnu.no")));
-	}*/
 }

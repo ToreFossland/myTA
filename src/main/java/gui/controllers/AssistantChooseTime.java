@@ -1,12 +1,9 @@
 package gui.controllers;
 
-import java.time.LocalDate;
 import java.time.LocalTime;
-import java.time.temporal.WeekFields;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -101,11 +98,13 @@ public class AssistantChooseTime {
 	CheckBox[][] checkboxes;
 
 	List<Booking> bookings;
+	
+	static final int BOOKINGLENGTH = 30;
 
 	@FXML
 	public void initialize() {
 		initCheckboxes();
-
+		
 		// Fills course choicebox
 		Map<String, Integer> allCourses = App.getInstance().getLoggedUser().getMyCourses();
 		List<String> relevantCourses = new ArrayList<String>();
@@ -116,24 +115,25 @@ public class AssistantChooseTime {
 				relevantCourses.add(course);
 		}
 		course_input.getItems().addAll(relevantCourses);
+		DBBooking.refreshBookingWeeks(App.getInstance().getLoggedUser(),relevantCourses.get(0));
 
-		bookings = App.getInstance().getDownloadedBookingsTA();
+		bookings = DBBooking.getAvailableBookingsTA();
 
-		List<Integer> availableWeeks = App.getInstance().getDownloadedWeeksTA();
-		Collections.sort(availableWeeks);
+		List<Integer> availableWeeks = DBBooking.getAvailableWeeksTA();
+		System.out.println(availableWeeks);
+		if(availableWeeks != null){
+			Collections.sort(availableWeeks);
+			week_input.getItems().addAll(availableWeeks);
 
-		week_input.getItems().addAll(availableWeeks);
-
-		for (Integer week : availableWeeks) {
-			if (week >= getCurrentWeek()) {
-				week_input.setValue(week); 
-				break;
+			for (Integer week : availableWeeks) {
+				if (week >= DBBooking.getCurrentWeek()) {
+					week_input.setValue(week); 
+					break;
+				}
 			}
+			course_input.setValue(relevantCourses.get(0));
 		}
-		course_input.setValue(relevantCourses.get(0));
-
 		loadAvailableTimes();
-
 	}
 
 	private void initCheckboxes() {
@@ -151,18 +151,55 @@ public class AssistantChooseTime {
 				checkbox.setSelected(false);
 			}
 		}
-		int week = week_input.getValue();
-		// Enables checkbox one by one
-		for (Booking booking : bookings) {
-			if (booking.getCourseCode().equals(course_input.getValue()) && booking.getWeek() == week
-					&& booking.getStartTime().getHour() % 2 == 0 && booking.getStartTime().getMinute() == 0) {
-				checkboxes[booking.getDay() - 1][(booking.getStartTime().getHour() - 8) / 2].setDisable(false);
+
+		DBBooking.refreshBookingWeeks(App.getInstance().getLoggedUser(), course_input.getValue());
+		List<Integer> availableWeeks = DBBooking.getAvailableWeeksTA();
+		if (availableWeeks != null) {
+			Collections.sort(availableWeeks);
+
+			week_input.getItems().setAll(availableWeeks);
+			if (!availableWeeks.isEmpty()) {
+				week_input.setValue(availableWeeks.get(0));
+			}
+			for (Integer week : availableWeeks) {
+				if (week >= DBBooking.getCurrentWeek()) {
+					week_input.setValue(week);
+					break;
+				}
+			}
+		}
+	}
+		
+	public void loadTimesInWeek(){
+		for (CheckBox[] checkboxRow : checkboxes) {
+			for (CheckBox checkbox : checkboxRow) {
+				checkbox.setDisable(true);
+				checkbox.setSelected(false);
+			}
+		}
+		
+		DBBooking.refreshBookingWeeks(App.getInstance().getLoggedUser(), course_input.getValue());
+		List<Integer> availableWeeks = DBBooking.getAvailableWeeksTA();
+		Collections.sort(availableWeeks);
+		if(!availableWeeks.isEmpty()) {
+			if(week_input.getValue() == null) {
+				week_input.setValue(availableWeeks.get(0));
+			}
+			else {
+				int week = week_input.getValue();
+				// Enables checkbox one by one
+				for (Booking booking : bookings) {
+					if (booking.getCourseCode().equals(course_input.getValue()) && booking.getWeek() == week
+							&& booking.getStartTime().getHour() % 2 == 0 && booking.getStartTime().getMinute() == 0) {
+						checkboxes[booking.getDay() - 1][(booking.getStartTime().getHour() - 8) / 2].setDisable(false);
+					}
+				}
 			}
 		}
 	}
 
 	public void weekInputHandler(ActionEvent event) {
-		loadAvailableTimes();
+		loadTimesInWeek();
 	}
 
 	public void courseInputHandler(ActionEvent event) {
@@ -190,11 +227,11 @@ public class AssistantChooseTime {
 			DBBooking.addHalltimesTA(bookings);
 			confirm_label.setText("Assistant times added!");
 			System.out.println(bookings);
-			ArrayList<Booking> tempBooking = App.getInstance().getDownloadedBookingsTA();
+			ArrayList<Booking> tempBooking = DBBooking.getAvailableBookingsTA();
 			ArrayList<Booking> deleteList = new ArrayList<Booking>();
 			System.out.println(tempBooking.size());
 			for(Booking booking : bookings) {
-				for(Booking booking2 : App.getInstance().getDownloadedBookingsTA()) {
+				for(Booking booking2 : DBBooking.getAvailableBookingsTA()) {
 					if(booking.compareTo(booking2) == 1) {
 						System.out.println(deleteList.add(booking2)	);
 						System.out.println("suksess");
@@ -202,7 +239,7 @@ public class AssistantChooseTime {
 				}
 			}
 			tempBooking.removeAll(deleteList);
-			App.getInstance().setDownloadedBookingsTA(tempBooking);
+			DBBooking.setAvailableBookingsTA(tempBooking);
 			loadAvailableTimes();
 			
 		} catch (Exception e) {
@@ -217,11 +254,4 @@ public class AssistantChooseTime {
 	public void returnHandler(ActionEvent event) {
 		App.getInstance().gotoAssistantPage();
 	}
-
-	private int getCurrentWeek() {
-		LocalDate date = LocalDate.now();
-		WeekFields weekFields = WeekFields.of(Locale.getDefault());
-		return date.get(weekFields.weekOfWeekBasedYear());
-	}
-
 }

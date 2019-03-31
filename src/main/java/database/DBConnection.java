@@ -34,59 +34,6 @@ public class DBConnection {
 	 * User_has_Course(int idUser(nn),int idCourse(nn),String Rolle(nn))
 	 */
 
-	// TODO: add cache for storing data from frequently used DB queries
-
-//setter inn fag med courseCode og fagnavn. Naturlig admin-funksjon
-	/*
-	 * public static void leggInnCourse(String fagKodeInput, String fagNavnInput)
-	 * throws Exception { try { Connection con = getConnection(); // gjoer
-	 * courseCoden til store bokstaver String fagKode = fagKodeInput.toUpperCase();
-	 * String fagNavn = fagNavnInput.toLowerCase();
-	 * 
-	 * // Legger inn fag med id,courseCode og fagnavn dersom det ikke allerede
-	 * eksisterer if (fagEksisterer(fagKode) == false) { int idCourse =
-	 * nyCourseId(); PreparedStatement leggInnCourse = con.
-	 * prepareStatement("INSERT INTO Course (idCourse,CourseKode,CourseNavn) VALUES('"
-	 * + idCourse + "','" + fagKode + "','" + fagNavn + "')");
-	 * leggInnCourse.executeUpdate(); System.out.println("Lagt inn fag " + fagKode);
-	 * } // Sjekker om courseCode mangler fagnavn og oppdaterer fagnavn dersom
-	 * courseCode // eksisterer. else if (fagEksisterer(fagKode)) {
-	 * PreparedStatement statement = con
-	 * .prepareStatement("SELECT CourseNavn From Course WHERE CourseKode = '" +
-	 * fagKode + "'"); ResultSet fagNavnNull = statement.executeQuery();
-	 * fagNavnNull.next(); // System.out.println(fagNavnNull.next()); String
-	 * fagNavnType = fagNavnNull.getString("CourseNavn");
-	 * 
-	 * if (fagNavnType == null) {
-	 * 
-	 * PreparedStatement leggInnNavn = con.prepareStatement(
-	 * "UPDATE Course SET CourseNavn = '" + fagNavn + "' WHERE CourseKode = '" +
-	 * fagKode + "'"); leggInnNavn.executeUpdate();
-	 * 
-	 * System.out.println("Oppdatert navn paa fag" + fagKode + " til " + fagNavn); }
-	 * else { System.out.println("Course " + fagKode + " eksisterer"); }
-	 * 
-	 * } // Gir beskjed om at faget eksisterer else { System.out.println("Course " +
-	 * fagKode + " eksisterer"); } } catch (Exception e) { System.out.println(e); }
-	 * finally { // System.out.println("Insert Completed"); } }
-	 */
-
-//setter inn fag med courseCode. Naturlig admin-funksjon.
-	/*
-	 * public static void leggInnCourse(String fagKodeInput) throws Exception { try
-	 * { Connection con = getConnection(); // gjoer courseCoden til store bokstaver
-	 * String fagKode = fagKodeInput.toUpperCase();
-	 * 
-	 * // legger inn fag om det ikke eksisterer if (fagEksisterer(fagKode) == false)
-	 * { int idCourse = nyCourseId(); PreparedStatement leggInnCourse = con
-	 * .prepareStatement("INSERT INTO Course (idCourse,CourseKode) VALUES('" +
-	 * idCourse + "','" + fagKode + "')"); leggInnCourse.executeUpdate();
-	 * System.out.println("Lagt inn fag " + fagKode); } else {
-	 * System.out.println("Course " + fagKode + " eksisterer."); } } catch
-	 * (Exception e) { System.out.println(e); } finally { //
-	 * System.out.println("Insert Completed"); } }
-	 */
-
 //sjekker om faget eksisterer i Coursetabellen
 	public static boolean fagEksisterer(String fagkode) throws Exception {
 		Connection con = null;
@@ -417,30 +364,5 @@ public class DBConnection {
 		    try { if (con != null) con.close(); } catch (Exception e) {};
 		}
 		return null;
-	}
-	
-
-	//Obtains highest permission that the user has. Assumes it's a student if no permissions has been set in the database (returns 1)
-	/*public static int getUserPermission(String username) {
-		try {
-			PreparedStatement findRole = con.prepareStatement("SELECT DISTINCT role FROM User_has_Course WHERE User_username = %s");
-			ResultSet roles = findRole.executeQuery();
-			
-			int permission = 1;
-			while(roles.next()) {
-				permission = roles.getInt("role") > permission ? roles.getInt("role") : permission;
-			}
-			
-			return permission;
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-		return 1;
-	}*/
-
-	public static void main(String[] args) {
-		leggTilUserHarCourse("abc@ntnu.no", "tdt4145",3);
 	}
 }

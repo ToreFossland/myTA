@@ -30,6 +30,14 @@ public class SendPageController {
 	@FXML
 	Text text_response;
 	
+	private static String message_receiver;
+	
+	public void initialize() {
+		if (message_receiver!=null) {
+			text_receiver_email.setText(message_receiver);
+		}
+		
+	}
 	public void onClickSendMessage(javafx.event.ActionEvent event) throws Exception {
 		String subject = text_subject.getText();
 		String message_content = text_message_content.getText();
@@ -44,11 +52,19 @@ public class SendPageController {
 		else {
 			text_response.setText("The email does not exist.");
 		}
+		setMessage_receiver("");
 		
 	}
 	
 	//1 = student, 2 = teacher assistant, 3 = supervisor, 4 = admin
 	public void onClickReturn(javafx.event.ActionEvent event) {
+		setMessage_receiver("");
 		App.getInstance().gotoPrevious();
+	}
+	public String getMessage_receiver() {
+		return message_receiver;
+	}
+	public static void setMessage_receiver(String receiver) {
+		message_receiver = receiver;
 	}
 }
