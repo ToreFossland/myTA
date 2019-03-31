@@ -52,7 +52,9 @@ public class TAViewEvaluationsPageController {
 		}
 		chooseSubject.getItems().addAll(relevantCourses);
 		if(!relevantCourses.isEmpty()) {
-			chooseSubject.setValue(relevantCourses.get(0));;
+			chooseSubject.setValue(relevantCourses.get(0));
+			chosenSubject = chooseSubject.getValue();
+			updateTable();
 		}
 	}
 	
@@ -64,7 +66,7 @@ public class TAViewEvaluationsPageController {
 	public void updateTable() {
 		assignmentTable.getItems().clear();
 		assCol.setCellValueFactory(new PropertyValueFactory<>("assignmentName"));
-		delbyCol.setCellValueFactory(new PropertyValueFactory<>("courseCode"));
+		delbyCol.setCellValueFactory(new PropertyValueFactory<>("StudentEmail"));
 		timeCol.setCellValueFactory(new PropertyValueFactory<>("timestamp"));
 		
 		

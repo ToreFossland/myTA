@@ -121,6 +121,10 @@ public class Assignment{
 	public void setFileName(String fileName) {
 		this.fileName = fileName;
 	}
+	
+	public String getStudentEmail() {
+		return deliveredBy.getEmail();
+	}
 	/*
 	 * Might be used for table view
 	public Button getButton() {
