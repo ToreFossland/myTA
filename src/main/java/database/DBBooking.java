@@ -434,17 +434,19 @@ public class DBBooking extends DBConnection {
 			} else if (user.getType() == 2) {
 				statement = con.prepareStatement("SELECT Student_email, TeachingAssistant_email as TA_email, "
 						+ "Course_courseCode as course, day, timeEnd, timeStart, week, availablePlaces as places "
-						+ "FROM Booking INNER JOIN HallTime " + "ON idHallTime = HallTime_idHallTime "
-						+ "WHERE TeachingAssistant_email = ? "
+						+ "FROM Booking INNER JOIN HallTime ON idHallTime = HallTime_idHallTime "
+						+ "WHERE TeachingAssistant_email = ? OR Student_email = ? "
 						+ "OR (Student_email IS NULL AND TeachingAssistant_email <> ?)");
 
 				statement.setString(1, user.getEmail());
 				statement.setString(2, user.getEmail());
+				statement.setString(3, user.getEmail());
 
 				result = statement.executeQuery();
 				Booking booking;
 				while (result.next()) {
 					booking = createBookingObjectFromResultSet(result);
+					System.out.println(booking.getEmailStudent());
 					// System.out.println(booking);
 					if (booking.getEmailTA() != user.getEmail() && booking.getEmailStudent() == null)
 						tempAvailableBookingsStudent.add(booking);

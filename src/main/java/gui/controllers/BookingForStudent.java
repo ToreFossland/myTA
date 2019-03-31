@@ -390,7 +390,7 @@ public class BookingForStudent {
 	}
 
 	private int numberOfBookingsInWeek(String course, int week, User user) {
-		ArrayList<Booking> bookings = DBBooking.getAvailableBookingsStudent();
+		ArrayList<Booking> bookings = DBBooking.getBookingsStudent();
 		int count = 0;
 		for (Booking booking : bookings) {
 			if (booking.getEmailStudent() != null && booking.getCourseCode().equals(course) && booking.getWeek() == week

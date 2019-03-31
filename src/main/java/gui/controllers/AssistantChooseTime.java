@@ -288,5 +288,4 @@ public class AssistantChooseTime {
 	public void returnHandler(ActionEvent event) {
 		App.getInstance().gotoAssistantPage();
 	}
-
 }

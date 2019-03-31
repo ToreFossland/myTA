@@ -2,6 +2,7 @@ package gui.controllers;
 
 import java.time.LocalDate;
 import java.time.temporal.WeekFields;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
@@ -558,27 +559,34 @@ public class MyCalendarController {
 		boxes = boxesInitialized;
 		text = textInitialized;
 		//Fiks denne
-		List<Integer> weeks = DBBooking.getWeeksTA();
-		for (Integer i : DBBooking.getWeeksStudent()) {
-			if(i >= getCurrentWeek() && !weeks.contains(i))
-				weeks.add(i);	
+		List<Integer> weeks = new ArrayList<Integer>();
+		int currentWeek = DBBooking.getCurrentWeek();
+		
+		for (Integer week : DBBooking.getWeeksStudent()) {
+			if(week >= currentWeek)
+				weeks.add(week);
 		}
+		
+		for (Booking booking : DBBooking.getBookingsTA()) {
+			if(booking.getEmailStudent() != null && booking.getWeek() >= currentWeek && !weeks.contains(booking.getWeek()))
+				weeks.add(booking.getWeek());
+		}
+		
 		Collections.sort(weeks);
 		week_input.getItems().addAll(weeks);
 	
-
 		if(weeks.size() > 0) {
 			week_input.setValue(weeks.get(0));
 			loadCalendar();
 		}
-		
-		
 	}
 		
 	
 	public void loadCalendar() {
 		studentBookings = DBBooking.getBookingsStudent();
-		taBookings = DBBooking.getBookingsTA();
+		System.out.println(taBookings);
+		taBookings = getBookingsTA();
+		System.out.println(taBookings);
 		DBBooking.refreshBookingWeeks(App.getInstance().getLoggedUser());
 		emptyCalendar();
 		int week = week_input.getValue();
@@ -687,14 +695,29 @@ public class MyCalendarController {
 		
 	}
 	
-	
-	private int getCurrentWeek() {
-		LocalDate date = LocalDate.now();
-		WeekFields weekFields = WeekFields.of(Locale.getDefault());
-		return date.get(weekFields.weekOfWeekBasedYear());
+	@FXML
+	private List<Booking> getBookingsTA(){
+		List<Booking> temp = new ArrayList<Booking>();
+		
+		for (Booking booking : DBBooking.getBookingsTA()) {
+			if(booking.getEmailStudent() != null)
+				temp.add(booking);
+		}
+		Collections.sort(temp);
+		
+		/*System.out.println(taBookings);
+		for (Booking booking : temp) {
+			System.out.println(booking.getEmailStudent());
+			if(booking.getEmailStudent()!=null) {
+				taBookings.add(booking);
+				System.out.println("ok");
+			}
+		}
+		System.out.println(taBookings);*/
+		return temp;
+		
 	}
 	
-	@FXML
 	public void returnHandler() {
 		App.getInstance().gotoPrevious();
 	}
