@@ -21,18 +21,23 @@
                               <Font size="13.0" />
                            </font>
                         </Button>
+                        <HBox prefHeight="61.0" prefWidth="30.0" />
+                        <Button fx:id="button_my_calendar" mnemonicParsing="false" onAction="#myCalendarHandler" style="-fx-background-color: #ffc550;" text="My Calendar">
+                           <font>
+                              <Font size="13.0" />
+                           </font>
+                        </Button>
                      </children>
                   </HBox>
                   <HBox alignment="CENTER_LEFT" prefHeight="53.0" prefWidth="623.0">
                      <children>
-                        <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Assistant" wrappingWidth="141.869140625" HBox.hgrow="ALWAYS">
+                        <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Assistant" wrappingWidth="256.535888671875" HBox.hgrow="ALWAYS">
                            <font>
                               <Font size="25.0" />
                            </font>
                         </Text>
-                        <HBox alignment="CENTER" prefHeight="61.0" prefWidth="339.0">
+                        <HBox alignment="CENTER" prefHeight="61.0" prefWidth="389.0">
                            <children>
-                              <HBox prefHeight="100.0" prefWidth="200.0" />
                               <Button fx:id="button_return" mnemonicParsing="false" onAction="#returnHandler" style="-fx-background-color: blue;" text="Student" textFill="WHITE">
                                  <font>
                                     <Font size="13.0" />
