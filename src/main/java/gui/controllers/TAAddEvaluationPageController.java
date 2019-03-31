@@ -79,17 +79,20 @@ public class TAAddEvaluationPageController {
 					String comment = set_comment.getText();
 					Evaluation eval = new Evaluation(score,evaluator,selectedAssignment, comment);
 					EvaluationSender.sendEvaluation(eval);
-					App.getInstance().gotoTAViewEvaluationsPage();
+					text_response.setText("Evaluation sent.");
+					
 				}
 				else{
 					Evaluation eval = new Evaluation(score,evaluator,selectedAssignment);
 					EvaluationSender.sendEvaluation(eval);
-					App.getInstance().gotoTAViewEvaluationsPage();
-					App.getInstance().clearHistory();
+					text_response.setText("Evaluation sent.");
+					
 				}
 			
 			}
-			text_response.setText("Write a number between 0 and 100");
+			else{
+				text_response.setText("Write a number between 0 and 100");
+			}
 		}
 		catch(NumberFormatException e) {
 			text_response.setText("Write a number between 0 and 100");
