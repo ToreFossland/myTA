@@ -71,6 +71,5 @@ public class Halltime {
 	public String toString() {
 		return String.format("'%s','%s','%s','%s','%s','%s'", courseCode, Integer.toString(week), Integer.toString(day), timeStart.toString(), timeEnd.toString(), Integer.toString(availablePlaces));
 	}
-	//public static void assignHalltime(String courseCode, )
 
 }

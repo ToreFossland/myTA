@@ -273,20 +273,4 @@ public class DBEvaluation{
 		    try { if (con != null) con.close(); } catch (Exception e) {};
 		}
 	}
-	
-	public static void main(String[] args) {
-		User user = User.generateUserObject("abc@ntnu.no");
-		User.generateUserObject("hei@ntnu.no");
-		Assignment assignment = new Assignment(user, "TDT4100", "Tittel", LocalDateTime.of(2019, Month.MARCH, 1, 8, 00), (String) null);
-		new Evaluation(0, user, assignment, "hei");
-		new ArrayList<Evaluation>();
-		//evals.add(eval);
-		//insertAssignment(assignment);
-		//System.out.println(getEvaluations("TDT4100"));
-		System.out.println(getEvaluation("TDT4100", user));
-		//System.out.println(getEvaluation(10));
-		//updateEvaluation(10, 10);
-		//System.out.println(getAssignments("TDT4100"));
-		//insertEvaluation(eval);
-	}
 }

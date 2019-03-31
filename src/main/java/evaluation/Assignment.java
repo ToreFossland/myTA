@@ -125,23 +125,4 @@ public class Assignment{
 	public String getStudentEmail() {
 		return deliveredBy.getEmail();
 	}
-	/*
-	 * Might be used for table view
-	public Button getButton() {
-		if(this.fileName == null | this.id == -1)
-			return null;
-		Button downloadButton = new Button("Download");
-		Assignment assignment = this;
-		EventHandler<ActionEvent> event = new EventHandler<ActionEvent>() { 
-            public void handle(ActionEvent e) 
-            { 
-                assignment.setFile(DBFile.downloadFile(assignment));
-                assignment.openFile();    
-            } 
-        }; 
-        downloadButton.setOnAction(event);
-		
-		return downloadButton;
-	}*/
-
 }

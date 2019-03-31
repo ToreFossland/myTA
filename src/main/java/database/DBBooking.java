@@ -43,34 +43,6 @@ public class DBBooking extends DBConnection {
 	private static ArrayList<Booking> availableBookingsStudent = new ArrayList<Booking>();
 	private static ArrayList<Integer> availableWeeksStudent = new ArrayList<Integer>();
 
-//	//ny HallTimeID
-//	public static int newHtId() throws Exception {
-//
-//		int htID = 0;
-//		try {
-//			Connection con = getConnection();
-//			PreparedStatement statement = con.prepareStatement("SELECT * FROM HallTime ORDER BY idHallTime DESC LIMIT 1");
-//			ResultSet forrigeId = statement.executeQuery();
-//			forrigeId.next();
-//			htID = forrigeId.getInt("idHallTime") + 1;
-//			
-//		} catch (Exception e) {
-//			System.out.println(e);
-//		}
-//		return htID;
-//	}
-	/*
-	 * public static void main(String[] args) {
-	 * 
-	 * ArrayList<Halltime> halltimes = new ArrayList<Halltime>();
-	 * 
-	 * LocalTime timeStart = LocalTime.of(10, 00, 00); LocalTime timeEnd =
-	 * LocalTime.of(14, 00, 00); halltimes.add(new Halltime("TDT4140", 5, 3,
-	 * timeStart, timeEnd,15)); timeStart = LocalTime.of(13, 00, 00); timeEnd =
-	 * LocalTime.of(15, 00, 00); halltimes.add(new Halltime("TDT4140", 5, 3,
-	 * timeStart, timeEnd, 13)); supervisorAddHalltime(halltimes, 20); }
-	 */
-
 	static Connection con = null;
 	static PreparedStatement statement = null;
 	static ResultSet result = null;
@@ -296,107 +268,7 @@ public class DBBooking extends DBConnection {
 		    try { if (con != null) con.close(); } catch (Exception e) {};
 		}
 	}
-/*
-	public static void downloadBookings() throws Exception {
 
-		User user = App.getInstance().getLoggedUser();
-
-		ArrayList<Booking> availableBookingsStudent = new ArrayList<Booking>();
-		ArrayList<Booking> availableBookingsTA = new ArrayList<Booking>();
-		ArrayList<Integer> weeksStudent = new ArrayList<Integer>();
-		ArrayList<Integer> weeksTA = new ArrayList<Integer>();
-
-		try {
-			BasicDataSource bds = DataSource.getInstance().getBds();
-			con = bds.getConnection();
-
-			if (user.getType() == 1) {
-				statement = con.prepareStatement("SELECT * FROM HallTime INNER JOIN Booking ON HallTime.idHallTime = "
-						+ "Booking.HallTime_idHallTime WHERE Student_email IS NULL");
-				result = statement.executeQuery();
-				while (result.next()) {
-					String CourseCode = result.getString("Course_CourseCode");
-					int week = result.getInt("week");
-					int day = result.getInt("day");
-					LocalTime timeStart = LocalTime.parse(result.getString("timeStart"));
-					LocalTime timeEnd = LocalTime.parse(result.getString("timeEnd"));
-					int availablePlaces = result.getInt("availablePlaces");
-					String emailTA = result.getString("TeachingAssistant_email");
-					if (!weeksStudent.contains(week)) {
-						weeksStudent.add(week);
-					}
-					// System.out.println(CourseCode + " " + week + " " + day + " " + timeStart + "
-					// " + timeEnd + " " + availablePlaces);
-					Halltime ht = new Halltime(CourseCode, week, day, timeStart, timeEnd, availablePlaces);
-
-					Booking booking = new Booking(ht, emailTA, user.getEmail());
-					availableBookingsStudent.add(booking);
-				}
-				App.getInstance().setDownloadedBookingsStudent(availableBookingsStudent);
-				System.out.println(weeksStudent + "yes");
-				App.getInstance().setDownloadedWeeksStudent(weeksStudent);
-			} else if (App.getInstance().getLoggedUser().getType() == 2) {
-				statement = con.prepareStatement("SELECT * FROM HallTime INNER JOIN Booking ON HallTime.idHallTime = "
-						+ "Booking.HallTime_idHallTime WHERE Student_email IS NULL");
-				result = statement.executeQuery();
-				while (result.next()) {
-					String CourseCode = result.getString("Course_CourseCode");
-					int week = result.getInt("week");
-					int day = result.getInt("day");
-					LocalTime timeStart = LocalTime.parse(result.getString("timeStart"));
-					LocalTime timeEnd = LocalTime.parse(result.getString("timeEnd"));
-					int availablePlaces = result.getInt("availablePlaces");
-					String emailTA = result.getString("TeachingAssistant_email");
-					if (!weeksStudent.contains(week)) {
-						weeksStudent.add(week);
-					}
-					// System.out.println(CourseCode + " " + week + " " + day + " " + timeStart + "
-					// " + timeEnd + " " + availablePlaces);
-					Halltime ht = new Halltime(CourseCode, week, day, timeStart, timeEnd, availablePlaces);
-
-					Booking booking = new Booking(ht, emailTA, user.getEmail());
-					availableBookingsStudent.add(booking);
-				}
-				statement.close();
-				result.close();
-
-				statement = con.prepareStatement("SELECT * FROM HallTime WHERE HallTime.idHallTime "
-						+ "NOT IN (SELECT HallTime_idHallTime FROM Booking) AND availablePlaces > 0");
-				result = statement.executeQuery();
-				while (result.next()) {
-					String CourseCode = result.getString("Course_CourseCode");
-					int week = result.getInt("week");
-					int day = result.getInt("day");
-					LocalTime timeStart = LocalTime.parse(result.getString("timeStart"));
-					LocalTime timeEnd = LocalTime.parse(result.getString("timeEnd"));
-					int availablePlaces = result.getInt("availablePlaces");
-					if (!weeksTA.contains(week)) {
-						weeksTA.add(week);
-					}
-
-					Halltime ht = new Halltime(CourseCode, week, day, timeStart, timeEnd, availablePlaces);
-					Booking book = new Booking(ht, user);
-					availableBookingsTA.add(book);
-				}
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} finally {
-			try { if (result != null) result.close(); } catch (Exception e) {};
-		    try { if (statement != null) statement.close(); } catch (Exception e) {};
-		    try { if (con != null) con.close(); } catch (Exception e) {};
-		}
-		App.getInstance().setDownloadedBookingsTA(availableBookingsTA);
-		App.getInstance().setDownloadedBookingsStudent(availableBookingsStudent);
-
-//				App.getInstance().setDownloadedWeeksStudent(weeksStudent);
-//				App.getInstance().setDownloadedWeeksTA(weeksTA);
-
-	}
-<<<<<<< HEAD
-	*/
-	
 	public static void downloadBookings(User user) {
 
 		if (user.getType() != 1 && user.getType() != 2)
@@ -668,145 +540,34 @@ public class DBBooking extends DBConnection {
 	public static void setAvailableWeeksStudent(ArrayList<Integer> availableWeeksStudent) {
 		DBBooking.availableWeeksStudent = availableWeeksStudent;
 	}
-	
-	/*
-	public static Integer numberOfBookingsInWeek(Integer week, User user) {
-		Integer number = null;
+		
+	public static void deleteBooking(Booking booking) throws Exception {        
 		try {
-			
-			    BasicDataSource bds = DataSource.getInstance().getBds();
-			    con = bds.getConnection();
-			
-			    statement = con.prepareStatement("SELECT COUNT(*) as bookings " + 
-								"FROM Booking " + 
-								"INNER JOIN HallTime " + 
-								"ON HallTime_idHallTime = idHallTime " + 
-								"WHERE week = ? and Student_email = ?");
-			    statement.setInt(1, week);
-			    statement.setString(2, user.getEmail());
-			    
-			    result = statement.executeQuery();
-			    result.next();
-			    number = result.getInt("bookings");
-			
-		} catch (SQLException e) {
-				// TODO Auto-generated catch block
-					e.printStackTrace();
+			BasicDataSource bds = DataSource.getInstance().getBds();
+			con = bds.getConnection();
+			statement = con.prepareStatement(String.format(
+					"SELECT idHallTime FROM HallTime WHERE Course_courseCode = '%s' "
+							+ "AND week = '%s' AND day = '%s'AND timeStart = '%s' AND timeEnd = '%s' ",
+					booking.getCourseCode(), booking.getWeek(), booking.getDay(), booking.getStartTime(),
+					booking.getEndTime()));
+		
+			result = statement.executeQuery();
+			result.next();
+			int idHallTime = result.getInt("idHallTime");
+			PreparedStatement deleteBooking = con.prepareStatement(
+					"DELETE FROM Booking WHERE Halltime_idHalltime ='" + idHallTime + "' " + "AND Student_email ='"
+							+ booking.getEmailStudent() + "' AND TeachingAssistant_email = '" + booking.getEmailTA() + "'");
+		
+			deleteBooking.execute();
+			con.close();
+		} catch (Exception e) {
+			// TODO: handle exception
 		} finally {
-				try { if (result != null) result.close(); } catch (Exception e) {};
-			    try { if (statement != null) statement.close(); } catch (Exception e) {};
-			    try { if (con != null) con.close(); } catch (Exception e) {};
+			try { if (result != null) result.close(); } catch (Exception e) {};
+		    try { if (statement != null) statement.close(); } catch (Exception e) {};
+		    try { if (con != null) con.close(); } catch (Exception e) {};
 		}
-		
-		return number;
-	}*/
-/*
-	public static void downloadMyBookings() throws Exception{
-		Connection con = null;
-        PreparedStatement statement = null;
-        ResultSet result = null;
-		
-        ArrayList<Booking> myBookingsStudent = new ArrayList<Booking>();
-		ArrayList<Booking> myBookingsTA = new ArrayList<Booking>();
-		
-		User user = App.getInstance().getLoggedUser();
-		String myEmail= user.getEmail();
-		
-		BasicDataSource bds = DataSource.getInstance().getBds();
-        con = bds.getConnection();
-		statement = con
-				.prepareStatement("SELECT * FROM HallTime INNER JOIN Booking ON HallTime.idHallTime = "
-						+ "Booking.HallTime_idHallTime WHERE Student_email = '"+myEmail+"'");
-		result = statement.executeQuery();
-		while (result.next()) {
-			String CourseCode = result.getString("Course_CourseCode");
-			int week = result.getInt("week");
-			int day = result.getInt("day");
-			LocalTime timeStart = LocalTime.parse(result.getString("timeStart"));
-			LocalTime timeEnd = LocalTime.parse(result.getString("timeEnd"));
-			int availablePlaces = result.getInt("availablePlaces");
-			String emailTA = result.getString("TeachingAssistant_email");
-			// System.out.println(CourseCode + " " + week + " " + day + " " + timeStart + "
-			// " + timeEnd + " " + availablePlaces);
-			Halltime ht = new Halltime(CourseCode, week, day, timeStart, timeEnd, availablePlaces);
-			Booking booking = new Booking(ht, emailTA, user.getEmail());
-			myBookingsStudent.add(booking);
-		}
-		statement = con
-				.prepareStatement("SELECT * FROM HallTime INNER JOIN Booking ON HallTime.idHallTime = "
-						+ "Booking.HallTime_idHallTime WHERE TeachingAssistant_email = '"+myEmail+"'");
-		result =statement.executeQuery();
-		while (result.next()) {
-			String CourseCode = result.getString("Course_CourseCode");
-			int week = result.getInt("week");
-			int day = result.getInt("day");
-			LocalTime timeStart = LocalTime.parse(result.getString("timeStart"));
-			LocalTime timeEnd = LocalTime.parse(result.getString("timeEnd"));
-			int availablePlaces = result.getInt("availablePlaces");
-			String studentEmail = result.getString("Student_email");
-			// System.out.println(CourseCode + " " + week + " " + day + " " + timeStart + "
-			// " + timeEnd + " " + availablePlaces);
-			Halltime ht = new Halltime(CourseCode, week, day, timeStart, timeEnd, availablePlaces);
-			Booking booking = new Booking(ht, user.getEmail(), studentEmail);
-			myBookingsTA.add(booking);
-		}
-		
-		setMyBookingsStudent(myBookingsStudent);
-		setMyBookingsTA(myBookingsTA);
-		
-		
-	}*/
-		
-	public static void deleteBooking(Booking booking) throws Exception {
-		
-        
-try {
-	BasicDataSource bds = DataSource.getInstance().getBds();
-	con = bds.getConnection();
-	statement = con.prepareStatement(String.format(
-			"SELECT idHallTime FROM HallTime WHERE Course_courseCode = '%s' "
-					+ "AND week = '%s' AND day = '%s'AND timeStart = '%s' AND timeEnd = '%s' ",
-			booking.getCourseCode(), booking.getWeek(), booking.getDay(), booking.getStartTime(),
-			booking.getEndTime()));
-
-	result = statement.executeQuery();
-	result.next();
-	int idHallTime = result.getInt("idHallTime");
-	PreparedStatement deleteBooking = con.prepareStatement(
-			"DELETE FROM Booking WHERE Halltime_idHalltime ='" + idHallTime + "' " + "AND Student_email ='"
-					+ booking.getEmailStudent() + "' AND TeachingAssistant_email = '" + booking.getEmailTA() + "'");
-
-	deleteBooking.execute();
-	con.close();
-} catch (Exception e) {
-	// TODO: handle exception
-} finally {
-	try { if (result != null) result.close(); } catch (Exception e) {};
-    try { if (statement != null) statement.close(); } catch (Exception e) {};
-    try { if (con != null) con.close(); } catch (Exception e) {};
-}
-
-		
-		
-		
 	}
-
-	/*
-	public static ArrayList<Booking> getMyBookingsTA() {
-		return myBookingsTA;
-	}
-
-	public static void setMyBookingsTA(ArrayList<Booking> bookingsTA) {
-		myBookingsTA = bookingsTA;
-	}
-	public static ArrayList<Booking> getMyBookingsStudent() {
-		return myBookingsStudent;
-	}
-
-	public static void setMyBookingsStudent(ArrayList<Booking> bookingsStudent) {
-		myBookingsStudent = bookingsStudent;
-	}
-*/
 	
 	public static int getCurrentWeek() {
 		LocalDate date = LocalDate.now();
@@ -821,45 +582,3 @@ try {
 		bookingsTA.remove(booking);
 	}
 }
-
-	/*
-	 * if (user.getType() == 1) { PreparedStatement hallTimesStudent = con
-	 * .prepareStatement("SELECT * FROM HallTime INNER JOIN Booking ON HallTime.idHallTime = "
-	 * + "Booking.HallTime_idHallTime WHERE Student_email IS NULL"); ResultSet rs =
-	 * hallTimesStudent.executeQuery(); while (rs.next()) { String CourseCode =
-	 * rs.getString("Course_CourseCode"); int week = rs.getInt("week"); int day =
-	 * rs.getInt("day"); LocalTime timeStart =
-	 * LocalTime.parse(rs.getString("timeStart")); LocalTime timeEnd =
-	 * LocalTime.parse(rs.getString("timeEnd")); int availablePlaces =
-	 * rs.getInt("availablePlaces"); String emailTA =
-	 * rs.getString("TeachingAssistant_email"); if (!weeksStudent.contains(week)) {
-	 * weeksStudent.add(week); } // System.out.println(CourseCode + " " + week + " "
-	 * + day + " " + timeStart + " // " + timeEnd + " " + availablePlaces); Halltime
-	 * ht = new Halltime(CourseCode, week, day, timeStart, timeEnd,
-	 * availablePlaces);
-	 * 
-	 * Booking booking = new Booking(ht, emailTA, user.getEmail());
-	 * availableBookingsStudent.add(booking); }
-	 * App.getInstance().setDownloadedBookings(availableBookingsStudent);
-	 * App.getInstance().setDownloadedWeeks(weeksStudent); } else if
-	 * (App.getInstance().getLoggedUser().getType() == 2) { PreparedStatement
-	 * hallTimesTA =
-	 * con.prepareStatement("SELECT * FROM HallTime WHERE HallTime.idHallTime " +
-	 * "NOT IN (SELECT HallTime_idHallTime FROM Booking) AND availablePlaces > 0");
-	 * ResultSet rs = hallTimesTA.executeQuery(); while (rs.next()) { String
-	 * CourseCode = rs.getString("Course_CourseCode"); int week = rs.getInt("week");
-	 * int day = rs.getInt("day"); LocalTime timeStart =
-	 * LocalTime.parse(rs.getString("timeStart")); LocalTime timeEnd =
-	 * LocalTime.parse(rs.getString("timeEnd")); int availablePlaces =
-	 * rs.getInt("availablePlaces"); if (!weeksTA.contains(week)) {
-	 * weeksTA.add(week); }
-	 * 
-	 * Halltime ht = new Halltime(CourseCode, week, day, timeStart, timeEnd,
-	 * availablePlaces); Booking book = new Booking(ht, user);
-	 * availableBookingsTA.add(book); }
-	 * App.getInstance().setDownloadedBookings(availableBookingsTA);
-	 * App.getInstance().setDownloadedWeeks(weeksTA);
-	 * 
-	 * }
-	 */
-

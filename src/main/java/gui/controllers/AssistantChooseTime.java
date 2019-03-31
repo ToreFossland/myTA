@@ -173,19 +173,6 @@ public class AssistantChooseTime {
 		}
 	}
 		
-		
-//		if(week_input.getValue() != null) {
-//			int week = week_input.getValue();
-//			// Enables checkbox one by one
-//			for (Booking booking : bookings) {
-//				if (booking.getCourseCode().equals(course_input.getValue()) && booking.getWeek() == week
-//						&& booking.getStartTime().getHour() % 2 == 0 && booking.getStartTime().getMinute() == 0) {
-//					checkboxes[booking.getDay() - 1][(booking.getStartTime().getHour() - 8) / 2].setDisable(false);
-//				}
-//			}
-//		}
-	
-	
 	public void loadTimesInWeek(){
 		for (CheckBox[] checkboxRow : checkboxes) {
 			for (CheckBox checkbox : checkboxRow) {
@@ -193,24 +180,6 @@ public class AssistantChooseTime {
 				checkbox.setSelected(false);
 			}
 		}
-//			App.getInstance().refreshBookingWeeks(course_input.getValue());
-//			List<Integer> availableWeeks = App.getInstance().getDownloadedWeeksTA();
-//			Collections.sort(availableWeeks);
-//			if(!availableWeeks.isEmpty()) {
-//				if(week_input.getValue() == null) {
-//					week_input.setValue(availableWeeks.get(0));
-//				}
-//				int week = week_input.getValue();
-//				int bookingNo = 0;
-//				// Enables checkbox one by one
-//				for (Booking booking : bookings) {
-//					System.out.println(booking);
-//					if (booking.getCourseCode().equals(course_input.getValue()) && booking.getWeek() == week) {
-//						bookingNo = (booking.getStartTime().getHour() -8) * 2 + booking.getStartTime().getMinute() / BOOKINGLENGTH; 
-//						checkboxes[booking.getDay() - 1][bookingNo].setDisable(false);
-//					}
-//				}
-//			}
 		
 		DBBooking.refreshBookingWeeks(App.getInstance().getLoggedUser(), course_input.getValue());
 		List<Integer> availableWeeks = DBBooking.getAvailableWeeksTA();

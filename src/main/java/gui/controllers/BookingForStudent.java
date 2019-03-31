@@ -240,19 +240,6 @@ public class BookingForStudent {
 
 		bookings = DBBooking.getAvailableBookingsStudent();
 		DBBooking.refreshBookingWeeks(App.getInstance().getLoggedUser(), relevantCourses.get(0));
-		// System.out.println(App.getInstance().getDownloadedWeeksStudent() + "fuuu");
-//		List<Integer> availableWeeks = App.getInstance().getDownloadedWeeksStudent();
-//		Collections.sort(availableWeeks);
-//
-//		week_input.getItems().addAll(availableWeeks);
-//
-//		for (Integer week : availableWeeks) {
-//			System.out.println(Integer.toString(week));
-//			if (week >= getCurrentWeek()) {
-//				week_input.setValue(week);
-//				break;
-//			}
-//		}
 		course_input.setValue(relevantCourses.get(0));
 	}
 

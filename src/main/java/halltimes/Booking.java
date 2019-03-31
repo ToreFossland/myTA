@@ -125,7 +125,6 @@ public class Booking implements Comparable<Booking>{
 				&& this.getStartTime().equals(o.getStartTime())) {
 			return 1;
 		}
-		// TODO Auto-generated method stub
 		return 0;
 	}
 	

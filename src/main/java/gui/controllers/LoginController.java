@@ -52,12 +52,6 @@ public class LoginController {
 		}
 	}
 	
-	
-	/*@FXML
-	public void gotoPage(String path) throws Exception {
-		Parent blah = FXMLLoader.load(getClass().getResource(path));
-		Scene scene = new Scene(blah);
-	}*/
 
 	@FXML
 	public void RegButtonHandler(javafx.event.ActionEvent event) throws Exception {

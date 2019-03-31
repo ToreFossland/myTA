@@ -36,15 +36,11 @@ public class BookingInfoTAController {
 	
 	
 	public void initialize() {
-		System.out.println("OK");
 		Booking chosenBooking = MyCalendarController.getChosenBooking();
 		String courseCode = chosenBooking.getCourseCode();
-		System.out.println(courseCode);
 		String studentEmail = chosenBooking.getEmailStudent();
-		System.out.println(studentEmail);
 		String firstname = DBConnection.returnUserObject(studentEmail).getFirstName();
 		String lastname = DBConnection.returnUserObject(studentEmail).getLastName();
-		System.out.println("OK2");
 		subject.setText(courseCode);
 		student_name.setText(firstname+" "+lastname);
 		String week = Integer.toString(chosenBooking.getWeek());

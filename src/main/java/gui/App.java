@@ -133,14 +133,6 @@ public class App extends Application {
 		}
 	}
 
-	// Overfloedig?
-	/*
-	 * public void userRegister(String email, String password, String userName,
-	 * String firstName, String lastName) { userRegister(email, password, firstName,
-	 * lastName, false); // doSomething }
-	 */
-	// skipCheck = true skips checking for user existence in database. Useful for
-	// perfomance if this has already been checked.
 	public void userRegister(String email, String password, String firstName, String lastName, Boolean skipCheck) {
 		Map<String, Integer> courses = new HashMap<String, Integer>();
 		password = toMD5(password);
@@ -501,7 +493,6 @@ public class App extends Application {
 
 		return hashtext;
 	}
-
 
 	public TimeSchedule getMyTimeSchedule() {
 		return myTimeSchedule;

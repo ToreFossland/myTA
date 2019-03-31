@@ -15,89 +15,84 @@ import javafx.scene.text.Text;
 import user.User;
 
 public class TAAddEvaluationPageController {
-	
+
 	@FXML
 	Button button_confirm_score;
-	
+
 	@FXML
 	TextField set_score;
-	
+
 	@FXML
 	TextArea set_comment;
-	
+
 	@FXML
 	Text student_email;
-	
+
 	@FXML
 	Text assignment_name;
-	
+
 	@FXML
 	Button button_return;
-	
+
 	@FXML
 	Text text_response;
-	
+
 	@FXML
 	Label open_file_label;
-	
+
 	@FXML
 	Button download_button;
-	
+
 	Assignment selectedAssignment;
-	
+
 	public void returnHandler(javafx.event.ActionEvent event) {
 		App.getInstance().gotoAssistantPage();
 	}
+
 	public void initialize() {
 		selectedAssignment = AssignmentInbox.getSelectedAssignment();
-		if(selectedAssignment.getFileName() != null)
-		{
+		if (selectedAssignment.getFileName() != null) {
 			download_button.setVisible(true);
 			open_file_label.setText("File: " + selectedAssignment.getFileName());
 			open_file_label.setVisible(true);
-			
+
 		}
 		String email = selectedAssignment.getDeliveredBy().getEmail();
 		String assName = selectedAssignment.getAssignmentName();
 		student_email.setText(email);
 		assignment_name.setText(assName);
 	}
-	
-	public void downloadButtonHandler(javafx.event.ActionEvent event) {	
+
+	public void downloadButtonHandler(javafx.event.ActionEvent event) {
 		selectedAssignment.downloadFile();
 		selectedAssignment.openFile();
 	}
-	
+
 	public void confirmHandler(javafx.event.ActionEvent event) throws Exception {
 		String scoreText = set_score.getText();
 		try {
 			int score = Integer.parseInt(scoreText);
-			if (score>=0 && score<=100) {
+			if (score >= 0 && score <= 100) {
 				Assignment selectedAssignment = AssignmentInbox.getSelectedAssignment();
 				User evaluator = App.getInstance().getLoggedUser();
-				if(set_comment.getText() != null) {
+				if (set_comment.getText() != null) {
 					String comment = set_comment.getText();
-					Evaluation eval = new Evaluation(score,evaluator,selectedAssignment, comment);
+					Evaluation eval = new Evaluation(score, evaluator, selectedAssignment, comment);
 					EvaluationSender.sendEvaluation(eval);
 					App.getInstance().gotoTAViewEvaluationsPage();
-				}
-				else{
-					Evaluation eval = new Evaluation(score,evaluator,selectedAssignment);
+				} else {
+					Evaluation eval = new Evaluation(score, evaluator, selectedAssignment);
 					EvaluationSender.sendEvaluation(eval);
 					App.getInstance().gotoTAViewEvaluationsPage();
 					App.getInstance().clearHistory();
 				}
-			
+
 			}
 			text_response.setText("Write a number between 0 and 100");
-		}
-		catch(NumberFormatException e) {
+		} catch (NumberFormatException e) {
 			text_response.setText("Write a number between 0 and 100");
 		}
-		
-		
+
 	}
-	
-	
 
 }
