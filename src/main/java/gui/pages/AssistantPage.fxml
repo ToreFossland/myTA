@@ -28,11 +28,6 @@
                            </font>
                         </Button>
                         <HBox prefHeight="61.0" prefWidth="30.0" />
-                        <Button fx:id="button_my_calendar" mnemonicParsing="false" onAction="#myCalendarHandler" style="-fx-background-color: #ffc550;" text="My Calendar">
-                           <font>
-                              <Font size="13.0" />
-                           </font>
-                        </Button>
                      </children>
                   </HBox>
                   <HBox alignment="CENTER_LEFT" prefHeight="53.0" prefWidth="623.0">

@@ -1,5 +1,7 @@
 package gui.controllers;
 
+import java.io.IOException;
+
 import evaluation.Assignment;
 import evaluation.AssignmentInbox;
 import evaluation.Evaluation;
@@ -65,7 +67,12 @@ public class TAAddEvaluationPageController {
 
 	public void downloadButtonHandler(javafx.event.ActionEvent event) {
 		selectedAssignment.downloadFile();
-		selectedAssignment.openFile();
+		try {
+			selectedAssignment.openFile();
+		} catch (IOException e) {
+			text_response.setText("No software to open file.\nOpen manually in " + selectedAssignment.getFile().getAbsolutePath());
+		}
+		
 	}
 
 	public void confirmHandler(javafx.event.ActionEvent event) throws Exception {

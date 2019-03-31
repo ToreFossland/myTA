@@ -40,7 +40,7 @@ public class Assignment{
 			throw new IllegalStateException("According to local information, this assignment does not have a file associated to it");
 	}
 	
-	public void openFile() {
+	public void openFile() throws IOException{
 		if (file == null) {
 			throw new NullPointerException("Assignment does not have a file. Try downloading first");
 		} else {
@@ -52,12 +52,7 @@ public class Assignment{
 	        
 	        Desktop desktop = Desktop.getDesktop();
 	        if(file.exists())
-				try {
-					desktop.open(file);
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+				desktop.open(file);
 		}
 		
 	}

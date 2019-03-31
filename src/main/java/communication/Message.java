@@ -94,9 +94,9 @@ public class Message implements Comparable<Message>{
 	@Override
 	public int compareTo(Message message) {
 		if(message.getTimestamp().isBefore(this.getTimestamp()))
-			return -1;
-		else if (message.getTimestamp().isAfter(this.getTimestamp()))
 			return 1;
+		else if (message.getTimestamp().isAfter(this.getTimestamp()))
+			return -1;
 		else
 			return 0;
 	}

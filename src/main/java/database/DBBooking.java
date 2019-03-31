@@ -296,7 +296,6 @@ public class DBBooking extends DBConnection {
 				Booking booking;
 				while (result.next()) {
 					booking = createBookingObjectFromResultSet(result);
-					System.out.println(booking.getEmailStudent());
 					
 					if (booking.getEmailStudent() == null)
 						tempAvailableBookingsStudent.add(booking);
@@ -318,7 +317,6 @@ public class DBBooking extends DBConnection {
 				Booking booking;
 				while (result.next()) {
 					booking = createBookingObjectFromResultSet(result);
-					System.out.println(booking.getEmailStudent());
 					// System.out.println(booking);
 					if (booking.getEmailTA() != user.getEmail() && booking.getEmailStudent() == null)
 						tempAvailableBookingsStudent.add(booking);

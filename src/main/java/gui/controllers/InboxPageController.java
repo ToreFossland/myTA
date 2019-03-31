@@ -39,7 +39,7 @@ public class InboxPageController {
 		Logger.getLogger(App.class.getName()).log(Level.INFO, "Messages downloaded");
 		
 		messages = removeMessagesWhereSender(messages);
-		Collections.sort(messages);
+		Collections.sort(messages, Collections.reverseOrder());
 		
 		messageTable.getItems().addAll(messages);
 	}
