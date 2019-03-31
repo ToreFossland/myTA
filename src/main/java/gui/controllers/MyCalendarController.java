@@ -561,7 +561,8 @@ public class MyCalendarController {
 		//Fiks denne
 		List<Integer> weeks = new ArrayList<Integer>();
 		int currentWeek = DBBooking.getCurrentWeek();
-		
+		DBBooking.refreshBookingWeeks(App.getInstance().getLoggedUser());
+		System.out.println(DBBooking.getWeeksStudent());
 		for (Integer week : DBBooking.getWeeksStudent()) {
 			if(week >= currentWeek)
 				weeks.add(week);
@@ -583,6 +584,7 @@ public class MyCalendarController {
 		
 	
 	public void loadCalendar() {
+		System.out.println("Kuk");
 		studentBookings = DBBooking.getBookingsStudent();
 		System.out.println(taBookings);
 		taBookings = getBookingsTA();
