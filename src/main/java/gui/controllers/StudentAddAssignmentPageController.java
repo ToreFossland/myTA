@@ -15,6 +15,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 
 public class StudentAddAssignmentPageController {
@@ -30,6 +31,9 @@ public class StudentAddAssignmentPageController {
 	
 	@FXML
 	Label file_name;
+	
+	@FXML
+	Label response_label;
 	
 	@FXML
 	ChoiceBox<String> course_input;
@@ -65,7 +69,14 @@ public class StudentAddAssignmentPageController {
 	
 	public void uploadHandler(javafx.event.ActionEvent event) {
 		Assignment assignment = new Assignment(App.getInstance().getLoggedUser(), course_input.getValue(), user_input.getText(), LocalDateTime.now(), file);
+		try {
 		DBEvaluation.insertAssignment(assignment);
+		response_label.setText("Assignment inserted!");
+		} catch(Exception e) {
+			response_label.setText("Adding assignment failed");
+		} finally {
+			response_label.setVisible(true);
+		}
 	}
 
 }

@@ -4,6 +4,7 @@ import java.io.FileInputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.time.Month;
@@ -45,7 +46,7 @@ public class DBEvaluation{
 		}
 	}
 	
-	public static void insertAssignment(Assignment assignment) {
+	public static void insertAssignment(Assignment assignment) throws Exception {
 		Connection con = null;
 		PreparedStatement statement = null;
 		ResultSet result = null;
@@ -67,6 +68,7 @@ public class DBEvaluation{
 			statement.executeUpdate();
 		} catch (Exception e) {
 			Logger.getLogger(App.class.getName()).log(Level.SEVERE, "Could not insert assignment");
+			throw new Exception();
 		} finally {
 			Logger.getLogger(App.class.getName()).log(Level.INFO, "Assignment inserted");
 		    try { if (result != null) result.close(); } catch (Exception e) {};

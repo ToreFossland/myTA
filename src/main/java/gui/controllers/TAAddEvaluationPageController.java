@@ -9,6 +9,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 
 import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import user.User;
@@ -22,7 +23,7 @@ public class TAAddEvaluationPageController {
 	TextField set_score;
 	
 	@FXML
-	TextField set_comment;
+	TextArea set_comment;
 	
 	@FXML
 	Text student_email;
@@ -84,6 +85,7 @@ public class TAAddEvaluationPageController {
 					Evaluation eval = new Evaluation(score,evaluator,selectedAssignment);
 					EvaluationSender.sendEvaluation(eval);
 					App.getInstance().gotoTAViewEvaluationsPage();
+					App.getInstance().clearHistory();
 				}
 			
 			}
