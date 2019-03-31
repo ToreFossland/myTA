@@ -68,8 +68,8 @@ public class StudentAddAssignmentPageController {
 	
 	public void uploadHandler(javafx.event.ActionEvent event) {
 		Assignment assignment = new Assignment(App.getInstance().getLoggedUser(), course_input.getValue(), user_input.getText(), LocalDateTime.now(), file);
-		if(assignment.getFile().length() > 1024000)
-			response_label.setText("File size cannot exceed 1 MB");
+		if(assignment.getFile().length() > 16777215)
+			response_label.setText("File size cannot exceed 16 MB");
 		else {
 			try {
 				DBEvaluation.insertAssignment(assignment);
