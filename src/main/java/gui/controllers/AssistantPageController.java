@@ -1,5 +1,6 @@
 package gui.controllers;
 
+import database.DBBooking;
 import gui.App;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -24,12 +25,20 @@ public class AssistantPageController {
 	@FXML
 	Button addAssistantTimes_button;
 	
+	@FXML
+	Button button_my_calendar;
+	
 	public void logoutHandler(javafx.event.ActionEvent event) throws Exception {
 		App.getInstance().gotoLogin();
 	}
 	
 	public void returnHandler() {
 		App.getInstance().gotoStudentPage();
+	}
+	
+	public void myCalendarHandler(javafx.event.ActionEvent event) throws Exception {
+		DBBooking.downloadBookings(App.getInstance().getLoggedUser());
+		App.getInstance().gotoMyCalendar();
 	}
 	
 	public void addAssistantTimesHandler(javafx.event.ActionEvent event) {
