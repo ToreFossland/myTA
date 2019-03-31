@@ -102,6 +102,9 @@ public class StudentViewAssignmentsPageController {
 	@FXML
 	TableColumn<Evaluation, Integer> scoreCol;
 	
+	@FXML
+	TableColumn<Evaluation, String> noteCol;
+	
 	
 	@FXML
 	Button button_return;
@@ -133,6 +136,7 @@ public class StudentViewAssignmentsPageController {
 		evaluationTable.getItems().clear();
 		assignmentCol.setCellValueFactory(new PropertyValueFactory<>("assignmentName"));
 		scoreCol.setCellValueFactory(new PropertyValueFactory<>("score"));
+		noteCol.setCellValueFactory(new PropertyValueFactory<>("note"));
 		
 		inbox = new EvaluationInbox(chosenSubject);
 		ArrayList<Evaluation> evaluations = inbox.getEvaluations();

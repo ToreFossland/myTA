@@ -20,10 +20,7 @@ public class Evaluation implements Comparable<Evaluation>{
 	private LocalDateTime timestamp;
 	
 	public Evaluation(Integer score, User evaluator, Assignment assignment){
-		this.setScore(score);
-		this.setEvaluator(evaluator);
-		this.setAssignment(assignment);
-		this.setTimestamp(LocalDateTime.now());
+		this(score, evaluator, assignment, null);
 	}
 	
 	public Evaluation(Integer score, User evaluator, Assignment assignment, String note){
@@ -55,6 +52,8 @@ public class Evaluation implements Comparable<Evaluation>{
 	}
 
 	public String getNote() {
+		if(note == null | note.equals("null"))
+			return "";
 		return note;
 	}
 

@@ -48,9 +48,9 @@
                <children>
                   <TableView fx:id="evaluationTable" editable="true" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: white; -fx-border-color: black; -fx-border-radius: 7; -fx-: black;" HBox.hgrow="ALWAYS">
                     <columns>
-                      <TableColumn fx:id="assignmentCol" prefWidth="350.0" text="Assignment" />
-                      <TableColumn fx:id="scoreCol" prefWidth="350.0" text="Score/Feedback" />
-                        <TableColumn prefWidth="75.0" text="Column X" />
+                      <TableColumn fx:id="assignmentCol" prefWidth="200.0" text="Assignment" />
+                      <TableColumn fx:id="scoreCol" prefWidth="100.0" text="Score" />
+                        <TableColumn fx:id="noteCol" prefWidth="400.0" text="Comment" />
                     </columns>
                      <HBox.margin>
                         <Insets left="50.0" right="50.0" />
