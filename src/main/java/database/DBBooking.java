@@ -499,7 +499,6 @@ public class DBBooking extends DBConnection {
 		availableBookingsTA = tempAvailableBookingsTA;
 		bookingsStudent = tempBookingsStudent;
 		availableBookingsStudent = tempAvailableBookingsStudent;
-		
 		Logger.getLogger(App.class.getName()).log(Level.INFO, "Bookings downloaded");
 	}
 
@@ -580,7 +579,6 @@ public class DBBooking extends DBConnection {
 	public static void refreshBookingWeeks(User user) {
 
 		ArrayList<Integer> weeksStudent = new ArrayList<Integer>();
-
 
 		if (getBookingsStudent() != null) {
 			for (Booking booking : getBookingsStudent()) {
