@@ -129,7 +129,7 @@ public class AssistantChooseTime {
 			week_input.getItems().addAll(availableWeeks);
 
 			for (Integer week : availableWeeks) {
-				if (week >= getCurrentWeek()) {
+				if (week >= DBBooking.getCurrentWeek()) {
 					week_input.setValue(week); 
 					break;
 				}
@@ -165,7 +165,7 @@ public class AssistantChooseTime {
 				week_input.setValue(availableWeeks.get(0));
 			}
 			for (Integer week : availableWeeks) {
-				if (week >= getCurrentWeek()) {
+				if (week >= DBBooking.getCurrentWeek()) {
 					week_input.setValue(week);
 					break;
 				}
@@ -287,12 +287,6 @@ public class AssistantChooseTime {
 
 	public void returnHandler(ActionEvent event) {
 		App.getInstance().gotoAssistantPage();
-	}
-
-	private int getCurrentWeek() {
-		LocalDate date = LocalDate.now();
-		WeekFields weekFields = WeekFields.of(Locale.getDefault());
-		return date.get(weekFields.weekOfWeekBasedYear());
 	}
 
 }

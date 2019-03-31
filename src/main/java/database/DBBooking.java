@@ -15,8 +15,11 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.temporal.WeekFields;
 import java.util.ArrayList;
+import java.util.Locale;
 import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -494,7 +497,7 @@ public class DBBooking extends DBConnection {
 		availableBookingsTA = tempAvailableBookingsTA;
 		bookingsStudent = tempBookingsStudent;
 		availableBookingsStudent = tempAvailableBookingsStudent;
-
+		
 		Logger.getLogger(App.class.getName()).log(Level.INFO, "Bookings downloaded");
 	}
 
@@ -531,7 +534,7 @@ public class DBBooking extends DBConnection {
 
 		if (getAvailableBookingsStudent() != null) {
 			for (Booking booking : getAvailableBookingsStudent()) {
-				if (!availableWeeksStudent.contains(booking.getWeek()) && booking.getCourseCode().equals(courseCode)) {
+				if (!availableWeeksStudent.contains(booking.getWeek()) && booking.getCourseCode().equals(courseCode) && booking.getWeek() >= getCurrentWeek()) {
 					availableWeeksStudent.add(booking.getWeek());
 				}
 			}
@@ -540,7 +543,7 @@ public class DBBooking extends DBConnection {
 
 		if (getBookingsStudent() != null) {
 			for (Booking booking : getBookingsStudent()) {
-				if (!weeksStudent.contains(booking.getWeek()) && booking.getCourseCode().equals(courseCode)) {
+				if (!weeksStudent.contains(booking.getWeek()) && booking.getCourseCode().equals(courseCode) && booking.getWeek() >= getCurrentWeek()) {
 					weeksStudent.add(booking.getWeek());
 				}
 			}
@@ -553,7 +556,7 @@ public class DBBooking extends DBConnection {
 
 			if (getAvailableBookingsTA() != null) {
 				for (Booking booking : getAvailableBookingsTA()) {
-					if (!availableWeeksTA.contains(booking.getWeek()) && booking.getCourseCode().equals(courseCode)) {
+					if (!availableWeeksTA.contains(booking.getWeek()) && booking.getCourseCode().equals(courseCode) && booking.getWeek() >= getCurrentWeek()) {
 						availableWeeksTA.add(booking.getWeek());
 					}
 				}
@@ -562,7 +565,7 @@ public class DBBooking extends DBConnection {
 
 			if (getBookingsTA() != null) {
 				for (Booking booking : getAvailableBookingsTA()) {
-					if (!weeksTA.contains(booking.getWeek()) && booking.getCourseCode().equals(courseCode)) {
+					if (!weeksTA.contains(booking.getWeek()) && booking.getCourseCode().equals(courseCode) && booking.getWeek() >= getCurrentWeek()) {
 						weeksTA.add(booking.getWeek());
 					}
 				}
@@ -579,7 +582,7 @@ public class DBBooking extends DBConnection {
 
 		if (getBookingsStudent() != null) {
 			for (Booking booking : getBookingsStudent()) {
-				if (!weeksStudent.contains(booking.getWeek())) {
+				if (!weeksStudent.contains(booking.getWeek()) && booking.getWeek() >= getCurrentWeek()) {
 					weeksStudent.add(booking.getWeek());
 				}
 			}
@@ -592,7 +595,7 @@ public class DBBooking extends DBConnection {
 
 			if (getBookingsTA() != null) {
 				for (Booking booking : getAvailableBookingsTA()) {
-					if (!weeksTA.contains(booking.getWeek())) {
+					if (!weeksTA.contains(booking.getWeek()) && booking.getWeek() >= getCurrentWeek()) {
 						weeksTA.add(booking.getWeek());
 					}
 				}
@@ -804,6 +807,13 @@ try {
 		myBookingsStudent = bookingsStudent;
 	}
 */
+	
+	public static int getCurrentWeek() {
+		LocalDate date = LocalDate.now();
+		WeekFields weekFields = WeekFields.of(Locale.getDefault());
+		return date.get(weekFields.weekOfWeekBasedYear());
+	}
+	
 	public static void removeBookingStudent(Booking booking) {
 		bookingsStudent.remove(booking);
 	}
