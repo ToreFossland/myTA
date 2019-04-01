@@ -18,7 +18,7 @@ build:
   script: ./gradlew --build-cache assemble
   cache:
     key: "$CI_COMMIT_REF_NAME"
-    policy: push
+    #policy: push
     paths:
       - build
       - .gradle
@@ -33,7 +33,7 @@ test:
  #       - build/reports/jacoco/
   cache:
     key: "$CI_COMMIT_REF_NAME"
-    policy: pull
+    #policy: pull
     paths:
       - build
       - .gradle
