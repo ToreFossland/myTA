@@ -7,11 +7,9 @@ stages:
   - test
   - deploy
 
-
-variables:
-  GRADLE_OPTS: "-Dorg.gradle.daemon=false"
-
 before_script:
+#  - echo `pwd` # debug
+#  - echo "$CI_BUILD_NAME, $CI_BUILD_REF_NAME $CI_BUILD_STAGE" # debug
   - export GRADLE_USER_HOME=`pwd`/.gradle
 
 cache:
@@ -33,7 +31,15 @@ build:
 test:
   stage: test
   script:
-- ./gradlew check
+    - ./gradlew check
+
+deploy:
+  stage: deploy
+  script:
+    - ./deploy
+
+after_script:
+  - echo "End CI"
 
 #pages:
 #  stage: deploy
