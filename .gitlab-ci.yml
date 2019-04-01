@@ -6,42 +6,30 @@ variables:
   GRADLE_OPTS: "-Dorg.gradle.daemon=false"
 
 before_script:
+#  - echo `pwd` # debug
+#  - echo "$CI_BUILD_NAME, $CI_BUILD_REF_NAME $CI_BUILD_STAGE" # debug
   - export GRADLE_USER_HOME=`pwd`/.gradle
 
-stages:
-  - build
-  - test
-  - deploy
+cache:
+  paths:
+    - .gradle/wrapper
+    - .gradle/caches
 
 build:
   stage: build
-  script: ./gradlew --build-cache assemble
-  cache:
-    key: "$CI_COMMIT_REF_NAME"
-    #policy: push
+  script:
+    - ./gradlew assemble
+  artifacts:
     paths:
-      - build
-      - .gradle
+      - build/libs/*.jar
+    expire_in: 1 week
   only:
-      - master
+    - master
 
 test:
   stage: test
-  script: ./gradlew check
- # artifacts:
- #   paths:
- #       - build/reports/jacoco/
-  cache:
-    key: "$CI_COMMIT_REF_NAME"
-    #policy: pull
-    paths:
-      - build
-      - .gradle
-  
-deploy:
-  stage: deploy
   script:
-    - ./deploy
+- ./gradlew check
 
 #pages:
 #  stage: deploy
