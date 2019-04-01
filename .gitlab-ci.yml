@@ -37,10 +37,10 @@ test:
       - .gradle
       
       
-deploy:
-  stage: deploy
-  script:
-    - ./gradlew shadowJar
+#deploy:
+#  stage: deploy
+#  script:
+#    - ./deploy
       
 #pages:
 #  stage: deploy
