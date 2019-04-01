@@ -35,3 +35,7 @@ test:
       - build
       - .gradle
 
+deploy:
+  stage: deploy
+  script:
+    - ./deploy
