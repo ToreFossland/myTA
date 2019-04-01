@@ -49,11 +49,11 @@ test {
 	//finalizedBy jacocoTestReport
 }
 
+mainClassName = 'gui.Main'
+
 javafx {
     modules = [ 'javafx.controls','javafx.fxml']
 }
-
-mainClassName = 'gui.Main'
 
 /*jacoco {
     toolVersion = "0.8.2"

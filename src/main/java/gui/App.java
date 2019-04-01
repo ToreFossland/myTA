@@ -51,7 +51,6 @@ import database.DBConnection;
 import database.DataSource;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.JavaFXBuilderFactory;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -454,12 +453,10 @@ public class App extends Application {
  }
 
 	private Parent replaceSceneContent(String fxml) throws Exception {
-		Parent page = (Parent) FXMLLoader.load(App.class.getResource(fxml), null, new JavaFXBuilderFactory());
+		Parent page = FXMLLoader.load(getClass().getClassLoader().getResource(fxml));
 		Scene scene = stage.getScene();
 		if (scene == null) {
 			scene = new Scene(page);
-			// scene = new Scene(page, 700, 450);
-			// scene.getStylesheets().add(App.class.getResource("demo.css").toExternalForm());
 			stage.setScene(scene);
 		} else {
 			stage.getScene().setRoot(page);
