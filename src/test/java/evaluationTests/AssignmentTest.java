@@ -47,21 +47,15 @@ class AssignmentTest {
 		Evaluation eval1 = new Evaluation(80, user, assign1, "hei");
 		Evaluation eval2 = new Evaluation(80, user, assign2, "hei");
 		Evaluation eval3 = new Evaluation(80, user, assign3, "hei");
+		eval1.setTimestamp(time1);
+		eval2.setTimestamp(time2);
+		eval3.setTimestamp(time3);
 		
-		List<Evaluation> target = new ArrayList<Evaluation>();
-		target.add(eval1);
-		target.add(eval2);
-		target.add(eval3);
-		
-		List<Evaluation> toSort = new ArrayList<Evaluation>();
-		toSort.add(eval3);
-		toSort.add(eval2);
-		toSort.add(eval1);
-		System.out.println(toSort);
-		Collections.sort(toSort);
-		System.out.println(toSort);
-		System.out.println(target);
-		assertEquals(toSort, target);
+	
+		int x = eval1.compareTo(eval2);
+		int y = eval3.compareTo(eval2);
+		int z = eval2.compareTo(eval2);
+		assertTrue(x == 1 && y == -1 && z == 0);
 	}
 }
 
