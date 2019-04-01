@@ -40,7 +40,7 @@ test:
 deploy:
   stage: deploy
   script:
-    - ./deploy
+    - ./gradlew shadowJar
       
 #pages:
 #  stage: deploy
