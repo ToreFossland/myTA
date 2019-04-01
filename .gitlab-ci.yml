@@ -11,7 +11,7 @@ before_script:
 stages:
   - build
   - test
-#  - deploy
+  - deploy
 
 build:
   stage: build
