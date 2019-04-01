@@ -1,6 +1,6 @@
 package bookingTests;
 
-import static org.junit.jupiter.api.Assertions.*; 
+import static org.junit.jupiter.api.Assertions.*;  
 
 import java.time.LocalTime;
 import java.util.ArrayList;
