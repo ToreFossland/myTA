@@ -1,1 +1,0 @@
-JAR-fil for å kjøre programmet
