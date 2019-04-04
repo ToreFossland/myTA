@@ -1,19 +1,23 @@
-## Project title
-A little info about your project and/ or overview that explains **what** the project is about.
+## MyTA
+MyTA, som er kort for "my teaching assistant", er et bookingsystem laget for Norsk Universitet for Ikke-tekniske Samfunnsvitere. Systemet tar utgangspunkt i tre brukere; student, læringsassistent og emneansvarlig.
 
-## Motivation
-A short description of the motivation behind the creation and maintenance of the project. This should explain **why** the project exists.
+Produktet har tre hovedbruksområder; booking av saltid, evaluering og kommunikasjon. 
+
+* I booking kan emneveileder legge inn saltider. Læringsassistentene kan deretter gå inn og velge salstider som passer. Etter dette har studentene mulighet til å booke seg på time hos læringsassistent i valgt fag.
+* Evalueringen gjør at en student kan laste opp en fil eller et arbeid som læringsassistenten etterpå kan vurdere og gi tilbakemelding på digitalt. 
+* En meldingstjeneste gir kommunikasjonsmuligheter. Her kan man sende en melding til hvem som helst ved bruk av e-post-adressen.
+
+## Motivasjon
+Systemet skulle forenkle hverdagen til både studenter og læringsassistenter ved å erstatte den noe uforutsigbare og ikke-elektroniske ordningen de hadde tidligere. Samtidig skulle det administrative og organisatoriske stresset på de ansatte lettes, ved å legge til rette for nye og bedre samarbeidsordninger dem imellom, samt gjøre evalueringsarbeid lettere å gjennomføre. 
+
 
 ## Build status
-Build status of continus integration i.e. travis, appveyor etc. Ex. - 
+[![Build status](https://gitlab.stud.idi.ntnu.no/programvareutvikling-v19/gruppe-18/badges/master/build.svg)]
 
-[![Build Status](https://travis-ci.org/akashnimare/foco.svg?branch=master)](https://travis-ci.org/akashnimare/foco)
-[![Windows Build Status](https://ci.appveyor.com/api/projects/status/github/akashnimare/foco?branch=master&svg=true)](https://ci.appveyor.com/project/akashnimare/foco/branch/master)
+## Kodestil
+Vi har benyttet Googles kodestil for Java.
 
-## Code style
-If you're using any code style like xo, standard etc. That will help others while contributing to your project. Ex. -
-
-[![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg?style=flat)](https://github.com/feross/standard)
+[Google Java Style Guide](https://google.github.io/styleguide/javaguide.html)
  
 ## Screenshots
 Include logo/demo screenshot etc.
