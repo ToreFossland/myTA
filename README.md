@@ -12,7 +12,7 @@ Systemet skulle forenkle hverdagen til både studenter og læringsassistenter ve
 
 
 ## Build status
-[![Build status](https://gitlab.stud.idi.ntnu.no/programvareutvikling-v19/gruppe-18/badges/master/build.svg)]
+![Build status](https://gitlab.stud.idi.ntnu.no/programvareutvikling-v19/gruppe-18/badges/master/build.svg)
 
 ## Kodestil
 Vi har benyttet Googles kodestil for Java.
