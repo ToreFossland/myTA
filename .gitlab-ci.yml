@@ -11,7 +11,7 @@ before_script:
 stages:
   - build
   - test
-  - deploy
+#  - deploy
 
 build:
   stage: build
@@ -37,10 +37,10 @@ test:
       - .gradle
       
       
-deploy:
-  stage: deploy
-  script:
-    - ./gradlew shadowJar
+#deploy:
+#  stage: deploy
+#  script:
+#    - ./deploy
       
 #pages:
 #  stage: deploy
