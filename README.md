@@ -90,19 +90,27 @@ Kodeeksempel som demonstrerer noen viktige funksjoner:
 
 
 ## Installasjon
+**Kjøre programmet uten utviklingsmiljø:**
+1. [Last ned](release/myTA.jar) jar-filen som ligger i release-mappa
+2. Sørg for at du er koblet til et NTNU-nettverk, for eksempel gjennom VPN
+3. Kjør programmet ved å dobbelklikke på fila. Fungerer ikke det åpne kommandolinja og skriv "java -jar <bane til fila>", uten apostrof
+4. Benytt brukermanualen lenger nede dersom det skulle være behov
+
+**Sette opp utviklingsmiljø:**
 1.  Sørg for at Java er installert. JavaFX dependency-en som benyttes i prosjektet krever Java 11 eller høyere
 2.  Installer Eclipse. (IntelliJ f.eks. kan også brukes, men denne brukerveiledningen tar utgangspunkt i Eclipse)
-3.  Installer Buildship plugin-en til Eclipse. Denne benytter Gradle wrapperen som allerede ligger i prosjektet til å håndtere dependencies ol.
+3.  Installer Buildship plugin-en til Eclipse. Denne benytter Gradle wrapperen som allerede ligger i prosjektet til å håndtere dependencies ol., så Gradle trenger ikke å installeres.
 4.  Start Eclipse på nytt.
-5.  Importer prosjektet. Ønsker en å ta utganspunkt i dette prosjektet går en inn på prosjektstartsiden, trykker "fork" og deretter velger hvor man vil ha det. Deretter går man på "File" > "Import..." > "Projects from Git" > "Clone URI". Gå inn på prosjektsiden din, trykk "Clone" og deretter kopier adressen under "Clone with HTTPS". Lim denne adressen inn under "URI" i Eclipse, trykk "Next >" og "Next >" igjen hvis man vil ha alle branchene, velg "Import existing Eclipse project" > "Next >" og deretter "Finish".
-5.  Hvis dependencies ikke lastes inn ordentlig, høyreklikk på prosjektet og deretter "Gradle" > "Refresh Gradle Project". Hvis ikke "Gradle"-menyen vises høyreklikk på prosjektet og deretter "Configure" > "Add Gradle Nature"
+5.  Importer prosjektet. Ønsker man å klone dette prosjektet går man på "File" > "Import..." > "Projects from Git" > "Clone URI". Man går så inn på prosjektsiden, trykker "Clone" og kopierer deretter adressen under "Clone with HTTPS". Denne adressen limes inn under "URI" i Eclipse, så trykk "Next >" og "Next >" igjen hvis man vil ha alle branchene. Velg "Import existing Eclipse project" > "Next >" og deretter "Finish".
+5.  Hvis dependencies ikke lastes inn ordentlig, høyreklikk på prosjektet og trykk deretter "Gradle" > "Refresh Gradle Project". Hvis ikke "Gradle"-menyen vises høyreklikk på prosjektet og deretter "Configure" > "Add Gradle Nature"
+6.  Implementasjonen vår benytter en database på NTNU-serverne. Ønsker man å sette opp en egen database kan man kjøre [dbscript.sql](dbscript.sql)-fila i rotmappa til prosjektet og endre innloggingsdetaljer i [DataSource.java](src/main/java/database/DataSource.java)-fila under "src/main/java/database". Ønsker man å sette den opp lokalt kan man f.eks. åpne en lokal server i MySQL Workbench og kjøre innholdet i fila som en query, så vil alt legges inn. Deretter setter man variabelen "DB_URL" til "localhost" i DataSource-fila, og "DB_USER" og "DB_PASSWORD" til brukernavn og passord på den lokale serveren.
+7.  Ønsker man å kompilere en jar med alle nødvendige dependencies kan man enkelt gjøre dette ved å ved å velge "shadowJar"-oppgaven under "shadow"-mappa i "Gradle Tasks". Filen lagres lokalt i "build\libs\<prosjektnavn>-all.jar"
 
 ## API referanser
 * [MySQL Connector/J Reference](https://dev.mysql.com/doc/connector-j/8.0/en/connector-j-reference.html)
 * [Apache Commons DBCP 2.6.0 Reference](https://commons.apache.org/proper/commons-dbcp/xref/index.html)
 * [Gradle User Manual](https://docs.gradle.org/current/userguide/userguide.html)
  
-
 ## Tester
 Med Buildship installert er det eneste man trenger å gjøre å åpne mappa for prosjektet i "Gradle Tasks" og deretter "verification" > "test". Denne oppgaven kjører alle JUnit testene som ligger under "src/test/java". Hvis alle testene passerte skal det være en grønn hake ved siden av ":test". Det kan også nevnes at hvis man benytter CI/CD konfigurasjonen som vi har benyttet så kjøres denne oppgaven for hver commit av GitLab-runneren.
 
