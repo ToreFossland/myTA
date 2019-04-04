@@ -93,7 +93,7 @@ Kodeeksempel som demonstrerer noen viktige funksjoner:
 **Kjøre programmet uten utviklingsmiljø:**
 1. [Last ned](release/myTA.jar) jar-filen som ligger i release-mappa
 2. Sørg for at du er koblet til et NTNU-nettverk, for eksempel gjennom VPN
-3. Kjør programmet ved å dobbelklikke på fila. Fungerer ikke det åpne kommandolinja og skriv "java -jar <bane til fila>", uten apostrof
+3. Kjør programmet ved å dobbelklikke på fila. Hvis det ikke fungerer åpne kommandolinja og skriv "java -jar <bane til fila>", uten apostrof
 4. Benytt brukermanualen lenger nede dersom det skulle være behov
 
 **Sette opp utviklingsmiljø:**
