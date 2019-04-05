@@ -104,9 +104,12 @@ Kodeeksempel som demonstrerer noen viktige funksjoner:
 5.  Importer prosjektet. Ønsker man å klone dette prosjektet går man på "File" > "Import..." > "Projects from Git" > "Clone URI". Man går så inn på prosjektsiden, trykker "Clone" og kopierer deretter adressen under "Clone with HTTPS". Denne adressen limes inn under "URI" i Eclipse, så trykk "Next >" og "Next >" igjen hvis man vil ha alle branchene. Velg "Import existing Eclipse project" > "Next >" og deretter "Finish".
 5.  Hvis dependencies ikke lastes inn ordentlig, høyreklikk på prosjektet og trykk deretter "Gradle" > "Refresh Gradle Project". Hvis ikke "Gradle"-menyen vises høyreklikk på prosjektet og deretter "Configure" > "Add Gradle Nature"
 6.  Implementasjonen vår benytter en database på NTNU-serverne. Ønsker man å sette opp en egen database kan man kjøre [dbscript.sql](dbscript.sql)-fila i rotmappa til prosjektet og endre innloggingsdetaljer i [DataSource.java](src/main/java/database/DataSource.java)-fila under "src/main/java/database". Ønsker man å sette den opp lokalt kan man f.eks. åpne en lokal server i MySQL Workbench og kjøre innholdet i fila som en query, så vil alt legges inn. Deretter setter man variabelen "DB_URL" til "localhost" i DataSource-fila, og "DB_USER" og "DB_PASSWORD" til brukernavn og passord på den lokale serveren.
-7.  Ønsker man å kompilere en jar med alle nødvendige dependencies kan man enkelt gjøre dette ved å ved å velge "shadowJar"-oppgaven under "shadow"-mappa i "Gradle Tasks". Filen lagres lokalt i "build\libs\<prosjektnavn>-all.jar"
+7.  Kjør programmet ved å dobbeltklikke "run" under "application" i "Gradle Tasks". Eventuelt høyreklikk på "Main.java"-fila i "gui"-pakken og trykk "Run As" > "Java Application".
+8.  Ønsker man å kompilere en jar med alle nødvendige dependencies kan man enkelt gjøre dette ved å ved å velge "shadowJar"-oppgaven under "shadow"-mappa i "Gradle Tasks". Filen lagres lokalt i "build\libs\<prosjektnavn>-all.jar"
 
 ## API referanser
+* [JavaFX API Documentation](https://openjfx.io/javadoc/11/)
+* [FXML Reference](https://openjfx.io/javadoc/11/javafx.fxml/javafx/fxml/doc-files/introduction_to_fxml.html)
 * [MySQL Connector/J Reference](https://dev.mysql.com/doc/connector-j/8.0/en/connector-j-reference.html)
 * [Apache Commons DBCP 2.6.0 Reference](https://commons.apache.org/proper/commons-dbcp/xref/index.html)
 * [Gradle User Manual](https://docs.gradle.org/current/userguide/userguide.html)
