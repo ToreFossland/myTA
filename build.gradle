@@ -13,6 +13,7 @@ plugins {
     id 'org.openjfx.javafxplugin' version '0.0.7'
     id 'eclipse'
     id 'com.github.johnrengelman.shadow' version '5.0.0'
+    id 'jacoco'
 }
 
 dependencies {
@@ -49,13 +50,13 @@ test {
 	//finalizedBy jacocoTestReport
 }
 
-mainClassName = 'gui.Main'
-
 javafx {
     modules = [ 'javafx.controls','javafx.fxml']
 }
 
-/*jacoco {
+mainClassName = 'gui.Main'
+
+jacoco {
     toolVersion = "0.8.2"
     reportsDir = file("$buildDir/jacocoHtml")
 }
@@ -76,4 +77,4 @@ jacocoTestCoverageVerification {
             }
         }
     }
-}*/
+}

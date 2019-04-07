@@ -14,8 +14,15 @@ public class TimeSchedule {
 	
 	public TimeSchedule(User user, ArrayList<Booking> bookingsStudent, ArrayList<Booking> bookingsTA) {
 		setUser(user);
-		this.whereStudent = bookingsStudent;
-		this.whereTA = bookingsTA;
+		if(bookingsStudent != null)
+			this.whereStudent = bookingsStudent;
+		else
+			this.whereStudent = new ArrayList<Booking>();
+		
+		if(bookingsTA != null)
+			this.whereTA = bookingsStudent;
+		else
+			this.whereTA = new ArrayList<Booking>();
 		
 	}
 	
@@ -31,6 +38,14 @@ public class TimeSchedule {
 			else {whereTA.add(booking);	
 			}
 		}
+	}
+	
+	public ArrayList<Booking> getWhereStudent() {
+		return whereStudent;
+	}
+	
+	public ArrayList<Booking> getWhereTA() {
+		return whereTA;
 	}
 	
 }
