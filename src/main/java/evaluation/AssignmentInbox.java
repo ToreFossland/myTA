@@ -4,8 +4,8 @@ import java.util.ArrayList;
 
 import database.DBEvaluation;
 
+//Used by TAAddEvaluationPageController and TAViewEvaluationsPageController
 public class AssignmentInbox {
-	
 	private static Assignment selectedAssignment;
 	
 	public static Assignment getSelectedAssignment() {
@@ -19,5 +19,4 @@ public class AssignmentInbox {
 	public static ArrayList<Assignment> getAssignments(String subject){
 		return DBEvaluation.getAssignments(subject);
 	}
-	
 }

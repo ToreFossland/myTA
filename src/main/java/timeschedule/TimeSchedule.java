@@ -5,10 +5,14 @@ import java.util.ArrayList;
 import halltimes.Booking;
 import user.User;
 
+/* 
+ * Used once by App-class upon login, but then never used again.
+ * MyCalendarController (which intended for) retrieves bookings directly from  cache in DBBooking class.
+ */
 public class TimeSchedule {
 	
 	
-	private ArrayList<Booking> whereStudent; // listen over bookinger hvor han er student
+	private ArrayList<Booking> whereStudent; // list of bookings where student
 	private ArrayList<Booking> whereTA;
 	private User user;
 	

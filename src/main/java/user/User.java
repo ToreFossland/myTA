@@ -12,6 +12,13 @@ package user;
 
 import java.util.Map;
 
+/*
+ * Abstract class, so cannot be instantiated.
+ * User.generateUserObject(...) returns a user-object of proper type depending on its role in different courses.
+ * 
+ * Different functions/attributes for different users was intended, but since that never happened 
+ * this can be restructured to a single class (with type stored as attribute) without consequenses
+ */
 public abstract class User {
 	private String email;
 	private String firstName;
@@ -28,14 +35,6 @@ public abstract class User {
 		this.email = email;
 		this.myCourses = coursesAndRoles;
 	}
-	/*
-	 * public boolean checkIfElementExsists(String username, String courseCode, int
-	 * role) { boolean exists = false; }
-	 */
-	/*
-	 * public boolean checkIfElementExsists(String username, String courseCode, int
-	 * role) { boolean exists = false; }
-	 */
 
 	public String getFirstName() {
 		return firstName;
@@ -57,6 +56,12 @@ public abstract class User {
 		return myCourses.get(course);
 	}
 
+	/*
+	 * 1 = Student
+	 * 2 = Teaching assistant
+	 * 3 = Supervisor
+	 * 4 = Admin
+	 */
 	public int getType() {
 		String className = this.getClass().getSimpleName();
 
@@ -74,6 +79,10 @@ public abstract class User {
 		}
 	}
 
+	/* 
+	 * If user is both student and TA, will return TeachingAssistant-object
+	 * If user has no courses, will return Student-object
+	 */
 	public static User generateUserObject(String email, String firstName, String lastName,
 			Map<String, Integer> coursesAndRoles) {
 

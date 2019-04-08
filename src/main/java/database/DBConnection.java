@@ -21,18 +21,11 @@ import org.apache.commons.dbcp2.BasicDataSource;
 import gui.App;
 import user.User;
 
+/* 
+ * Database communication related to user and courses. 
+ * Some things are written in Norwegian since everyone weren't aware that we were writing in English
+ */
 public class DBConnection {
-
-	/*
-	 * README
-	 * 
-	 * For aa koble til databasen maa man sette username, password og url i
-	 * getConnectio-metoden. Funksjonene er basert på en database med folgende
-	 * tabeller og attributter i () (nn) = not null / verdiene her kan ikke vaere
-	 * tomme Course(int idCourse (nn),String CourseKode(nn),String CourseNavn)
-	 * User(int idUser(nn), String email(nn), String Password(nn))
-	 * User_has_Course(int idUser(nn),int idCourse(nn),String Rolle(nn))
-	 */
 
 //sjekker om faget eksisterer i Coursetabellen
 	public static boolean fagEksisterer(String fagkode) throws Exception {

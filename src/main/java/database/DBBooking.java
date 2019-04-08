@@ -31,6 +31,7 @@ import halltimes.Booking;
 import halltimes.Halltime;
 import user.User;
 
+//Database communication related to bookings
 public class DBBooking extends DBConnection {
 	
 	private static ArrayList<Booking> bookingsTA = new ArrayList<Booking>(); // Fjerne booking fra denne on confirm
@@ -47,7 +48,7 @@ public class DBBooking extends DBConnection {
 	static PreparedStatement statement = null;
 	static ResultSet result = null;
 
-	// Sjekker om halltid ligger inne
+	// Checks if halltime exists
 	public static boolean halltimeExists(Halltime halltime) {
 
 		boolean eksisterer = false;

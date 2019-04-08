@@ -545,7 +545,6 @@ public class MyCalendarController {
 
 		boxes = boxesInitialized;
 		text = textInitialized;
-		// Fiks denne
 		List<Integer> weeks = new ArrayList<Integer>();
 		int currentWeek = DBBooking.getCurrentWeek();
 		DBBooking.refreshBookingWeeks(App.getInstance().getLoggedUser());

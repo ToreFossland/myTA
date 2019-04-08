@@ -18,6 +18,7 @@ import evaluation.Evaluation;
 import gui.App;
 import user.User;
 
+//Database communication related to evaluation/assignment
 public class DBEvaluation{
 	
 	public static void updateAssignment(Assignment assignment) {

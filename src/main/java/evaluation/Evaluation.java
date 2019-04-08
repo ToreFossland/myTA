@@ -12,6 +12,7 @@ import java.time.LocalDateTime;
 
 import user.User;
 
+
 public class Evaluation implements Comparable<Evaluation>{
 	private Integer id, score;
 	private String note;
@@ -99,5 +100,4 @@ public class Evaluation implements Comparable<Evaluation>{
 		else
 			return 0;
 	}
-
 }

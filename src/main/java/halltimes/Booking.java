@@ -16,6 +16,10 @@ public class Booking implements Comparable<Booking>{
 	private LocalTime endTime;
 	private String emailStudent;
 
+	/*
+	 * Halltime object required upon initialization
+	 * Teaching assistant email/object and student email/object optional
+	 */
 	public Booking(Halltime halltime, String emailTA) {
 		this.emailTA = emailTA;
 		this.setStartTime(halltime.getTimeStart());

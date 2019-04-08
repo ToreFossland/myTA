@@ -3,6 +3,7 @@ package evaluation;
 import java.util.ArrayList;
 import database.DBEvaluation;
 
+//Used by StudentViewAssigmentsPageController
 public class EvaluationInbox{
 	private String courseCode;
 	private ArrayList<Evaluation> evaluations = new ArrayList<Evaluation>();

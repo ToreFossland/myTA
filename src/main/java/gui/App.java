@@ -64,6 +64,10 @@ public class App extends Application {
 	private Stage stage;
 	private User loggedUser;
 
+	/*
+	 * Each goto-function pushes to pagesHistory stack. 
+	 * gotoPrevious() pops from stack and peeks at topmost element
+	 */
 	private Stack<String> pagesHistory;
 	
 	TimeSchedule myTimeSchedule;
@@ -145,16 +149,6 @@ public class App extends Application {
 		loggedUser = null;
 		gotoLogin();
 
-	}
-	
-	public void gotoProfile() {
-		try {
-			String page = "pages/GenericPage.fxml";
-			pagesHistory.push(page);
-			replaceSceneContent(page);
-		} catch (Exception ex) {
-			Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
-		}
 	}
 
 	public void gotoAdminPage() {

@@ -29,6 +29,7 @@ public class Admin extends Supervisor {
 	}
 
 
+	// Never used. Can be removed
 	private static void addSupervisorPrivileges(String Email, String coursecode) {
 
 		int role = 3;

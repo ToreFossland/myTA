@@ -19,6 +19,7 @@ public class Assignment{
 	private String fileName;
 	private LocalDateTime timestamp;
 	
+	//Optional to enter filename or file object upon initialization
 	public Assignment(User deliveredBy, String courseCode, String assignmentName, LocalDateTime timestamp, String filename){
 		this.setDeliveredBy(deliveredBy);
 		this.setCourseCode(courseCode);

@@ -3,14 +3,11 @@ package evaluationTests;
 import static org.junit.jupiter.api.Assertions.*;
 import java.time.LocalDateTime;
 import java.time.Month;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Map;
 import org.junit.jupiter.api.Test;
 import evaluation.Assignment;
 import evaluation.Evaluation;
 import user.Student;
-import java.util.List;
 import user.User;
 
 

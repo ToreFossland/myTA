@@ -15,6 +15,7 @@ public class Student extends User{
 		// TODO Auto-generated constructor stub
 	}
 
+	// Never used. Can be removed
 	private void addCourse(String coursecode) {
 		int role = 1;
 		

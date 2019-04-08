@@ -13,6 +13,7 @@ import org.apache.commons.dbcp2.BasicDataSource;
 import communication.Message;
 import user.User;
 
+//Database communication related to messages. Could be renamed to "DBMessage" for the sake of consistency
 public class MessageDao {
 	// Replaces if duplicate
 	public static void insertMessages(ArrayList<Message> messages) {

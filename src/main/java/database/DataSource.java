@@ -6,6 +6,7 @@ import org.apache.commons.dbcp2.BasicDataSource;
  * @author ashraf
  *
  */
+//Manages connection pool
 public class DataSource {
  
     private static final String DRIVER_CLASS_NAME = "com.mysql.cj.jdbc.Driver";
