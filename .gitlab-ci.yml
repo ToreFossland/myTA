@@ -36,6 +36,12 @@ test:
       - build
       - .gradle
 
+deploy:
+  stage: deploy
+  script:
+    - ./deploy
+
+
 #pages:
 #  stage: deploy
 #  dependencies:
