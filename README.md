@@ -117,6 +117,8 @@ Kodeeksempel som demonstrerer noen viktige funksjoner:
 ## Tester
 Med Buildship installert er det eneste man trenger å gjøre å åpne mappa for prosjektet i "Gradle Tasks" og deretter "verification" > "test". Denne oppgaven kjører alle JUnit testene som ligger under "src/test/java". Hvis alle testene passerte skal det være en grønn hake ved siden av ":test". Det kan også nevnes at hvis man benytter CI/CD konfigurasjonen som vi har benyttet så kjøres denne oppgaven for hver commit av GitLab-runneren.
 
+For å gjennomføre en systemtest kan man gjennomføre test-casen som spesifisert [her](https://gitlab.stud.idi.ntnu.no/programvareutvikling-v19/gruppe-18/wikis/testcases).
+
 ## Brukermanual
 Se [wiki-siden](https://gitlab.stud.idi.ntnu.no/programvareutvikling-v19/gruppe-18/wikis/brukermanual).
 
